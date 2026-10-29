@@ -139,6 +139,12 @@
           <span>Aktivitas & Sertifikat</span>
         </button>
       </li>
+      <li class="nav-item ms-auto" role="presentation">
+        <button class="btn btn-kupas-kuning fw-bold border border-2 border-dark d-inline-flex align-items-center gap-1 shadow-sm px-3" id="btn-tab-pengaturan-kuis" type="button" style="min-height: 44px;" title="Buka pengaturan parameter permainan kuis">
+          <span>⚙️</span>
+          <span>Pengaturan Kuis</span>
+        </button>
+      </li>
     </ul>
 
     <div class="tab-content" id="dasborTabContent">
@@ -666,6 +672,16 @@
               <option value="2.0">Ekstra (+100% waktu, 2x)</option>
             </select>
           </div>
+
+          <div class="p-3 bg-white rounded-3 border-2 border-dark d-flex align-items-center justify-content-between mb-3 shadow-sm">
+            <div>
+              <span class="fw-bold d-block text-dark">⚙️ Parameter Game & Aturan</span>
+              <small class="text-secondary">Jumlah soal, timer, poin, dan batasan peserta.</small>
+            </div>
+            <button type="button" id="btn-atur-parameter-dasbor" class="btn btn-kupas-kuning btn-sm fw-bold px-3 py-2 border-2 border-dark smartboard-btn" style="min-height: 44px;">
+              Atur Parameter
+            </button>
+          </div>
         </div>
         <div class="modal-footer border-top-0 pt-0">
           <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
@@ -914,7 +930,15 @@
 
   <script type="module">
     import { inisialisasiDasborGuru } from '../assets/js/dasbor-guru.js';
+    import { konfigurasiManager } from '../assets/js/konfigurasi.js';
     inisialisasiDasborGuru();
+
+    document.getElementById('btn-tab-pengaturan-kuis')?.addEventListener('click', () => {
+      konfigurasiManager.bukaModalPengaturan();
+    });
+    document.getElementById('btn-atur-parameter-dasbor')?.addEventListener('click', () => {
+      konfigurasiManager.bukaModalPengaturan();
+    });
   </script>
 </body>
 </html>

@@ -164,10 +164,13 @@ function mulaiPertandingan() {
     benar: 0
   }));
 
-  // Acak soal
-  state.soalList = [...BANK_SOAL_DUEL]
-    .sort(() => 0.5 - Math.random())
-    .slice(0, state.jumlahSoal);
+  // Acak urutan butir soal dengan Fisher-Yates
+  const bankAcak = [...BANK_SOAL_DUEL];
+  for (let i = bankAcak.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [bankAcak[i], bankAcak[j]] = [bankAcak[j], bankAcak[i]];
+  }
+  state.soalList = bankAcak.slice(0, state.jumlahSoal);
 
   state.indeksSoal = 0;
   state.statusFase = 'tunggu_bel';
@@ -247,6 +250,23 @@ function muatSoalDuel() {
   if (teksPertanyaan) teksPertanyaan.textContent = soal.soal;
   if (btnNext) btnNext.disabled = true;
 
+  // Acak susunan pilihan jawaban dengan Fisher-Yates (stabil per soal aktif)
+  if (!soal._opsiTersusun) {
+    const items = soal.opsi.map((op, i) => ({ teks: op, originalIndex: i }));
+    const regexTetapAkhir = /(semua.*(benar|salah)|tidak ada.*(benar|salah))/i;
+    const normalItems = [];
+    const akhirItems = [];
+    items.forEach(it => {
+      if (regexTetapAkhir.test(it.teks)) akhirItems.push(it);
+      else normalItems.push(it);
+    });
+    for (let i = normalItems.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [normalItems[i], normalItems[j]] = [normalItems[j], normalItems[i]];
+    }
+    soal._opsiTersusun = [...normalItems, ...akhirItems];
+  }
+
   // Reset tampilan pilihan ganda
   for (let i = 0; i < 4; i++) {
     const btn = document.getElementById(`btn-opsi-${i}`);
@@ -254,7 +274,8 @@ function muatSoalDuel() {
     if (btn && teks) {
       btn.className = 'tombol-opsi-duel w-100';
       btn.disabled = state.format === 'buzzer'; // Disable pada mode buzzer sampai bel ditekan
-      teks.textContent = soal.opsi[i];
+      const item = soal._opsiTersusun[i];
+      teks.textContent = item ? item.teks : (soal.opsi[i] || '');
     }
   }
 
@@ -388,9 +409,17 @@ function pilihJawaban(indexJawaban) {
   state.statusFase = 'selesai_soal';
 
   const soal = state.soalList[state.indeksSoal];
-  const adalahBenar = indexJawaban === soal.jawaban;
+  const itemDipilih = (soal._opsiTersusun && soal._opsiTersusun[indexJawaban]) 
+    ? soal._opsiTersusun[indexJawaban] 
+    : { originalIndex: indexJawaban };
+  const adalahBenar = (itemDipilih.originalIndex === soal.jawaban);
   const btnDipilih = document.getElementById(`btn-opsi-${indexJawaban}`);
-  const btnKunci = document.getElementById(`btn-opsi-${soal.jawaban}`);
+
+  // Posisi tombol yang menampilkan kunci jawaban asli setelah diacak
+  const idxTampilanKunci = soal._opsiTersusun
+    ? soal._opsiTersusun.findIndex(it => it.originalIndex === soal.jawaban)
+    : soal.jawaban;
+  const btnKunci = document.getElementById(`btn-opsi-${idxTampilanKunci >= 0 ? idxTampilanKunci : soal.jawaban}`);
   const banner = document.getElementById('banner-giliran');
   const btnNext = document.getElementById('btn-soal-berikutnya');
 
@@ -443,7 +472,10 @@ function lanjutSoalBerikutnya() {
 function lewatiSoalSaatIni() {
   hentikanTimer();
   const soal = state.soalList[state.indeksSoal];
-  const btnKunci = document.getElementById(`btn-opsi-${soal.jawaban}`);
+  const idxTampilanKunci = soal._opsiTersusun
+    ? soal._opsiTersusun.findIndex(it => it.originalIndex === soal.jawaban)
+    : soal.jawaban;
+  const btnKunci = document.getElementById(`btn-opsi-${idxTampilanKunci >= 0 ? idxTampilanKunci : soal.jawaban}`);
   if (btnKunci) btnKunci.classList.add('opsi-benar');
 
   const banner = document.getElementById('banner-giliran');

@@ -19,6 +19,7 @@ import { supabase } from './supabase.js';
 import { kuisManager } from './kuis.js';
 import { sesiManager } from './sesi.js';
 import { pasangHeader, umumkanAria, suara } from './ui.js';
+import { konfigurasiManager } from './konfigurasi.js';
 
 // State Global Dasbor
 const state = {

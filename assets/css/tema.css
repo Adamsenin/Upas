@@ -117,7 +117,6 @@
   --z-bottom-nav: 1035;
   --z-offcanvas: 1045;
   --z-modal: 1055;
-}
   --z-toast: 1080;
   --z-overlay: 9999;
 
@@ -153,9 +152,9 @@ body {
   background-size: 24px 24px;
   margin: 0;
   padding-top: var(--safe-top);
-  padding-left: var(--safe-left);
-  padding-right: var(--safe-right);
-  padding-bottom: calc(var(--safe-bottom) + 76px); /* Ruang bottom-nav di HP */
+  padding-left: max(var(--safe-left), 16px);
+  padding-right: max(var(--safe-right), 16px);
+  padding-bottom: calc(var(--safe-bottom) + 80px); /* Ruang bottom-nav di HP */
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
@@ -204,9 +203,9 @@ button, .btn, .opsi-jawaban, .avatar-pilihan, .avatar-item {
 }
 
 .btn-sm {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0.4rem 0.85rem;
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0.45rem 0.9rem;
   font-size: var(--text-sm);
   border-radius: var(--kupas-radius-sm);
 }
@@ -343,4 +342,68 @@ textarea:focus-visible,
     min-width: 64px !important;
     font-size: 1.35rem !important;
   }
+}
+
+/* Mode Teks Besar untuk Smartboard / Proyektor Terpilih di Pengaturan */
+body.smartboard-mode .smartboard-teks-soal {
+  font-size: clamp(2rem, 2.5vw, 2.5rem) !important;
+  line-height: 1.35;
+}
+body.smartboard-mode .smartboard-teks-opsi {
+  font-size: clamp(1.4rem, 1.8vw, 1.85rem) !important;
+}
+body.smartboard-mode .smartboard-btn {
+  min-height: 56px !important;
+  font-size: 1.25rem !important;
+}
+body.smartboard-mode .kode-sesi-display {
+  font-size: clamp(2.8rem, 5vw, 4.5rem) !important;
+}
+
+/* Override Bootstrap min-vh-100 agar ramah dynamic viewport ponsel (100dvh) */
+.min-vh-100 {
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+}
+
+/* Padding Aman Horisontal Responsif (Min 16px di Ponsel, 20-24px di Layar Lega) */
+.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+  padding-left: max(16px, var(--safe-left)) !important;
+  padding-right: max(16px, var(--safe-right)) !important;
+}
+@media (min-width: 640px) {
+  .container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+.btn-close {
+  min-width: 48px !important;
+  min-height: 48px !important;
+  padding: 12px !important;
+}
+
+/* Pastikan font input & select minimal 16px agar tidak memicu auto-zoom di perangkat seluler */
+input, select, textarea, .form-control, .form-select {
+  font-size: 16px !important;
+}
+
+#select-animasi-global {
+  font-size: 16px !important;
+  min-height: 48px !important;
+}
+
+/* Target Sentuh 48px untuk Tautan Kembali & Form Khusus */
+a.text-decoration-none.fw-bold,
+.link-kembali,
+a.text-secondary.fw-bold {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+}
+
+#input-kkm-global {
+  min-height: 48px !important;
 }

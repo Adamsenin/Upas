@@ -4,58 +4,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Puncak Sertifikat Prestasi IPAS - KUPAS KUIS IPAS Kelas V SD</title>
+  <title>Sertifikat Prestasi IPAS - KUPAS KUIS IPAS Kelas V SD</title>
+  
+  <!-- Font Google: Playfair Display (Serif Elegan Judul/Nama) & Nunito (Sans-Serif Konten) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/tema.css">
   <link rel="stylesheet" href="assets/css/animasi.css">
   <link rel="stylesheet" href="assets/css/komponen.css">
   <link rel="stylesheet" href="assets/css/latar-hidup.css">
-  <style>
-    /* Desain Pratinjau Sertifikat di Layar Modal */
-    .sertifikat-frame-preview {
-      background: #FFFFFF;
-      border: 4px solid var(--kupas-forest-dark);
-      border-radius: var(--kupas-radius-lg, 24px);
-      box-shadow: 0 12px 30px rgba(15, 61, 46, 0.15), 4px 4px 0px var(--kupas-forest-dark);
-      position: relative;
-      padding: 2.5rem 2rem;
-      background-image: radial-gradient(rgba(15, 61, 46, 0.08) 1.5px, transparent 1.5px);
-      background-size: 18px 18px;
-    }
-
-    .sertifikat-inner-border {
-      border: 2.5px solid var(--kupas-marigold);
-      border-radius: 16px;
-      padding: 2rem 1.5rem;
-    }
-
-    @media (max-width: 576px) {
-      .sertifikat-frame-preview {
-        padding: 1.25rem 0.75rem;
-      }
-
-      .sertifikat-inner-border {
-        padding: 1rem 0.5rem;
-      }
-    }
-  </style>
 </head>
 
 <body class="motion-full d-flex flex-column min-vh-100 justify-content-between" data-latar-tema="puncak">
   <!-- Navigasi Utama Aplikasi -->
   <header id="wadah-navbar"></header>
 
-  <!-- Konten Utama: Puncak Sertifikat Prestasi (Piala di Puncak Bukit) -->
+  <!-- Konten Utama: Sertifikat Prestasi IPAS -->
   <main class="container-fluid px-2 px-sm-3 px-md-4 py-4 flex-grow-1" style="max-width: 1140px;">
 
     <!-- Banner Header Sertifikat -->
-    <div class="row align-items-center justify-content-between mb-4 g-3">
+    <div class="row align-items-center justify-content-between mb-4 g-3 sertifikat-banner">
       <div class="col-12 col-md-8">
-        <div class="d-flex align-items-center gap-3 latar-pita-baca py-2 px-3">
-          <img src="assets/svg/maskot-bersorak.svg" alt="Maskot Si Kupas Bersorak" width="80" height="80"
+        <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-2 gap-sm-3 latar-pita-baca py-2 px-3">
+          <img src="assets/svg/maskot-bersorak.svg" alt="Maskot Si Kupas Bersorak" width="76" height="76"
             class="anim-lompat-benar flex-shrink-0" aria-hidden="true">
           <div>
-            <span class="badge rounded-pill fw-bold px-3 py-1 mb-2 d-inline-flex align-items-center gap-1"
+            <span class="badge rounded-pill fw-bold px-3 py-1 mb-2 d-inline-flex align-items-center gap-1 text-wrap"
               style="background-color: #FEF9C3; color: #A16207; border: 2px solid var(--kupas-forest-dark);">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3"
                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -65,14 +42,13 @@
                 <path d="M12 17v4" />
                 <path d="M8 21h8" />
               </svg>
-              <span>Puncak Bukit Prestasi Petualang</span>
+              <span>Piagam Resmi Prestasi Petualang</span>
             </span>
             <h1 class="h3 fw-bolder mb-1" style="font-family: var(--font-heading); color: var(--kupas-forest-dark);">
               Sertifikat "Penyelamat Ekosistem"
             </h1>
             <p class="small text-secondary fw-semibold mb-0">
-              Diberikan kepada petualang cilik yang berhasil menuntaskan evaluasi ekosistem dengan nilai minimal
-              <strong>80%</strong>.
+              Penghargaan istimewa atas penguasaan materi IPAS Kurikulum Merdeka Kelas V SD (Kelulusan Nilai Minimal <strong>80%</strong>).
             </p>
           </div>
         </div>
@@ -89,102 +65,91 @@
       </div>
     </div>
 
-    <!-- Galeri Sertifikat Murid -->
-    <div class="row g-3" id="wadah-daftar-sertifikat"></div>
-
-  </main>
-
-  <!-- Modal Pratinjau Sertifikat Layar Penuh -->
-  <div class="modal fade" id="modal-pratinjau-sertifikat" tabindex="-1" aria-labelledby="modalCertTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-      <div class="modal-content border-3 border-dark rounded-4 overflow-hidden">
-        <div class="modal-header bg-success text-white border-bottom border-dark py-2 px-3">
-          <h2 class="modal-title h5 fw-bolder mb-0 d-flex align-items-center gap-2" id="modalCertTitle"
-            style="font-family: var(--font-heading);">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3"
-              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2" />
-              <path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2" />
-              <path d="M4 3h16v6a8 8 0 0 1-16 0V3z" />
-              <path d="M12 17v4" />
-              <path d="M8 21h8" />
-            </svg>
-            <span>Pratinjau Sertifikat Resmi Penyelamat Ekosistem</span>
-          </h2>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
-        </div>
-
-        <div class="modal-body p-3 p-md-4 bg-light">
-          <!-- Tampilan Sertifikat Desain Cetak -->
-          <div class="sertifikat-frame-preview text-center">
-            <div class="sertifikat-inner-border">
-              <span class="badge bg-success text-white border border-dark rounded-pill px-3 py-1 small fw-bold mb-2">
-                KUPAS KUIS IPAS &bull; KURIKULUM MERDEKA KELAS V SD
-              </span>
-
-              <h3 class="display-6 fw-bolder mb-1"
-                style="font-family: var(--font-heading); color: var(--kupas-forest-dark);">
-                SERTIFIKAT PENGHARGAAN
-              </h3>
-              <p class="h5 fw-bolder mb-3" style="color: #B45309;">PENYELAMAT EKOSISTEM NUSANTARA</p>
-
-              <p class="small text-secondary mb-1 fw-semibold">Sertifikat ini dengan bangga dianugerahkan kepada:</p>
-              <h4 class="display-5 fw-bolder text-success text-decoration-underline mb-2" id="modal-cert-nama"
-                style="font-family: var(--font-heading);">
-                Siswa Hebat
-              </h4>
-
-              <p class="fw-semibold text-secondary mb-1">Atas keberhasilannya menuntaskan evaluasi materi:</p>
-              <h5 class="h4 fw-bolder text-dark mb-3" id="modal-cert-topik" style="font-family: var(--font-heading);">
-                Topik Ekosistem</h5>
-
-              <div class="d-inline-block p-2 px-4 bg-warning-subtle rounded-pill border border-2 border-dark mb-4">
-                <span class="fw-bold text-dark">Capaian Nilai: <strong class="fs-5 text-success"
-                    id="modal-cert-nilai">100 / 100</strong> (Tuntas KKM)</span>
-              </div>
-
-              <!-- Baris Tanda Tangan & Verifikasi -->
-              <div class="row align-items-end mt-3 g-2 text-start small">
-                <div class="col-12 col-md-6">
-                  <div class="text-secondary font-monospace">
-                    <div>No. Sertifikat: <strong class="text-dark" id="modal-cert-nomor">KPS-EKO-2026-0001</strong>
-                    </div>
-                    <div>Diterbitkan: <strong class="text-dark" id="modal-cert-tanggal">-</strong></div>
-                    <div>Verifikasi: <strong class="text-success fw-bold">Sah Terdaftar di Sekolah</strong></div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 text-md-end">
-                  <div class="d-inline-block text-center">
-                    <div class="text-secondary mb-4 fw-semibold">Guru Pembimbing IPAS,</div>
-                    <div class="fw-bolder text-dark border-top border-2 border-dark pt-1" id="modal-cert-guru">Ibu Guru
-                      IPAS</div>
-                    <div class="text-muted" style="font-size: 0.75rem;">SD Negeri Merdeka 01</div>
-                  </div>
-                </div>
-              </div>
+    <!-- Showcase Utama Pratinjau Sertifikat A4 Lanskap -->
+    <section class="sertifikat-showcase-card" aria-label="Pratinjau Sertifikat Terpilih">
+      <!-- Bilah Header Showcase -->
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 px-3 py-3 border-bottom border-2 border-dark"
+        style="background-color: var(--kupas-cream-bg, #FFF6E0);">
+        <div class="d-flex align-items-center gap-2">
+          <span class="fs-4" aria-hidden="true">📜</span>
+          <div>
+            <h2 class="h6 fw-bolder mb-0 text-dark" id="showcase-cert-judul">
+              Memuat Sertifikat Prestasi...
+            </h2>
+            <div class="small text-secondary" id="showcase-cert-subjudul">
+              Kurikulum Merdeka IPAS Kelas V SD
             </div>
           </div>
         </div>
 
-        <div class="modal-footer border-top border-dark bg-white d-flex justify-content-between">
-          <button type="button" class="btn btn-outline-secondary fw-bold px-3 py-2" data-bs-dismiss="modal">
-            Tutup
+        <div class="d-flex align-items-center gap-2" id="showcase-cert-badge-status">
+          <!-- Badge Predikat / Status -->
+        </div>
+      </div>
+
+      <!-- Area Scroll Pratinjau Sertifikat (Rasio Tetap A4 Lanskap 297x210) -->
+      <div class="sertifikat-scroll-wrapper" id="wadah-scroll-sertifikat">
+        <div class="sertifikat-a4-frame" id="wadah-sertifikat-a4" role="region" aria-label="Dokumen Sertifikat A4">
+          <!-- SVG Sertifikat dirender secara dinamis oleh sertifikat.js -->
+        </div>
+      </div>
+
+      <!-- Bilah Aksi Bawah: Unduh PNG, Cetak, dan Petunjuk Cetak -->
+      <div class="sertifikat-action-bar p-3 border-top border-2 border-dark bg-white d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div class="d-flex align-items-center gap-2 small text-secondary fw-semibold">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#D97706" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
+          </svg>
+          <span>Standar cetak kertas A4 lanskap (297×210 mm). Unduh format PNG resolusi tinggi siap cetak atau dibagikan ke orang tua.</span>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+          <button type="button" class="btn btn-outline-dark sertifikat-btn-aksi" id="btn-cetak-sertifikat"
+            aria-label="Cetak Sertifikat ini ke Printer atau Simpan sebagai PDF">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 6 2 18 2 18 9" />
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+              <rect x="6" y="14" width="12" height="8" />
+            </svg>
+            <span>Cetak Sertifikat (A4)</span>
           </button>
-          <button type="button" class="btn btn-cta-petualang px-4 py-2 smartboard-btn d-flex align-items-center gap-2"
-            id="btn-unduh-pdf-modal">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3"
+
+          <button type="button" class="btn btn-cta-petualang sertifikat-btn-aksi" id="btn-unduh-png"
+            aria-label="Unduh gambar sertifikat format PNG jernih dan tajam">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3"
               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
               <line x1="12" y1="15" x2="12" y2="3" />
             </svg>
-            <span>Unduh PDF A4 (Siap Cetak)</span>
+            <span>Unduh Gambar (PNG)</span>
           </button>
         </div>
       </div>
-    </div>
-  </div>
+    </section>
+
+    <!-- Bagian Galeri Koleksi Sertifikat Prestasi Siswa -->
+    <section class="sertifikat-galeri-section mt-4" aria-label="Galeri Koleksi Seluruh Sertifikat">
+      <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 g-2">
+        <div>
+          <h2 class="h4 fw-bolder mb-1" style="font-family: var(--font-heading); color: var(--kupas-forest-dark);">
+            Koleksi Sertifikat Prestasi IPAS
+          </h2>
+          <p class="small text-secondary fw-semibold mb-0" id="galeri-info-status">
+            Pilih sertifikat untuk melihat pratinjau besar di atas atau mengunduhnya.
+          </p>
+        </div>
+      </div>
+
+      <!-- Grid Daftar Sertifikat (Terbuka & Terkunci) -->
+      <div class="row g-3" id="wadah-daftar-sertifikat"></div>
+    </section>
+
+  </main>
 
   <!-- Kaki Halaman Sederhana -->
   <footer class="text-center py-3 border-top border-2 border-dark" style="background-color: #F8F2E2;">
@@ -194,7 +159,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
   <script type="module" src="assets/js/latar-hidup.js"></script>
   <script type="module" src="assets/js/sertifikat.js"></script>
 </body>
