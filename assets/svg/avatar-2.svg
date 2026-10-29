@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Avatar Harimau">
+  <circle cx="50" cy="50" r="46" fill="#FED7AA" stroke="#EA580C" stroke-width="4"/>
+  <!-- Telinga bulat -->
+  <circle cx="28" cy="28" r="14" fill="#EA580C"/>
+  <circle cx="28" cy="28" r="8" fill="#FFEDD5"/>
+  <circle cx="72" cy="28" r="14" fill="#EA580C"/>
+  <circle cx="72" cy="28" r="8" fill="#FFEDD5"/>
+  <!-- Kepala -->
+  <circle cx="50" cy="56" r="30" fill="#F97316"/>
+  <!-- Garis belang -->
+  <polygon points="50,30 46,42 54,42" fill="#18181B"/>
+  <polygon points="30,48 40,50 32,54" fill="#18181B"/>
+  <polygon points="70,48 60,50 68,54" fill="#18181B"/>
+  <!-- Mata -->
+  <circle cx="40" cy="54" r="4.5" fill="#18181B"/>
+  <circle cx="60" cy="54" r="4.5" fill="#18181B"/>
+  <!-- Moncong & Hidung -->
+  <ellipse cx="50" cy="68" rx="14" ry="10" fill="#FFF"/>
+  <polygon points="50,64 45,60 55,60" fill="#EA580C"/>
+</svg>

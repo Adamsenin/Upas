@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%" role="img" aria-label="Maskot Si Kupas Semangat">
+  <!-- Tubuh Bulat Penuh Semangat -->
+  <circle cx="80" cy="88" r="54" fill="#22C55E" stroke="#0F172A" stroke-width="5" />
+  <!-- Perut Kuning Cerah -->
+  <ellipse cx="80" cy="102" rx="35" ry="29" fill="#FEF08A" />
+  <!-- Ikat Kepala Petualang Semangat -->
+  <path d="M32,62 Q80,48 128,62 L125,72 Q80,58 35,72 Z" fill="#F59E0B" stroke="#0F172A" stroke-width="3.5" />
+  <path d="M126,64 L145,56 L140,68 L148,74 L126,70 Z" fill="#EF4444" stroke="#0F172A" stroke-width="3" stroke-linejoin="round" />
+  <!-- Mata Kiri Berbinar -->
+  <ellipse cx="62" cy="78" rx="13" ry="15" fill="#FFFFFF" stroke="#0F172A" stroke-width="4" />
+  <circle cx="64" cy="77" r="7" fill="#0F172A" />
+  <polygon points="64,70 66,74 70,75 66,77 64,81 62,77 58,75 62,74" fill="#FEF08A" />
+  <!-- Mata Kanan Berbinar -->
+  <ellipse cx="98" cy="78" rx="13" ry="15" fill="#FFFFFF" stroke="#0F172A" stroke-width="4" />
+  <circle cx="96" cy="77" r="7" fill="#0F172A" />
+  <polygon points="96,70 98,74 102,75 98,77 96,81 94,77 90,75 94,74" fill="#FEF08A" />
+  <!-- Alis Tegas Semangat -->
+  <path d="M48,60 L72,65" stroke="#0F172A" stroke-width="4.5" stroke-linecap="round" />
+  <path d="M112,60 L88,65" stroke="#0F172A" stroke-width="4.5" stroke-linecap="round" />
+  <!-- Pipi Merona -->
+  <circle cx="46" cy="94" r="8" fill="#F43F5E" opacity="0.65" />
+  <circle cx="114" cy="94" r="8" fill="#F43F5E" opacity="0.65" />
+  <!-- Paruh & Senyum Lebar Semangat -->
+  <polygon points="80,83 72,92 88,92" fill="#F97316" stroke="#0F172A" stroke-width="3" stroke-linejoin="round" />
+  <path d="M68,96 Q80,112 92,96 Z" fill="#FFFFFF" stroke="#0F172A" stroke-width="3.5" stroke-linejoin="round" />
+  <!-- Daun di Kepala -->
+  <path d="M80,26 C64,14 70,38 80,38 C90,38 96,14 80,26 Z" fill="#4ADE80" stroke="#0F172A" stroke-width="4" />
+  <!-- Kedua Sayap Mengepal ke Atas (Semangat!) -->
+  <path d="M28,84 Q8,62 24,48 Q38,60 32,82 Z" fill="#16A34A" stroke="#0F172A" stroke-width="4" stroke-linejoin="round" />
+  <path d="M132,84 Q152,62 136,48 Q122,60 128,82 Z" fill="#16A34A" stroke="#0F172A" stroke-width="4" stroke-linejoin="round" />
+</svg>
+

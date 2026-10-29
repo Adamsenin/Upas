@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>KUPAS - KUIS IPAS Kelas V SD | Petualangan Ekosistem</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/tema.css">
+  <link rel="stylesheet" href="assets/css/animasi.css">
+  <link rel="stylesheet" href="assets/css/komponen.css">
+  <link rel="stylesheet" href="assets/css/latar-hidup.css">
+</head>
+<body class="motion-full d-flex flex-column min-vh-100 justify-content-between" data-latar-tema="beranda">
+  <!-- Navigasi Utama Aplikasi -->
+  <header id="wadah-navbar"></header>
+
+  <!-- Konten Utama: Diorama Ekosistem Nusantara -->
+  <main class="container py-4 flex-grow-1">
+    <div class="hero-diorama-section">
+
+      <!-- Bilah Status Gamifikasi Siswa (Cincin XP Melingkar, Level, Streak Api & Lencana) -->
+      <div id="wadah-gamifikasi-beranda" class="mb-4"></div>
+
+      <!-- Grid 2-Kolom Desktop (>=1024px) / 1-Kolom Ponsel -->
+      <div class="row g-4 g-xl-5 align-items-center">
+
+        <!-- Kolom Kiri: Maskot Interaktif + Judul Hero + CTA Utama Siswa + Kontrol Peran -->
+        <div class="col-12 col-lg-5">
+          <div class="latar-panel-baca d-flex flex-column align-items-center align-items-lg-start text-center text-lg-start">
+          
+            <!-- Maskot Interaktif & Balon Ucapan Kontekstual -->
+            <div class="maskot-hero-box mb-3">
+              <div id="balon-sapa-maskot" class="balon-kontekstual-diorama anim-pop">
+                Halo Petualang! Ketuk aku untuk semangat belajar!
+              </div>
+              <button type="button" id="btn-sapa-maskot" class="btn-maskot-sapa" aria-label="Sapa Maskot Si Kupas untuk berinteraksi dan melihat ekspresi ceria">
+                <img src="assets/svg/maskot-senang.svg" alt="Maskot Si Kupas menyambut riang" width="165" height="165" class="anim-napas" id="maskot-utama">
+              </button>
+            </div>
+
+            <!-- Judul Hero & Fokus KUIS IPAS -->
+            <h1 class="judul-hero-diorama mb-2">
+              PETUALANGAN <span class="fokus-kuis-ipas">KUIS IPAS</span>
+            </h1>
+            <p class="lead fw-bold mb-4" style="color: #1F4738; max-width: 480px; font-size: 1.15rem; line-height: 1.45;">
+              Jelajahi keanekaragaman ekosistem dan jaring rantai makanan Nusantara bersama teman sekelas!
+            </p>
+
+            <!-- Aksi Utama: Tombol CTA Besar Mulai Petualangan Siswa -->
+            <div class="w-100 mb-3" style="max-width: 420px;">
+              <a href="gabung.html" class="btn-cta-petualang w-100 smartboard-btn" id="btn-saya-siswa" role="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14"/>
+                  <path d="m12 5 7 7-7 7"/>
+                </svg>
+                <span>Mulai Petualangan!</span>
+              </a>
+            </div>
+
+            <!-- Aksi Sekunder: Segmented Control Peran Siswa | Guru -->
+            <div class="d-flex justify-content-center justify-content-lg-start mb-2">
+              <div class="segmented-peran-control" role="tablist" aria-label="Pilih peran pengguna">
+                <span class="segmented-item active" role="tab" aria-selected="true" tabindex="0">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                  <span>Saya Siswa</span>
+                </span>
+                <a href="guru/dasbor.html" class="segmented-item" id="btn-saya-guru" role="tab" aria-selected="false">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                    <path d="M6 6h10"/>
+                    <path d="M6 10h10"/>
+                  </svg>
+                  <span>Saya Guru (Dasbor)</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="small fw-bold mt-1" style="color: #244F3E;">
+              <span>Didesain untuk Ponsel, Tablet, Laptop, & Layar Sentuh Smartboard</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Peta Lokasi Petualangan & Banner Duel Koral -->
+        <div class="col-12 col-lg-7">
+          
+          <div class="d-flex align-items-center justify-content-between mb-3 latar-pita-baca">
+            <h2 class="h5 fw-bolder mb-0 d-flex align-items-center gap-2" style="font-family: var(--font-heading); color: var(--kupas-forest-dark);">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/>
+                <line x1="8" y1="2" x2="8" y2="18"/>
+                <line x1="16" y1="6" x2="16" y2="22"/>
+              </svg>
+              <span>Peta Lokasi Petualangan</span>
+            </h2>
+            <span class="badge rounded-pill text-dark fw-bold px-3 py-1" style="background-color: #E2ECD8; font-size: 0.78rem;">
+              Zona Eksplorasi
+            </span>
+          </div>
+
+          <!-- Grid Lokasi Diorama (Ukuran Seragam & Sejajar) -->
+          <div class="peta-diorama-grid">
+            
+            <!-- Lokasi 1: Hutan Rantai Makanan -->
+            <a href="rantai-makanan.html" class="kartu-lokasi-diorama smartboard-btn" id="btn-rantai-makanan">
+              <div class="ikon-lokasi-box ikon-hutan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2L4 10h4l-3 7h6v5h2v-5h6l-3-7h4L12 2z"/>
+                </svg>
+              </div>
+              <div class="kartu-lokasi-info">
+                <div class="kartu-lokasi-nama">Hutan Rantai Makanan</div>
+                <div class="kartu-lokasi-desk">Susun jaring makanan rimba & aliran energi</div>
+              </div>
+            </a>
+
+            <!-- Lokasi 2: Danau & Sungai Lab Siklus Air -->
+            <a href="siklus-air.html" class="kartu-lokasi-diorama smartboard-btn" id="btn-siklus-air">
+              <div class="ikon-lokasi-box ikon-danau">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+                  <path d="M7 16.5c1.5-1 3-1 4.5 0s3 1 4.5 0"/>
+                </svg>
+              </div>
+              <div class="kartu-lokasi-info">
+                <div class="kartu-lokasi-nama">Lab Siklus Air</div>
+                <div class="kartu-lokasi-desk">Simulasi evaporasi, awan, & hujan alami</div>
+              </div>
+            </a>
+
+            <!-- Lokasi 3: Pohon Kamus Belajar -->
+            <a href="kamus-belajar.html" class="kartu-lokasi-diorama smartboard-btn" id="btn-kamus-belajar">
+              <div class="ikon-lokasi-box ikon-pohon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+              </div>
+              <div class="kartu-lokasi-info">
+                <div class="kartu-lokasi-nama">Pohon Kamus Belajar</div>
+                <div class="kartu-lokasi-desk">Kartu pintar istilah & fakta ekosistem</div>
+              </div>
+            </a>
+
+            <!-- Lokasi 4: Pos Fakta vs Opini -->
+            <a href="fakta-opini.html" class="kartu-lokasi-diorama smartboard-btn" id="btn-fakta-opini">
+              <div class="ikon-lokasi-box ikon-papan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="6"/>
+                  <circle cx="12" cy="12" r="2"/>
+                </svg>
+              </div>
+              <div class="kartu-lokasi-info">
+                <div class="kartu-lokasi-nama">Pos Fakta vs Opini</div>
+                <div class="kartu-lokasi-desk">Asah ketajaman berpikir kritis sains</div>
+              </div>
+            </a>
+
+            <!-- Lokasi 5: Puncak Sertifikat Prestasi (Span 2 Kolom) -->
+            <a href="sertifikat.html" class="kartu-lokasi-diorama kartu-span-full smartboard-btn" id="btn-sertifikat">
+              <div class="ikon-lokasi-box ikon-puncak">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/>
+                  <path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/>
+                  <path d="M4 3h16v6a8 8 0 0 1-16 0V3z"/>
+                  <path d="M12 17v4"/>
+                  <path d="M8 21h8"/>
+                </svg>
+              </div>
+              <div class="kartu-lokasi-info">
+                <div class="kartu-lokasi-nama">Puncak Sertifikat Saya</div>
+                <div class="kartu-lokasi-desk">Koleksi lencana petualang & unduh piagam resmi IPAS</div>
+              </div>
+            </a>
+
+          </div>
+
+          <!-- Banner Koral Kontras: Arena Duel Tim Smartboard -->
+          <a href="duel-tim.html" class="banner-duel-koral smartboard-btn" id="btn-duel-tim">
+            <div class="d-flex align-items-center gap-3">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 36px; height: 36px; flex-shrink: 0;">
+                <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+                <line x1="13" y1="19" x2="19" y2="13"/>
+                <line x1="16" y1="16" x2="20" y2="20"/>
+                <line x1="19" y1="21" x2="21" y2="19"/>
+                <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/>
+                <line x1="5" y1="14" x2="9" y2="18"/>
+                <line x1="7" y1="17" x2="4" y2="20"/>
+                <line x1="3" y1="19" x2="5" y2="21"/>
+              </svg>
+              <div>
+                <div class="fw-bolder fs-5 text-white lh-sm">Arena Duel Tim Smartboard</div>
+                <div class="small text-white-50 fw-semibold">Adu cepat 2-4 regu dengan tombol bel interaktif di layar kelas</div>
+              </div>
+            </div>
+            <span class="badge-bel-cepat">Bel Cepat Kelas</span>
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Kaki Halaman Sederhana & Nyaman -->
+  <footer class="text-center py-3 border-top border-2 border-dark" style="background-color: #F8F2E2;">
+    <div class="container small fw-bold" style="color: var(--kupas-forest-dark);">
+      KUPAS KUIS IPAS v4.0 &bull; Kurikulum Merdeka IPAS Kelas V SD &bull; Petualangan Ekosistem Nusantara
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="assets/js/latar-hidup.js"></script>
+
+  <script type="module">
+    import { pasangHeader, pasangPanelGamifikasi, suara, umumkanAria, gamifikasi } from './assets/js/ui.js';
+    import { animasi } from './assets/js/animasi.js';
+
+    // Pasang bilah navigasi dan status gamifikasi
+    pasangHeader('umum', { berandaLink: 'index.html', rootAset: '' });
+    pasangPanelGamifikasi('wadah-gamifikasi-beranda');
+
+    // Cek status petualang untuk pesan balon ucapan kontekstual
+    const infoGamifikasi = gamifikasi.ambilInfoLevel();
+    let pesanAwal = 'Halo Petualang! Ketuk aku untuk semangat belajar!';
+    if (infoGamifikasi.streakHarian > 1) {
+      pesanAwal = `Streak ${infoGamifikasi.streakHarian} hari aktif! Ayo lanjutkan petualanganmu!`;
+    } else if (infoGamifikasi.xp > 0) {
+      pesanAwal = `Keren, kamu sudah mengumpulkan ${infoGamifikasi.xp} XP! Terus melesat!`;
+    }
+
+    const balonSapa = document.getElementById('balon-sapa-maskot');
+    if (balonSapa) {
+      balonSapa.textContent = pesanAwal;
+    }
+
+    // Interaksi Maskot Ekspresif di Beranda
+    const ekspresiMaskot = [
+      { svg: 'assets/svg/maskot-senang.svg', pesan: pesanAwal },
+      { svg: 'assets/svg/maskot-semangat.svg', pesan: 'Ayo kumpulkan XP dan kuasai jaring makanan Nusantara!' },
+      { svg: 'assets/svg/maskot-berpikir.svg', pesan: 'Tahukah kamu? Fitoplankton adalah produsen utama di lautan!' },
+      { svg: 'assets/svg/maskot-bersorak.svg', pesan: 'Hebat! Kamu pasti bisa meraih Lencana Juara Ekosistem hari ini!' },
+      { svg: 'assets/svg/maskot-sedih-menyemangati.svg', pesan: 'Jangan takut salah ya, kita belajar sains bersama langkah demi langkah!' }
+    ];
+    let idxEkspresi = 0;
+
+    const btnMaskot = document.getElementById('btn-sapa-maskot');
+    const imgMaskot = document.getElementById('maskot-utama');
+
+    if (btnMaskot && imgMaskot && balonSapa) {
+      btnMaskot.addEventListener('click', () => {
+        idxEkspresi = (idxEkspresi + 1) % ekspresiMaskot.length;
+        const item = ekspresiMaskot[idxEkspresi];
+        imgMaskot.src = item.svg;
+        balonSapa.textContent = item.pesan;
+        suara.mainkan('klik');
+        animasi.lompat(imgMaskot);
+        umumkanAria(item.pesan);
+      });
+    }
+  </script>
+</body>
+</html>

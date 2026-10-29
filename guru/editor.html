@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Editor Kuis IPAS - KUPAS KUIS IPAS</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/tema.css">
+  <link rel="stylesheet" href="../assets/css/animasi.css">
+  <link rel="stylesheet" href="../assets/css/komponen.css">
+  <link rel="stylesheet" href="../assets/css/latar-hidup.css">
+</head>
+<body class="motion-full" data-latar-tema="tenang">
+  <header id="wadah-navbar"></header>
+
+  <main class="container py-4">
+    <!-- Baris Judul & Aksi -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4 latar-pita-baca py-2 px-3">
+      <div>
+        <a href="dasbor.html" class="text-decoration-none fw-bold text-secondary mb-1 d-inline-block">
+          ← Kembali ke Dasbor
+        </a>
+        <h1 class="h2 fw-bolder mb-0" id="halaman-judul">Editor Kuis IPAS</h1>
+      </div>
+      <div class="d-flex gap-2">
+        <button id="btn-simpan-kuis" class="btn btn-kupas-hijau px-4 smartboard-btn">
+          💾 Simpan Kuis
+        </button>
+      </div>
+    </div>
+
+    <!-- Informasi Utama Kuis -->
+    <div class="kupas-card mb-4 anim-slide-up">
+      <div class="row g-3">
+        <div class="col-12 col-md-5">
+          <label for="kuis-judul" class="form-label fw-bold">Judul Kuis</label>
+          <input type="text" class="form-control border-2 border-dark" id="kuis-judul" placeholder="Contoh: Petualangan Rantai Makanan & Ekosistem" required>
+        </div>
+        <div class="col-12 col-md-4">
+          <label for="kuis-topik" class="form-label fw-bold">Topik Pembelajaran</label>
+          <input type="text" class="form-control border-2 border-dark" id="kuis-topik" placeholder="Contoh: Ekosistem Sawah & Hutan" required>
+        </div>
+        <div class="col-12 col-md-3">
+          <label for="kuis-status" class="form-label fw-bold">Status</label>
+          <select class="form-select border-2 border-dark" id="kuis-status">
+            <option value="terbit">Terbit</option>
+            <option value="draf">Draf</option>
+            <option value="arsip">Arsip</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-2">
+          <label for="kuis-kkm" class="form-label fw-bold">Nilai KKM</label>
+          <input type="number" class="form-control border-2 border-dark" id="kuis-kkm" value="75" min="0" max="100">
+        </div>
+        <div class="col-6 col-md-2">
+          <label for="kuis-durasi" class="form-label fw-bold">Durasi (menit)</label>
+          <input type="number" class="form-control border-2 border-dark" id="kuis-durasi" value="15" min="1" max="180">
+        </div>
+        <div class="col-12 col-md-3">
+          <label for="kuis-jadwal-buka" class="form-label fw-bold">Jadwal Buka</label>
+          <input type="datetime-local" class="form-control border-2 border-dark" id="kuis-jadwal-buka">
+        </div>
+        <div class="col-12 col-md-3">
+          <label for="kuis-jadwal-tutup" class="form-label fw-bold">Jadwal Tutup</label>
+          <input type="datetime-local" class="form-control border-2 border-dark" id="kuis-jadwal-tutup">
+        </div>
+        <div class="col-12 col-md-2 d-flex align-items-end">
+          <div class="form-check p-2 border border-2 border-dark rounded-3 w-100 bg-light d-flex align-items-center gap-2" style="min-height: 48px;">
+            <input class="form-check-input m-0" type="checkbox" id="kuis-acak-soal">
+            <label class="form-check-label fw-bold small" for="kuis-acak-soal">Acak Soal</label>
+          </div>
+        </div>
+        <div class="col-12">
+          <label for="kuis-deskripsi" class="form-label fw-bold">Deskripsi Singkat</label>
+          <input type="text" class="form-control border-2 border-dark" id="kuis-deskripsi" placeholder="Kuis interaktif tentang produsen, konsumen, dan pengurai.">
+        </div>
+      </div>
+    </div>
+
+    <!-- Pengelolaan Soal -->
+    <div class="row g-4">
+      <!-- Kolom Kiri: Daftar Soal & Tambah Soal -->
+      <div class="col-12 col-lg-5">
+        <div class="kupas-card h-100">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h5 fw-bolder mb-0">Daftar Soal (<span id="jumlah-soal">0</span>)</h2>
+            <button id="btn-tambah-soal" class="btn btn-kupas-kuning btn-sm fw-bold">
+              + Tambah Soal
+            </button>
+          </div>
+          <div id="daftar-soal-list" class="d-flex flex-column gap-2" style="max-height: 520px; overflow-y: auto;">
+            <!-- Item soal dimuat di sini -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Kolom Kanan: Formulir Edit Soal & Pratinjau -->
+      <div class="col-12 col-lg-7">
+        <div class="kupas-card" id="wadah-form-soal">
+          <div class="d-flex justify-content-between align-items-center mb-3 border-bottom border-2 border-dark pb-2">
+            <h2 class="h5 fw-bolder mb-0" id="form-soal-nomor">Edit Soal #1</h2>
+            <button id="btn-hapus-soal-ini" class="btn btn-outline-danger btn-sm fw-bold">Hapus Soal</button>
+          </div>
+
+          <form id="form-detail-soal">
+            <div class="row g-3 mb-3">
+              <div class="col-12 col-md-6">
+                <label for="soal-bab" class="form-label fw-bold">Bab / Topik Soal</label>
+                <input type="text" class="form-control border-2 border-dark" id="soal-bab" list="list-bab-ipas" value="Bab 1: Rantai Makanan" placeholder="Contoh: Bab 1: Rantai Makanan">
+                <datalist id="list-bab-ipas">
+                  <option value="Bab 1: Rantai Makanan"></option>
+                  <option value="Bab 2: Ekosistem & Habitat"></option>
+                  <option value="Bab 3: Simbiosis & Ketergantungan"></option>
+                  <option value="Bab 4: Dampak Perubahan Lingkungan"></option>
+                </datalist>
+              </div>
+              <div class="col-12 col-md-6">
+                <label for="soal-kesulitan" class="form-label fw-bold">Tingkat Kesulitan</label>
+                <select class="form-select border-2 border-dark" id="soal-kesulitan">
+                  <option value="mudah">Mudah</option>
+                  <option value="sedang" selected>Sedang</option>
+                  <option value="sulit">Sulit</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-6">
+                <label for="soal-tipe" class="form-label fw-bold">Tipe Soal</label>
+                <select class="form-select border-2 border-dark" id="soal-tipe">
+                  <option value="pilihan_ganda">Pilihan Ganda (3-4 Opsi)</option>
+                  <option value="benar_salah">Benar / Salah</option>
+                  <option value="isian_singkat">Isian Singkat</option>
+                </select>
+              </div>
+              <div class="col-6 col-md-3">
+                <label for="soal-waktu" class="form-label fw-bold">Waktu (detik)</label>
+                <input type="number" class="form-control border-2 border-dark" id="soal-waktu" value="30" min="10" max="120">
+              </div>
+              <div class="col-6 col-md-3">
+                <label for="soal-poin" class="form-label fw-bold">Poin</label>
+                <input type="number" class="form-control border-2 border-dark" id="soal-poin" value="10" min="5" max="100">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="soal-teks" class="form-label fw-bold">Pertanyaan IPAS</label>
+              <textarea class="form-control border-2 border-dark" id="soal-teks" rows="3" placeholder="Tuliskan pertanyaan soal IPAS di sini..." required></textarea>
+            </div>
+
+            <!-- Wadah Opsi Jawaban Dinamis Sesuai Tipe -->
+            <div id="wadah-opsi-jawaban" class="mb-3">
+              <!-- Opsi dinamis dirender di sini -->
+            </div>
+
+            <div class="mb-3">
+              <label for="soal-penjelasan" class="form-label fw-bold">Penjelasan Pembahasan</label>
+              <textarea class="form-control border-2 border-dark" id="soal-penjelasan" rows="2" placeholder="Jelaskan alasan jawaban benar untuk diskusi kelas..."></textarea>
+            </div>
+
+            <!-- Tautan ke Kamus Belajar (Fitur PRD Bagian 19) -->
+            <div class="mb-3">
+              <label for="soal-kamus-id" class="form-label fw-bold">Tautkan Istilah Kamus Belajar</label>
+              <div class="input-group">
+                <select class="form-select border-2 border-dark" id="soal-kamus-id">
+                  <option value="">(Tidak ada tautan kamus)</option>
+                </select>
+                <button type="button" class="btn btn-outline-dark fw-bold" id="btn-modal-entri-baru">
+                  + Buat Entri Baru
+                </button>
+              </div>
+              <small class="text-secondary">Tombol "Pelajari Istilah" akan muncul otomatis di layar pembahasan siswa.</small>
+            </div>
+
+            <button type="button" class="btn btn-kupas-hijau w-100 py-2 fw-bold smartboard-btn" id="btn-terapkan-soal">
+              Simpan Perubahan Soal
+            </button>
+          </form>
+
+          <!-- Pratinjau Tampilan Siswa -->
+          <div class="mt-4 pt-3 border-top border-2 border-dark">
+            <h3 class="h6 fw-bolder text-secondary text-uppercase mb-2">Pratinjau Layar Siswa</h3>
+            <div class="p-3 bg-light rounded-3 border-2 border-dark" id="pratinjau-kontainer">
+              <p class="fw-bold fs-6 mb-2" id="preview-teks-soal">Pertanyaan akan muncul di sini...</p>
+              <div class="d-flex flex-column gap-2" id="preview-opsi-list">
+                <!-- Preview opsi -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Buat Entri Kamus Cepat dari Editor Soal (Fitur PRD 19) -->
+  <div class="modal fade" id="modalKamusEditor" tabindex="-1" aria-labelledby="labelKamusEditor" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content kupas-card border-3 border-dark">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h2 class="modal-title h5 fw-bolder" id="labelKamusEditor">Buat Entri Kamus Baru</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body py-3">
+          <div class="mb-3">
+            <label for="editor-entri-istilah" class="form-label fw-bold">Istilah</label>
+            <input type="text" class="form-control border-2 border-dark" id="editor-entri-istilah" placeholder="Contoh: Fitoplankton">
+          </div>
+          <div class="mb-3">
+            <label for="editor-entri-kategori" class="form-label fw-bold">Kategori</label>
+            <select class="form-select border-2 border-dark" id="editor-entri-kategori">
+              <option value="Rantai Makanan">Rantai Makanan</option>
+              <option value="Ekosistem">Ekosistem</option>
+              <option value="Saling Bergantung">Saling Bergantung</option>
+              <option value="Dampak Lingkungan">Dampak Lingkungan</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="editor-entri-definisi" class="form-label fw-bold">Definisi</label>
+            <textarea class="form-control border-2 border-dark" id="editor-entri-definisi" rows="2" placeholder="Pengertian istilah..."></textarea>
+          </div>
+          <div class="mb-2">
+            <label for="editor-entri-contoh" class="form-label fw-bold">Contoh Nyata</label>
+            <input type="text" class="form-control border-2 border-dark" id="editor-entri-contoh" placeholder="Contoh organisme...">
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-kupas-hijau fw-bold px-4" id="btn-editor-simpan-kamus">
+            Simpan & Tautkan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="../assets/js/latar-hidup.js"></script>
+
+  <script type="module">
+    import { kuisManager } from '../assets/js/kuis.js';
+    import { kamusManager } from '../assets/js/kamus.js';
+    import { auth } from '../assets/js/auth.js';
+    import { pasangHeader, umumkanAria, suara } from '../assets/js/ui.js';
+    import { animasi } from '../assets/js/animasi.js';
+
+    pasangHeader('guru', { berandaLink: '../index.html', rootAset: '../' });
+
+    const params = new URLSearchParams(window.location.search);
+    let kuisId = params.get('id');
+    let kuisAktif = null;
+    let daftarSoal = [];
+    let indeksSoalDipilih = 0;
+
+    let daftarKamusPilihan = [];
+    const modalKamusEditorEl = document.getElementById('modalKamusEditor');
+    const modalKamusBS = new bootstrap.Modal(modalKamusEditorEl);
+
+    async function muatPilihanKamus(kamusIdDipilih = '') {
+      daftarKamusPilihan = await kamusManager.ambilSemuaKamus({ hanyaTerbit: false });
+      const sel = document.getElementById('soal-kamus-id');
+      sel.innerHTML = '<option value="">(Tidak ada tautan kamus)</option>';
+      daftarKamusPilihan.forEach(k => {
+        const opt = document.createElement('option');
+        opt.value = k.id;
+        opt.textContent = `${k.istilah} (${k.kategori})`;
+        if (k.id === kamusIdDipilih) opt.selected = true;
+        sel.appendChild(opt);
+      });
+    }
+
+    async function inisialisasi() {
+      await muatPilihanKamus();
+
+      if (kuisId) {
+        document.getElementById('halaman-judul').textContent = 'Ubah Kuis IPAS';
+        const res = await kuisManager.ambilKuisDetail(kuisId);
+        kuisAktif = res.kuis;
+        daftarSoal = res.soal;
+        
+        document.getElementById('kuis-judul').value = kuisAktif.judul || '';
+        document.getElementById('kuis-topik').value = kuisAktif.topik || '';
+        document.getElementById('kuis-status').value = kuisAktif.status || 'terbit';
+        document.getElementById('kuis-kkm').value = kuisAktif.kkm ?? 75;
+        document.getElementById('kuis-durasi').value = kuisAktif.durasi_menit ?? 15;
+        document.getElementById('kuis-jadwal-buka').value = (kuisAktif.jadwal_buka || '').slice(0, 16);
+        document.getElementById('kuis-jadwal-tutup').value = (kuisAktif.jadwal_tutup || '').slice(0, 16);
+        document.getElementById('kuis-acak-soal').checked = Boolean(kuisAktif.acak_soal);
+        document.getElementById('kuis-deskripsi').value = kuisAktif.deskripsi || '';
+      } else {
+        // Buat kuis baru default
+        document.getElementById('halaman-judul').textContent = 'Buat Kuis IPAS Baru';
+        daftarSoal = [
+          {
+            urutan: 1,
+            tipe: 'pilihan_ganda',
+            teks: 'Makhluk hidup yang membuat makanan sendiri melalui fotosintesis disebut...',
+            opsi: ['Produsen', 'Konsumen I', 'Pengurai', 'Konsumen Puncak'],
+            kunci: '0',
+            kamus_id: 'kamus-1',
+            penjelasan: 'Tumbuhan hijau berfotosintesis menghasilkan makanan sehingga disebut produsen.',
+            waktu_detik: 30,
+            poin: 10
+          }
+        ];
+      }
+
+      renderDaftarSoal();
+      muatFormSoal(0);
+    }
+
+    function renderDaftarSoal() {
+      const wadah = document.getElementById('daftar-soal-list');
+      wadah.innerHTML = '';
+      document.getElementById('jumlah-soal').textContent = daftarSoal.length;
+
+      daftarSoal.forEach((s, idx) => {
+        const item = document.createElement('div');
+        item.className = `p-2 rounded-3 border border-dark d-flex align-items-center justify-content-between ${idx === indeksSoalDipilih ? 'bg-warning-subtle fw-bold' : 'bg-white'}`;
+        item.style.cursor = 'pointer';
+        item.innerHTML = `
+          <div class="text-truncate me-2">
+            <span class="badge bg-dark me-1">#${idx + 1}</span>
+            <span>${s.teks || 'Soal belum diisi'}</span>
+          </div>
+          <span class="badge bg-secondary">${s.tipe.replace('_', ' ')}</span>
+        `;
+        item.addEventListener('click', () => {
+          indeksSoalDipilih = idx;
+          renderDaftarSoal();
+          muatFormSoal(idx);
+        });
+        wadah.appendChild(item);
+      });
+    }
+
+    function muatFormSoal(idx) {
+      if (daftarSoal.length === 0) return;
+      const s = daftarSoal[idx];
+      document.getElementById('form-soal-nomor').textContent = `Edit Soal #${idx + 1}`;
+      document.getElementById('soal-bab').value = s.bab || 'Bab 1: Rantai Makanan';
+      document.getElementById('soal-kesulitan').value = s.tingkat_kesulitan || 'sedang';
+      document.getElementById('soal-tipe').value = s.tipe || 'pilihan_ganda';
+      document.getElementById('soal-waktu').value = s.waktu_detik || 30;
+      document.getElementById('soal-poin').value = s.poin || 10;
+      document.getElementById('soal-teks').value = s.teks || '';
+      document.getElementById('soal-penjelasan').value = s.penjelasan || '';
+      document.getElementById('soal-kamus-id').value = s.kamus_id || '';
+
+      renderFormOpsi(s.tipe, s.opsi, s.kunci);
+      perbaruiPratinjau();
+    }
+
+    function renderFormOpsi(tipe, opsi = [], kunci = '0') {
+      const wadah = document.getElementById('wadah-opsi-jawaban');
+      wadah.innerHTML = '';
+
+      if (tipe === 'pilihan_ganda') {
+        const opsiList = (opsi && opsi.length) ? opsi : ['Opsi A', 'Opsi B', 'Opsi C', 'Opsi D'];
+        wadah.innerHTML = `
+          <label class="form-label fw-bold">Opsi Jawaban & Kunci Benar</label>
+          <div class="d-flex flex-column gap-2">
+            ${opsiList.map((op, i) => `
+              <div class="input-group">
+                <div class="input-group-text bg-white">
+                  <input class="form-check-input mt-0 radio-kunci" type="radio" name="kunciJawaban" value="${i}" ${String(kunci) === String(i) ? 'checked' : ''} aria-label="Jadikan opsi ${i+1} sebagai kunci benar">
+                </div>
+                <span class="input-group-text fw-bold">${i + 1}</span>
+                <input type="text" class="form-control border-2 border-dark input-opsi-teks" value="${op}" placeholder="Teks opsi ${i+1}">
+              </div>
+            `).join('')}
+          </div>
+          <small class="text-secondary mt-1 d-block">Pilih tombol bulat di sebelah kiri untuk menetapkan kunci jawaban yang benar.</small>
+        `;
+      } else if (tipe === 'benar_salah') {
+        wadah.innerHTML = `
+          <label class="form-label fw-bold">Kunci Jawaban Benar / Salah</label>
+          <div class="d-flex gap-4">
+            <div class="form-check">
+              <input class="form-check-input border-dark radio-kunci" type="radio" name="kunciJawaban" id="kunciBenar" value="0" ${String(kunci) === '0' ? 'checked' : ''}>
+              <label class="form-check-label fw-bold text-success" for="kunciBenar">Benar</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input border-dark radio-kunci" type="radio" name="kunciJawaban" id="kunciSalah" value="1" ${String(kunci) === '1' ? 'checked' : ''}>
+              <label class="form-check-label fw-bold text-danger" for="kunciSalah">Salah</label>
+            </div>
+          </div>
+        `;
+      } else if (tipe === 'isian_singkat') {
+        wadah.innerHTML = `
+          <label for="kunci-isian" class="form-label fw-bold">Kata Kunci Jawaban Singkat</label>
+          <input type="text" class="form-control border-2 border-dark" id="kunci-isian" value="${kunci || ''}" placeholder="Contoh: fotosintesis (huruf kecil & besar disamakan)">
+        `;
+      }
+
+      // Hubungkan input listener untuk update pratinjau seketika
+      wadah.querySelectorAll('input').forEach(inp => {
+        inp.addEventListener('input', perbaruiPratinjau);
+      });
+    }
+
+    function perbaruiPratinjau() {
+      const teks = document.getElementById('soal-teks').value || 'Pertanyaan akan muncul di sini...';
+      document.getElementById('preview-teks-soal').textContent = teks;
+
+      const tipe = document.getElementById('soal-tipe').value;
+      const previewList = document.getElementById('preview-opsi-list');
+      previewList.innerHTML = '';
+
+      if (tipe === 'pilihan_ganda') {
+        const teksOpsi = Array.from(document.querySelectorAll('.input-opsi-teks')).map(el => el.value);
+        teksOpsi.forEach((t, i) => {
+          const div = document.createElement('div');
+          div.className = 'opsi-jawaban py-2 px-3';
+          div.innerHTML = `<span class="opsi-nomor">${i + 1}</span> <span>${t || 'Opsi ' + (i + 1)}</span>`;
+          previewList.appendChild(div);
+        });
+      } else if (tipe === 'benar_salah') {
+        ['Benar', 'Salah'].forEach((lbl, i) => {
+          const div = document.createElement('div');
+          div.className = 'opsi-jawaban py-2 px-3';
+          div.innerHTML = `<span class="opsi-nomor">${i + 1}</span> <span>${lbl}</span>`;
+          previewList.appendChild(div);
+        });
+      } else {
+        previewList.innerHTML = `
+          <div class="input-group">
+            <input type="text" class="form-control border-2 border-dark" placeholder="Ketik jawaban singkat siswa di sini..." disabled>
+          </div>
+        `;
+      }
+    }
+
+    document.getElementById('soal-teks').addEventListener('input', perbaruiPratinjau);
+    document.getElementById('soal-tipe').addEventListener('change', (e) => {
+      renderFormOpsi(e.target.value);
+      perbaruiPratinjau();
+    });
+
+    // Simpan Perubahan Soal ke Memory Array
+    document.getElementById('btn-terapkan-soal').addEventListener('click', () => {
+      const s = daftarSoal[indeksSoalDipilih];
+      s.teks = document.getElementById('soal-teks').value.trim();
+      s.bab = document.getElementById('soal-bab').value.trim() || 'Bab 1: Rantai Makanan';
+      s.tingkat_kesulitan = document.getElementById('soal-kesulitan').value || 'sedang';
+      s.tipe = document.getElementById('soal-tipe').value;
+      s.waktu_detik = parseInt(document.getElementById('soal-waktu').value, 10) || 30;
+      s.poin = parseInt(document.getElementById('soal-poin').value, 10) || 10;
+      s.penjelasan = document.getElementById('soal-penjelasan').value.trim();
+      s.kamus_id = document.getElementById('soal-kamus-id').value || null;
+
+      if (s.tipe === 'pilihan_ganda') {
+        s.opsi = Array.from(document.querySelectorAll('.input-opsi-teks')).map(el => el.value.trim());
+        const radio = document.querySelector('.radio-kunci:checked');
+        s.kunci = radio ? radio.value : '0';
+      } else if (s.tipe === 'benar_salah') {
+        s.opsi = ['Benar', 'Salah'];
+        const radio = document.querySelector('.radio-kunci:checked');
+        s.kunci = radio ? radio.value : '0';
+      } else if (s.tipe === 'isian_singkat') {
+        s.opsi = [];
+        const isian = document.getElementById('kunci-isian');
+        s.kunci = isian ? isian.value.trim().toLowerCase() : '';
+      }
+
+      renderDaftarSoal();
+      animasi.pop(document.getElementById('wadah-form-soal'));
+      umumkanAria('Perubahan soal berhasil disimpan sementara');
+    });
+
+    // Tambah Soal Baru
+    document.getElementById('btn-tambah-soal').addEventListener('click', () => {
+      const nomorBaru = daftarSoal.length + 1;
+      daftarSoal.push({
+        urutan: nomorBaru,
+        tipe: 'pilihan_ganda',
+        teks: `Pertanyaan baru nomor ${nomorBaru}...`,
+        opsi: ['Pilihan A', 'Pilihan B', 'Pilihan C', 'Pilihan D'],
+        kunci: '0',
+        penjelasan: 'Penjelasan konsep materi IPAS.',
+        waktu_detik: 30,
+        poin: 10
+      });
+      indeksSoalDipilih = daftarSoal.length - 1;
+      renderDaftarSoal();
+      muatFormSoal(indeksSoalDipilih);
+      animasi.pop(document.getElementById('wadah-form-soal'));
+      umumkanAria('Soal baru berhasil ditambahkan.');
+    });
+
+    // Hapus Soal
+    document.getElementById('btn-hapus-soal-ini').addEventListener('click', () => {
+      if (daftarSoal.length <= 1) {
+        alert('Kuis harus memiliki minimal 1 soal.');
+        return;
+      }
+      if (confirm('Yakin ingin menghapus soal ini?')) {
+        daftarSoal.splice(indeksSoalDipilih, 1);
+        indeksSoalDipilih = Math.max(0, indeksSoalDipilih - 1);
+        renderDaftarSoal();
+        muatFormSoal(indeksSoalDipilih);
+        umumkanAria('Soal berhasil dihapus.');
+      }
+    });
+
+    // Simpan Kuis Keseluruhan ke Database
+    document.getElementById('btn-simpan-kuis').addEventListener('click', async () => {
+      const judul = document.getElementById('kuis-judul').value.trim();
+      const topik = document.getElementById('kuis-topik').value.trim();
+      const deskripsi = document.getElementById('kuis-deskripsi').value.trim();
+      const status = document.getElementById('kuis-status').value;
+      const kkm = parseInt(document.getElementById('kuis-kkm').value, 10) || 75;
+      const durasi_menit = parseInt(document.getElementById('kuis-durasi').value, 10) || 15;
+      const jadwal_buka = document.getElementById('kuis-jadwal-buka').value;
+      const jadwal_tutup = document.getElementById('kuis-jadwal-tutup').value;
+      const acak_soal = document.getElementById('kuis-acak-soal').checked;
+
+      if (!judul || !topik) {
+        alert('Judul dan topik kuis wajib diisi!');
+        return;
+      }
+
+      const btn = document.getElementById('btn-simpan-kuis');
+      btn.disabled = true;
+      btn.textContent = 'Menyimpan...';
+
+      try {
+        const idHasil = await kuisManager.simpanKuis({
+          id: kuisId || undefined,
+          judul,
+          topik,
+          deskripsi,
+          status,
+          kkm,
+          durasi_menit,
+          jadwal_buka,
+          jadwal_tutup,
+          acak_soal
+        });
+
+        // Simpan setiap soal
+        for (let i = 0; i < daftarSoal.length; i++) {
+          const s = daftarSoal[i];
+          s.urutan = i + 1;
+          await kuisManager.simpanSoal(idHasil || kuisId, s, s.kunci);
+        }
+
+        umumkanAria('Kuis berhasil disimpan secara permanen!');
+        alert('Kuis berhasil disimpan!');
+        window.location.href = 'dasbor.html';
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = '💾 Simpan Kuis';
+        alert('Gagal menyimpan kuis: ' + err.message);
+      }
+    });
+
+    // Buat Entri Kamus Baru Langsung dari Editor Soal (Fitur 5)
+    document.getElementById('btn-modal-entri-baru').addEventListener('click', () => {
+      document.getElementById('editor-entri-istilah').value = '';
+      document.getElementById('editor-entri-definisi').value = '';
+      document.getElementById('editor-entri-contoh').value = '';
+      modalKamusBS.show();
+    });
+
+    document.getElementById('btn-editor-simpan-kamus').addEventListener('click', async () => {
+      const istilah = document.getElementById('editor-entri-istilah').value.trim();
+      const kategori = document.getElementById('editor-entri-kategori').value;
+      const definisi = document.getElementById('editor-entri-definisi').value.trim();
+      const contoh = document.getElementById('editor-entri-contoh').value.trim();
+
+      if (!istilah || !definisi) {
+        alert('Istilah dan definisi wajib diisi!');
+        return;
+      }
+
+      try {
+        const user = await auth.ambilGuruAktif();
+        const idBaru = await kamusManager.simpanKamus({
+          guru_id: user?.id || 'guru-demo-1',
+          istilah,
+          kategori,
+          definisi,
+          contoh,
+          status: 'terbit'
+        });
+
+        await muatPilihanKamus(idBaru);
+        daftarSoal[indeksSoalDipilih].kamus_id = idBaru;
+        modalKamusBS.hide();
+        suara.mainkan('benar');
+        umumkanAria(`Entri kamus ${istilah} berhasil dibuat dan ditautkan ke soal.`);
+      } catch (err) {
+        alert('Gagal menyimpan entri kamus: ' + err.message);
+      }
+    });
+
+    inisialisasi();
+  </script>
+</body>
+</html>
+

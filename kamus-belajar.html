@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Pohon Kamus Belajar IPAS - KUPAS KUIS IPAS Kelas V SD</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/tema.css">
+  <link rel="stylesheet" href="assets/css/animasi.css">
+  <link rel="stylesheet" href="assets/css/komponen.css">
+  <link rel="stylesheet" href="assets/css/latar-hidup.css">
+</head>
+
+<body class="motion-full d-flex flex-column min-vh-100 justify-content-between" data-latar-tema="pohon">
+  <!-- Navigasi Utama Aplikasi -->
+  <header id="wadah-navbar"></header>
+
+  <!-- Konten Utama: Pohon Kamus Belajar (Zona Pengetahuan) -->
+  <main class="container py-4 flex-grow-1">
+
+    <!-- Header Halaman & Progres Membaca -->
+    <div class="row align-items-center mb-3 g-3">
+      <div class="col-12 col-md-7">
+        <div class="d-flex align-items-center gap-3 latar-pita-baca py-2 px-3">
+          <img src="assets/svg/maskot-semangat.svg" alt="Maskot Si Kupas Semangat Belajar" width="72" height="72"
+            class="anim-melambai" id="maskot-kamus-header">
+          <div>
+            <span class="badge rounded-pill fw-bold px-3 py-1 mb-1 d-inline-flex align-items-center gap-1"
+              style="background-color: #FEF3C7; color: #B45309; border: 2px solid var(--kupas-forest-dark);">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+              </svg>
+              <span>Pohon Ilmu Sains Nusantara</span>
+            </span>
+            <h1 class="h3 fw-bolder mb-1" style="font-family: var(--font-heading); color: var(--kupas-forest-dark);">
+              Pohon Kamus Belajar IPAS
+            </h1>
+            <p class="text-secondary fw-semibold small mb-0">
+              Pelajari istilah ekosistem & rantai makanan untuk mengumpulkan XP dan membuka wawasan!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-5">
+        <div class="p-3 bg-white rounded-4 border border-2 border-dark shadow-sm">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="small fw-bolder d-inline-flex align-items-center gap-1"
+              style="color: var(--kupas-forest-dark);">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+              </svg>
+              <span>Progres Belajar Kamus:</span>
+            </span>
+            <span class="badge bg-success border border-dark rounded-pill px-3 fw-bold" id="badge-progres">0 / 20</span>
+          </div>
+          <div class="progres-wadah-halus" role="progressbar" aria-label="Progres istilah kamus dipelajari">
+            <div class="progres-bar-halus" id="bar-progres-kamus"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel Gamifikasi Siswa -->
+    <div id="wadah-gamifikasi-kamus" class="mb-3"></div>
+
+    <!-- Kontrol: Pencarian, Filter Kategori & Format Belajar -->
+    <div class="kupas-card mb-4 anim-slide-up p-3 p-md-4 bg-white">
+      <div class="row g-3 align-items-center">
+        <!-- Pencarian -->
+        <div class="col-12 col-md-5">
+          <label for="input-cari-kamus" class="form-label fw-bold small" style="color: var(--kupas-forest-dark);">
+            Cari Istilah atau Definisi
+          </label>
+          <div class="input-group">
+            <span class="input-group-text bg-white border-2 border-dark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </span>
+            <input type="search" class="form-control border-2 border-dark fw-semibold" id="input-cari-kamus"
+              placeholder="Ketik produsen, fotosintesis, dekomposer..." autocomplete="off">
+          </div>
+        </div>
+
+        <!-- Filter Kategori -->
+        <div class="col-12 col-md-4">
+          <label for="select-kategori-kamus" class="form-label fw-bold small" style="color: var(--kupas-forest-dark);">
+            Kategori Materi
+          </label>
+          <select class="form-select border-2 border-dark fw-semibold" id="select-kategori-kamus"
+            aria-label="Filter kategori kamus">
+            <option value="semua" selected>Semua Kategori</option>
+            <option value="Rantai Makanan">Rantai Makanan</option>
+            <option value="Ekosistem">Ekosistem</option>
+            <option value="Saling Bergantung">Saling Bergantung</option>
+            <option value="Dampak Lingkungan">Dampak Lingkungan</option>
+          </select>
+        </div>
+
+        <!-- Format Belajar: Daftar vs Kartu Belajar -->
+        <div class="col-12 col-md-3">
+          <label class="form-label fw-bold small d-block" style="color: var(--kupas-forest-dark);">
+            Format Belajar
+          </label>
+          <div class="btn-group w-100" role="group" aria-label="Pilihan format tampilan">
+            <button type="button"
+              class="btn btn-outline-dark active fw-bold btn-sm py-2 d-inline-flex align-items-center justify-content-center gap-1"
+              id="mode-daftar">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="8" y1="6" x2="21" y2="6" />
+                <line x1="8" y1="12" x2="21" y2="12" />
+                <line x1="8" y1="18" x2="21" y2="18" />
+                <line x1="3" y1="6" x2="3.01" y2="6" />
+                <line x1="3" y1="12" x2="3.01" y2="12" />
+                <line x1="3" y1="18" x2="3.01" y2="18" />
+              </svg>
+              <span>Daftar</span>
+            </button>
+            <button type="button"
+              class="btn btn-outline-dark fw-bold btn-sm py-2 d-inline-flex align-items-center justify-content-center gap-1"
+              id="mode-kartu">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+              </svg>
+              <span>Kartu Belajar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAMPILAN 1: MODE DAFTAR ENTRI -->
+    <section id="wadah-mode-daftar" class="row g-3" aria-label="Daftar Istilah Kamus">
+      <!-- Kartu-kartu entri dimuat secara dinamis -->
+    </section>
+
+    <!-- TAMPILAN 2: MODE KARTU BELAJAR (FLASHCARD 3D) -->
+    <section id="wadah-mode-kartu" class="d-none" aria-label="Mode Kartu Belajar Bolak-Balik">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+
+          <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+            <span class="badge bg-dark fs-6 rounded-pill px-3 py-1 text-white fw-bold" id="flashcard-indikator">Kartu 1
+              dari 20</span>
+            <span class="small fw-bold text-secondary">Ketuk atau tekan Spasi untuk membalik</span>
+          </div>
+
+          <!-- Flashcard Scene -->
+          <div class="flashcard-scene mb-3" id="kartu-belajar-scene">
+            <div class="flashcard-inner" id="kartu-belajar-inner" tabindex="0" role="button"
+              aria-label="Kartu belajar, ketuk untuk melihat definisi sains">
+              <!-- Sisi Depan (Istilah) -->
+              <div class="flashcard-front">
+                <div class="d-flex justify-content-between align-items-start">
+                  <span class="badge bg-warning text-dark border border-dark rounded-pill px-3 fw-bold"
+                    id="flashcard-kategori-depan">Materi</span>
+                  <span class="small text-secondary fw-bold">Sisi Istilah</span>
+                </div>
+                <div class="my-auto py-4">
+                  <h2 class="display-6 fw-bolder text-dark mb-2" id="flashcard-istilah"
+                    style="font-family: var(--font-heading);">Istilah</h2>
+                  <p class="text-secondary small fw-semibold mb-0">Ketuk kartu untuk membaca definisi sains ↻</p>
+                </div>
+                <div class="small fw-semibold text-secondary">
+                  Klik atau tekan Spasi untuk membalik
+                </div>
+              </div>
+
+              <!-- Sisi Belakang (Definisi & Contoh) -->
+              <div class="flashcard-back">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <span class="badge bg-success text-white border border-dark rounded-pill px-3 fw-bold"
+                    id="flashcard-kategori-belakang">Definisi</span>
+                  <span class="small text-secondary fw-bold">Sisi Penjelasan</span>
+                </div>
+                <div class="my-auto text-start py-2">
+                  <h3 class="h5 fw-bold text-dark mb-2" id="flashcard-istilah-belakang"
+                    style="font-family: var(--font-heading);">Istilah</h3>
+                  <p class="fs-6 fw-semibold text-dark mb-3" id="flashcard-definisi" style="line-height: 1.5;">
+                    Definisi...</p>
+                  <div class="p-2 bg-white bg-opacity-85 rounded-3 border border-dark small text-dark fw-medium">
+                    <strong>Contoh Nyata:</strong> <span id="flashcard-contoh">-</span>
+                  </div>
+                </div>
+                <div class="small fw-semibold text-secondary text-center">
+                  Ketuk lagi untuk kembali ke sisi depan ↺
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tombol Aksi Navigasi Flashcard -->
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <button
+              class="btn btn-outline-dark fw-bold px-3 py-2 flex-grow-1 flex-sm-grow-0 smartboard-btn d-inline-flex align-items-center gap-1"
+              id="btn-flashcard-prev">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m15 18-6-6 6-6" />
+              </svg>
+              <span>Sebelumnya</span>
+            </button>
+            <button
+              class="btn btn-outline-success fw-bold px-3 py-2 flex-grow-1 flex-sm-grow-0 smartboard-btn d-inline-flex align-items-center gap-1"
+              id="btn-flashcard-tandai">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Tandai Dipelajari (+15 XP)</span>
+            </button>
+            <button
+              class="btn btn-cta-petualang fw-bold px-4 py-2 flex-grow-1 flex-sm-grow-0 smartboard-btn d-inline-flex align-items-center gap-1"
+              id="btn-flashcard-next">
+              <span>Berikutnya</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m9 18 6-6-6-6" />
+              </svg>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Tombol Kembali ke Beranda -->
+    <div class="text-center mt-5 pt-3 border-top border-2 border-dark">
+      <a href="index.html" class="btn btn-cta-petualang btn-lg px-4 smartboard-btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+        <span>Kembali ke Beranda Petualangan</span>
+      </a>
+    </div>
+  </main>
+
+  <!-- Kaki Halaman Sederhana -->
+  <footer class="text-center py-3 border-top border-2 border-dark" style="background-color: #F8F2E2;">
+    <div class="container small fw-bold" style="color: var(--kupas-forest-dark);">
+      KUPAS KUIS IPAS v4.0 &bull; Kurikulum Merdeka IPAS Kelas V SD &bull; Petualangan Ekosistem Nusantara
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="assets/js/latar-hidup.js"></script>
+
+  <script type="module">
+    import { kamusManager } from './assets/js/kamus.js';
+    import {
+      pasangHeader,
+      pasangPanelGamifikasi,
+      renderSkeletonMaskot,
+      renderEmptyStateRamah,
+      umumkanAria,
+      suara,
+      gamifikasi,
+      cetusKonfeti
+    } from './assets/js/ui.js';
+    import { animasi } from './assets/js/animasi.js';
+
+    pasangHeader('siswa', { berandaLink: 'index.html', rootAset: '' });
+    pasangPanelGamifikasi('wadah-gamifikasi-kamus');
+
+    let seluruhEntri = [];
+    let entriTerfilter = [];
+    let modeSekarang = 'daftar';
+    let indeksKartu = 0;
+
+    const wadahDaftar = document.getElementById('wadah-mode-daftar');
+    const wadahKartu = document.getElementById('wadah-mode-kartu');
+    const btnModeDaftar = document.getElementById('mode-daftar');
+    const btnModeKartu = document.getElementById('mode-kartu');
+    const inputCari = document.getElementById('input-cari-kamus');
+    const selectKategori = document.getElementById('select-kategori-kamus');
+    const maskotHeader = document.getElementById('maskot-kamus-header');
+
+    async function inisialisasi() {
+      wadahDaftar.innerHTML = renderSkeletonMaskot('', 'Si Kupas sedang membuka halaman Pohon Kamus Belajar...');
+      seluruhEntri = await kamusManager.ambilSemuaKamus({ hanyaTerbit: true });
+      entriTerfilter = [...seluruhEntri];
+      perbaruiProgresUI();
+      renderDaftar();
+      siapkanKartu();
+    }
+
+    function perbaruiProgresUI() {
+      const total = Math.max(1, seluruhEntri.length);
+      const selesai = kamusManager.ambilTotalDipelajari();
+      document.getElementById('badge-progres').textContent = `${selesai} / ${seluruhEntri.length} Istilah`;
+      animasi.isiBar(document.getElementById('bar-progres-kamus'), selesai / total);
+
+      if (selesai >= 3) {
+        gamifikasi.bukaLencana('kamus_5');
+      }
+    }
+
+    function filterData() {
+      const kat = selectKategori.value;
+      const cari = inputCari.value.trim().toLowerCase();
+
+      entriTerfilter = seluruhEntri.filter(item => {
+        const cocokKat = (kat === 'semua' || item.kategori.toLowerCase() === kat.toLowerCase());
+        const cocokCari = !cari ||
+          item.istilah.toLowerCase().includes(cari) ||
+          item.definisi.toLowerCase().includes(cari) ||
+          (item.contoh && item.contoh.toLowerCase().includes(cari));
+        return cocokKat && cocokCari;
+      });
+
+      if (modeSekarang === 'daftar') {
+        renderDaftar();
+      } else {
+        indeksKartu = 0;
+        tampilkanKartu(0);
+      }
+    }
+
+    inputCari.addEventListener('input', filterData);
+    selectKategori.addEventListener('change', filterData);
+
+    btnModeDaftar.addEventListener('click', () => {
+      modeSekarang = 'daftar';
+      btnModeDaftar.classList.add('active');
+      btnModeKartu.classList.remove('active');
+      wadahDaftar.classList.remove('d-none');
+      wadahKartu.classList.add('d-none');
+      suara.mainkan('klik');
+      renderDaftar();
+      umumkanAria('Beralih ke tampilan daftar istilah');
+    });
+
+    btnModeKartu.addEventListener('click', () => {
+      modeSekarang = 'kartu';
+      btnModeKartu.classList.add('active');
+      btnModeDaftar.classList.remove('active');
+      wadahKartu.classList.remove('d-none');
+      wadahDaftar.classList.add('d-none');
+      suara.mainkan('klik');
+      indeksKartu = 0;
+      tampilkanKartu(0);
+      umumkanAria('Beralih ke tampilan kartu bolak-balik');
+    });
+
+    function renderDaftar() {
+      wadahDaftar.innerHTML = '';
+
+      if (entriTerfilter.length === 0) {
+        wadahDaftar.innerHTML = renderEmptyStateRamah(
+          '',
+          'Istilah Belum Ditemukan',
+          'Jangan sedih! Coba cari dengan kata kunci lain atau pilih "Semua Kategori" ya.'
+        );
+        return;
+      }
+
+      entriTerfilter.forEach((item, idx) => {
+        const col = document.createElement('div');
+        const staggerIdx = (idx % 8) + 1;
+        col.className = `col-12 col-md-6 col-lg-4 anim-slide-up anim-stagger-${staggerIdx}`;
+
+        const dipelajari = kamusManager.apakahDipelajari(item.id);
+
+        const card = document.createElement('div');
+        card.className = `kupas-card kupas-card-interaktif h-100 d-flex flex-column justify-content-between p-3 ${dipelajari ? 'bg-success-subtle' : 'bg-white'}`;
+
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'd-flex justify-content-between align-items-start mb-2 gap-1';
+
+        const badgeKat = document.createElement('span');
+        badgeKat.className = 'badge bg-warning text-dark border border-dark rounded-pill px-3 fw-bold';
+        badgeKat.textContent = item.kategori;
+
+        const checkBtn = document.createElement('button');
+        checkBtn.type = 'button';
+        checkBtn.className = `btn btn-sm ${dipelajari ? 'btn-success text-white' : 'btn-outline-dark'} fw-bold px-2 py-1`;
+        checkBtn.setAttribute('aria-label', `Tandai ${item.istilah} sudah dipelajari`);
+        checkBtn.textContent = dipelajari ? '✓ Dipelajari' : '+ Tandai (+15 XP)';
+        checkBtn.onclick = () => {
+          const jadiDipelajari = kamusManager.toggleDipelajari(item.id);
+          if (jadiDipelajari) {
+            gamifikasi.tambahXP(15, `Mempelajari istilah ${item.istilah}`);
+            suara.mainkan('benar');
+            if (maskotHeader) {
+              maskotHeader.src = 'assets/svg/maskot-bersorak.svg';
+              animasi.lompat(maskotHeader);
+            }
+          } else {
+            suara.mainkan('klik');
+          }
+          perbaruiProgresUI();
+          renderDaftar();
+        };
+
+        headerDiv.appendChild(badgeKat);
+        headerDiv.appendChild(checkBtn);
+
+        const bodyDiv = document.createElement('div');
+        const h2 = document.createElement('h2');
+        h2.className = 'h5 fw-bolder mb-2';
+        h2.style.fontFamily = 'var(--font-heading)';
+        h2.style.color = 'var(--kupas-forest-dark)';
+        h2.textContent = item.istilah;
+
+        const pDef = document.createElement('p');
+        pDef.className = 'text-secondary small mb-2 fw-semibold';
+        pDef.style.lineHeight = '1.45';
+        pDef.textContent = item.definisi;
+
+        bodyDiv.appendChild(h2);
+        bodyDiv.appendChild(pDef);
+
+        if (item.contoh) {
+          const divContoh = document.createElement('div');
+          divContoh.className = 'p-2 bg-white rounded-3 border border-dark small text-dark fw-medium';
+          const strong = document.createElement('strong');
+          strong.textContent = 'Contoh Nyata: ';
+          const spanContoh = document.createElement('span');
+          spanContoh.textContent = item.contoh;
+          divContoh.appendChild(strong);
+          divContoh.appendChild(spanContoh);
+          bodyDiv.appendChild(divContoh);
+        }
+
+        card.appendChild(headerDiv);
+        card.appendChild(bodyDiv);
+        col.appendChild(card);
+        wadahDaftar.appendChild(col);
+      });
+    }
+
+    const cardInner = document.getElementById('kartu-belajar-inner');
+    const btnTandaiCard = document.getElementById('btn-flashcard-tandai');
+
+    function siapkanKartu() {
+      cardInner.addEventListener('click', () => {
+        cardInner.classList.toggle('flipped');
+        suara.mainkan('balik');
+        umumkanAria(cardInner.classList.contains('flipped') ? 'Sisi belakang terbuka' : 'Sisi depan terbuka');
+      });
+
+      cardInner.addEventListener('keydown', (e) => {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault();
+          cardInner.classList.toggle('flipped');
+          suara.mainkan('balik');
+        }
+      });
+
+      document.getElementById('btn-flashcard-prev').addEventListener('click', () => {
+        if (indeksKartu > 0) {
+          indeksKartu--;
+          cardInner.classList.remove('flipped');
+          tampilkanKartu(indeksKartu);
+          suara.mainkan('klik');
+        }
+      });
+
+      document.getElementById('btn-flashcard-next').addEventListener('click', () => {
+        if (indeksKartu < entriTerfilter.length - 1) {
+          indeksKartu++;
+          cardInner.classList.remove('flipped');
+          tampilkanKartu(indeksKartu);
+          suara.mainkan('klik');
+        }
+      });
+
+      btnTandaiCard.addEventListener('click', () => {
+        const item = entriTerfilter[indeksKartu];
+        if (!item) return;
+        const status = kamusManager.toggleDipelajari(item.id);
+        if (status) {
+          gamifikasi.tambahXP(15, `Mempelajari kartu ${item.istilah}`);
+          suara.mainkan('benar');
+          cetusKonfeti();
+        } else {
+          suara.mainkan('klik');
+        }
+        perbaruiProgresUI();
+        perbaruiStatusTombolTandai(item.id);
+        umumkanAria(status ? `${item.istilah} ditandai sudah dipelajari` : 'Batal tandai');
+      });
+    }
+
+    function perbaruiStatusTombolTandai(id) {
+      const dipelajari = kamusManager.apakahDipelajari(id);
+      if (dipelajari) {
+        btnTandaiCard.className = 'btn btn-success fw-bold px-3 py-2 flex-grow-1 flex-sm-grow-0 smartboard-btn text-white';
+        btnTandaiCard.textContent = '✓ Sudah Dipelajari';
+      } else {
+        btnTandaiCard.className = 'btn btn-outline-success fw-bold px-3 py-2 flex-grow-1 flex-sm-grow-0 smartboard-btn';
+        btnTandaiCard.textContent = '+ Tandai Dipelajari (+15 XP)';
+      }
+    }
+
+    function tampilkanKartu(idx) {
+      if (entriTerfilter.length === 0) return;
+      const item = entriTerfilter[idx];
+      document.getElementById('flashcard-indikator').textContent = `Kartu ${idx + 1} dari ${entriTerfilter.length}`;
+      document.getElementById('flashcard-kategori-depan').textContent = item.kategori;
+      document.getElementById('flashcard-kategori-belakang').textContent = item.kategori;
+      document.getElementById('flashcard-istilah').textContent = item.istilah;
+      document.getElementById('flashcard-istilah-belakang').textContent = item.istilah;
+      document.getElementById('flashcard-definisi').textContent = item.definisi;
+      document.getElementById('flashcard-contoh').textContent = item.contoh || '-';
+
+      perbaruiStatusTombolTandai(item.id);
+
+      document.getElementById('btn-flashcard-prev').disabled = (idx === 0);
+      document.getElementById('btn-flashcard-next').disabled = (idx === entriTerfilter.length - 1);
+
+      animasi.pop(cardInner);
+      umumkanAria(`Kartu ${idx + 1}: ${item.istilah}`);
+    }
+
+    inisialisasi();
+  </script>
+</body>
+
+</html>

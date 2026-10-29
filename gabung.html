@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Gabung Sesi Kuis - KUPAS KUIS IPAS Kelas V SD</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/tema.css">
+  <link rel="stylesheet" href="assets/css/animasi.css">
+  <link rel="stylesheet" href="assets/css/komponen.css">
+  <link rel="stylesheet" href="assets/css/latar-hidup.css">
+</head>
+<body class="motion-full d-flex flex-column min-vh-100 justify-content-between" data-latar-tema="petualang">
+  <!-- Navigasi Utama Aplikasi -->
+  <header id="wadah-navbar"></header>
+
+  <!-- Konten Utama: Formulir Masuk Sesi Siswa -->
+  <main class="container py-4 my-auto flex-grow-1">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-10 col-md-8 col-lg-6">
+        <div id="kartu-gabung" class="kupas-card anim-slide-up text-center p-4 p-md-5 bg-white">
+
+          <!-- Maskot Ekspresif Bereaksi -->
+          <div class="mb-3">
+            <img src="assets/svg/maskot-semangat.svg" alt="Maskot Si Kupas Semangat" width="105" height="105" class="anim-melambai" id="maskot-gabung">
+          </div>
+
+          <span class="badge rounded-pill fw-bold px-3 py-1 mb-2 d-inline-flex align-items-center gap-1" style="background-color: #FEF08A; color: var(--kupas-forest-dark); border: 2px solid var(--kupas-forest-dark);">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span>Gerbang Petualangan Siswa</span>
+          </span>
+
+          <h1 class="h3 fw-bolder mb-1" style="font-family: var(--font-heading); color: var(--kupas-forest-dark);">
+            Ayo Gabung Petualangan Kuis!
+          </h1>
+          <p class="text-secondary small fw-semibold mb-3" id="subteks-maskot-gabung">
+            Masukkan kode sesi dari papan kelas dan pilih avatarmu.
+          </p>
+
+          <!-- Pesan Bantuan / Notifikasi Ramah Tanpa Menghakimi -->
+          <div id="alert-gabung" class="alert alert-warning d-none border-2 border-dark fw-bold text-start" role="alert"></div>
+
+          <form id="form-gabung" novalidate>
+            <!-- Kode Sesi 6 Karakter -->
+            <div class="mb-3 text-start anim-slide-up anim-stagger-1">
+              <label for="input-kode" class="form-label fw-bold d-flex align-items-center gap-1" style="color: var(--kupas-forest-dark);">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 2-2 2m-1.5 1.5L14 9l-1.5-1.5L11 9l-1.5-1.5L8 9l-1.5-1.5L2 12l2 2 1.5-1.5L7 14l1.5-1.5L10 14l1.5-1.5L13 14l5-5-2-2 5-5Z"/></svg>
+                <span>Kode Sesi (6 Huruf / Angka)</span>
+              </label>
+              <input type="text" class="form-control form-control-lg text-center fw-bolder text-uppercase border-2 border-dark fs-2"
+                     id="input-kode" placeholder="ABC123" maxlength="6" autocomplete="off" required style="letter-spacing: 5px; font-family: var(--font-heading);">
+            </div>
+
+            <!-- Nama Panggilan -->
+            <div class="mb-3 text-start anim-slide-up anim-stagger-2">
+              <label for="input-nama" class="form-label fw-bold d-flex align-items-center gap-1" style="color: var(--kupas-forest-dark);">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Nama Panggilanmu</span>
+              </label>
+              <input type="text" class="form-control form-control-lg border-2 border-dark fw-bold"
+                     id="input-nama" placeholder="Contoh: Budi, Siti, Edo" maxlength="20" autocomplete="nickname" required>
+              <small class="text-secondary fw-semibold">Maksimal 20 karakter (hanya nama panggilan untuk privasi).</small>
+            </div>
+
+            <!-- Pemilihan Avatar Hewan (Dengan Ikon & Teks Status) -->
+            <div class="mb-4 text-start anim-slide-up anim-stagger-3">
+              <label class="form-label fw-bold mb-2 d-flex align-items-center gap-1" style="color: var(--kupas-forest-dark);">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+                <span>Pilih Avatar Petualang</span>
+              </label>
+              <div class="avatar-grid" role="radiogroup" aria-label="Pilihan Avatar">
+
+                <div class="avatar-item terpilih anim-pop anim-stagger-1" data-avatar="avatar-1.svg" tabindex="0" role="radio" aria-checked="true" aria-label="Avatar Kancil">
+                  <img src="assets/svg/avatar-1.svg" alt="Avatar Kancil Cerdik" width="54" height="54">
+                  <span class="small fw-bold mt-1">Kancil</span>
+                  <span class="badge bg-success text-white rounded-pill mt-1 small status-avatar-teks">✓ Dipilih</span>
+                </div>
+
+                <div class="avatar-item anim-pop anim-stagger-2" data-avatar="avatar-2.svg" tabindex="0" role="radio" aria-checked="false" aria-label="Avatar Harimau">
+                  <img src="assets/svg/avatar-2.svg" alt="Avatar Harimau Pemberani" width="54" height="54">
+                  <span class="small fw-bold mt-1">Harimau</span>
+                  <span class="badge bg-light text-secondary border border-dark rounded-pill mt-1 small status-avatar-teks">Pilih</span>
+                </div>
+
+                <div class="avatar-item anim-pop anim-stagger-3" data-avatar="avatar-3.svg" tabindex="0" role="radio" aria-checked="false" aria-label="Avatar Gajah">
+                  <img src="assets/svg/avatar-3.svg" alt="Avatar Gajah Tangguh" width="54" height="54">
+                  <span class="small fw-bold mt-1">Gajah</span>
+                  <span class="badge bg-light text-secondary border border-dark rounded-pill mt-1 small status-avatar-teks">Pilih</span>
+                </div>
+
+                <div class="avatar-item anim-pop anim-stagger-4" data-avatar="avatar-4.svg" tabindex="0" role="radio" aria-checked="false" aria-label="Avatar Elang">
+                  <img src="assets/svg/avatar-4.svg" alt="Avatar Elang Tajam" width="54" height="54">
+                  <span class="small fw-bold mt-1">Elang</span>
+                  <span class="badge bg-light text-secondary border border-dark rounded-pill mt-1 small status-avatar-teks">Pilih</span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Tombol Gabung CTA Utama -->
+            <button type="submit" class="btn btn-cta-petualang w-100 py-3 fs-4 smartboard-btn" id="btn-gabung-submit">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              <span>Masuk ke Sesi Petualangan!</span>
+            </button>
+          </form>
+
+          <div class="mt-4 pt-2">
+            <a href="index.html" class="text-decoration-none fw-bold text-secondary d-inline-flex align-items-center gap-1">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+              <span>Kembali ke Beranda</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Kaki Halaman Sederhana -->
+  <footer class="text-center py-3 border-top border-2 border-dark" style="background-color: #F8F2E2;">
+    <div class="container small fw-bold" style="color: var(--kupas-forest-dark);">
+      KUPAS KUIS IPAS v4.0 &bull; Kurikulum Merdeka IPAS Kelas V SD &bull; Petualangan Ekosistem Nusantara
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="assets/js/latar-hidup.js"></script>
+
+  <script type="module">
+    import { auth } from './assets/js/auth.js';
+    import { pasangHeader, umumkanAria, suara, gamifikasi } from './assets/js/ui.js';
+    import { animasi } from './assets/js/animasi.js';
+
+    pasangHeader('siswa', { berandaLink: 'index.html', rootAset: '' });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const kodeUrl = urlParams.get('kode');
+    if (kodeUrl) {
+      document.getElementById('input-kode').value = kodeUrl.toUpperCase();
+    }
+
+    let avatarTerpilih = 'avatar-1.svg';
+    const alertEl = document.getElementById('alert-gabung');
+    const inputKode = document.getElementById('input-kode');
+    const inputNama = document.getElementById('input-nama');
+    const maskotEl = document.getElementById('maskot-gabung');
+    const subteksEl = document.getElementById('subteks-maskot-gabung');
+    const kartuGabung = document.getElementById('kartu-gabung');
+
+    inputKode.addEventListener('focus', () => {
+      maskotEl.src = 'assets/svg/maskot-berpikir.svg';
+      subteksEl.textContent = 'Ketik 6 huruf/angka kode sesi dari layar gurumu ya!';
+    });
+
+    inputNama.addEventListener('focus', () => {
+      maskotEl.src = 'assets/svg/maskot-senang.svg';
+      subteksEl.textContent = 'Siapa nama panggilan kerenmu hari ini?';
+    });
+
+    const avatarItems = document.querySelectorAll('.avatar-item');
+    avatarItems.forEach(item => {
+      const pilihAvatar = () => {
+        avatarItems.forEach(a => {
+          a.classList.remove('terpilih');
+          a.setAttribute('aria-checked', 'false');
+          const badge = a.querySelector('.status-avatar-teks');
+          if (badge) {
+            badge.className = 'badge bg-light text-secondary border border-dark rounded-pill mt-1 small status-avatar-teks';
+            badge.textContent = 'Pilih';
+          }
+        });
+        item.classList.add('terpilih');
+        item.setAttribute('aria-checked', 'true');
+        const badgeAktif = item.querySelector('.status-avatar-teks');
+        if (badgeAktif) {
+          badgeAktif.className = 'badge bg-success text-white rounded-pill mt-1 small status-avatar-teks';
+          badgeAktif.textContent = '✓ Dipilih';
+        }
+
+        avatarTerpilih = item.getAttribute('data-avatar');
+        maskotEl.src = 'assets/svg/maskot-semangat.svg';
+        suara.mainkan('klik');
+        animasi.pop(item);
+        umumkanAria('Avatar terpilih: ' + item.querySelector('span').textContent);
+      };
+
+      item.addEventListener('click', pilihAvatar);
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          pilihAvatar();
+        }
+      });
+    });
+
+    function tampilkanErrorRamah(pesan, elemenFokus = inputKode) {
+      alertEl.innerHTML = `<span>${pesan}</span>`;
+      alertEl.classList.remove('d-none');
+      maskotEl.src = 'assets/svg/maskot-sedih-menyemangati.svg';
+      subteksEl.textContent = 'Tenang, coba periksa kembali isianmu ya!';
+      animasi.goyang(kartuGabung);
+      umumkanAria('Info: ' + pesan);
+      if (elemenFokus) elemenFokus.focus();
+    }
+
+    document.getElementById('form-gabung').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertEl.classList.add('d-none');
+
+      const kode = inputKode.value.trim().toUpperCase();
+      const nama = inputNama.value.trim();
+
+      if (!kode || kode.length < 6) {
+        tampilkanErrorRamah('Yuk lengkapi 6 karakter kode sesi dari papan kelasmu dulu!', inputKode);
+        return;
+      }
+
+      if (!nama) {
+        tampilkanErrorRamah('Yuk tuliskan nama panggilanmu agar teman sekelas mengenalimu!', inputNama);
+        return;
+      }
+
+      const btn = document.getElementById('btn-gabung-submit');
+      btn.disabled = true;
+      btn.textContent = 'Menghubungkan...';
+
+      try {
+        const { sesi, peserta, pulih } = await auth.gabungSesiSiswa(kode, nama, avatarTerpilih);
+
+        sessionStorage.setItem('kupas_peserta', JSON.stringify(peserta));
+        sessionStorage.setItem('kupas_sesi', JSON.stringify(sesi));
+
+        gamifikasi.tambahXP(10, 'Bergabung ke sesi kelas');
+        maskotEl.src = 'assets/svg/maskot-bersorak.svg';
+        animasi.lompat(maskotEl);
+        suara.mainkan('benar');
+        umumkanAria(pulih ? 'Selamat datang kembali, ' + nama : 'Berhasil bergabung ke sesi!');
+
+        setTimeout(() => {
+          window.location.href = `siswa/main.html?kode=${kode}`;
+        }, 350);
+
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Masuk ke Sesi Petualangan!';
+        tampilkanErrorRamah(err.message || 'Kode sesi belum ditemukan. Pastikan kodenya sama dengan di layar guru ya!');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%" role="img" aria-label="Maskot Si Kupas Bingung">
+  <circle cx="80" cy="85" r="55" fill="#22C55E" stroke="#15803D" stroke-width="6" />
+  <ellipse cx="80" cy="100" rx="35" ry="30" fill="#FEF08A" />
+  <!-- Mata Spiral / Bingung -->
+  <circle cx="62" cy="75" r="14" fill="#FFFFFF" stroke="#0F172A" stroke-width="3.5" />
+  <path d="M62,75 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" fill="none" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />
+  <circle cx="98" cy="75" r="14" fill="#FFFFFF" stroke="#0F172A" stroke-width="3.5" />
+  <path d="M98,75 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" fill="none" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />
+  <!-- Mulut Melengkung Ragu -->
+  <path d="M72,100 Q80,94 88,102" fill="none" stroke="#0F172A" stroke-width="3.5" stroke-linecap="round" />
+  <!-- Paruh -->
+  <polygon points="80,82 74,90 86,90" fill="#F97316" stroke="#C2410C" stroke-width="3" stroke-linejoin="round" />
+  <!-- Tanda Tanya Mengambang -->
+  <text x="120" y="55" font-family="sans-serif" font-weight="900" font-size="32" fill="#EAB308" stroke="#A16207" stroke-width="1.5">?</text>
+  <!-- Daun di Kepala Miring -->
+  <path d="M80,30 C60,24 66,45 76,44 C86,43 96,20 80,30 Z" fill="#4ADE80" stroke="#15803D" stroke-width="4" />
+</svg>

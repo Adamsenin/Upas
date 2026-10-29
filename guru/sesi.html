@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Kendali Sesi Kelas - KUPAS KUIS IPAS</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/tema.css">
+  <link rel="stylesheet" href="../assets/css/animasi.css">
+  <link rel="stylesheet" href="../assets/css/komponen.css">
+  <link rel="stylesheet" href="../assets/css/latar-hidup.css">
+</head>
+<body class="motion-full" data-latar-tema="arena-tenang">
+  <header id="wadah-navbar"></header>
+
+  <main class="container py-3">
+    <!-- Overlay Hitung Mundur 3-2-1 -->
+    <div id="overlay-countdown" class="d-none position-fixed top-0 start-0 w-100 h-100 d-flex flex-column align-items-center justify-content-center bg-dark bg-opacity-75 text-white" style="z-index: 9999;">
+      <div id="countdown-angka" class="display-1 fw-bolder text-warning anim-pop">3</div>
+      <p class="fs-4 fw-bold mt-2">Bersiap-siap...</p>
+    </div>
+
+    <!-- TAMPILAN 1: LOBI GURU -->
+    <section id="tampilan-lobi" class="kupas-card text-center py-4 anim-slide-up">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="badge bg-primary fs-6 border border-dark rounded-pill px-3 py-2" id="badge-mode-sesi">
+          Mode Custom Guru
+        </span>
+        <span class="badge bg-warning text-dark fs-6 border border-dark rounded-pill px-3 py-2">
+          Peserta: <strong id="jumlah-peserta-lobi">0</strong>
+        </span>
+      </div>
+
+      <p class="text-secondary fw-bold text-uppercase mb-1">Ajak Siswa Bergabung di Layar Kelas:</p>
+      
+      <!-- Kode Sesi Berukuran Besar (Smartboard Friendly & Responsif HP) -->
+      <div class="py-2 mb-3">
+        <div class="kode-sesi-display fw-bolder text-dark p-3 bg-light rounded-4 border-3 border-dark d-inline-block anim-denyut shadow-sm" id="tampilan-kode-sesi">
+          ------
+        </div>
+      </div>
+      <p class="lead fw-bold text-dark mb-4">
+        Buka <mark class="px-2 py-1 bg-warning rounded border border-dark">gabung.html</mark> di perangkat siswa
+      </p>
+
+      <!-- Gelembung Daftar Siswa yang Sudah Masuk -->
+      <div class="text-start mb-4">
+        <h2 class="h5 fw-bolder mb-3 text-secondary text-center">Siswa yang Sudah Siap di Lobi:</h2>
+        <div id="wadah-peserta-lobi" class="d-flex flex-wrap gap-2 justify-content-center min-vh-25 p-3 bg-light rounded-4 border-2 border-dark">
+          <p class="text-secondary my-auto" id="pesan-tunggu-peserta">Menunggu siswa memasukkan kode...</p>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center gap-3">
+        <button id="btn-mulai-kuis" class="btn btn-kupas-hijau btn-lg px-5 py-3 fs-3 smartboard-btn anim-denyut" disabled>
+          ▶ Mulai Kuis Sekarang
+        </button>
+      </div>
+    </section>
+
+    <!-- TAMPILAN 2: LAYAR SOAL GURU -->
+    <section id="tampilan-soal" class="kupas-card d-none anim-slide-up">
+      <!-- Header Soal & Timer -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <span class="badge bg-dark fs-5 rounded-pill px-3 py-2 text-white border border-dark" id="label-nomor-soal">
+            Soal 1 dari 10
+          </span>
+          <span class="badge bg-info text-dark fs-6 rounded-pill px-3 py-2 ms-2 border border-dark" id="label-tipe-soal">
+            Pilihan Ganda
+          </span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="fs-4 fw-bolder" id="teks-timer">30</span>
+          <span class="text-secondary">detik</span>
+        </div>
+      </div>
+
+      <!-- Bilah Penghitung Waktu (Hanya transform: scaleX) -->
+      <div class="timer-container mb-4" role="progressbar" aria-label="Waktu tersisa">
+        <div id="timer-bar" class="timer-bar"></div>
+      </div>
+
+      <!-- Teks Pertanyaan (Diperbesar untuk Smartboard) -->
+      <div class="p-3 p-md-4 bg-light rounded-4 border-3 border-dark mb-4 text-center">
+        <h2 class="fw-bolder smartboard-teks-soal mb-0" id="teks-pertanyaan">
+          Pertanyaan sedang dimuat...
+        </h2>
+      </div>
+
+      <!-- Opsi Jawaban Grid -->
+      <div class="opsi-grid opsi-grid-2col mb-4" id="wadah-opsi-guru">
+        <!-- Opsi dirender secara dinamis -->
+      </div>
+
+      <!-- Panel Kontrol Guru & Status Jawaban Masuk -->
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 pt-3 border-top border-2 border-dark">
+        <div class="fs-5 fw-bold text-dark">
+          Sudah menjawab: <span class="badge bg-success fs-5 text-white border border-dark" id="hitung-menjawab">0</span> / <span id="total-peserta-aktif">0</span>
+        </div>
+        <div class="d-flex gap-2">
+          <button id="btn-tambah-waktu" class="btn btn-outline-dark fw-bold smartboard-btn">
+            +10 Detik
+          </button>
+          <button id="btn-buka-pembahasan" class="btn btn-kupas-kuning fw-bold px-4 smartboard-btn">
+            Buka Pembahasan & Jawaban ➔
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAMPILAN 3: LAYAR PEMBAHASAN & PETA ADVENTURE -->
+    <section id="tampilan-pembahasan" class="kupas-card d-none anim-slide-up">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <span class="badge bg-success fs-5 text-white border border-dark rounded-pill px-3 py-2">
+          Pembahasan Materi IPAS
+        </span>
+        <button id="btn-lanjut-skor" class="btn btn-kupas-hijau fw-bold px-4 smartboard-btn">
+          Lanjut ke Papan Skor ➔
+        </button>
+      </div>
+
+      <!-- Kotak Penjelasan -->
+      <div class="feedback-box feedback-benar mb-4 anim-pop">
+        <h3 class="h4 fw-bolder text-success mb-2" id="judul-jawaban-benar">Kunci Jawaban: -</h3>
+        <p class="fs-5 fw-semibold mb-0" id="teks-penjelasan-guru">
+          Penjelasan materi IPAS sedang dimuat...
+        </p>
+        <!-- Tombol Pelajari Istilah Kamus (Fitur 6) -->
+        <div id="wadah-tombol-kamus-guru" class="mt-3 d-none">
+          <button type="button" id="btn-pelajari-kamus-guru" class="btn btn-kupas-biru fw-bold">
+            📖 Pelajari: -
+          </button>
+          <div id="detail-kamus-guru" class="p-3 mt-2 bg-white rounded-3 border-2 border-dark d-none text-start">
+            <span class="badge bg-warning text-dark border border-dark rounded-pill mb-1" id="kamus-guru-kategori"></span>
+            <h4 class="h5 fw-bolder mb-1 text-dark" id="kamus-guru-istilah"></h4>
+            <p class="mb-1 text-dark" id="kamus-guru-definisi"></p>
+            <small class="text-secondary fst-italic d-block" id="kamus-guru-contoh"></small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Peta Adventure Kelas (Ditampilkan bila mode Adventure) -->
+      <div id="wadah-peta-adventure" class="mb-4 d-none">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h4 class="h5 fw-bolder mb-0">Peta Rute Petualangan Kelas</h4>
+          <span class="badge bg-warning text-dark border border-dark" id="label-langkah-peta">Langkah 1 dari 4</span>
+        </div>
+        <div class="peta-container position-relative">
+          <img src="../assets/svg/peta-petualangan.svg" alt="Peta Ekosistem" class="peta-svg">
+          <!-- Maskot Si Kupas yang Berjalan di Peta -->
+          <img src="../assets/svg/maskot-senang.svg" alt="Maskot di Peta" id="peta-maskot-el" class="peta-maskot" 
+               style="bottom: 24%; left: 8%;">
+        </div>
+      </div>
+    </section>
+
+    <!-- TAMPILAN 4: PAPAN SKOR KELAS -->
+    <section id="tampilan-skor" class="kupas-card d-none anim-slide-up text-center">
+      <h2 class="h3 fw-bolder mb-1">Papan Skor Kelas V</h2>
+      <p class="text-secondary mb-3">Hebat! Mari kita lihat peringkat perolehan poin sementara:</p>
+
+      <!-- Podium Top 3 -->
+      <div class="podium-container" id="wadah-podium">
+        <!-- Juara 2 -->
+        <div class="podium-item podium-2 anim-slide-up anim-stagger-2">
+          <div class="small fw-bold text-truncate mb-1" id="podium-nama-2">-</div>
+          <div class="podium-block">🥈 2</div>
+          <div class="fw-bolder mt-1 fs-6" id="podium-skor-2">0</div>
+        </div>
+        <!-- Juara 1 -->
+        <div class="podium-item podium-1 anim-slide-up anim-stagger-1">
+          <div class="fs-4 mb-0 anim-bounce" aria-hidden="true">👑</div>
+          <div class="small fw-bold text-truncate mb-1" id="podium-nama-1">-</div>
+          <div class="podium-block">🥇 1</div>
+          <div class="fw-bolder mt-1 fs-5 text-warning" id="podium-skor-1">0</div>
+        </div>
+        <!-- Juara 3 -->
+        <div class="podium-item podium-3 anim-slide-up anim-stagger-3">
+          <div class="small fw-bold text-truncate mb-1" id="podium-nama-3">-</div>
+          <div class="podium-block">🥉 3</div>
+          <div class="fw-bolder mt-1 fs-6" id="podium-skor-3">0</div>
+        </div>
+      </div>
+
+      <!-- Tabel Peringkat Lengkap -->
+      <div class="table-responsive text-start mb-4" style="max-height: 280px; overflow-y: auto;">
+        <table class="table table-hover border border-2 border-dark align-middle table-mobile-cards">
+          <thead class="table-light border-bottom border-2 border-dark">
+            <tr>
+              <th scope="col" style="width: 70px;">Pos</th>
+              <th scope="col">Nama Siswa</th>
+              <th scope="col" class="text-end">Total Skor</th>
+            </tr>
+          </thead>
+          <tbody id="tabel-skor-body">
+            <!-- Diisi peringkat siswa -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <button id="btn-lanjut-soal-berikutnya" class="btn btn-kupas-hijau btn-lg px-4 px-md-5 smartboard-btn">
+          Soal Berikutnya ➔
+        </button>
+        <button id="btn-langsung-hasil-akhir" class="btn btn-outline-dark btn-lg px-4 smartboard-btn">
+          Selesaikan Kuis 🏁
+        </button>
+      </div>
+    </section>
+
+    <!-- TAMPILAN 5: HASIL AKHIR & EKSPOR -->
+    <section id="tampilan-hasil-akhir" class="kupas-card d-none anim-slide-up text-center py-4">
+      <div class="mb-3">
+        <img src="../assets/svg/maskot-bersorak.svg" alt="Maskot Bersorak" width="120" height="120" class="anim-sorak mb-2" id="maskot-hasil-akhir">
+        <h2 class="display-6 fw-bolder mb-1">Petualangan Selesai! 🎉</h2>
+        <p class="lead fw-bold text-secondary">Seluruh kelas telah menyelesaikan kuis IPAS dengan sangat baik.</p>
+      </div>
+
+      <!-- Lencana Capaian Kelas -->
+      <div class="p-3 bg-light rounded-4 border-3 border-dark d-inline-flex align-items-center gap-3 mb-4 anim-pop">
+        <span class="fs-1" aria-hidden="true">🎖️</span>
+        <div class="text-start">
+          <h3 class="h5 fw-bolder mb-0 text-success">Lencana: Penjelajah Ekosistem Unggul</h3>
+          <span class="text-secondary small">Dianugerahkan kepada Kelas V SD atas kerja sama hebat!</span>
+        </div>
+      </div>
+
+      <div class="d-flex flex-wrap justify-content-center gap-3">
+        <button id="btn-unduh-csv" class="btn btn-kupas-kuning btn-lg px-4 smartboard-btn fw-bold">
+          📥 Unduh Rekap Hasil (CSV)
+        </button>
+        <a href="dasbor.html" class="btn btn-kupas-hijau btn-lg px-4 smartboard-btn fw-bold">
+          🏠 Kembali ke Dasbor
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="../assets/js/latar-hidup.js"></script>
+
+  <script type="module">
+    import { sesiManager } from '../assets/js/sesi.js';
+    import { kuisManager } from '../assets/js/kuis.js';
+    import { kamusManager } from '../assets/js/kamus.js';
+    import { pasangHeader, umumkanAria, cetusKonfeti, suara } from '../assets/js/ui.js';
+    import { animasi } from '../assets/js/animasi.js';
+
+    pasangHeader('guru', { berandaLink: '../index.html', rootAset: '../' });
+
+    const params = new URLSearchParams(window.location.search);
+    const kodeSesi = (params.get('kode') || '').toUpperCase();
+
+    if (!kodeSesi) {
+      alert('Kode sesi tidak ditemukan!');
+      window.location.href = 'dasbor.html';
+    }
+
+    let sesi = null;
+    let daftarSoal = [];
+    let soalAktifIndex = 0;
+    let daftarPeserta = [];
+    let jawabanMasukSet = new Set();
+    let channelRealtime = null;
+    let timerInterval = null;
+    let sisaWaktu = 30;
+    let durasiMaks = 30;
+
+    // Elemen Tampilan
+    const viewLobi = document.getElementById('tampilan-lobi');
+    const viewSoal = document.getElementById('tampilan-soal');
+    const viewPembahasan = document.getElementById('tampilan-pembahasan');
+    const viewSkor = document.getElementById('tampilan-skor');
+    const viewHasilAkhir = document.getElementById('tampilan-hasil-akhir');
+
+    function gantiTampilan(targetView) {
+      [viewLobi, viewSoal, viewPembahasan, viewSkor, viewHasilAkhir].forEach(v => v.classList.add('d-none'));
+      targetView.classList.remove('d-none');
+      animasi.pop(targetView);
+    }
+
+    async function inisialisasiSesi() {
+      sesi = await sesiManager.ambilSesiByKode(kodeSesi);
+      if (!sesi) {
+        alert('Sesi kuis tidak valid.');
+        window.location.href = 'dasbor.html';
+        return;
+      }
+
+      document.getElementById('tampilan-kode-sesi').textContent = sesi.kode;
+      document.getElementById('badge-mode-sesi').textContent = 
+        sesi.mode === 'adventure' ? 'Mode Adventure Kelas 🗺️' : 'Mode Custom Guru 🎯';
+
+      // Ambil soal kuis (dukung opsi Acak Soal dari pengaturan kuis)
+      const resKuis = await kuisManager.ambilKuisDetail(sesi.kuis_id);
+      daftarSoal = [...(resKuis.soal || [])];
+      if (resKuis.kuis && resKuis.kuis.acak_soal) {
+        for (let i = daftarSoal.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [daftarSoal[i], daftarSoal[j]] = [daftarSoal[j], daftarSoal[i]];
+        }
+      }
+
+      // Langganan Realtime
+      channelRealtime = sesiManager.langgananSesi(sesi.kode, {
+        onPesertaUpdate: async () => {
+          await segarkanDaftarPeserta();
+        },
+        onAksiBroadcast: async (payload) => {
+          if (payload && payload.aksi === 'siswa_gabung') {
+            await segarkanDaftarPeserta();
+          }
+        },
+        onJawabanMasuk: (payload) => {
+          if (payload.new && payload.new.sesi_id === sesi.id) {
+            jawabanMasukSet.add(payload.new.peserta_id);
+            document.getElementById('hitung-menjawab').textContent = jawabanMasukSet.size;
+          }
+        }
+      });
+
+      await segarkanDaftarPeserta();
+    }
+
+    async function segarkanDaftarPeserta() {
+      daftarPeserta = await sesiManager.ambilDaftarPeserta(sesi.id);
+      document.getElementById('jumlah-peserta-lobi').textContent = daftarPeserta.length;
+      document.getElementById('total-peserta-aktif').textContent = daftarPeserta.length;
+
+      const wadahLobi = document.getElementById('wadah-peserta-lobi');
+      if (daftarPeserta.length > 0) {
+        wadahLobi.innerHTML = '';
+        daftarPeserta.forEach(p => {
+          const bubble = document.createElement('div');
+          bubble.className = 'peserta-gelembung anim-gelembung';
+          bubble.innerHTML = `
+            <img src="../assets/svg/${p.avatar || 'avatar-1.svg'}" alt="${p.nama_panggilan}" width="28" height="28">
+            <span>${p.nama_panggilan}</span>
+          `;
+          wadahLobi.appendChild(bubble);
+        });
+        document.getElementById('btn-mulai-kuis').disabled = false;
+      } else {
+        wadahLobi.innerHTML = '<p class="text-secondary my-auto">Menunggu siswa memasukkan kode...</p>';
+        document.getElementById('btn-mulai-kuis').disabled = true;
+      }
+    }
+
+    // Tombol Mulai Kuis (Countdown 3-2-1)
+    document.getElementById('btn-mulai-kuis').addEventListener('click', () => {
+      const overlay = document.getElementById('overlay-countdown');
+      const angkaEl = document.getElementById('countdown-angka');
+      overlay.classList.remove('d-none');
+      
+      let count = 3;
+      angkaEl.textContent = count;
+      suara.mainkan('benar');
+
+      const cd = setInterval(async () => {
+        count--;
+        if (count > 0) {
+          angkaEl.textContent = count;
+          animasi.pop(angkaEl);
+          suara.mainkan('benar');
+        } else {
+          clearInterval(cd);
+          overlay.classList.add('d-none');
+          await mulaiSoal(0);
+        }
+      }, 1000);
+    });
+
+    // Mulai Menampilkan Soal
+    async function mulaiSoal(idx) {
+      soalAktifIndex = idx;
+      const soal = daftarSoal[idx];
+      jawabanMasukSet.clear();
+      document.getElementById('hitung-menjawab').textContent = '0';
+
+      // Update status sesi
+      await sesiManager.perbaruiStatusSesi(sesi.id, 'berjalan', idx + 1);
+
+      // Siarkan aksi ke siswa
+      await sesiManager.kirimAksi(channelRealtime, 'tampil_soal', {
+        soalIndex: idx,
+        totalSoal: daftarSoal.length,
+        soal: {
+          id: soal.id,
+          urutan: soal.urutan,
+          tipe: soal.tipe,
+          teks: soal.teks,
+          opsi: soal.opsi,
+          waktu_detik: Math.round(soal.waktu_detik * (sesi.pengali_waktu || 1))
+        }
+      });
+
+      // Render Layar Soal Guru
+      document.getElementById('label-nomor-soal').textContent = `Soal ${idx + 1} dari ${daftarSoal.length}`;
+      document.getElementById('label-tipe-soal').textContent = soal.tipe.replace('_', ' ');
+      document.getElementById('teks-pertanyaan').textContent = soal.teks;
+
+      const wadahOpsi = document.getElementById('wadah-opsi-guru');
+      wadahOpsi.innerHTML = '';
+
+      if (soal.tipe === 'pilihan_ganda' || soal.tipe === 'benar_salah') {
+        const list = soal.opsi && soal.opsi.length ? soal.opsi : ['Opsi 1', 'Opsi 2'];
+        list.forEach((op, i) => {
+          const el = document.createElement('div');
+          el.className = 'opsi-jawaban smartboard-teks-opsi';
+          el.innerHTML = `<span class="opsi-nomor">${i + 1}</span> <span>${op}</span>`;
+          wadahOpsi.appendChild(el);
+        });
+      } else {
+        wadahOpsi.innerHTML = '<div class="alert alert-secondary w-100 fs-5">Siswa menjawab dengan mengetik kata kunci.</div>';
+      }
+
+      gantiTampilan(viewSoal);
+      jalankanTimer(Math.round(soal.waktu_detik * (sesi.pengali_waktu || 1)));
+      umumkanAria(`Soal ${idx + 1}: ${soal.teks}`);
+    }
+
+    function jalankanTimer(detik) {
+      clearInterval(timerInterval);
+      durasiMaks = detik;
+      sisaWaktu = detik;
+
+      const teksTimer = document.getElementById('teks-timer');
+      const timerBar = document.getElementById('timer-bar');
+      teksTimer.textContent = sisaWaktu;
+      timerBar.style.transform = 'scaleX(1)';
+
+      timerInterval = setInterval(() => {
+        sisaWaktu--;
+        teksTimer.textContent = sisaWaktu;
+        const fraksi = Math.max(0, sisaWaktu / durasiMaks);
+        timerBar.style.transform = `scaleX(${fraksi})`;
+
+        if (sisaWaktu <= 5) {
+          timerBar.style.backgroundColor = '#DC2626';
+        } else {
+          timerBar.style.backgroundColor = '#16A34A';
+        }
+
+        if (sisaWaktu <= 0) {
+          clearInterval(timerInterval);
+          bukaPembahasan();
+        }
+      }, 1000);
+    }
+
+    // Tambah Waktu
+    document.getElementById('btn-tambah-waktu').addEventListener('click', () => {
+      sisaWaktu += 10;
+      durasiMaks += 10;
+      document.getElementById('teks-timer').textContent = sisaWaktu;
+      umumkanAria('Waktu ditambah 10 detik');
+    });
+
+    // Buka Pembahasan
+    async function bukaPembahasan() {
+      clearInterval(timerInterval);
+      const soal = daftarSoal[soalAktifIndex];
+
+      // Ambil kunci jawaban
+      const kunciDB = JSON.parse(localStorage.getItem('kupas_db_soal_kunci_secure') || '{}');
+      const kunciRaw = kunciDB[soal.id] || '0';
+
+      let teksKunci = '';
+      if (soal.tipe === 'pilihan_ganda' || soal.tipe === 'benar_salah') {
+        const idxKunci = parseInt(kunciRaw, 10);
+        teksKunci = soal.opsi && soal.opsi[idxKunci] ? soal.opsi[idxKunci] : `Opsi ${idxKunci + 1}`;
+      } else {
+        teksKunci = kunciRaw;
+      }
+
+      document.getElementById('judul-jawaban-benar').textContent = `Kunci Jawaban Benar: ${teksKunci}`;
+      document.getElementById('teks-penjelasan-guru').textContent = soal.penjelasan || 'Pembahasan materi ekosistem.';
+
+      // Tautan Kamus Belajar pada Pembahasan (Fitur 6)
+      let entriKamus = null;
+      const wadahKamusGuru = document.getElementById('wadah-tombol-kamus-guru');
+      const detailKamusGuru = document.getElementById('detail-kamus-guru');
+      detailKamusGuru.classList.add('d-none');
+
+      if (soal.kamus_id) {
+        try {
+          entriKamus = await kamusManager.ambilKamusById(soal.kamus_id);
+        } catch (e) {}
+      }
+
+      if (entriKamus) {
+        wadahKamusGuru.classList.remove('d-none');
+        const btnKamus = document.getElementById('btn-pelajari-kamus-guru');
+        btnKamus.textContent = `📖 Pelajari: ${entriKamus.istilah}`;
+        document.getElementById('kamus-guru-kategori').textContent = entriKamus.kategori;
+        document.getElementById('kamus-guru-istilah').textContent = entriKamus.istilah;
+        document.getElementById('kamus-guru-definisi').textContent = entriKamus.definisi;
+        document.getElementById('kamus-guru-contoh').textContent = entriKamus.contoh ? `Contoh: ${entriKamus.contoh}` : '';
+
+        btnKamus.onclick = () => {
+          detailKamusGuru.classList.toggle('d-none');
+          animasi.pop(detailKamusGuru);
+        };
+      } else {
+        wadahKamusGuru.classList.add('d-none');
+      }
+
+      // Mode Adventure: gerakkan maskot secara responsif (hanya transform: translateX)
+      if (sesi.mode === 'adventure') {
+        const wadahAdv = document.getElementById('wadah-peta-adventure');
+        wadahAdv.classList.remove('d-none');
+        const step = Math.min(soalAktifIndex + 1, 4);
+        document.getElementById('label-langkah-peta').textContent = `Langkah ${step} dari 4`;
+        const maskotPeta = document.getElementById('peta-maskot-el');
+        const wadahPeta = wadahAdv.querySelector('.peta-container');
+        const lebarPeta = (wadahPeta && wadahPeta.clientWidth) ? wadahPeta.clientWidth : 500;
+        const geserPx = Math.round(lebarPeta * 0.72 * ((step - 1) / 3));
+        maskotPeta.style.transform = `translateX(${geserPx}px)`;
+      }
+
+      // Siarkan ke siswa
+      await sesiManager.kirimAksi(channelRealtime, 'buka_pembahasan', {
+        soalIndex: soalAktifIndex,
+        kunciJawaban: teksKunci,
+        penjelasan: soal.penjelasan,
+        kamusEntri: entriKamus
+      });
+
+      gantiTampilan(viewPembahasan);
+      umumkanAria(`Pembahasan dibuka: Kunci jawaban adalah ${teksKunci}`);
+    }
+
+    document.getElementById('btn-buka-pembahasan').addEventListener('click', bukaPembahasan);
+
+    // Lanjut ke Papan Skor
+    document.getElementById('btn-lanjut-skor').addEventListener('click', async () => {
+      await tampilkanPapanSkor();
+    });
+
+    async function tampilkanPapanSkor() {
+      const rekap = await sesiManager.ambilRekapHasil(sesi.id);
+      const pesertaUrut = rekap.peserta;
+
+      // Podium Top 3
+      if (pesertaUrut[0]) {
+        document.getElementById('podium-nama-1').textContent = pesertaUrut[0].nama_panggilan;
+        animasi.hitungAngka(document.getElementById('podium-skor-1'), pesertaUrut[0].skor || 0);
+      }
+      if (pesertaUrut[1]) {
+        document.getElementById('podium-nama-2').textContent = pesertaUrut[1].nama_panggilan;
+        animasi.hitungAngka(document.getElementById('podium-skor-2'), pesertaUrut[1].skor || 0);
+      }
+      if (pesertaUrut[2]) {
+        document.getElementById('podium-nama-3').textContent = pesertaUrut[2].nama_panggilan;
+        animasi.hitungAngka(document.getElementById('podium-skor-3'), pesertaUrut[2].skor || 0);
+      }
+
+      // Isi Tabel Lengkap
+      const tbody = document.getElementById('tabel-skor-body');
+      tbody.innerHTML = '';
+      pesertaUrut.forEach((p, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td data-label="Peringkat" class="fw-bold">#${i + 1}</td>
+          <td data-label="Nama Siswa" class="fw-bold">
+            <span class="d-inline-flex align-items-center gap-2">
+              <img src="../assets/svg/${p.avatar || 'avatar-1.svg'}" width="24" height="24" alt="">
+              <span>${p.nama_panggilan}</span>
+            </span>
+          </td>
+          <td data-label="Total Skor" class="text-md-end fw-bolder">${p.skor || 0} pt</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Tombol berikutnya / selesai
+      const btnBerikutnya = document.getElementById('btn-lanjut-soal-berikutnya');
+      if (soalAktifIndex + 1 >= daftarSoal.length) {
+        btnBerikutnya.textContent = 'Lihat Hasil Akhir 🎉';
+      } else {
+        btnBerikutnya.textContent = `Lanjut ke Soal ${soalAktifIndex + 2} ➔`;
+      }
+
+      // Siarkan ke siswa
+      await sesiManager.kirimAksi(channelRealtime, 'tampil_skor', {
+        peserta: pesertaUrut
+      });
+
+      gantiTampilan(viewSkor);
+      suara.mainkan('benar');
+      umumkanAria('Papan skor diperbarui');
+    }
+
+    // Tombol Lanjut Soal Berikutnya / Hasil Akhir
+    document.getElementById('btn-lanjut-soal-berikutnya').addEventListener('click', async () => {
+      if (soalAktifIndex + 1 < daftarSoal.length) {
+        await mulaiSoal(soalAktifIndex + 1);
+      } else {
+        await selesaikanSesi();
+      }
+    });
+
+    document.getElementById('btn-langsung-hasil-akhir').addEventListener('click', async () => {
+      await selesaikanSesi();
+    });
+
+    async function selesaikanSesi() {
+      await sesiManager.perbaruiStatusSesi(sesi.id, 'selesai');
+      await sesiManager.kirimAksi(channelRealtime, 'selesai_sesi', {});
+
+      gantiTampilan(viewHasilAkhir);
+      cetusKonfeti();
+      suara.mainkan('selesai');
+      umumkanAria('Sesi kuis telah selesai! Menampilkan hasil akhir.');
+    }
+
+    // Unduh CSV Rekap Nilai
+    document.getElementById('btn-unduh-csv').addEventListener('click', async () => {
+      const rekap = await sesiManager.ambilRekapHasil(sesi.id);
+      sesiManager.unduhCSV(`Hasil_KUPAS_IPAS_${sesi.kode}.csv`, rekap.peserta);
+      umumkanAria('Berkas CSV hasil kuis berhasil diunduh.');
+    });
+
+    inisialisasiSesi();
+  </script>
+</body>
+</html>
+

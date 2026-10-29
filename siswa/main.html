@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Layar Siswa - KUPAS KUIS IPAS</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/tema.css">
+  <link rel="stylesheet" href="../assets/css/animasi.css">
+  <link rel="stylesheet" href="../assets/css/komponen.css">
+  <link rel="stylesheet" href="../assets/css/latar-hidup.css">
+</head>
+<body class="motion-full" data-latar-tema="fokus-kuis">
+  <header id="wadah-navbar"></header>
+
+  <main class="container py-3">
+    <!-- Status Bar Peserta & Gamifikasi (XP, Level, Streak, Skor) -->
+    <div class="kupas-card p-2 px-3 mb-3 bg-white">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+        <div class="d-flex align-items-center gap-2">
+          <img id="avatar-siswa-aktif" src="../assets/svg/avatar-1.svg" alt="Avatar Siswa" width="40" height="40">
+          <div>
+            <div class="d-flex align-items-center gap-1 flex-wrap">
+              <span class="fw-bolder lh-1 text-dark" id="nama-siswa-aktif">Siswa</span>
+              <span class="badge bg-success text-white border border-dark rounded-pill small" id="badge-level-siswa">Lv. 2</span>
+            </div>
+            <span class="text-secondary small" id="kode-sesi-siswa">Sesi: ------</span>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <span class="badge bg-light text-dark border border-2 border-dark rounded-pill px-2 py-1" title="Streak Jawaban Benar Beruntun">
+            🔥 Streak: <strong id="badge-streak-siswa">0</strong>
+          </span>
+          <span class="badge bg-info-subtle text-dark border border-2 border-dark rounded-pill px-2 py-1" title="Total Poin Pengalaman (XP)">
+            ⭐ XP: <strong id="badge-xp-siswa">120</strong>
+          </span>
+          <div class="d-flex align-items-center bg-warning-subtle border border-2 border-dark rounded-pill px-3 py-1">
+            <span class="small fw-bold me-1">🏆 Skor:</span>
+            <strong class="fs-5 fw-bolder text-dark" id="badge-skor-siswa">0</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAMPILAN 1: LOBI TUNGGU SISWA -->
+    <section id="siswa-lobi" class="kupas-card text-center py-5 anim-slide-up">
+      <div class="mb-3">
+        <img src="../assets/svg/maskot-semangat.svg" alt="Maskot Si Kupas Semangat Menunggu" width="115" height="115" class="anim-melambai mb-2" id="maskot-siswa-lobi">
+        <h1 class="h3 fw-bolder mb-1">Kamu Sudah di Lobi! 🎉</h1>
+        <p class="text-secondary lead fs-6 mb-3">Siapkan semangatmu! Menunggu Pak/Ibu Guru memulai kuis di layar kelas...</p>
+      </div>
+
+      <div class="p-3 bg-success-subtle rounded-4 border-2 border-dark d-inline-block anim-denyut">
+        <span class="fw-bolder text-success">✓ Terhubung ke Sesi Kelas Realtime</span>
+      </div>
+
+      <div class="mt-4 pt-2 text-secondary small">
+        💡 Tip Aksesibilitas: Kamu dapat memakai tombol <strong>1, 2, 3, 4</strong> pada keyboard untuk memilih jawaban!
+      </div>
+    </section>
+
+    <!-- TAMPILAN 2: LAYAR SOAL SISWA -->
+    <section id="siswa-soal" class="kupas-card d-none anim-slide-up">
+      <!-- Bar Progres Kuis Keseluruhan -->
+      <div class="mb-3">
+        <div class="d-flex justify-content-between align-items-center small fw-bold text-secondary mb-1">
+          <span id="siswa-label-soal" class="badge bg-dark text-white rounded-pill px-3 py-1">Soal 1</span>
+          <span id="siswa-persen-progres">Progres Kuis: 10%</span>
+        </div>
+        <div class="progres-wadah-halus" role="progressbar" aria-label="Progres penyelesaian kuis">
+          <div id="siswa-progres-kuis-bar" class="progres-bar-halus"></div>
+        </div>
+      </div>
+
+      <!-- Hitung Mundur yang Jelas & Kontras Tinggi -->
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span class="small fw-bolder text-secondary">⏳ Waktu Menjawab:</span>
+        <div class="kupas-badge bg-danger-subtle text-danger py-1 px-3">
+          <span aria-hidden="true">⏱️</span>
+          <strong class="fs-5" id="siswa-teks-timer">30 dtk</strong>
+        </div>
+      </div>
+
+      <!-- Bilah Penghitung Waktu Siswa (Hanya transform: scaleX) -->
+      <div class="timer-container mb-3" role="progressbar" aria-label="Waktu tersisa menjawab">
+        <div id="siswa-timer-bar" class="timer-bar"></div>
+      </div>
+
+      <!-- Teks Pertanyaan -->
+      <div class="p-3 bg-light rounded-4 border-2 border-dark mb-3 d-flex align-items-center gap-3">
+        <img src="../assets/svg/maskot-berpikir.svg" alt="" width="48" height="48" class="d-none d-sm-block flex-shrink-0" aria-hidden="true">
+        <h2 class="h5 fw-bolder mb-0 text-dark" id="siswa-pertanyaan">Pertanyaan IPAS...</h2>
+      </div>
+
+      <!-- Wadah Opsi Jawaban (Keyboard 1-4 & Sentuh, Staggered Entry) -->
+      <div class="d-flex flex-column gap-2 mb-3" id="siswa-wadah-opsi" role="radiogroup" aria-label="Pilihan jawaban">
+        <!-- Opsi dirender dinamis -->
+      </div>
+
+      <!-- Wadah Isian Singkat bila tipe isian_singkat -->
+      <div id="siswa-wadah-isian" class="d-none mb-3">
+        <label for="siswa-input-isian" class="form-label fw-bold">✏️ Tuliskan Jawaban Singkatmu:</label>
+        <input type="text" class="form-control form-control-lg border-2 border-dark fw-bold" id="siswa-input-isian" placeholder="Ketik jawabanmu di sini...">
+      </div>
+
+      <button id="btn-kirim-jawaban" class="btn btn-kupas-hijau w-100 py-3 fs-5 smartboard-btn" disabled>
+        Kunci Jawaban 🔒
+      </button>
+
+      <div class="text-center mt-2 text-secondary small">
+        Gunakan tombol <strong>1-4</strong> untuk memilih, lalu tekan <strong>Enter</strong> untuk mengirim.
+      </div>
+    </section>
+
+    <!-- TAMPILAN 3: UMPAN BALIK & PEMBAHASAN -->
+    <section id="siswa-feedback" class="kupas-card d-none anim-slide-up text-center py-4">
+      <div class="mb-3">
+        <img src="../assets/svg/maskot-senang.svg" alt="Maskot Umpan Balik" width="108" height="108" class="mb-2" id="maskot-siswa-feedback">
+        <h2 class="h3 fw-bolder mb-1" id="feedback-judul">Umpan Balik</h2>
+        <p class="text-secondary small fw-semibold mb-2" id="feedback-subpesan">Terus semangat belajar ekosistem!</p>
+        <div class="d-flex justify-content-center gap-2 flex-wrap">
+          <span class="badge fs-6 rounded-pill px-3 py-2 border border-dark" id="feedback-poin-badge">+0 Poin</span>
+          <span class="badge bg-warning text-dark fs-6 rounded-pill px-3 py-2 border border-dark" id="feedback-xp-badge">+25 XP ⭐</span>
+        </div>
+      </div>
+
+      <div class="feedback-box text-start mb-3" id="feedback-kotak">
+        <h3 class="h6 fw-bolder text-uppercase text-secondary mb-1">💡 Pembahasan IPAS:</h3>
+        <p class="fs-6 fw-semibold mb-0 text-dark" id="feedback-penjelasan">Penjelasan konsep rantai makanan...</p>
+        <!-- Tombol Pelajari Istilah Kamus (Fitur 6) -->
+        <div id="wadah-tombol-kamus-siswa" class="mt-3 d-none">
+          <button type="button" id="btn-pelajari-kamus-siswa" class="btn btn-kupas-biru btn-sm fw-bold">
+            📖 Pelajari: -
+          </button>
+          <div id="detail-kamus-siswa" class="p-3 mt-2 bg-white rounded-3 border-2 border-dark d-none">
+            <span class="badge bg-warning text-dark border border-dark rounded-pill mb-1" id="kamus-siswa-kategori"></span>
+            <h4 class="h6 fw-bolder mb-1 text-dark" id="kamus-siswa-istilah"></h4>
+            <p class="small mb-1 text-dark" id="kamus-siswa-definisi"></p>
+            <small class="text-secondary fst-italic d-block" id="kamus-siswa-contoh"></small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Peta Rute Petualangan Kelas (Bila Adventure) -->
+      <div id="siswa-peta-box" class="d-none mb-3">
+        <div class="peta-container position-relative">
+          <img src="../assets/svg/peta-petualangan.svg" alt="Peta Petualangan" class="peta-svg">
+          <img src="../assets/svg/maskot-senang.svg" alt="Maskot di Peta" id="siswa-peta-maskot" class="peta-maskot" style="bottom: 24%; left: 8%;">
+        </div>
+      </div>
+
+      <div class="p-2 bg-light rounded-3 border-2 border-dark text-secondary small fw-bold">
+        ⏳ Menunggu Guru melanjutkan ke babak berikutnya...
+      </div>
+    </section>
+
+    <!-- TAMPILAN 4: PAPAN PERINGKAT SISWA -->
+    <section id="siswa-skor" class="kupas-card d-none anim-slide-up text-center py-4">
+      <h2 class="h3 fw-bolder mb-2">🏆 Papan Peringkat Kelas</h2>
+      <div class="p-3 bg-success-subtle rounded-4 border-3 border-dark mb-3">
+        <span class="text-secondary small fw-bold d-block">Posisi Kamu Saat Ini:</span>
+        <span class="display-5 fw-bolder text-success" id="siswa-peringkat-kamu">#1</span>
+        <span class="d-block fw-bold fs-5 mt-1 text-dark" id="siswa-skor-kamu">Total Poin: 0</span>
+      </div>
+
+      <!-- Daftar Papan Peringkat Kelas (Sesuai Kebijakan Privasi Nama Panggilan) -->
+      <div class="text-start mx-auto mb-2" style="max-width: 480px;">
+        <h3 class="h6 fw-bolder text-secondary text-uppercase mb-2 text-center">Peringkat Teman Sekelas:</h3>
+        <div id="siswa-daftar-peringkat" class="d-flex flex-column gap-2"></div>
+      </div>
+    </section>
+
+    <!-- TAMPILAN 5: LAYAR HASIL AKHIR YANG MERIAH -->
+    <section id="siswa-hasil" class="kupas-card d-none anim-slide-up text-center py-4">
+      <img src="../assets/svg/maskot-bersorak.svg" alt="Maskot Si Kupas Bersorak Gembira" width="120" height="120" class="anim-lompat-benar mb-2">
+      <h2 class="display-6 fw-bolder mb-1">Petualangan Selesai! 🎉</h2>
+      <p class="text-secondary lead fs-6 mb-3">Hebat sekali! Kamu sudah menyelesaikan tantangan ekosistem hari ini!</p>
+
+      <!-- Ringkasan Skor & XP Naik -->
+      <div class="row g-2 justify-content-center mb-3 mx-auto" style="max-width: 460px;">
+        <div class="col-6">
+          <div class="p-3 bg-warning-subtle rounded-4 border-2 border-dark">
+            <span class="small fw-bold text-secondary d-block">Skor Akhir</span>
+            <strong class="fs-2 fw-bolder text-dark" id="hasil-akhir-skor-angka">0</strong>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="p-3 bg-info-subtle rounded-4 border-2 border-dark">
+            <span class="small fw-bold text-secondary d-block">Total XP Kamu</span>
+            <strong class="fs-2 fw-bolder text-primary" id="hasil-akhir-xp-angka">0</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lencana yang Diraih -->
+      <div class="p-3 bg-success-subtle rounded-4 border-3 border-dark mb-4 anim-pop mx-auto" style="max-width: 460px;">
+        <span class="fs-1" aria-hidden="true">🎖️</span>
+        <h3 class="h5 fw-bolder mb-1 text-dark">Lencana Baru Terbuka: Penjelajah Cilik IPAS</h3>
+        <p class="small text-secondary mb-2">Diberikan atas semangat belajar ekosistem & rantai makanan tanpa menyerah!</p>
+        <div id="wadah-lencana-akhir" class="d-flex flex-wrap justify-content-center gap-1"></div>
+      </div>
+
+      <div id="wadah-sertifikat-akhir-siswa" class="mb-3"></div>
+
+      <div class="d-flex flex-wrap justify-content-center gap-2">
+        <a id="btn-lihat-sertifikat-akhir" href="../sertifikat.html" class="btn btn-kupas-kuning btn-lg px-4 smartboard-btn fw-bolder d-none">
+          🏆 Buka Sertifikat Penyelamat Ekosistem
+        </a>
+        <a href="../kamus-belajar.html" class="btn btn-kupas-biru btn-lg px-4 smartboard-btn fw-bold">
+          📖 Buka Kamus Belajar
+        </a>
+        <a href="../index.html" class="btn btn-kupas-hijau btn-lg px-4 smartboard-btn fw-bold">
+          🏠 Kembali ke Beranda
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="../assets/js/latar-hidup.js"></script>
+
+  <script type="module">
+    import { sesiManager } from '../assets/js/sesi.js';
+    import {
+      pasangHeader,
+      umumkanAria,
+      cetusKonfeti,
+      suara,
+      gamifikasi,
+      KatalogLencana
+    } from '../assets/js/ui.js';
+    import { animasi } from '../assets/js/animasi.js';
+
+    pasangHeader('siswa', { berandaLink: '../index.html', rootAset: '../' });
+
+    const params = new URLSearchParams(window.location.search);
+    const kodeSesi = (params.get('kode') || '').toUpperCase();
+
+    let peserta = JSON.parse(sessionStorage.getItem('kupas_peserta') || 'null');
+    let sesi = JSON.parse(sessionStorage.getItem('kupas_sesi') || 'null');
+
+    if (!peserta || !kodeSesi) {
+      window.location.href = `../gabung.html${kodeSesi ? '?kode=' + kodeSesi : ''}`;
+    }
+
+    function segarkanStatusAtas() {
+      const infoG = gamifikasi.ambilInfoLevel();
+      document.getElementById('nama-siswa-aktif').textContent = peserta?.nama_panggilan || 'Siswa';
+      document.getElementById('kode-sesi-siswa').textContent = `Sesi: ${kodeSesi}`;
+      document.getElementById('avatar-siswa-aktif').src = `../assets/svg/${peserta?.avatar || 'avatar-1.svg'}`;
+      document.getElementById('badge-level-siswa').textContent = `Lv. ${infoG.level}`;
+      document.getElementById('badge-streak-siswa').textContent = infoG.streakJawab;
+      animasi.hitungAngka(document.getElementById('badge-xp-siswa'), infoG.xp, 600);
+      animasi.hitungAngka(document.getElementById('badge-skor-siswa'), peserta?.skor || 0, 600);
+    }
+
+    segarkanStatusAtas();
+
+    const vLobi = document.getElementById('siswa-lobi');
+    const vSoal = document.getElementById('siswa-soal');
+    const vFeedback = document.getElementById('siswa-feedback');
+    const vSkor = document.getElementById('siswa-skor');
+    const vHasil = document.getElementById('siswa-hasil');
+
+    function gantiView(v) {
+      [vLobi, vSoal, vFeedback, vSkor, vHasil].forEach(el => el.classList.add('d-none'));
+      v.classList.remove('d-none');
+      animasi.pop(v);
+    }
+
+    let soalSekarang = null;
+    let jawabanDipilih = null;
+    let sudahMengunci = false;
+    let waktuMulaiSoal = 0;
+    let timerInterval = null;
+
+    const channel = sesiManager.langgananSesi(kodeSesi, {
+      onAksiBroadcast: async (payload) => {
+        const { aksi } = payload;
+
+        if (aksi === 'tampil_soal') {
+          bukaLayarSoal(payload.soal, payload.soalIndex, payload.totalSoal);
+        } else if (aksi === 'buka_pembahasan') {
+          tampilkanUmpanBalik(payload);
+        } else if (aksi === 'tampil_skor') {
+          tampilkanPapanSkorSiswa(payload.peserta);
+        } else if (aksi === 'selesai_sesi') {
+          tampilkanHasilAkhirSiswa();
+        }
+      }
+    });
+
+    if (peserta) {
+      channel.send({
+        type: 'broadcast',
+        event: 'aksi_sesi',
+        payload: { aksi: 'siswa_gabung', nama: peserta.nama_panggilan, pesertaId: peserta.id }
+      });
+    }
+
+    // 1. Tampilkan Layar Soal dengan Progres Halus & Staggered Options
+    function bukaLayarSoal(soal, idx, total) {
+      soalSekarang = soal;
+      jawabanDipilih = null;
+      sudahMengunci = false;
+      waktuMulaiSoal = Date.now();
+
+      const totalAman = Math.max(1, total || 1);
+      const fraksiProgres = (idx + 1) / totalAman;
+      const persenProgres = Math.round(fraksiProgres * 100);
+
+      document.getElementById('siswa-label-soal').textContent = `Soal ${idx + 1} dari ${totalAman}`;
+      document.getElementById('siswa-persen-progres').textContent = `Progres Kuis: ${persenProgres}%`;
+      animasi.isiBar(document.getElementById('siswa-progres-kuis-bar'), fraksiProgres);
+      document.getElementById('siswa-pertanyaan').textContent = soal.teks;
+
+      const wadahOpsi = document.getElementById('siswa-wadah-opsi');
+      const wadahIsian = document.getElementById('siswa-wadah-isian');
+      const btnKirim = document.getElementById('btn-kirim-jawaban');
+
+      btnKirim.disabled = true;
+      btnKirim.textContent = 'Kunci Jawaban 🔒';
+      btnKirim.classList.remove('btn-secondary');
+      btnKirim.classList.add('btn-kupas-hijau');
+
+      wadahOpsi.innerHTML = '';
+
+      if (soal.tipe === 'pilihan_ganda' || soal.tipe === 'benar_salah') {
+        wadahIsian.classList.add('d-none');
+        wadahOpsi.classList.remove('d-none');
+
+        const opsiList = soal.opsi && soal.opsi.length ? soal.opsi : ['Opsi 1', 'Opsi 2'];
+        const hurufOpsi = ['A', 'B', 'C', 'D'];
+        opsiList.forEach((op, i) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `opsi-jawaban anim-slide-up anim-stagger-${Math.min(i + 1, 4)}`;
+          btn.setAttribute('role', 'radio');
+          btn.setAttribute('aria-checked', 'false');
+          btn.setAttribute('data-nilai', String(i));
+          btn.innerHTML = `
+            <span class="opsi-nomor">${i + 1}</span>
+            <span class="flex-grow-1">${op}</span>
+            <span class="badge bg-light text-secondary border border-dark rounded-pill small indikator-pilih-opsi">${hurufOpsi[i] || ''}</span>
+          `;
+
+          btn.addEventListener('click', () => {
+            if (sudahMengunci) return;
+            pilihOpsi(String(i), btn, hurufOpsi[i] || '');
+          });
+
+          wadahOpsi.appendChild(btn);
+        });
+      } else {
+        wadahOpsi.classList.add('d-none');
+        wadahIsian.classList.remove('d-none');
+        const inputIsian = document.getElementById('siswa-input-isian');
+        inputIsian.value = '';
+        inputIsian.disabled = false;
+        inputIsian.focus();
+
+        inputIsian.oninput = () => {
+          if (inputIsian.value.trim().length > 0) {
+            jawabanDipilih = inputIsian.value.trim();
+            btnKirim.disabled = false;
+          } else {
+            btnKirim.disabled = true;
+          }
+        };
+      }
+
+      gantiView(vSoal);
+      jalankanTimerSiswa(soal.waktu_detik || 30);
+      umumkanAria(`Soal ${idx + 1}: ${soal.teks}`);
+    }
+
+    function pilihOpsi(nilai, elemenBtn) {
+      jawabanDipilih = nilai;
+      const hurufOpsi = ['A', 'B', 'C', 'D'];
+      document.querySelectorAll('.opsi-jawaban').forEach((b, idx) => {
+        b.classList.remove('terpilih');
+        b.setAttribute('aria-checked', 'false');
+        const ind = b.querySelector('.indikator-pilih-opsi');
+        if (ind) {
+          ind.className = 'badge bg-light text-secondary border border-dark rounded-pill small indikator-pilih-opsi';
+          ind.textContent = hurufOpsi[idx] || '';
+        }
+      });
+      elemenBtn.classList.add('terpilih');
+      elemenBtn.setAttribute('aria-checked', 'true');
+      const indAktif = elemenBtn.querySelector('.indikator-pilih-opsi');
+      if (indAktif) {
+        indAktif.className = 'badge bg-dark text-white rounded-pill small indikator-pilih-opsi';
+        indAktif.textContent = '✓ Dipilih';
+      }
+
+      suara.mainkan('klik');
+      animasi.pop(elemenBtn);
+
+      const btnKirim = document.getElementById('btn-kirim-jawaban');
+      btnKirim.disabled = false;
+      btnKirim.focus();
+    }
+
+    // Dukungan Pintasan Keyboard 1-4 & Enter (PRD 8.2)
+    document.addEventListener('keydown', (e) => {
+      if (vSoal.classList.contains('d-none') || sudahMengunci) return;
+
+      if (['1', '2', '3', '4'].includes(e.key)) {
+        const idx = parseInt(e.key, 10) - 1;
+        const tombolOpsi = document.querySelectorAll('.opsi-jawaban');
+        if (tombolOpsi[idx]) {
+          e.preventDefault();
+          tombolOpsi[idx].click();
+        }
+      } else if (e.key === 'Enter') {
+        const btnKirim = document.getElementById('btn-kirim-jawaban');
+        if (!btnKirim.disabled) {
+          e.preventDefault();
+          btnKirim.click();
+        }
+      }
+    });
+
+    function jalankanTimerSiswa(detik) {
+      clearInterval(timerInterval);
+      let sisa = detik;
+      const maks = detik;
+      const bar = document.getElementById('siswa-timer-bar');
+      const txt = document.getElementById('siswa-teks-timer');
+
+      txt.textContent = sisa + ' dtk';
+      bar.style.transform = 'scaleX(1)';
+
+      timerInterval = setInterval(() => {
+        sisa--;
+        txt.textContent = sisa + ' dtk';
+        bar.style.transform = `scaleX(${Math.max(0, sisa / maks)})`;
+
+        if (sisa <= 0) {
+          clearInterval(timerInterval);
+          if (!sudahMengunci) {
+            kunciJawaban();
+          }
+        }
+      }, 1000);
+    }
+
+    async function kunciJawaban() {
+      if (sudahMengunci) return;
+      sudahMengunci = true;
+      clearInterval(timerInterval);
+
+      const btnKirim = document.getElementById('btn-kirim-jawaban');
+      btnKirim.disabled = true;
+      btnKirim.textContent = 'Jawaban Terkunci ✓';
+      btnKirim.classList.remove('btn-kupas-hijau');
+      btnKirim.classList.add('btn-secondary');
+
+      const waktuMs = Date.now() - waktuMulaiSoal;
+
+      try {
+        const hasil = await sesiManager.kirimJawabanSiswa({
+          sesiId: sesi.id,
+          pesertaId: peserta.id,
+          soalId: soalSekarang.id,
+          jawaban: jawabanDipilih !== null ? jawabanDipilih : '-1',
+          waktuMs
+        });
+
+        sessionStorage.setItem('kupas_terakhir_jawab', JSON.stringify(hasil));
+
+        if (hasil.benar) {
+          peserta.skor = (peserta.skor || 0) + hasil.poin;
+          sessionStorage.setItem('kupas_peserta', JSON.stringify(peserta));
+        }
+
+        umumkanAria('Jawaban berhasil dikunci dan dikirim!');
+      } catch (err) {
+        console.warn('Gagal kirim jawaban:', err);
+      }
+    }
+
+    document.getElementById('btn-kirim-jawaban').addEventListener('click', kunciJawaban);
+
+    // 2. Tampilkan Umpan Balik Ekspresif (Lompat + Konfeti bila Benar, Goyang Lembut + Menyemangati bila Salah)
+    function tampilkanUmpanBalik(payload) {
+      clearInterval(timerInterval);
+      const hasilJawab = JSON.parse(sessionStorage.getItem('kupas_terakhir_jawab') || '{}');
+      const benar = hasilJawab.benar || false;
+
+      const infoG = gamifikasi.catatHasilJawab(benar);
+      segarkanStatusAtas();
+
+      const maskotFeedback = document.getElementById('maskot-siswa-feedback');
+      const judulFeedback = document.getElementById('feedback-judul');
+      const subpesanFeedback = document.getElementById('feedback-subpesan');
+      const badgePoin = document.getElementById('feedback-poin-badge');
+      const badgeXP = document.getElementById('feedback-xp-badge');
+      const kotakFeedback = document.getElementById('feedback-kotak');
+
+      const pesanSemangatRamah = [
+        'Hampir tepat! Jangan menyerah ya, setiap usaha membuatmu makin pintar memahami ekosistem!',
+        'Tidak apa-apa belum tepat! Yuk baca pembahasannya agar di soal berikutnya kamu makin hebat!',
+        'Tetap semangat Petualang! Belajar dari kesalahan adalah kunci ilmuwan IPAS sejati!'
+      ];
+
+      if (benar) {
+        maskotFeedback.src = '../assets/svg/maskot-bersorak.svg';
+        maskotFeedback.className = 'mb-2 anim-lompat-benar';
+        judulFeedback.textContent = '✓ Hebat, Jawabanmu Benar! 🌟';
+        judulFeedback.className = 'h3 fw-bolder mb-1 text-success';
+        subpesanFeedback.textContent = infoG.streakJawab >= 2
+          ? `🔥 Luar biasa! Kamu menjawab ${infoG.streakJawab} soal benar berturut-turut!`
+          : 'Teruskan langkah hebatmu menjelajahi rantai makanan!';
+        badgePoin.textContent = `✓ +${hasilJawab.poin || 10} Poin`;
+        badgePoin.className = 'badge fs-6 rounded-pill px-3 py-2 border border-dark bg-success text-white';
+        badgeXP.textContent = `+${infoG.streakJawab >= 3 ? 35 : 25} XP ⭐`;
+        kotakFeedback.className = 'feedback-box text-start mb-3 feedback-benar';
+        suara.mainkan('benar');
+        cetusKonfeti();
+        animasi.lompat(maskotFeedback);
+      } else {
+        maskotFeedback.src = '../assets/svg/maskot-sedih-menyemangati.svg';
+        maskotFeedback.className = 'mb-2 anim-melambai';
+        judulFeedback.textContent = '💡 Belum Tepat, Ayo Semangat! 💪';
+        judulFeedback.className = 'h3 fw-bolder mb-1 text-dark';
+        subpesanFeedback.textContent = pesanSemangatRamah[(payload.soalIndex || 0) % pesanSemangatRamah.length];
+        badgePoin.textContent = '+0 Poin';
+        badgePoin.className = 'badge fs-6 rounded-pill px-3 py-2 border border-dark bg-secondary text-white';
+        badgeXP.textContent = '+5 XP Usaha Belajar ⭐';
+        kotakFeedback.className = 'feedback-box text-start mb-3 feedback-salah';
+        suara.mainkan('salah');
+      }
+
+      document.getElementById('feedback-penjelasan').textContent =
+        payload.penjelasan || 'Konsep ekosistem & rantai makanan.';
+
+      const wadahKamusSiswa = document.getElementById('wadah-tombol-kamus-siswa');
+      const detailKamusSiswa = document.getElementById('detail-kamus-siswa');
+      detailKamusSiswa.classList.add('d-none');
+
+      if (payload.kamusEntri) {
+        const k = payload.kamusEntri;
+        wadahKamusSiswa.classList.remove('d-none');
+        const btnKamus = document.getElementById('btn-pelajari-kamus-siswa');
+        btnKamus.textContent = `📖 Pelajari: ${k.istilah}`;
+        document.getElementById('kamus-siswa-kategori').textContent = k.kategori;
+        document.getElementById('kamus-siswa-istilah').textContent = k.istilah;
+        document.getElementById('kamus-siswa-definisi').textContent = k.definisi;
+        document.getElementById('kamus-siswa-contoh').textContent = k.contoh ? `Contoh: ${k.contoh}` : '';
+
+        btnKamus.onclick = () => {
+          detailKamusSiswa.classList.toggle('d-none');
+          suara.mainkan('klik');
+          animasi.pop(detailKamusSiswa);
+        };
+      } else {
+        wadahKamusSiswa.classList.add('d-none');
+      }
+
+      if (sesi && sesi.mode === 'adventure') {
+        const petaBox = document.getElementById('siswa-peta-box');
+        petaBox.classList.remove('d-none');
+        const step = Math.min((payload.soalIndex || 0) + 1, 4);
+        const maskotPeta = document.getElementById('siswa-peta-maskot');
+        const wadahPeta = petaBox.querySelector('.peta-container');
+        const lebarPeta = (wadahPeta && wadahPeta.clientWidth) ? wadahPeta.clientWidth : 300;
+        const geserPx = Math.round(lebarPeta * 0.72 * ((step - 1) / 3));
+        maskotPeta.style.transform = `translateX(${geserPx}px)`;
+      }
+
+      gantiView(vFeedback);
+      if (!benar) {
+        animasi.goyang(vFeedback);
+      }
+      umumkanAria(benar ? 'Jawaban Anda benar!' : 'Jawaban belum tepat, tetap semangat!');
+    }
+
+    // 3. Tampilkan Papan Peringkat Siswa
+    function tampilkanPapanSkorSiswa(daftarPesertaUpdate) {
+      const wadahList = document.getElementById('siswa-daftar-peringkat');
+      if (wadahList) wadahList.innerHTML = '';
+
+      if (daftarPesertaUpdate && daftarPesertaUpdate.length > 0) {
+        const idx = daftarPesertaUpdate.findIndex(p => p.id === peserta.id);
+        if (idx !== -1) {
+          const posisi = idx + 1;
+          document.getElementById('siswa-peringkat-kamu').textContent = `#${posisi}`;
+          document.getElementById('siswa-skor-kamu').textContent = `Total Poin: ${daftarPesertaUpdate[idx].skor || 0}`;
+          peserta.skor = daftarPesertaUpdate[idx].skor || 0;
+          segarkanStatusAtas();
+        }
+
+        if (wadahList) {
+          daftarPesertaUpdate.slice(0, 5).forEach((p, i) => {
+            const adalahSaya = p.id === peserta.id;
+            const medali = i === 0 ? '🥇' : (i === 1 ? '🥈' : (i === 2 ? '🥉' : `#${i + 1}`));
+            const row = document.createElement('div');
+            row.className = `p-2 px-3 rounded-3 border border-2 border-dark d-flex justify-content-between align-items-center anim-slide-up anim-stagger-${Math.min(i + 1, 5)} ${adalahSaya ? 'bg-warning-subtle fw-bolder' : 'bg-white'}`;
+            row.innerHTML = `
+              <div class="d-flex align-items-center gap-2">
+                <span class="fw-bolder">${medali}</span>
+                <img src="../assets/svg/${p.avatar || 'avatar-1.svg'}" width="26" height="26" alt="">
+                <span>${p.nama_panggilan} ${adalahSaya ? '(Kamu)' : ''}</span>
+              </div>
+              <span class="badge bg-dark text-white rounded-pill px-2 py-1">${p.skor || 0} pt</span>
+            `;
+            wadahList.appendChild(row);
+          });
+        }
+      }
+      gantiView(vSkor);
+      suara.mainkan('benar');
+    }
+
+    // 4. Tampilkan Hasil Akhir Siswa yang Meriah
+    function tampilkanHasilAkhirSiswa() {
+      gamifikasi.bukaLencana('juara_kuis');
+      const infoG = gamifikasi.tambahXP(50, 'Menyelesaikan sesi kuis kelas');
+      segarkanStatusAtas();
+
+      gantiView(vHasil);
+      animasi.hitungAngka(document.getElementById('hasil-akhir-skor-angka'), peserta?.skor || 0, 1000);
+      animasi.hitungAngka(document.getElementById('hasil-akhir-xp-angka'), infoG.xp, 1000);
+
+      const wadahLencana = document.getElementById('wadah-lencana-akhir');
+      if (wadahLencana) {
+        wadahLencana.innerHTML = KatalogLencana
+          .filter(b => infoG.lencana.includes(b.id))
+          .map(b => `<span class="badge bg-warning text-dark border border-dark rounded-pill px-3 py-1">${b.ikon} ${b.nama}</span>`)
+          .join('');
+      }
+
+      cetusKonfeti();
+      suara.mainkan('selesai');
+
+      // Cek apakah skor memenuhi ambang batas sertifikat (>= 80)
+      if ((peserta?.skor || 0) >= 80) {
+        const btnSertif = document.getElementById('btn-lihat-sertifikat-akhir');
+        if (btnSertif) btnSertif.classList.remove('d-none');
+
+        import('../assets/js/supabase.js').then(({ supabase }) => {
+          supabase.from('certificates').insert({
+            nama_siswa: peserta.nama_panggilan,
+            kelas: peserta.kelas || 'Kelas V-A',
+            aktivitas_tipe: 'kuis',
+            aktivitas_id: sesi?.kuis_id || 'kuis-sesi-live',
+            nama_kuis_topik: 'Kuis Evaluasi Harmoni Ekosistem',
+            nilai: peserta.skor,
+            ambang_batas: 80,
+            nama_guru: 'Ibu Guru IPAS'
+          });
+        });
+      }
+
+      umumkanAria('Selamat! Seluruh kuis telah selesai dan kamu meraih Lencana Penjelajah Cilik IPAS.');
+    }
+  </script>
+</body>
+</html>

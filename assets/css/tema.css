@@ -1,0 +1,346 @@
+/* ==========================================================================
+   KUPAS KUIS IPAS v4.0 - Design System "Diorama Ekosistem" (tema.css)
+   Mobile-First: 360px | 576px | 768px | 1024px | 1440px+ (Smartboard)
+   Tema: Hutan Tropis Indonesia, Krem Hangat & Aksen Marigold/Koral
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap');
+
+:root {
+  /* 1. Palet Desain "Diorama Ekosistem" (Patokan Ketat) */
+  --kupas-forest-dark: #0F3D2E;      /* Hijau Hutan Tua (Teks, kontur, elemen utama) */
+  --kupas-forest-hover: #0A291F;
+  --kupas-forest-light: #165B45;
+  --kupas-forest-soft: #E8F5EE;
+
+  --kupas-cream-bg: #FFF6E0;         /* Krem Hangat (Latar utama & kartu kanvas) */
+  --kupas-cream-surface: #FFFFFF;    /* Putih murni untuk kontras kartu tertentu */
+  --kupas-cream-alt: #FBF0D3;
+
+  --kupas-marigold: #F59E0B;         /* Kuning Marigold (Aksi Utama / CTA Mulai) */
+  --kupas-marigold-hover: #D97706;
+  --kupas-marigold-light: #FEF3C7;
+
+  --kupas-coral: #E11D48;            /* Koral Berani (Mode Duel Tim & Urgensi) */
+  --kupas-coral-hover: #BE123C;
+  --kupas-coral-soft: #FFE4E6;
+
+  --kupas-water-blue: #0284C7;       /* Biru Samudra (HANYA zona air/danau/siklus air) */
+  --kupas-water-hover: #0369A1;
+  --kupas-water-soft: #E0F2FE;
+
+  /* Semantik & Feedback Siswa */
+  --kupas-success: #16A34A;
+  --kupas-success-soft: #DCFCE7;
+  --kupas-danger: #E11D48;
+  --kupas-danger-soft: #FFE4E6;
+  --kupas-warning: #F59E0B;
+  --kupas-warning-soft: #FEF3C7;
+
+  /* Warna Permukaan & Teks (Kontras Tinggi WCAG AAA >= 7:1) */
+  --kupas-bg-page: var(--kupas-cream-bg);
+  --kupas-surface: #FFFFFF;
+  --kupas-surface-alt: #FBF0D3;
+  --kupas-text-main: var(--kupas-forest-dark);
+  --kupas-text-muted: #2D5A4A;
+  --kupas-text-inverse: #FFFFFF;
+  --kupas-border-color: var(--kupas-forest-dark);
+
+  /* Kompatibilitas Variabel Lama */
+  --kupas-primary: var(--kupas-forest-dark);
+  --kupas-primary-hover: var(--kupas-forest-hover);
+  --kupas-primary-light: var(--kupas-forest-light);
+  --kupas-primary-soft: var(--kupas-forest-soft);
+  --kupas-accent: var(--kupas-marigold);
+  --kupas-accent-hover: var(--kupas-marigold-hover);
+  --kupas-accent-light: var(--kupas-marigold-light);
+  --kupas-info: var(--kupas-water-blue);
+  --kupas-info-soft: var(--kupas-water-soft);
+  --kupas-hijau-utama: var(--kupas-forest-dark);
+  --kupas-hijau-muda: #165B45;
+  --kupas-hijau-latar: var(--kupas-cream-bg);
+  --kupas-kuning-aksen: var(--kupas-marigold);
+  --kupas-kuning-terang: var(--kupas-marigold-light);
+  --kupas-biru-langit: var(--kupas-water-blue);
+  --kupas-biru-muda: var(--kupas-water-soft);
+  --kupas-merah-salah: var(--kupas-danger);
+  --kupas-merah-muda: var(--kupas-danger-soft);
+  --kupas-teks-gelap: var(--kupas-forest-dark);
+  --kupas-teks-sedang: var(--kupas-text-muted);
+  --kupas-teks-terang: var(--kupas-text-inverse);
+  --kupas-kartu-bg: #FFFFFF;
+
+  /* 2. Tipografi Diorama Ramah Anak */
+  --font-heading: 'Fredoka', cursive, system-ui, -apple-system, sans-serif;
+  --font-body: 'Nunito', system-ui, -apple-system, sans-serif;
+  --kupas-font-heading: var(--font-heading);
+  --kupas-font-body: var(--font-body);
+
+  --text-xs: clamp(0.8125rem, 0.78rem + 0.15vw, 0.9rem);
+  --text-sm: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+  --text-base: clamp(1rem, 0.96rem + 0.25vw, 1.125rem); /* Minimal 16px */
+  --text-lg: clamp(1.125rem, 1.05rem + 0.4vw, 1.35rem);
+  --text-xl: clamp(1.25rem, 1.15rem + 0.55vw, 1.6rem);
+  --text-2xl: clamp(1.5rem, 1.3rem + 1vw, 2.2rem);
+  --text-3xl: clamp(1.85rem, 1.5rem + 1.6vw, 2.85rem);
+  --text-hero: clamp(2.5rem, 2rem + 2.5vw, 4rem); /* >= 56px di desktop */
+
+  /* 3. Skala Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3.5rem;
+
+  /* 4. Radius Sudut Membulat (16-24px) */
+  --kupas-radius-sm: 12px;
+  --kupas-radius: 18px;
+  --kupas-radius-lg: 28px;
+  --kupas-radius-pill: 9999px;
+
+  /* 5. Garis Kontur & Bayangan Game 2D */
+  --kupas-garis-tipis: 2px solid var(--kupas-forest-dark);
+  --kupas-garis-tebal: 3.5px solid var(--kupas-forest-dark);
+  --kupas-bayangan-sm: 2.5px 2.5px 0px var(--kupas-forest-dark);
+  --kupas-bayangan: 4px 4px 0px var(--kupas-forest-dark), 0 8px 16px rgba(15, 61, 46, 0.08);
+  --kupas-bayangan-lg: 6px 6px 0px var(--kupas-forest-dark), 0 14px 28px rgba(15, 61, 46, 0.12);
+  --kupas-bayangan-cta: 0 6px 0px #92400E, 0 12px 24px rgba(245, 158, 11, 0.35);
+
+  /* 6. Skala Z-Index */
+  --z-base: 1;
+  --z-sticky: 1010;
+  --z-sidebar: 1020;
+  --z-nav: 1030;
+  --z-bottom-nav: 1035;
+  --z-offcanvas: 1045;
+  --z-modal: 1055;
+}
+  --z-toast: 1080;
+  --z-overlay: 9999;
+
+  /* 7. Target Sentuh & Safe Area */
+  --kupas-touch-min: 48px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/* ==========================================================================
+   Reset & Aturan Global Anti-Overflow (320px - 1920px)
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  overflow-x: hidden;
+  max-width: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  color: var(--kupas-text-main);
+  background-color: var(--kupas-bg-page);
+  background-image: radial-gradient(#BBF7D0 1.25px, transparent 1.25px);
+  background-size: 24px 24px;
+  margin: 0;
+  padding-top: var(--safe-top);
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
+  padding-bottom: calc(var(--safe-bottom) + 76px); /* Ruang bottom-nav di HP */
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  max-width: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.display-1, .display-2, .display-5, .display-6,
+.navbar-brand {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--kupas-text-main);
+}
+
+p, li, td, th, label, input, select, textarea {
+  font-size: var(--text-base);
+}
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ==========================================================================
+   Target Sentuh Minimal 44x44px (48px Standar, 64px Smartboard)
+   ========================================================================== */
+button, .btn, .opsi-jawaban, .avatar-pilihan, .avatar-item {
+  min-height: var(--kupas-touch-min);
+  min-width: var(--kupas-touch-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  border-radius: var(--kupas-radius);
+  border: var(--kupas-garis-tebal);
+  box-shadow: var(--kupas-bayangan);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.btn-sm {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.4rem 0.85rem;
+  font-size: var(--text-sm);
+  border-radius: var(--kupas-radius-sm);
+}
+
+.form-control, .form-select, .input-group-text {
+  min-height: 48px;
+  font-size: 1rem;
+  border-radius: var(--kupas-radius-sm);
+}
+
+/* Respons masukan sesuai PRD 7.3: tekan skala 0.95, lepas memantul (hanya transform & opacity) */
+button:active:not(:disabled),
+.btn:active:not(:disabled),
+.opsi-jawaban:active:not(:disabled) {
+  transform: scale(0.95) translate(2px, 2px);
+}
+
+button:disabled, .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Cincin fokus keyboard yang jelas & kontras tinggi */
+button:focus-visible,
+.btn:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.opsi-jawaban:focus-visible,
+.avatar-item:focus-visible,
+.flashcard-inner:focus-visible {
+  outline: 4px solid var(--kupas-accent);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Kartu & Permukaan Utama
+   ========================================================================== */
+.kupas-card {
+  background-color: var(--kupas-surface);
+  border: var(--kupas-garis-tebal);
+  border-radius: var(--kupas-radius-lg);
+  box-shadow: var(--kupas-bayangan);
+  padding: var(--space-4);
+}
+
+.kupas-nav {
+  background: var(--kupas-surface);
+  border-bottom: var(--kupas-garis-tebal);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-nav);
+}
+
+.kupas-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: var(--kupas-radius-pill);
+  border: var(--kupas-garis-tipis);
+  font-family: var(--font-heading);
+  font-weight: 800;
+  box-shadow: var(--kupas-bayangan-sm);
+}
+
+/* Pembaca Layar SR-ONLY */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ==========================================================================
+   Media Queries Mobile-First (360px, 576px, 768px, 1024px, 1440px)
+   ========================================================================== */
+
+/* HP Kecil (360px+) */
+@media (min-width: 360px) {
+  .kupas-card {
+    padding: 1.25rem;
+  }
+}
+
+/* HP Besar / Phablet (576px+) */
+@media (min-width: 576px) {
+  .kupas-card {
+    padding: var(--space-5);
+  }
+}
+
+/* Tablet (768px+) */
+@media (min-width: 768px) {
+  .kupas-card {
+    padding: 1.75rem;
+  }
+}
+
+/* Laptop / Desktop (1024px+) */
+@media (min-width: 1024px) {
+  body {
+    padding-bottom: var(--safe-bottom);
+  }
+  .kupas-card {
+    padding: var(--space-6);
+  }
+}
+
+/* Layar Besar / Smartboard Kelas (1440px+) */
+@media (min-width: 1440px) {
+  :root {
+    --kupas-touch-min: 64px;
+  }
+  .container {
+    max-width: 1360px;
+  }
+  .smartboard-teks-soal {
+    font-size: clamp(2rem, 2.5vw, 2.5rem) !important;
+    line-height: 1.35;
+  }
+  .smartboard-teks-opsi {
+    font-size: clamp(1.4rem, 1.8vw, 1.85rem) !important;
+  }
+  .smartboard-btn {
+    min-height: 64px !important;
+    min-width: 64px !important;
+    font-size: 1.35rem !important;
+  }
+}

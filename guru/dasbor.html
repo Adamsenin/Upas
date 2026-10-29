@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dasbor Guru Profesional - KUPAS KUIS IPAS</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/tema.css">
+  <link rel="stylesheet" href="../assets/css/animasi.css">
+  <link rel="stylesheet" href="../assets/css/komponen.css">
+  <link rel="stylesheet" href="../assets/css/latar-hidup.css">
+</head>
+<body class="motion-full" data-latar-tema="tenang">
+  <header id="wadah-navbar"></header>
+
+  <main class="container-fluid px-3 px-md-4 py-4">
+    <!-- Header Dasbor Guru -->
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4 latar-pita-baca py-2 px-3">
+      <div>
+        <span class="badge rounded-pill px-3 py-1 mb-1 fw-bold d-inline-flex align-items-center gap-1" style="background-color: #FEF3C7; color: #B45309; border: 2px solid var(--kupas-forest-dark);">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+          <span>Ruang Kendali & Analitik</span>
+        </span>
+        <h1 class="h2 fw-bolder mb-1" style="font-family: var(--font-heading); color: var(--kupas-forest-dark);">
+          Dasbor Guru Profesional IPAS
+        </h1>
+        <p class="text-secondary mb-0 small fw-semibold" id="info-guru">Selamat datang, Guru Hebat!</p>
+      </div>
+      <div class="d-flex gap-2 flex-wrap align-items-center">
+        <!-- Pengatur KKM Dinamis -->
+        <div class="d-flex align-items-center gap-2 bg-white px-3 py-1 rounded-4 border border-2 border-dark" style="min-height: 48px;">
+          <label for="input-kkm-global" class="small fw-bolder mb-0">Batas KKM:</label>
+          <input type="number" id="input-kkm-global" class="form-control form-control-sm border-2 border-dark fw-bolder text-center" value="75" min="0" max="100" style="width: 68px; min-height: 36px;">
+        </div>
+        <a href="kamus.html" class="btn btn-kupas-biru px-3 py-2 smartboard-btn d-inline-flex align-items-center gap-1" id="btn-kelola-kamus">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span>Kelola Kamus</span>
+        </a>
+        <a href="editor.html" class="btn btn-kupas-hijau px-3 py-2 smartboard-btn d-inline-flex align-items-center gap-1" id="btn-buat-kuis-baru">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>Buat Kuis Baru</span>
+        </a>
+        <button id="btn-keluar" type="button" class="btn btn-outline-danger px-3 py-2 smartboard-btn d-inline-flex align-items-center gap-1">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>Keluar</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 1. KARTU RINGKASAN STATISTIK -->
+    <section aria-label="Ringkasan Statistik Kelas" class="row g-3 mb-4">
+      <div class="col-6 col-md-4 col-xl">
+        <div class="kupas-card h-100 p-3 bg-white">
+          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>Rata-rata Nilai</span>
+          </span>
+          <div class="h2 fw-bolder text-success mb-0 mt-1" id="stat-rata-rata">0</div>
+          <small class="text-secondary fw-semibold">Skala 0–100</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-xl">
+        <div class="kupas-card h-100 p-3 bg-white">
+          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><path d="M4 3h16v6a8 8 0 0 1-16 0V3z"/><path d="M12 17v4"/><path d="M8 21h8"/></svg>
+            <span>Tertinggi / Terendah</span>
+          </span>
+          <div class="h3 fw-bolder text-dark mb-0 mt-1" id="stat-tinggi-rendah">0 / 0</div>
+          <small class="text-secondary fw-semibold">Rentang capaian</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-xl">
+        <div class="kupas-card h-100 p-3 bg-white">
+          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span>Ketuntasan KKM</span>
+          </span>
+          <div class="h2 fw-bolder text-primary mb-0 mt-1" id="stat-ketuntasan">0%</div>
+          <small class="text-secondary fw-semibold">Siswa lulus KKM</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-6 col-xl">
+        <div class="kupas-card h-100 p-3 bg-white">
+          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <span>Jumlah Peserta</span>
+          </span>
+          <div class="h3 fw-bolder text-dark mb-0 mt-1" id="stat-jumlah-peserta">0 Siswa</div>
+          <small class="text-secondary fw-semibold">Partisipasi sesi</small>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 col-xl">
+        <div class="kupas-card h-100 p-3 bg-white">
+          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>Perlu Perhatian</span>
+          </span>
+          <div class="h3 fw-bolder text-danger mb-0 mt-1" id="stat-jumlah-remedial">0 Siswa</div>
+          <small class="text-secondary fw-semibold">Remedial / Belum ikut</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigasi Tab Fitur Dasbor Guru -->
+    <ul class="nav nav-pills gap-2 mb-4 p-2 bg-white rounded-4 border border-3 border-dark" id="dasborTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active fw-bold text-dark border border-dark d-inline-flex align-items-center gap-1" id="tab-btn-kuis" data-bs-toggle="pill" data-bs-target="#pane-kuis" type="button" role="tab">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          <span>Manajemen Kuis & Live</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold text-dark border border-dark d-inline-flex align-items-center gap-1" id="tab-btn-rekap" data-bs-toggle="pill" data-bs-target="#pane-rekap" type="button" role="tab">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Rekap & Ekspor Nilai</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold text-dark border border-dark d-inline-flex align-items-center gap-1" id="tab-btn-analitik" data-bs-toggle="pill" data-bs-target="#pane-analitik" type="button" role="tab">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <span>Grafik & Analisis</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold text-dark border border-dark d-inline-flex align-items-center gap-1" id="tab-btn-bank" data-bs-toggle="pill" data-bs-target="#pane-bank" type="button" role="tab">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span>Bank Soal</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold text-dark border border-dark d-inline-flex align-items-center gap-1" id="tab-btn-siswa" data-bs-toggle="pill" data-bs-target="#pane-siswa" type="button" role="tab">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          <span>Kelas & Siswa</span>
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold text-dark border border-dark d-inline-flex align-items-center gap-1" id="tab-btn-aktivitas" data-bs-toggle="pill" data-bs-target="#pane-aktivitas" type="button" role="tab">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><path d="M4 3h16v6a8 8 0 0 1-16 0V3z"/><path d="M12 17v4"/><path d="M8 21h8"/></svg>
+          <span>Aktivitas & Sertifikat</span>
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="dasborTabContent">
+      <!-- ==================================================================
+           TAB 1: MANAJEMEN KUIS & PEMANTAUAN REALTIME (Fitur 6 & 7)
+           ================================================================== -->
+      <div class="tab-pane fade show active" id="pane-kuis" role="tabpanel">
+        <!-- Panel Pemantauan Realtime -->
+        <div class="kupas-card mb-4">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <div>
+              <h2 class="h5 fw-bolder mb-0">📡 Pemantauan Realtime Sesi Aktif</h2>
+              <small class="text-secondary">Pantau siswa yang sedang mengerjakan kuis dan progres jawabannya secara langsung.</small>
+            </div>
+          </div>
+          <div id="wadah-pantau-realtime"></div>
+        </div>
+
+        <!-- Filter & Daftar Kuis -->
+        <div class="kupas-card mb-3">
+          <div class="row g-2 align-items-center">
+            <div class="col-12 col-md-6">
+              <input type="search" id="cari-daftar-kuis" class="form-control border-2 border-dark" placeholder="🔍 Cari judul atau topik kuis...">
+            </div>
+            <div class="col-12 col-md-3">
+              <select id="filter-status-kuis" class="form-select border-2 border-dark fw-bold" aria-label="Filter status kuis">
+                <option value="semua" selected>Semua Status Kuis</option>
+                <option value="terbit">Terbit</option>
+                <option value="draf">Draf</option>
+                <option value="arsip">Arsip</option>
+              </select>
+            </div>
+            <div class="col-12 col-md-3 text-md-end">
+              <a href="editor.html" class="btn btn-kupas-hijau w-100 fw-bold">+ Buat Kuis Baru</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="wadah-kuis" class="row g-3"></div>
+      </div>
+
+      <!-- ==================================================================
+           TAB 2: REKAP & EKSPOR NILAI (.XLSX, .CSV, .PDF) (Fitur 1 & 10)
+           ================================================================== -->
+      <div class="tab-pane fade" id="pane-rekap" role="tabpanel">
+        <div class="kupas-card mb-4">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-2 border-bottom border-2 border-dark">
+            <div>
+              <h2 class="h5 fw-bolder mb-0">📥 Rekapitulasi & Ekspor Nilai Siswa</h2>
+              <small class="text-secondary">Filter per kuis, kelas, siswa, atau rentang tanggal lalu unduh dalam Excel, CSV, atau PDF siap cetak.</small>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+              <button type="button" id="btn-ekspor-excel" class="btn btn-kupas-hijau btn-sm fw-bold d-inline-flex align-items-center gap-1">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+                <span>Unduh Excel (.xlsx)</span>
+              </button>
+              <button type="button" id="btn-ekspor-csv" class="btn btn-kupas-kuning btn-sm fw-bold d-inline-flex align-items-center gap-1">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span>Unduh CSV (.csv)</span>
+              </button>
+              <button type="button" id="btn-ekspor-pdf" class="btn btn-kupas-biru btn-sm fw-bold d-inline-flex align-items-center gap-1">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                <span>Cetak PDF (.pdf)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter Rekap Nilai -->
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-md-3">
+              <label for="filter-rekap-siswa" class="form-label small fw-bold mb-1">Cari Siswa / Kata Kunci</label>
+              <input type="search" id="filter-rekap-siswa" class="form-control border-2 border-dark" placeholder="Ketik nama siswa...">
+            </div>
+            <div class="col-6 col-md-2">
+              <label for="filter-rekap-kuis" class="form-label small fw-bold mb-1">Filter Kuis</label>
+              <select id="filter-rekap-kuis" class="form-select border-2 border-dark fw-semibold">
+                <option value="semua">Semua Kuis</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-2">
+              <label for="filter-rekap-kelas" class="form-label small fw-bold mb-1">Filter Kelas</label>
+              <select id="filter-rekap-kelas" class="form-select border-2 border-dark fw-semibold">
+                <option value="semua">Semua Kelas</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-2">
+              <label for="filter-rekap-mulai" class="form-label small fw-bold mb-1">Dari Tanggal</label>
+              <input type="date" id="filter-rekap-mulai" class="form-control border-2 border-dark">
+            </div>
+            <div class="col-6 col-md-1">
+              <label for="filter-rekap-selesai" class="form-label small fw-bold mb-1">Sampai</label>
+              <input type="date" id="filter-rekap-selesai" class="form-control border-2 border-dark">
+            </div>
+            <div class="col-12 col-md-2">
+              <label for="sort-rekap" class="form-label small fw-bold mb-1">Urutkan</label>
+              <select id="sort-rekap" class="form-select border-2 border-dark fw-semibold">
+                <option value="tanggal_desc">Tanggal Terbaru</option>
+                <option value="nilai_desc">Nilai Tertinggi</option>
+                <option value="nilai_asc">Nilai Terendah</option>
+                <option value="nama_asc">Nama Siswa (A-Z)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 table-mobile-cards">
+              <thead class="table-light border-bottom border-2 border-dark">
+                <tr>
+                  <th scope="col">Nama</th>
+                  <th scope="col">Kelas</th>
+                  <th scope="col">Kuis</th>
+                  <th scope="col">Nilai</th>
+                  <th scope="col">Benar/Salah</th>
+                  <th scope="col">Durasi</th>
+                  <th scope="col">Tanggal</th>
+                  <th scope="col">Status Lulus/Remedial</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-rekap-body"></tbody>
+            </table>
+          </div>
+          <div id="paginasi-rekap"></div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           TAB 3: GRAFIK PERKEMBANGAN, ANALISIS SOAL & REMEDIAL (Fitur 3, 4, 5)
+           ================================================================== -->
+      <div class="tab-pane fade" id="pane-analitik" role="tabpanel">
+        <!-- Grafik Perkembangan Kelas & Siswa -->
+        <div class="row g-3 mb-4">
+          <div class="col-12 col-lg-6">
+            <div class="kupas-card h-100">
+              <h2 class="h5 fw-bolder mb-1">📈 Perkembangan Rata-rata Kelas</h2>
+              <p class="text-secondary small mb-3">Tren rata-rata nilai antar kelas dari waktu ke waktu.</p>
+              <div style="position: relative; height: 240px;">
+                <canvas id="chart-perkembangan-kelas" aria-label="Grafik perkembangan nilai per kelas"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="kupas-card h-100">
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                <div>
+                  <h2 class="h5 fw-bolder mb-0">🧑‍🎓 Perkembangan Nilai per Siswa</h2>
+                  <small class="text-secondary">Pilih siswa untuk melihat riwayat peningkatannya.</small>
+                </div>
+                <select id="select-grafik-siswa" class="form-select form-select-sm border-2 border-dark fw-bold" style="width: auto; min-width: 180px;" aria-label="Pilih siswa untuk grafik"></select>
+              </div>
+              <div style="position: relative; height: 230px;">
+                <canvas id="chart-perkembangan-siswa" aria-label="Grafik perkembangan nilai individu siswa"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ringkasan Soal Tersulit & Termudah -->
+        <div class="row g-3 mb-4">
+          <div class="col-12 col-md-6">
+            <div class="kupas-card h-100 bg-danger-subtle">
+              <h3 class="h6 fw-bolder text-uppercase text-danger mb-2">🔥 Butir Soal Tersulit</h3>
+              <div id="info-soal-tersulit">Memuat analisis...</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="kupas-card h-100 bg-success-subtle">
+              <h3 class="h6 fw-bolder text-uppercase text-success mb-2">🌟 Butir Soal Termudah</h3>
+              <div id="info-soal-termudah">Memuat analisis...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabel Analisis Butir Soal & Opsi Pengecoh -->
+        <div class="kupas-card mb-4">
+          <div class="row g-2 align-items-center mb-3">
+            <div class="col-12 col-md-5">
+              <h2 class="h5 fw-bolder mb-0">🔍 Analisis Butir Soal & Pengecoh</h2>
+              <small class="text-secondary">Persentase siswa menjawab benar dan opsi pengecoh yang paling sering dipilih.</small>
+            </div>
+            <div class="col-12 col-md-4">
+              <input type="search" id="cari-analisis-soal" class="form-control border-2 border-dark" placeholder="Cari teks soal atau bab...">
+            </div>
+            <div class="col-12 col-md-3">
+              <select id="sort-analisis-soal" class="form-select border-2 border-dark fw-bold" aria-label="Urutkan analisis soal">
+                <option value="persen_asc">Tersulit (% Benar Terendah)</option>
+                <option value="persen_desc">Termudah (% Benar Tertinggi)</option>
+                <option value="nomor_asc">Urutan Nomor Soal</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 table-mobile-cards">
+              <thead class="table-light border-bottom border-2 border-dark">
+                <tr>
+                  <th scope="col" style="width: 65px;">No</th>
+                  <th scope="col">Pertanyaan & Bab</th>
+                  <th scope="col" style="width: 110px;">Kesulitan</th>
+                  <th scope="col" style="width: 190px;">% Siswa Benar</th>
+                  <th scope="col">Opsi Pengecoh Terbanyak</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-analisis-body"></tbody>
+            </table>
+          </div>
+          <div id="paginasi-analisis"></div>
+        </div>
+
+        <!-- Daftar Remedial & Siswa Perlu Perhatian -->
+        <div class="kupas-card">
+          <h2 class="h5 fw-bolder mb-1 text-danger">🚨 Daftar Remedial & Siswa Perlu Perhatian</h2>
+          <p class="text-secondary small mb-3">Siswa dengan nilai di bawah KKM atau belum mengerjakan sesi kuis.</p>
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 table-mobile-cards">
+              <thead class="table-light border-bottom border-2 border-dark">
+                <tr>
+                  <th scope="col">Nama Siswa</th>
+                  <th scope="col">Kelas</th>
+                  <th scope="col">Nilai Terakhir</th>
+                  <th scope="col">Status Perhatian</th>
+                  <th scope="col">Catatan Guru</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-remedial-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           TAB 4: BANK SOAL & IMPOR CSV/EXCEL (Fitur 8 & 10)
+           ================================================================== -->
+      <div class="tab-pane fade" id="pane-bank" role="tabpanel">
+        <div class="kupas-card">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-2 border-bottom border-2 border-dark">
+            <div>
+              <h2 class="h5 fw-bolder mb-0">🗂️ Bank Soal IPAS Terpadu</h2>
+              <small class="text-secondary">Filter berdasarkan bab/topik & tingkat kesulitan, atau impor soal massal dari CSV/Excel.</small>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+              <button type="button" id="btn-template-soal" class="btn btn-outline-dark btn-sm fw-bold">
+                📥 Template CSV Soal
+              </button>
+              <label for="input-impor-soal" class="btn btn-kupas-kuning btn-sm fw-bold mb-0">
+                📤 Impor Soal (CSV / Excel)
+              </label>
+              <input type="file" id="input-impor-soal" accept=".csv,.xlsx,.xls" class="d-none">
+              <a href="editor.html" class="btn btn-kupas-hijau btn-sm fw-bold">+ Tambah Soal di Editor</a>
+            </div>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-md-4">
+              <input type="search" id="cari-bank-soal" class="form-control border-2 border-dark" placeholder="🔍 Cari pertanyaan di bank soal...">
+            </div>
+            <div class="col-12 col-md-3">
+              <select id="filter-bank-bab" class="form-select border-2 border-dark fw-semibold" aria-label="Filter bab soal">
+                <option value="semua">Semua Bab / Topik</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-3">
+              <select id="filter-bank-kesulitan" class="form-select border-2 border-dark fw-semibold" aria-label="Filter tingkat kesulitan">
+                <option value="semua">Semua Tingkat Kesulitan</option>
+                <option value="mudah">Mudah</option>
+                <option value="sedang">Sedang</option>
+                <option value="sulit">Sulit</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-2">
+              <select id="sort-bank-soal" class="form-select border-2 border-dark fw-semibold" aria-label="Urutkan bank soal">
+                <option value="urutan_asc">Urutan Nomor</option>
+                <option value="kesulitan">Tingkat Kesulitan</option>
+                <option value="poin_desc">Poin Tertinggi</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 table-mobile-cards">
+              <thead class="table-light border-bottom border-2 border-dark">
+                <tr>
+                  <th scope="col" style="width: 65px;">No</th>
+                  <th scope="col" style="width: 210px;">Bab / Topik</th>
+                  <th scope="col">Pertanyaan</th>
+                  <th scope="col" style="width: 130px;">Tipe</th>
+                  <th scope="col" style="width: 110px;">Kesulitan</th>
+                  <th scope="col" style="width: 90px;" class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-bank-soal-body"></tbody>
+            </table>
+          </div>
+          <div id="paginasi-bank-soal"></div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           TAB 5: MANAJEMEN KELAS, SISWA & CATATAN GURU (Fitur 9, 10, 11)
+           ================================================================== -->
+      <div class="tab-pane fade" id="pane-siswa" role="tabpanel">
+        <!-- Kelola Kelas -->
+        <div class="kupas-card mb-4">
+          <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-7">
+              <h2 class="h5 fw-bolder mb-2">🏫 Daftar Kelas Anda</h2>
+              <div id="daftar-kelas-chips" class="d-flex flex-wrap gap-2"></div>
+            </div>
+            <div class="col-12 col-md-5">
+              <form id="form-tambah-kelas" class="d-flex gap-2">
+                <input type="text" id="input-nama-kelas-baru" class="form-control border-2 border-dark" placeholder="Contoh: Kelas V-C" required>
+                <button type="submit" class="btn btn-kupas-hijau fw-bold flex-shrink-0">+ Kelas</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kelola Siswa & Catatan Guru -->
+        <div class="kupas-card">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pb-2 border-bottom border-2 border-dark">
+            <div>
+              <h2 class="h5 fw-bolder mb-0">👧👦 Manajemen Siswa & Catatan Guru</h2>
+              <small class="text-secondary">Tambah/impor siswa massal, reset kode akses, pindah kelas, dan catat perkembangan privat.</small>
+            </div>
+            <button type="button" class="btn btn-kupas-kuning btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#modalTambahSiswa">
+              + Tambah / Impor Siswa Massal
+            </button>
+          </div>
+
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-md-5">
+              <input type="search" id="cari-daftar-siswa" class="form-control border-2 border-dark" placeholder="🔍 Cari nama siswa atau isi catatan guru...">
+            </div>
+            <div class="col-6 col-md-4">
+              <select id="filter-siswa-kelas" class="form-select border-2 border-dark fw-semibold" aria-label="Filter kelas siswa">
+                <option value="semua">Semua Kelas</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-3">
+              <select id="sort-daftar-siswa" class="form-select border-2 border-dark fw-semibold" aria-label="Urutkan daftar siswa">
+                <option value="nama_asc">Nama Siswa (A-Z)</option>
+                <option value="nama_desc">Nama Siswa (Z-A)</option>
+                <option value="kelas_asc">Berdasarkan Kelas</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 table-mobile-cards">
+              <thead class="table-light border-bottom border-2 border-dark">
+                <tr>
+                  <th scope="col">Nama Siswa</th>
+                  <th scope="col" style="width: 155px;">Kelas</th>
+                  <th scope="col" style="width: 155px;">Kode Akses</th>
+                  <th scope="col">Catatan Guru (Hanya Guru)</th>
+                  <th scope="col" style="width: 90px;" class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-siswa-body"></tbody>
+            </table>
+          </div>
+          <div id="paginasi-siswa"></div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           TAB 6: KELOLA AKTIVITAS (FAKTA/OPINI, RANTAI MAKANAN) & SERTIFIKAT (Fase E)
+           ================================================================== -->
+      <div class="tab-pane fade" id="pane-aktivitas" role="tabpanel">
+        <!-- 1. Pengaturan Ambang Batas Sertifikat Global -->
+        <div class="kupas-card mb-4 bg-white">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <span class="fs-4" aria-hidden="true">🏆</span>
+                <h2 class="h5 fw-bolder mb-0">Pengaturan Ambang Batas Sertifikat "Penyelamat Ekosistem"</h2>
+              </div>
+              <p class="small text-secondary mb-0">
+                Tentukan nilai minimal yang harus dicapai murid pada aktivitas atau kuis agar sertifikat digital resmi otomatis terbuka.
+              </p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <label for="input-ambang-batas-sertifikat" class="small fw-bolder mb-0">Nilai Minimal (KKM):</label>
+              <input type="number" id="input-ambang-batas-sertifikat" class="form-control border-2 border-dark fw-bolder text-center" value="80" min="50" max="100" style="width: 80px; min-height: 40px;">
+              <button type="button" class="btn btn-kupas-hijau btn-sm fw-bold px-3 py-2 smartboard-btn" id="btn-simpan-ambang-sertifikat">
+                Simpan
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Kelola Pernyataan "Fakta atau Opini" -->
+        <div class="kupas-card mb-4 bg-white">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <div>
+              <h2 class="h5 fw-bolder mb-0">🎯 Kelola Bank Pernyataan "Fakta atau Opini"</h2>
+              <small class="text-secondary">Tambah, ubah, atau hapus butir pernyataan IPAS untuk aktivitas drag & drop murid.</small>
+            </div>
+            <button type="button" class="btn btn-kupas-hijau btn-sm fw-bold px-3 py-2 smartboard-btn" id="btn-tambah-pernyataan-modal">
+              + Tambah Pernyataan Baru
+            </button>
+          </div>
+
+          <!-- Filter & Pencarian Pernyataan -->
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-md-5">
+              <input type="text" id="cari-pernyataan-guru" class="form-control border-2 border-dark" placeholder="🔍 Cari teks pernyataan atau topik...">
+            </div>
+            <div class="col-6 col-md-3">
+              <select id="filter-tipe-pernyataan" class="form-select border-2 border-dark fw-semibold" aria-label="Filter tipe pernyataan">
+                <option value="semua">Semua Tipe</option>
+                <option value="fakta">Fakta Saja</option>
+                <option value="opini">Opini Saja</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-4">
+              <select id="filter-kesulitan-pernyataan" class="form-select border-2 border-dark fw-semibold" aria-label="Filter tingkat kesulitan">
+                <option value="semua">Semua Kesulitan</option>
+                <option value="mudah">Mudah</option>
+                <option value="sedang">Sedang</option>
+                <option value="sulit">Sulit</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 table-mobile-cards">
+              <thead class="table-light border-bottom border-2 border-dark">
+                <tr>
+                  <th scope="col" style="width: 50px;">No</th>
+                  <th scope="col">Teks Pernyataan</th>
+                  <th scope="col" style="width: 100px;">Tipe</th>
+                  <th scope="col" style="width: 110px;">Kesulitan</th>
+                  <th scope="col" style="width: 140px;">Topik</th>
+                  <th scope="col">Penjelasan Ilmiah</th>
+                  <th scope="col" style="width: 100px;" class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-pernyataan-body"></tbody>
+            </table>
+          </div>
+          <div id="paginasi-pernyataan" class="mt-2"></div>
+        </div>
+
+        <!-- 3. Kelola Skenario Rantai Makanan -->
+        <div class="kupas-card mb-4 bg-white">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <div>
+              <h2 class="h5 fw-bolder mb-0">🌿 Skenario Ekosistem Rantai Makanan</h2>
+              <small class="text-secondary">Daftar skenario interaktif yang dapat diselesaikan oleh murid.</small>
+            </div>
+          </div>
+          <div class="row g-3" id="daftar-skenario-guru"></div>
+        </div>
+
+        <!-- 4. Daftar Sertifikat Terbit per Kelas -->
+        <div class="kupas-card bg-white">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <div>
+              <h2 class="h5 fw-bolder mb-0">📜 Rekap Sertifikat "Penyelamat Ekosistem" Murid</h2>
+              <small class="text-secondary">Daftar siswa yang telah menuntaskan kuis/aktivitas dengan nilai di atas batas sertifikat.</small>
+            </div>
+            <div class="d-flex gap-2">
+              <select id="filter-kelas-sertifikat" class="form-select form-select-sm border-2 border-dark fw-bold" style="width: auto;">
+                <option value="semua">Semua Kelas</option>
+                <option value="Kelas V-A">Kelas V-A</option>
+                <option value="Kelas V-B">Kelas V-B</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 table-mobile-cards">
+              <thead class="table-light border-bottom border-2 border-dark">
+                <tr>
+                  <th scope="col">No. Sertifikat</th>
+                  <th scope="col">Nama Murid</th>
+                  <th scope="col">Kelas</th>
+                  <th scope="col">Aktivitas / Topik</th>
+                  <th scope="col">Nilai</th>
+                  <th scope="col">Tanggal Terbit</th>
+                  <th scope="col" style="width: 110px;" class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="tabel-sertifikat-guru-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal 1: Pilih Mode Sesi Kuis -->
+  <div class="modal fade" id="modalMulaiSesi" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content kupas-card border-3 border-dark">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h2 class="modal-title h4 fw-bolder" id="modalLabel">Mulai Sesi Kelas</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body py-3">
+          <p class="text-secondary small mb-3">Pilih format permainan yang cocok untuk kelas Anda:</p>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Mode Permainan</label>
+            <div class="form-check p-3 border-2 border-dark rounded-3 mb-2 bg-light">
+              <input class="form-check-input ms-0 me-3" type="radio" name="modePermainan" id="modeCustom" value="custom" checked>
+              <label class="form-check-label fw-bold" for="modeCustom">
+                1. Mode Custom Guru
+                <span class="d-block text-secondary small fw-normal">Siswa menjawab perorangan, guru mengendalikan laju soal, papan skor kompetitif.</span>
+              </label>
+            </div>
+            <div class="form-check p-3 border-2 border-dark rounded-3 bg-light">
+              <input class="form-check-input ms-0 me-3" type="radio" name="modePermainan" id="modeAdventure" value="adventure">
+              <label class="form-check-label fw-bold" for="modeAdventure">
+                2. Mode Adventure Kelas
+                <span class="d-block text-secondary small fw-normal">Satu kelas berkolaborasi menggerakkan maskot melewati peta rute ekosistem bersama-sama!</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="pengaliWaktu" class="form-label fw-bold">Pengali Waktu Jawab (Aksesibilitas)</label>
+            <select class="form-select border-2 border-dark" id="pengaliWaktu">
+              <option value="1.0" selected>Standar (1x)</option>
+              <option value="1.5">Santai (+50% waktu, 1.5x)</option>
+              <option value="2.0">Ekstra (+100% waktu, 2x)</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-kupas-kuning fw-bold px-4 smartboard-btn" id="btn-konfirmasi-mulai">
+            Buka Lobi Sesi →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 6: Form Tambah / Edit Pernyataan Fakta vs Opini -->
+  <div class="modal fade" id="modalPernyataanGuru" tabindex="-1" aria-labelledby="labelModalPernyataan" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content kupas-card border-3 border-dark">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h2 class="modal-title h5 fw-bolder" id="labelModalPernyataan">🎯 Formulir Pernyataan Fakta / Opini</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body py-3">
+          <input type="hidden" id="form-pernyataan-id">
+          <div class="mb-3">
+            <label for="form-pernyataan-teks" class="form-label fw-bold">Teks Pernyataan IPAS</label>
+            <textarea id="form-pernyataan-teks" class="form-control border-2 border-dark" rows="3" placeholder="Contoh: Padi membuat makanannya sendiri melalui fotosintesis..."></textarea>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label for="form-pernyataan-tipe" class="form-label fw-bold">Tipe Jawaban</label>
+              <select id="form-pernyataan-tipe" class="form-select border-2 border-dark fw-bold">
+                <option value="fakta">Fakta Ilmiah</option>
+                <option value="opini">Opini Pribadi</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="form-pernyataan-kesulitan" class="form-label fw-bold">Tingkat Kesulitan</label>
+              <select id="form-pernyataan-kesulitan" class="form-select border-2 border-dark fw-bold">
+                <option value="mudah">Mudah</option>
+                <option value="sedang" selected>Sedang</option>
+                <option value="sulit">Sulit</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="form-pernyataan-topik" class="form-label fw-bold">Topik / Bab</label>
+            <input type="text" id="form-pernyataan-topik" class="form-control border-2 border-dark" placeholder="Contoh: Ekosistem Sawah">
+          </div>
+          <div class="mb-3">
+            <label for="form-pernyataan-penjelasan" class="form-label fw-bold">Penjelasan Edukatif (Mengapa fakta/opini?)</label>
+            <textarea id="form-pernyataan-penjelasan" class="form-control border-2 border-dark" rows="2" placeholder="Tulis penjelasan singkat yang mendidik anak..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-kupas-hijau fw-bold px-4 smartboard-btn" id="btn-simpan-pernyataan">
+            Simpan Pernyataan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Pengaturan Jadwal, Durasi, KKM & Acak Soal Kuis -->
+  <div class="modal fade" id="modalAturKuis" tabindex="-1" aria-labelledby="labelAturKuis" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content kupas-card border-3 border-dark">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h2 class="modal-title h5 fw-bolder" id="labelAturKuis">⚙️ Pengaturan Kuis & Jadwal</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body py-3">
+          <input type="hidden" id="atur-kuis-id">
+          <div class="mb-3">
+            <label for="atur-kuis-judul" class="form-label fw-bold">Judul Kuis</label>
+            <input type="text" id="atur-kuis-judul" class="form-control border-2 border-dark">
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label for="atur-kuis-kkm" class="form-label fw-bold">Batas KKM</label>
+              <input type="number" id="atur-kuis-kkm" class="form-control border-2 border-dark" min="0" max="100">
+            </div>
+            <div class="col-6">
+              <label for="atur-kuis-durasi" class="form-label fw-bold">Durasi (Menit)</label>
+              <input type="number" id="atur-kuis-durasi" class="form-control border-2 border-dark" min="1" max="180">
+            </div>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-sm-6">
+              <label for="atur-kuis-buka" class="form-label fw-bold">Jadwal Buka</label>
+              <input type="datetime-local" id="atur-kuis-buka" class="form-control border-2 border-dark">
+            </div>
+            <div class="col-12 col-sm-6">
+              <label for="atur-kuis-tutup" class="form-label fw-bold">Jadwal Tutup</label>
+              <input type="datetime-local" id="atur-kuis-tutup" class="form-control border-2 border-dark">
+            </div>
+          </div>
+          <div class="form-check p-3 border border-2 border-dark rounded-3 bg-light">
+            <input class="form-check-input ms-0 me-2" type="checkbox" id="atur-kuis-acak">
+            <label class="form-check-label fw-bold" for="atur-kuis-acak">
+              🔀 Acak Urutan Soal Saat Sesi Dimulai
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-kupas-hijau fw-bold px-4" id="btn-simpan-atur-kuis">Simpan Pengaturan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 6: Form Tambah / Edit Pernyataan Fakta vs Opini -->
+  <div class="modal fade" id="modalPernyataanGuru" tabindex="-1" aria-labelledby="labelModalPernyataan" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content kupas-card border-3 border-dark">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h2 class="modal-title h5 fw-bolder" id="labelModalPernyataan">🎯 Formulir Pernyataan Fakta / Opini</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body py-3">
+          <input type="hidden" id="form-pernyataan-id">
+          <div class="mb-3">
+            <label for="form-pernyataan-teks" class="form-label fw-bold">Teks Pernyataan IPAS</label>
+            <textarea id="form-pernyataan-teks" class="form-control border-2 border-dark" rows="3" placeholder="Contoh: Padi membuat makanannya sendiri melalui fotosintesis..."></textarea>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label for="form-pernyataan-tipe" class="form-label fw-bold">Tipe Jawaban</label>
+              <select id="form-pernyataan-tipe" class="form-select border-2 border-dark fw-bold">
+                <option value="fakta">Fakta Ilmiah</option>
+                <option value="opini">Opini Pribadi</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="form-pernyataan-kesulitan" class="form-label fw-bold">Tingkat Kesulitan</label>
+              <select id="form-pernyataan-kesulitan" class="form-select border-2 border-dark fw-bold">
+                <option value="mudah">Mudah</option>
+                <option value="sedang" selected>Sedang</option>
+                <option value="sulit">Sulit</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="form-pernyataan-topik" class="form-label fw-bold">Topik / Bab</label>
+            <input type="text" id="form-pernyataan-topik" class="form-control border-2 border-dark" placeholder="Contoh: Ekosistem Sawah">
+          </div>
+          <div class="mb-3">
+            <label for="form-pernyataan-penjelasan" class="form-label fw-bold">Penjelasan Edukatif (Mengapa fakta/opini?)</label>
+            <textarea id="form-pernyataan-penjelasan" class="form-control border-2 border-dark" rows="2" placeholder="Tulis penjelasan singkat yang mendidik anak..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-kupas-hijau fw-bold px-4 smartboard-btn" id="btn-simpan-pernyataan">
+            Simpan Pernyataan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Tambah / Impor Siswa Massal -->
+  <div class="modal fade" id="modalTambahSiswa" tabindex="-1" aria-labelledby="labelTambahSiswa" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content kupas-card border-3 border-dark">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h2 class="modal-title h5 fw-bolder" id="labelTambahSiswa">+ Tambah / Impor Siswa Massal</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body py-3">
+          <div class="mb-3">
+            <label for="siswa-input-kelas" class="form-label fw-bold">Pilih Kelas Tujuan</label>
+            <select id="siswa-input-kelas" class="form-select border-2 border-dark fw-bold"></select>
+          </div>
+          <div class="mb-2">
+            <label for="siswa-input-massal" class="form-label fw-bold">Daftar Siswa (Satu Siswa per Baris)</label>
+            <textarea id="siswa-input-massal" class="form-control border-2 border-dark" rows="5" placeholder="Format: Nama Lengkap, Panggilan, Kelas, Catatan&#10;Contoh:&#10;Andi Pratama, Andi, Kelas V-A, Rajin bertanya&#10;Rina Amelia, Rina, Kelas V-A, Perlu latihan"></textarea>
+            <small class="text-secondary">Anda dapat menempelkan banyak baris sekaligus dari Excel/CSV.</small>
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-kupas-hijau fw-bold px-4" id="btn-simpan-siswa-modal">Simpan Siswa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 6: Form Tambah / Edit Pernyataan Fakta vs Opini -->
+  <div class="modal fade" id="modalPernyataanGuru" tabindex="-1" aria-labelledby="labelModalPernyataan" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content kupas-card border-3 border-dark">
+        <div class="modal-header border-bottom-0 pb-0">
+          <h2 class="modal-title h5 fw-bolder" id="labelModalPernyataan">🎯 Formulir Pernyataan Fakta / Opini</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body py-3">
+          <input type="hidden" id="form-pernyataan-id">
+          <div class="mb-3">
+            <label for="form-pernyataan-teks" class="form-label fw-bold">Teks Pernyataan IPAS</label>
+            <textarea id="form-pernyataan-teks" class="form-control border-2 border-dark" rows="3" placeholder="Contoh: Padi membuat makanannya sendiri melalui fotosintesis..."></textarea>
+          </div>
+          <div class="row g-2 mb-3">
+            <div class="col-6">
+              <label for="form-pernyataan-tipe" class="form-label fw-bold">Tipe Jawaban</label>
+              <select id="form-pernyataan-tipe" class="form-select border-2 border-dark fw-bold">
+                <option value="fakta">Fakta Ilmiah</option>
+                <option value="opini">Opini Pribadi</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <label for="form-pernyataan-kesulitan" class="form-label fw-bold">Tingkat Kesulitan</label>
+              <select id="form-pernyataan-kesulitan" class="form-select border-2 border-dark fw-bold">
+                <option value="mudah">Mudah</option>
+                <option value="sedang" selected>Sedang</option>
+                <option value="sulit">Sulit</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="form-pernyataan-topik" class="form-label fw-bold">Topik / Bab</label>
+            <input type="text" id="form-pernyataan-topik" class="form-control border-2 border-dark" placeholder="Contoh: Ekosistem Sawah">
+          </div>
+          <div class="mb-3">
+            <label for="form-pernyataan-penjelasan" class="form-label fw-bold">Penjelasan Edukatif (Mengapa fakta/opini?)</label>
+            <textarea id="form-pernyataan-penjelasan" class="form-control border-2 border-dark" rows="2" placeholder="Tulis penjelasan singkat yang mendidik anak..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+          <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-kupas-hijau fw-bold px-4 smartboard-btn" id="btn-simpan-pernyataan">
+            Simpan Pernyataan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dependensi CDN: Supabase, Bootstrap 5, Chart.js, SheetJS (xlsx), jsPDF + autoTable -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.2/dist/jspdf.plugin.autotable.min.js"></script>
+  <script type="module" src="../assets/js/latar-hidup.js"></script>
+
+  <script type="module">
+    import { inisialisasiDasborGuru } from '../assets/js/dasbor-guru.js';
+    inisialisasiDasborGuru();
+  </script>
+</body>
+</html>

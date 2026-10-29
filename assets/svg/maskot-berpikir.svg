@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="100%" height="100%" role="img" aria-label="Maskot Si Kupas Sedang Berpikir">
+  <!-- Tubuh -->
+  <circle cx="80" cy="85" r="55" fill="#22C55E" stroke="#15803D" stroke-width="6" />
+  <ellipse cx="80" cy="100" rx="35" ry="30" fill="#FEF08A" />
+  <!-- Mata Berpikir (Melirik ke atas) -->
+  <ellipse cx="62" cy="75" rx="14" ry="16" fill="#FFFFFF" stroke="#0F172A" stroke-width="4" />
+  <circle cx="62" cy="68" r="6" fill="#0F172A" />
+  <circle cx="64" cy="66" r="2" fill="#FFFFFF" />
+  <ellipse cx="98" cy="75" rx="14" ry="16" fill="#FFFFFF" stroke="#0F172A" stroke-width="4" />
+  <circle cx="98" cy="68" r="6" fill="#0F172A" />
+  <circle cx="100" cy="66" r="2" fill="#FFFFFF" />
+  <!-- Alis Berpikir -->
+  <path d="M52,60 Q62,55 70,62" fill="none" stroke="#0F172A" stroke-width="4" stroke-linecap="round" />
+  <path d="M90,62 Q98,55 108,60" fill="none" stroke="#0F172A" stroke-width="4" stroke-linecap="round" />
+  <!-- Paruh -->
+  <polygon points="80,82 74,90 86,90" fill="#F97316" stroke="#C2410C" stroke-width="3" stroke-linejoin="round" />
+  <!-- Sayap di dagu -->
+  <path d="M25,85 Q40,95 55,95 Q50,85 35,75 Z" fill="#16A34A" stroke="#15803D" stroke-width="4" stroke-linejoin="round" />
+  <path d="M135,85 Q145,100 135,110 Q125,100 130,80 Z" fill="#16A34A" stroke="#15803D" stroke-width="4" stroke-linejoin="round" />
+  <!-- Gelembung Pikir -->
+  <circle cx="118" cy="40" r="5" fill="#93C5FD" stroke="#3B82F6" stroke-width="2" />
+  <circle cx="130" cy="28" r="9" fill="#BFDBFE" stroke="#3B82F6" stroke-width="2" />
+  <!-- Daun -->
+  <path d="M80,30 C65,18 70,42 80,42 C90,42 95,18 80,30 Z" fill="#4ADE80" stroke="#15803D" stroke-width="4" />
+</svg>

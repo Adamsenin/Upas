@@ -1,0 +1,471 @@
+/* ==========================================================================
+   KUPAS KUIS IPAS v4.0 - Animasi Kartun 2D & Interaksi 60fps (animasi.css)
+   Aturan Keras:
+   - Animasi HANYA memakai properti `transform` dan `opacity`.
+   - Tidak ada animasi berkedip > 3 kali per detik (durasi loop >= 1.2 detik).
+   - Mendukung penuh .motion-full, .motion-reduced, .motion-off, dan
+     @media (prefers-reduced-motion: reduce).
+   ========================================================================== */
+
+/* 1. KEYFRAMES (100% HANYA TRANSFORM & OPACITY) */
+
+@keyframes kupas-bouncing {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes kupas-napas {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.025);
+  }
+}
+
+.anim-napas {
+  animation: kupas-napas 3s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes kupas-melambai {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-6deg);
+  }
+  75% {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes kupas-goyang-salah {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-7px) rotate(-1deg);
+  }
+  50% {
+    transform: translateX(7px) rotate(1deg);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+}
+
+@keyframes kupas-denyut {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 0.96;
+  }
+}
+
+@keyframes kupas-aliran-energi {
+  0% {
+    transform: translateX(-3px) scale(0.95);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translateX(3px) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-3px) scale(0.95);
+    opacity: 0.65;
+  }
+}
+
+.anim-aliran-energi {
+  animation: kupas-aliran-energi 1.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes kupas-uap-naik {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(-70px) scale(1.15);
+    opacity: 0;
+  }
+}
+
+.anim-uap-naik {
+  animation: kupas-uap-naik 2s ease-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes kupas-hujan-turun {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(90px);
+    opacity: 0;
+  }
+}
+
+.anim-hujan-turun {
+  animation: kupas-hujan-turun 1.2s linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes kupas-sinar-matahari {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.06);
+    opacity: 1;
+  }
+}
+
+.anim-sinar-matahari {
+  animation: kupas-sinar-matahari 8s linear infinite;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+@keyframes kupas-awan-mengapung {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(16px);
+  }
+}
+
+.anim-awan-mengapung {
+  animation: kupas-awan-mengapung 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes kupas-aliran-sungai {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateX(8px);
+    opacity: 1;
+  }
+}
+
+.anim-aliran-sungai {
+  animation: kupas-aliran-sungai 2s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes kupas-buzzer-press {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.anim-buzzer-press {
+  animation: kupas-buzzer-press 0.25s ease-out;
+}
+
+@keyframes kupas-podium-rise {
+  0% {
+    transform: translateY(50px) scale(0.92);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.anim-podium-rise {
+  animation: kupas-podium-rise 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes kupas-pop-in {
+  0% {
+    transform: scale(0.82);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes kupas-meluncur-masuk {
+  0% {
+    transform: translateY(18px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes kupas-transisi-halaman {
+  0% {
+    transform: translateY(12px) scale(0.99);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes kupas-melayang-awan {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(16px);
+  }
+}
+
+@keyframes kupas-bersorak-lompat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-20px) scale(1.08);
+  }
+  65% {
+    transform: translateY(0) scale(0.96);
+  }
+}
+
+@keyframes kupas-gelembung-masuk {
+  0% {
+    transform: scale(0.5) translateY(20px);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.06) translateY(-3px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes kupas-skeleton-pulse {
+  0%, 100% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.995);
+  }
+}
+
+/* 2. EFEK INTERAKTIF HOVER / TEKAN / FOKUS (SENTUH, KLIK, KEYBOARD) */
+.motion-full button:not(:disabled):hover,
+.motion-full .btn:not(:disabled):hover,
+.motion-full .opsi-jawaban:not(:disabled):hover,
+.motion-full .avatar-item:hover,
+.motion-full .kupas-card-interaktif:hover {
+  transform: translateY(-3px) scale(1.01);
+}
+
+.motion-full button:not(:disabled):active,
+.motion-full .btn:not(:disabled):active,
+.motion-full .opsi-jawaban:not(:disabled):active,
+.motion-full .avatar-item:active {
+  transform: scale(0.95) translate(2px, 2px);
+}
+
+.kupas-card-interaktif {
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+}
+
+/* Bar Progres yang Mengisi Halus (Hanya transform: scaleX) */
+.progres-wadah-halus {
+  width: 100%;
+  height: 14px;
+  background-color: #E2E8F0;
+  border: 2px solid var(--kupas-border-color, #0F172A);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progres-bar-halus {
+  width: 100%;
+  height: 100%;
+  background-color: var(--kupas-primary, #16A34A);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.progres-bar-xp {
+  background-color: var(--kupas-accent, #F59E0B);
+}
+
+/* Skeleton Bermaskot (Hanya opacity & transform) */
+.kupas-skeleton-bar {
+  background-color: #CBD5E1;
+  border-radius: 12px;
+  min-height: 20px;
+  animation: kupas-skeleton-pulse 1.6s ease-in-out infinite;
+}
+
+/* 3. KELAS UTAMA UNTUK TINGKAT GERAK PENUH (.motion-full) */
+.motion-full main {
+  animation: kupas-transisi-halaman 0.35s ease-out;
+}
+
+.motion-full .anim-bounce {
+  animation: kupas-bouncing 2s ease-in-out infinite;
+}
+
+.motion-full .anim-melambai {
+  transform-origin: bottom center;
+  animation: kupas-melambai 3s ease-in-out infinite;
+}
+
+.motion-full .anim-pop {
+  opacity: 0;
+  animation: kupas-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.motion-full .anim-slide-up {
+  opacity: 0;
+  animation: kupas-meluncur-masuk 0.35s ease-out forwards;
+}
+
+.motion-full .anim-denyut {
+  animation: kupas-denyut 1.8s ease-in-out infinite;
+}
+
+.motion-full .anim-goyang,
+.motion-full .anim-goyang-lembut {
+  animation: kupas-goyang-salah 0.45s ease-in-out;
+}
+
+.motion-full .anim-sorak,
+.motion-full .anim-lompat-benar {
+  animation: kupas-bersorak-lompat 1.2s ease-in-out infinite;
+}
+
+.motion-full .anim-awan {
+  animation: kupas-melayang-awan 12s ease-in-out infinite;
+}
+
+.motion-full .anim-gelembung {
+  opacity: 0;
+  animation: kupas-gelembung-masuk 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Stagger delay bertahap untuk kartu, daftar, dan opsi */
+.anim-stagger-1 { animation-delay: 0.05s; }
+.anim-stagger-2 { animation-delay: 0.10s; }
+.anim-stagger-3 { animation-delay: 0.15s; }
+.anim-stagger-4 { animation-delay: 0.20s; }
+.anim-stagger-5 { animation-delay: 0.25s; }
+.anim-stagger-6 { animation-delay: 0.30s; }
+.anim-stagger-7 { animation-delay: 0.35s; }
+.anim-stagger-8 { animation-delay: 0.40s; }
+
+/* Jeda semua animasi saat tab tersembunyi */
+body.tab-tersembunyi *,
+body.tab-tersembunyi *::before,
+body.tab-tersembunyi *::after {
+  animation-play-state: paused !important;
+}
+
+/* 4. TINGKAT GERAK KURANG (.motion-reduced) */
+.motion-reduced .anim-bounce,
+.motion-reduced .anim-melambai,
+.motion-reduced .anim-sorak,
+.motion-reduced .anim-lompat-benar,
+.motion-reduced .anim-awan,
+.motion-reduced .anim-denyut,
+.motion-reduced .kupas-skeleton-bar {
+  animation: none !important;
+}
+
+.motion-reduced .anim-pop,
+.motion-reduced .anim-slide-up,
+.motion-reduced .anim-gelembung {
+  animation: none !important;
+  transition: opacity 0.2s ease-out;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.motion-reduced .anim-goyang,
+.motion-reduced .anim-goyang-lembut {
+  animation: none !important;
+  outline: 4px solid var(--kupas-warning, #D97706);
+}
+
+/* 5. TINGKAT GERAK MATI (.motion-off) */
+.motion-off *,
+.motion-off *::before,
+.motion-off *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.motion-off .anim-pop,
+.motion-off .anim-slide-up,
+.motion-off .anim-gelembung {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* 6. DUKUNGAN OTOMATIS @media (prefers-reduced-motion: reduce) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .anim-pop,
+  .anim-slide-up,
+  .anim-gelembung {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

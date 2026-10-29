@@ -1,0 +1,768 @@
+/* ==========================================================================
+   KUPAS KUIS IPAS v4.0 - Latar Belakang Animasi "Hutan Tropis Hidup"
+   Berkas: assets/css/latar-hidup.css
+   Aturan Performa & Aksesibilitas Ketat:
+   - 100% animasi GPU-friendly: HANYA memakai `transform` dan `opacity`.
+   - Tidak menangkap interaksi: `pointer-events: none`, `z-index: -1`.
+   - Jeda saat tab tersembunyi (`body.tab-tersembunyi`).
+   - Berhenti TOTAL (ilustrasi statis) saat Gerak = Kurang (`.motion-reduced`),
+     Gerak = Mati (`.motion-off`), atau `@media (prefers-reduced-motion: reduce)`.
+   - Otomatis mengurangi lapisan & partikel pada layar sempit (< 768px).
+   ========================================================================== */
+
+/* 1. FONDASI KANVAS & STACKING AMAN DI BELAKANG SEMUA KONTEN */
+html:has(body.memiliki-latar-hidup) {
+  background-color: var(--kupas-cream-bg, #FFF6E0);
+}
+
+body.memiliki-latar-hidup {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* 2. VARIABEL TEMA LATAR ("Hutan Tropis Hidup" & Variasi Halaman) */
+.kupas-latar-hidup {
+  --latar-langit-atas: #DCF0F4;
+  --latar-langit-tengah: #F5F8E8;
+  --latar-langit-bawah: #FFF6E0;
+  --latar-sinar-utama: rgba(245, 158, 11, 0.22);
+  --latar-sinar-inti: #FEF08A;
+
+  --latar-bukit-jauh: #C7E2D2;
+  --latar-bukit-tengah: #8EC0A5;
+  --latar-bukit-dekat: #4E8D70;
+
+  --latar-hutan-utama: #1E5A43;
+  --latar-hutan-gelap: #134432;
+  --latar-sawah-1: #A5D397;
+  --latar-sawah-2: #7FB875;
+  --latar-sawah-emas: #E5D48A;
+
+  --latar-opasitas-lanskap: 1;
+  --latar-opasitas-partikel: 1;
+
+  --px: 0;
+  --py: 0;
+
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none !important;
+  user-select: none;
+  overflow: hidden;
+  contain: layout style paint;
+}
+
+/* Variasi Tema Halaman (Dipakai di Checkpoint 2 & Checkpoint 3) */
+body[data-latar-tema="hutan"] .kupas-latar-hidup {
+  --latar-langit-atas: #CEECDC;
+  --latar-langit-tengah: #EAF6E2;
+  --latar-bukit-jauh: #B3D9C4;
+  --latar-bukit-tengah: #6DAE8D;
+  --latar-bukit-dekat: #347357;
+}
+
+body[data-latar-tema="air"] .kupas-latar-hidup {
+  /* Satu-satunya zona dengan nuansa air & sungai/danau biru aktif */
+  --latar-langit-atas: #BEE4F8;
+  --latar-langit-tengah: #E4F3FB;
+  --latar-langit-bawah: #FFF8E7;
+  --latar-bukit-jauh: #B8DFDA;
+  --latar-bukit-tengah: #7CB6A4;
+  --latar-bukit-dekat: #43826D;
+}
+
+body[data-latar-tema="pohon"] .kupas-latar-hidup {
+  --latar-langit-atas: #DCEFE3;
+  --latar-langit-tengah: #F5F7E4;
+  --latar-opasitas-lanskap: 0.9;
+}
+
+body[data-latar-tema="pos"] .kupas-latar-hidup {
+  --latar-langit-atas: #E6F2DC;
+  --latar-langit-tengah: #F8F7E4;
+  --latar-opasitas-lanskap: 0.9;
+}
+
+body[data-latar-tema="puncak"] .kupas-latar-hidup {
+  --latar-langit-atas: #FCE3AE;
+  --latar-langit-tengah: #FFF2D2;
+  --latar-sinar-utama: rgba(245, 158, 11, 0.32);
+  --latar-bukit-jauh: #CCE2CB;
+  --latar-bukit-tengah: #90C09E;
+}
+
+body[data-latar-tema="arena"] .kupas-latar-hidup {
+  --latar-langit-atas: #FADAD4;
+  --latar-langit-tengah: #FDEEE0;
+  --latar-sinar-utama: rgba(225, 29, 72, 0.14);
+  --latar-opasitas-lanskap: 0.88;
+}
+
+body[data-latar-tema="petualang"] .kupas-latar-hidup,
+body[data-latar-tema="fokus-kuis"] .kupas-latar-hidup,
+body[data-latar-tema="arena-tenang"] .kupas-latar-hidup {
+  --latar-opasitas-lanskap: 0.78;
+  --latar-opasitas-partikel: 0.65;
+}
+
+body[data-latar-tema="tenang"] .kupas-latar-hidup {
+  --latar-langit-atas: #E7F2EC;
+  --latar-langit-tengah: #F9F6E8;
+  --latar-opasitas-lanskap: 0.62;
+  --latar-opasitas-partikel: 0.4;
+}
+
+/* 3. WADAH PARALLAX PER LAPISAN (HANYA TRANSFORM TRANSLATE3D, MAKS ±20PX) */
+.latar-lapis {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.latar-lapis-1 {
+  transform: translate3d(calc(var(--px) * 2px), calc(var(--py) * 2px), 0);
+}
+
+.latar-lapis-2 {
+  transform: translate3d(calc(var(--px) * 5px), calc(var(--py) * 3px), 0);
+}
+
+.latar-lapis-3 {
+  opacity: var(--latar-opasitas-lanskap);
+  transform: translate3d(calc(var(--px) * 8px), calc(var(--py) * 5px), 0);
+}
+
+.latar-lapis-4 {
+  opacity: var(--latar-opasitas-lanskap);
+  transform: translate3d(calc(var(--px) * 12px), calc(var(--py) * 8px), 0);
+}
+
+.latar-lapis-5 {
+  display: none;
+  /* Biru sungai/danau HANYA aktif di zona air */
+  opacity: var(--latar-opasitas-lanskap);
+  transform: translate3d(calc(var(--px) * 15px), calc(var(--py) * 10px), 0);
+}
+
+body[data-latar-tema="air"] .latar-lapis-5 {
+  display: block;
+}
+
+.latar-lapis-6 {
+  opacity: var(--latar-opasitas-lanskap);
+  transform: translate3d(calc(var(--px) * 20px), calc(var(--py) * 14px), 0);
+}
+
+.latar-lapis-7 {
+  opacity: var(--latar-opasitas-partikel);
+  transform: translate3d(calc(var(--px) * 16px), calc(var(--py) * 11px), 0);
+}
+
+/* 4. LAPISAN 1: LANGIT PAGI -> KREM HANGAT & CAHAYA MATAHARI BERDENYUT PELAN */
+.latar-langit-gradasi {
+  position: absolute;
+  inset: -24px;
+  background: linear-gradient(180deg,
+      var(--latar-langit-atas) 0%,
+      var(--latar-langit-tengah) 26%,
+      var(--latar-langit-bawah) 54%,
+      #FBF0D3 100%);
+}
+
+/* Area Tengah Tenang (Calm Center Zone) untuk menjaga kontras konten */
+.latar-zona-tenang-tengah {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 62% 54% at 50% 44%,
+      rgba(255, 246, 224, 0.72) 0%,
+      rgba(255, 246, 224, 0.28) 62%,
+      rgba(255, 246, 224, 0) 100%);
+}
+
+.latar-matahari-wadah {
+  position: absolute;
+  top: -36px;
+  right: 6%;
+  width: clamp(220px, 28vw, 390px);
+  height: clamp(220px, 28vw, 390px);
+  transform-origin: center center;
+}
+
+.latar-matahari-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.latar-sinar-denyut {
+  transform-origin: 200px 140px;
+  animation: latar-denyut-matahari 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* 5. LAPISAN 2: AWAN FLAT MELAYANG HORIZONTAL (40-90 DETIK PER LINTASAN) */
+.latar-awan-item {
+  position: absolute;
+  left: 0;
+  will-change: transform;
+}
+
+/* Posisi dasar yang indah ketika animasi dihentikan (mode statis) */
+.latar-awan-1 {
+  top: 7%;
+  width: clamp(130px, 15vw, 210px);
+  transform: translate3d(7vw, 0, 0);
+  animation: latar-awan-melintas-1 54s linear infinite;
+  animation-delay: -9s;
+}
+
+.latar-awan-2 {
+  top: 14%;
+  width: clamp(105px, 12vw, 170px);
+  opacity: 0.88;
+  transform: translate3d(64vw, 0, 0);
+  animation: latar-awan-melintas-2 78s linear infinite;
+  animation-delay: -47s;
+}
+
+.latar-awan-3 {
+  top: 5%;
+  width: clamp(95px, 10vw, 145px);
+  opacity: 0.82;
+  transform: translate3d(36vw, 0, 0);
+  animation: latar-awan-melintas-3 90s linear infinite;
+  animation-delay: -32s;
+}
+
+.latar-awan-4 {
+  top: 19%;
+  width: clamp(115px, 13vw, 180px);
+  opacity: 0.76;
+  transform: translate3d(82vw, 0, 0);
+  animation: latar-awan-melintas-4 44s linear infinite;
+  animation-delay: -26s;
+}
+
+/* 6. LAPISAN 3, 4, 5: PERBUKITAN JAUH, HUTAN TENGAH & SAWAH, SUNGAI ZONA AIR */
+.latar-lanskap-bawah {
+  position: absolute;
+  left: -3%;
+  width: 106%;
+  bottom: -20px;
+  height: clamp(220px, 35vh, 380px);
+}
+
+.latar-lanskap-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Hutan Tengah & Sawah Berundak di Sisi Kiri-Kanan (Proporsi 1:1 Tanpa Distorsi) */
+.latar-tanah-dasar {
+  position: absolute;
+  left: -3%;
+  width: 106%;
+  bottom: -22px;
+  height: 74px;
+  background: linear-gradient(180deg, #245E47 0%, #154231 100%);
+  border-top: 2px solid rgba(15, 61, 46, 0.45);
+}
+
+.latar-hutan-sisi {
+  position: absolute;
+  bottom: 40px;
+  width: clamp(220px, 34vw, 540px);
+  height: auto;
+  display: block;
+}
+
+.latar-hutan-kiri {
+  left: -22px;
+}
+
+.latar-hutan-kanan {
+  right: -22px;
+}
+
+/* Sungai & Danau Biru (Khusus Zona Air) */
+.latar-sungai-bawah {
+  position: absolute;
+  left: -3%;
+  width: 106%;
+  bottom: 34px;
+  height: clamp(165px, 25vh, 260px);
+}
+
+.latar-pita-kabut-1 {
+  animation: latar-kabut-alun 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.latar-pita-kabut-2 {
+  animation: latar-kabut-alun-balik 20s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.latar-kilau-air-1 {
+  animation: latar-kilau-sungai 5.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.latar-kilau-air-2 {
+  animation: latar-kilau-sungai 7.2s ease-in-out infinite;
+  animation-delay: -2.6s;
+  will-change: transform, opacity;
+}
+
+/* 7. LAPISAN 6: BINGKAI DAUN & SEMAK DEPAN (SUDUT BAWAH-KIRI & BAWAH-KANAN) */
+.latar-bingkai-sudut {
+  position: absolute;
+  bottom: 34px;
+  width: clamp(160px, 19vw, 275px);
+  height: auto;
+  will-change: transform;
+}
+
+@media (max-width: 1023.98px) {
+  .latar-bingkai-sudut {
+    bottom: 54px;
+    /* Tepat di atas bilah navigasi bawah tablet/HP */
+  }
+
+  .latar-hutan-sisi {
+    bottom: 52px;
+  }
+
+  .latar-sungai-bawah {
+    bottom: 50px;
+  }
+}
+
+.latar-bingkai-kiri {
+  left: -18px;
+  transform-origin: bottom left;
+  animation: latar-daun-ayun-kiri 8.5s ease-in-out infinite;
+}
+
+.latar-bingkai-kanan {
+  right: -18px;
+  transform-origin: bottom right;
+  animation: latar-daun-ayun-kanan 9.2s ease-in-out infinite;
+  animation-delay: -3.2s;
+}
+
+/* 8. LAPISAN 7: PARTIKEL HIDUP (KUNANG-KUNANG, DAUN, KUPU-KUPU) & BURUNG */
+.latar-partikel {
+  position: absolute;
+  will-change: transform, opacity;
+}
+
+/* Kunang-kunang hangat di tepi kiri & kanan */
+.latar-kunang {
+  width: 18px;
+  height: 18px;
+  animation: latar-kunang-melayang 13s ease-in-out infinite;
+}
+
+/* Daun kecil melayang lembut */
+.latar-daun-jatuh {
+  width: 20px;
+  height: 20px;
+  animation: latar-daun-melayang 20s ease-in-out infinite;
+}
+
+/* Kupu-kupu tropis di tepi taman */
+.latar-kupu {
+  width: 26px;
+  height: 26px;
+  animation: latar-kupu-terbang 22s ease-in-out infinite;
+}
+
+.latar-kupu-sayap {
+  transform-origin: 12px 12px;
+  animation: latar-kupu-kepak 1.5s ease-in-out infinite;
+}
+
+/* Burung kecil melintas sesekali di langit atas */
+.latar-burung {
+  position: absolute;
+  left: 0;
+  width: 28px;
+  height: 18px;
+  opacity: 0.52;
+  will-change: transform, opacity;
+}
+
+.latar-burung-1 {
+  top: 11%;
+  transform: translate3d(74vw, 0, 0);
+  animation: latar-burung-lintas-1 46s linear infinite;
+  animation-delay: -6s;
+}
+
+.latar-burung-2 {
+  top: 13.5%;
+  width: 22px;
+  opacity: 0.42;
+  transform: translate3d(76.5vw, 4px, 0);
+  animation: latar-burung-lintas-1 46s linear infinite;
+  animation-delay: -5.3s;
+}
+
+.latar-burung-3 {
+  top: 18%;
+  width: 24px;
+  opacity: 0.45;
+  transform: translate3d(22vw, 0, 0);
+  animation: latar-burung-lintas-2 58s linear infinite;
+  animation-delay: -29s;
+}
+
+/* 9. PERMUKAAN PELINDUNG KONTRAS TEKS (WCAG AA >= 4.5:1 / AAA >= 7:1)
+   Tanpa backdrop-filter blur berat agar ringan di Smartboard/HP spek rendah */
+.latar-panel-baca {
+  background-color: rgba(255, 250, 238, 0.9);
+  border: 2px solid rgba(15, 61, 46, 0.18);
+  border-radius: var(--kupas-radius-lg, 28px);
+  padding: 1.25rem 1.4rem;
+  box-shadow: 0 8px 22px rgba(15, 61, 46, 0.06);
+}
+
+.latar-pita-baca {
+  background-color: rgba(255, 250, 238, 0.92);
+  border: 2px solid rgba(15, 61, 46, 0.18);
+  border-radius: var(--kupas-radius, 18px);
+  padding: 0.5rem 0.95rem;
+  box-shadow: 0 4px 12px rgba(15, 61, 46, 0.05);
+}
+
+/* 10. KEYFRAMES MURNI GPU (HANYA TRANSFORM & OPACITY) */
+@keyframes latar-denyut-matahari {
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.07) rotate(4deg);
+    opacity: 1;
+  }
+}
+
+@keyframes latar-awan-melintas-1 {
+  0% {
+    transform: translate3d(-24vw, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(106vw, 0, 0);
+  }
+}
+
+@keyframes latar-awan-melintas-2 {
+  0% {
+    transform: translate3d(-20vw, 4px, 0);
+  }
+
+  100% {
+    transform: translate3d(106vw, -4px, 0);
+  }
+}
+
+@keyframes latar-awan-melintas-3 {
+  0% {
+    transform: translate3d(-18vw, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(105vw, 0, 0);
+  }
+}
+
+@keyframes latar-awan-melintas-4 {
+  0% {
+    transform: translate3d(-22vw, -3px, 0);
+  }
+
+  100% {
+    transform: translate3d(106vw, 3px, 0);
+  }
+}
+
+@keyframes latar-kabut-alun {
+
+  0%,
+  100% {
+    transform: translate3d(-10px, 0, 0);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: translate3d(12px, -2px, 0);
+    opacity: 0.72;
+  }
+}
+
+@keyframes latar-kabut-alun-balik {
+
+  0%,
+  100% {
+    transform: translate3d(10px, 0, 0);
+    opacity: 0.38;
+  }
+
+  50% {
+    transform: translate3d(-12px, 2px, 0);
+    opacity: 0.64;
+  }
+}
+
+@keyframes latar-kilau-sungai {
+
+  0%,
+  100% {
+    transform: translate3d(-12px, 0, 0);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: translate3d(14px, 0, 0);
+    opacity: 0.92;
+  }
+}
+
+@keyframes latar-daun-ayun-kiri {
+
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(2.2deg) scale(1.015);
+  }
+}
+
+@keyframes latar-daun-ayun-kanan {
+
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(-2.2deg) scale(1.015);
+  }
+}
+
+@keyframes latar-kunang-melayang {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(0.92);
+    opacity: 0.35;
+  }
+
+  35% {
+    transform: translate3d(14px, -18px, 0) scale(1.08);
+    opacity: 0.92;
+  }
+
+  70% {
+    transform: translate3d(-10px, -30px, 0) scale(0.96);
+    opacity: 0.55;
+  }
+}
+
+@keyframes latar-daun-melayang {
+  0% {
+    transform: translate3d(0, -16px, 0) rotate(-12deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.82;
+  }
+
+  50% {
+    transform: translate3d(20px, 42px, 0) rotate(24deg);
+    opacity: 0.85;
+  }
+
+  85% {
+    opacity: 0.72;
+  }
+
+  100% {
+    transform: translate3d(-8px, 96px, 0) rotate(-18deg);
+    opacity: 0;
+  }
+}
+
+@keyframes latar-kupu-terbang {
+
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-6deg);
+  }
+
+  25% {
+    transform: translate3d(18px, -22px, 0) rotate(8deg);
+  }
+
+  55% {
+    transform: translate3d(6px, -40px, 0) rotate(-4deg);
+  }
+
+  80% {
+    transform: translate3d(-14px, -18px, 0) rotate(10deg);
+  }
+}
+
+@keyframes latar-kupu-kepak {
+
+  0%,
+  100% {
+    transform: scaleX(1);
+  }
+
+  50% {
+    transform: scaleX(0.55);
+  }
+}
+
+@keyframes latar-burung-lintas-1 {
+  0% {
+    transform: translate3d(-12vw, 10px, 0) scale(0.9);
+    opacity: 0;
+  }
+
+  6% {
+    opacity: 0.55;
+  }
+
+  62% {
+    transform: translate3d(108vw, -22px, 0) scale(1);
+    opacity: 0.52;
+  }
+
+  66%,
+  100% {
+    transform: translate3d(112vw, -24px, 0) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes latar-burung-lintas-2 {
+
+  0%,
+  30% {
+    transform: translate3d(108vw, 6px, 0) scaleX(-1);
+    opacity: 0;
+  }
+
+  35% {
+    opacity: 0.45;
+  }
+
+  88% {
+    transform: translate3d(-12vw, -18px, 0) scaleX(-1);
+    opacity: 0.45;
+  }
+
+  93%,
+  100% {
+    transform: translate3d(-15vw, -20px, 0) scaleX(-1);
+    opacity: 0;
+  }
+}
+
+/* 11. PENGOPTIMALAN OTOMATIS LAYAR SEMPIT (< 768PX) */
+@media (max-width: 767.98px) {
+  .latar-khusus-desktop {
+    display: none !important;
+  }
+
+  .latar-bingkai-sudut {
+    width: 118px;
+    bottom: 48px;
+    /* Tetap terlihat rapi di atas bottom-nav HP */
+    opacity: 0.88;
+  }
+
+  .latar-hutan-sisi {
+    width: 205px;
+    bottom: 46px;
+  }
+
+  .latar-tanah-dasar {
+    height: 82px;
+  }
+
+  .latar-lanskap-bawah {
+    height: 235px;
+    bottom: 26px;
+  }
+
+  .latar-sungai-bawah {
+    height: 145px;
+    bottom: 34px;
+  }
+
+  .latar-panel-baca {
+    padding: 1rem 1.05rem;
+  }
+}
+
+/* 12. JEDA SAAT TAB TIDAK TERLIHAT (visibilitychange) */
+body.tab-tersembunyi .kupas-latar-hidup,
+body.tab-tersembunyi .kupas-latar-hidup * {
+  animation-play-state: paused !important;
+}
+
+/* 13. PENGHENTIAN TOTAL ANIMASI SAAT GERAK MINIM (.motion-reduced),
+   GERAK MATI (.motion-off), ATAU PREFERS-REDUCED-MOTION AKTIF */
+body.motion-reduced .kupas-latar-hidup,
+body.motion-reduced .kupas-latar-hidup *,
+body.motion-off .kupas-latar-hidup,
+body.motion-off .kupas-latar-hidup * {
+  animation: none !important;
+  transition: none !important;
+  will-change: auto !important;
+}
+
+body.motion-reduced .latar-lapis,
+body.motion-off .latar-lapis {
+  transform: translate3d(0, 0, 0) !important;
+}
+
+/* Pastikan elemen daun jatuh tetap tampak lembut di posisi statis, bukan opacity: 0 */
+body.motion-reduced .latar-daun-jatuh,
+body.motion-off .latar-daun-jatuh {
+  opacity: 0.72 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .kupas-latar-hidup,
+  .kupas-latar-hidup * {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+
+  .latar-lapis {
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  .latar-daun-jatuh {
+    opacity: 0.72 !important;
+  }
+}
