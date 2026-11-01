@@ -77,8 +77,25 @@ export const auth = {
 
   // Ambil Guru Saat Ini
   async ambilGuruAktif() {
-    const { data } = await supabase.auth.getUser();
-    return data?.user || null;
+    try {
+      const { data } = await supabase.auth.getUser();
+      return data?.user || null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  // Periksa Akses Guru (Route Guard): Cegah akses tamu tanpa login
+  async periksaAksesGuru({ redirectJikaGagal = true, pathMasuk = 'masuk.html' } = {}) {
+    const guru = await this.ambilGuruAktif();
+    if (!guru && redirectJikaGagal) {
+      try {
+        sessionStorage.setItem('kupas_redirect_tujuan', window.location.href);
+      } catch (e) {}
+      window.location.replace(pathMasuk);
+      return null;
+    }
+    return guru;
   },
 
   // Siswa Gabung Sesi

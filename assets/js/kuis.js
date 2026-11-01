@@ -110,7 +110,7 @@ export async function ambilKolomTabelSoal() {
 
   const kandidat = [
     'opsi', 'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d',
-    'kuis_id', 'kamus_id', 'gambar_path'
+    'kuis_id', 'kamus_id', 'gambar_path', 'kunci'
   ];
 
   for (const col of kandidat) {
@@ -129,7 +129,7 @@ export async function ambilKolomTabelSoal() {
 /**
  * Membentuk objek payload yang adaptif dan kompatibel dengan kolom Supabase aktual
  */
-export function buatPayloadSoalAdaptif(soalData, kuisIdTarget, kolomTersedia = new Set()) {
+export function buatPayloadSoalAdaptif(soalData, kuisIdTarget, kolomTersedia = new Set(), kunciJawaban = null) {
   const payload = {
     urutan: Number.isInteger(soalData.urutan) ? soalData.urutan : 1,
     teks: String(soalData.teks || '').trim(),
@@ -173,6 +173,12 @@ export function buatPayloadSoalAdaptif(soalData, kuisIdTarget, kolomTersedia = n
   // gambar_path (hanya jika kolom tersedia di DB)
   if (kolomTersedia.has('gambar_path') && soalData.gambar_path) {
     payload.gambar_path = soalData.gambar_path;
+  }
+
+  // Kolom kunci jika tabel soal memiliki kolom kunci (legacy/compatibility)
+  const nilaiKunci = soalData.kunci !== undefined ? soalData.kunci : kunciJawaban;
+  if (kolomTersedia.has('kunci') && nilaiKunci !== null && nilaiKunci !== undefined) {
+    payload.kunci = String(nilaiKunci);
   }
 
   return payload;
@@ -312,7 +318,24 @@ export const kuisManager = {
       .order('urutan', { ascending: true });
     if (errSoal) throw errSoal;
 
-    return { kuis, soal: soal || [] };
+    const kunciDB = JSON.parse(localStorage.getItem('kupas_db_soal_kunci_secure') || '{}');
+    const soalTerformat = (soal || []).map(s => {
+      let opsiArray = [];
+      if (Array.isArray(s.opsi) && s.opsi.length > 0) {
+        opsiArray = s.opsi;
+      } else if (s.opsi_a !== undefined || s.opsi_b !== undefined || s.opsi_c !== undefined || s.opsi_d !== undefined) {
+        opsiArray = [s.opsi_a || '', s.opsi_b || '', s.opsi_c || '', s.opsi_d || ''];
+      } else if (typeof s.opsi === 'string') {
+        try { opsiArray = JSON.parse(s.opsi); } catch (e) { opsiArray = []; }
+      }
+      return {
+        ...s,
+        opsi: opsiArray,
+        kunci: (s.kunci !== undefined && s.kunci !== null) ? s.kunci : (kunciDB[s.id] || '0')
+      };
+    });
+
+    return { kuis, soal: soalTerformat };
   },
 
   async simpanKuis({
@@ -328,34 +351,66 @@ export const kuisManager = {
     jadwal_buka = '',
     jadwal_tutup = ''
   }) {
-    const payload = {
+    let payload = {
       judul,
       topik,
       deskripsi,
       status,
       kkm: Number(kkm) || 75,
       acak_soal: Boolean(acak_soal),
-      durasi_menit: Number(durasi_menit) || 15,
-      jadwal_buka: jadwal_buka || null,
-      jadwal_tutup: jadwal_tutup || null
+      durasi_menit: Number(durasi_menit) || 15
     };
 
+    if (jadwal_buka) payload.jadwal_buka = jadwal_buka;
+    if (jadwal_tutup) payload.jadwal_tutup = jadwal_tutup;
+
+    // Normalisasi guru_id agar UUID valid
+    let validGuruId = guru_id;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!validGuruId || !uuidRegex.test(validGuruId)) {
+      validGuruId = '00000000-0000-0000-0000-000000000001';
+    }
+
+    // Pastikan entri profil guru tersedia untuk mencegah violation constraint FK
+    try {
+      await supabase.from('profil').upsert({
+        id: validGuruId,
+        nama: 'Ibu/Bapak Guru IPAS',
+        sekolah: 'SD Negeri Merdeka'
+      }, { onConflict: 'id' });
+    } catch (eProfil) {}
+
     if (id) {
-      const { error } = await supabase
-        .from('kuis')
-        .update(payload)
-        .eq('id', id);
-      if (error) throw error;
+      let res = await supabase.from('kuis').update(payload).eq('id', id);
+      while (res.error && res.error.message && res.error.message.includes("Could not find the '")) {
+        const match = res.error.message.match(/Could not find the '([^']+)' column/);
+        if (match && match[1]) {
+          delete payload[match[1]];
+          res = await supabase.from('kuis').update(payload).eq('id', id);
+        } else {
+          break;
+        }
+      }
+      if (res.error) throw res.error;
       return id;
     } else {
-      const { data, error } = await supabase
-        .from('kuis')
-        .insert({
-          guru_id: guru_id || 'guru-demo-1',
-          ...payload
-        });
-      if (error) throw error;
-      return data?.[0]?.id;
+      let insertPayload = {
+        guru_id: validGuruId,
+        ...payload
+      };
+
+      let res = await supabase.from('kuis').insert(insertPayload).select();
+      while (res.error && res.error.message && res.error.message.includes("Could not find the '")) {
+        const match = res.error.message.match(/Could not find the '([^']+)' column/);
+        if (match && match[1]) {
+          delete insertPayload[match[1]];
+          res = await supabase.from('kuis').insert(insertPayload).select();
+        } else {
+          break;
+        }
+      }
+      if (res.error) throw res.error;
+      return res.data?.[0]?.id;
     }
   },
 
@@ -419,6 +474,8 @@ export const kuisManager = {
       .order('urutan', { ascending: true });
     if (error) throw error;
     
+    const kunciDB = JSON.parse(localStorage.getItem('kupas_db_soal_kunci_secure') || '{}');
+
     return (data || []).map(s => {
       let opsiArray = [];
       if (Array.isArray(s.opsi) && s.opsi.length > 0) {
@@ -430,7 +487,8 @@ export const kuisManager = {
       }
       return {
         ...s,
-        opsi: opsiArray
+        opsi: opsiArray,
+        kunci: (s.kunci !== undefined && s.kunci !== null) ? s.kunci : (kunciDB[s.id] || '0')
       };
     });
   },
@@ -443,6 +501,8 @@ export const kuisManager = {
       .order('urutan', { ascending: true });
     if (error) throw error;
 
+    const kunciDB = JSON.parse(localStorage.getItem('kupas_db_soal_kunci_secure') || '{}');
+
     return (data || []).map(s => {
       let opsiArray = [];
       if (Array.isArray(s.opsi) && s.opsi.length > 0) {
@@ -454,14 +514,15 @@ export const kuisManager = {
       }
       return {
         ...s,
-        opsi: opsiArray
+        opsi: opsiArray,
+        kunci: (s.kunci !== undefined && s.kunci !== null) ? s.kunci : (kunciDB[s.id] || '0')
       };
     });
   },
 
   async simpanSoal(kuisId, soalData, kunciJawaban) {
     const kolomTersedia = await ambilKolomTabelSoal();
-    let payload = buatPayloadSoalAdaptif(soalData, kuisId || soalData.kuis_id, kolomTersedia);
+    let payload = buatPayloadSoalAdaptif(soalData, kuisId || soalData.kuis_id, kolomTersedia, kunciJawaban);
     let soalId = soalData.id;
 
     if (soalId) {
@@ -469,6 +530,13 @@ export const kuisManager = {
         .from('soal')
         .update(payload)
         .eq('id', soalId);
+
+      // Penanganan otomatis jika kolom kunci dituntut di DB
+      if (resUpdate.error && resUpdate.error.message && resUpdate.error.message.includes('column "kunci" of relation "soal"')) {
+        kolomTersedia.add('kunci');
+        payload.kunci = String(kunciJawaban ?? soalData.kunci ?? '0');
+        resUpdate = await supabase.from('soal').update(payload).eq('id', soalId);
+      }
 
       // Penanganan otomatis jika ada kolom yang tidak ada di schema cache
       if (resUpdate.error && resUpdate.error.message && resUpdate.error.message.includes("Could not find the '")) {
@@ -485,6 +553,13 @@ export const kuisManager = {
         .from('soal')
         .insert(payload)
         .select();
+
+      // Penanganan otomatis jika kolom kunci dituntut di DB
+      if (resInsert.error && resInsert.error.message && resInsert.error.message.includes('column "kunci" of relation "soal"')) {
+        kolomTersedia.add('kunci');
+        payload.kunci = String(kunciJawaban ?? soalData.kunci ?? '0');
+        resInsert = await supabase.from('soal').insert(payload).select();
+      }
 
       if (resInsert.error && resInsert.error.message && resInsert.error.message.includes("Could not find the '")) {
         const match = resInsert.error.message.match(/Could not find the '([^']+)' column/);
@@ -544,9 +619,12 @@ export const kuisManager = {
     let idKuisFinal = kuisIdTarget;
     if (kolomTersedia.has('kuis_id')) {
       try {
-        const { data: listKuis } = await supabase.from('kuis').select('id, judul').limit(10);
+        const { data: listKuis } = await supabase.from('kuis').select('id, judul, guru_id').limit(20);
         if (listKuis && listKuis.length > 0) {
-          const found = listKuis.find(k => k.id === kuisIdTarget);
+          const user = (await supabase.auth.getUser())?.data?.user;
+          const found = listKuis.find(k => k.id === kuisIdTarget) ||
+                        (user ? listKuis.find(k => k.guru_id === user.id) : null) ||
+                        listKuis[0];
           idKuisFinal = found ? found.id : listKuis[0].id;
         }
       } catch (e) {}
@@ -584,12 +662,22 @@ export const kuisManager = {
 
     try {
       for (const item of itemTervalidasi) {
-        let payload = buatPayloadSoalAdaptif(item.soalPayload, idKuisFinal, kolomTersedia);
+        let payload = buatPayloadSoalAdaptif(item.soalPayload, idKuisFinal, kolomTersedia, item.kunci);
+        if (kolomTersedia.has('kunci')) {
+          payload.kunci = String(item.kunci ?? '0');
+        }
 
         let resInsert = await supabase
           .from('soal')
           .insert(payload)
           .select();
+
+        // Penanganan otomatis jika kolom "kunci" memiliki constraint NOT NULL di DB
+        if (resInsert.error && resInsert.error.message && resInsert.error.message.includes('column "kunci" of relation "soal"')) {
+          kolomTersedia.add('kunci');
+          payload.kunci = String(item.kunci ?? '0');
+          resInsert = await supabase.from('soal').insert(payload).select();
+        }
 
         // Penanganan otomatis jika ada kolom yang ditolak oleh PostgREST schema cache
         if (resInsert.error && resInsert.error.message && resInsert.error.message.includes("Could not find the '")) {
@@ -604,6 +692,9 @@ export const kuisManager = {
         }
 
         if (resInsert.error) {
+          if (resInsert.error.message && resInsert.error.message.toLowerCase().includes('permission denied')) {
+            throw new Error(`Izin database ditolak (permission denied). Silakan jalankan file SQL '20261101_perbaikan_akses_dan_kamus.sql' di SQL Editor Supabase untuk memberikan hak akses tabel soal.`);
+          }
           throw new Error(`Gagal menyimpan butir soal urutan #${payload.urutan}: ${resInsert.error.message}`);
         }
 

@@ -11,11 +11,26 @@
 import { animasi, TingkatGerak } from './animasi.js';
 import { konfigurasiManager } from './konfigurasi.js';
 
-// Pengatur Efek Suara Web Audio API Sederhana (Tanpa File Eksternal)
+// Pengatur Efek Suara Web Audio API Sederhana (Dengan Pengatur Volume & Tema Suara)
 class AudioEfek {
   constructor() {
-    this.diaktifkan = localStorage.getItem('kupas_suara_aktif') === 'true';
+    this.diaktifkan = localStorage.getItem('kupas_suara_aktif') !== 'false';
+    const savedVol = localStorage.getItem('kupas_volume_sfx');
+    this.volume = savedVol !== null ? parseFloat(savedVol) : 0.8;
+    this.tema = localStorage.getItem('kupas_tema_sfx') || 'ceria';
     this.ctx = null;
+  }
+
+  aturVolume(val) {
+    this.volume = Math.max(0, Math.min(1, parseFloat(val) || 0));
+    localStorage.setItem('kupas_volume_sfx', String(this.volume));
+    return this.volume;
+  }
+
+  aturTema(tema) {
+    this.tema = tema || 'ceria';
+    localStorage.setItem('kupas_tema_sfx', this.tema);
+    return this.tema;
   }
 
   toggle() {
@@ -35,7 +50,7 @@ class AudioEfek {
   }
 
   mainkan(tipe) {
-    if (!this.diaktifkan) return;
+    if (!this.diaktifkan || this.volume <= 0) return;
     try {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!this.ctx) this.ctx = new AudioContext();
@@ -47,46 +62,120 @@ class AudioEfek {
       gain.connect(this.ctx.destination);
 
       const t = this.ctx.currentTime;
-      if (tipe === 'benar') {
-        osc.frequency.setValueAtTime(523.25, t);
-        osc.frequency.exponentialRampToValueAtTime(659.25, t + 0.1);
-        osc.frequency.exponentialRampToValueAtTime(783.99, t + 0.2);
-        gain.gain.setValueAtTime(0.2, t);
-        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.35);
-        osc.start(t);
-        osc.stop(t + 0.35);
-      } else if (tipe === 'salah') {
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(220, t);
-        osc.frequency.linearRampToValueAtTime(164.81, t + 0.25);
-        gain.gain.setValueAtTime(0.2, t);
-        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.3);
-        osc.start(t);
-        osc.stop(t + 0.3);
-      } else if (tipe === 'selesai') {
-        osc.frequency.setValueAtTime(440, t);
-        osc.frequency.setValueAtTime(554.37, t + 0.1);
-        osc.frequency.setValueAtTime(659.25, t + 0.2);
-        osc.frequency.setValueAtTime(880, t + 0.3);
-        gain.gain.setValueAtTime(0.25, t);
-        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.6);
-        osc.start(t);
-        osc.stop(t + 0.6);
-      } else if (tipe === 'klik') {
-        osc.frequency.setValueAtTime(600, t);
-        osc.frequency.exponentialRampToValueAtTime(300, t + 0.08);
-        gain.gain.setValueAtTime(0.12, t);
-        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.08);
-        osc.start(t);
-        osc.stop(t + 0.08);
-      } else if (tipe === 'balik') {
+      const v = this.volume;
+
+      if (this.tema === 'retro') {
+        osc.type = 'square';
+        if (tipe === 'benar') {
+          osc.frequency.setValueAtTime(440, t);
+          osc.frequency.setValueAtTime(554.37, t + 0.08);
+          osc.frequency.setValueAtTime(659.25, t + 0.16);
+          osc.frequency.setValueAtTime(880, t + 0.24);
+          gain.gain.setValueAtTime(0.14 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.001 * v, t + 0.35);
+          osc.start(t);
+          osc.stop(t + 0.35);
+        } else if (tipe === 'salah') {
+          osc.frequency.setValueAtTime(260, t);
+          osc.frequency.setValueAtTime(220, t + 0.1);
+          osc.frequency.setValueAtTime(175, t + 0.2);
+          gain.gain.setValueAtTime(0.16 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.001 * v, t + 0.32);
+          osc.start(t);
+          osc.stop(t + 0.32);
+        } else if (tipe === 'selesai' || tipe === 'hore') {
+          osc.frequency.setValueAtTime(523.25, t);
+          osc.frequency.setValueAtTime(659.25, t + 0.1);
+          osc.frequency.setValueAtTime(783.99, t + 0.2);
+          osc.frequency.setValueAtTime(1046.50, t + 0.3);
+          gain.gain.setValueAtTime(0.16 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.001 * v, t + 0.5);
+          osc.start(t);
+          osc.stop(t + 0.5);
+        } else {
+          // klik / balik
+          osc.frequency.setValueAtTime(880, t);
+          osc.frequency.setValueAtTime(440, t + 0.04);
+          gain.gain.setValueAtTime(0.1 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.001 * v, t + 0.08);
+          osc.start(t);
+          osc.stop(t + 0.08);
+        }
+      } else if (this.tema === 'lembut') {
         osc.type = 'triangle';
-        osc.frequency.setValueAtTime(350, t);
-        osc.frequency.exponentialRampToValueAtTime(500, t + 0.12);
-        gain.gain.setValueAtTime(0.15, t);
-        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.15);
-        osc.start(t);
-        osc.stop(t + 0.15);
+        if (tipe === 'benar') {
+          osc.frequency.setValueAtTime(392, t);
+          osc.frequency.exponentialRampToValueAtTime(523.25, t + 0.15);
+          gain.gain.setValueAtTime(0.25 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.001 * v, t + 0.4);
+          osc.start(t);
+          osc.stop(t + 0.4);
+        } else if (tipe === 'salah') {
+          osc.frequency.setValueAtTime(220, t);
+          osc.frequency.linearRampToValueAtTime(180, t + 0.2);
+          gain.gain.setValueAtTime(0.2 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.001 * v, t + 0.35);
+          osc.start(t);
+          osc.stop(t + 0.35);
+        } else if (tipe === 'selesai' || tipe === 'hore') {
+          osc.frequency.setValueAtTime(329.63, t);
+          osc.frequency.exponentialRampToValueAtTime(440, t + 0.15);
+          osc.frequency.exponentialRampToValueAtTime(659.25, t + 0.3);
+          gain.gain.setValueAtTime(0.25 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.001 * v, t + 0.6);
+          osc.start(t);
+          osc.stop(t + 0.6);
+        } else {
+          osc.frequency.setValueAtTime(400, t);
+          osc.frequency.exponentialRampToValueAtTime(250, t + 0.08);
+          gain.gain.setValueAtTime(0.15 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.001 * v, t + 0.08);
+          osc.start(t);
+          osc.stop(t + 0.08);
+        }
+      } else {
+        // Tema 'ceria' (Bawaan)
+        if (tipe === 'benar') {
+          osc.frequency.setValueAtTime(523.25, t);
+          osc.frequency.exponentialRampToValueAtTime(659.25, t + 0.1);
+          osc.frequency.exponentialRampToValueAtTime(783.99, t + 0.2);
+          gain.gain.setValueAtTime(0.2 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.01 * v, t + 0.35);
+          osc.start(t);
+          osc.stop(t + 0.35);
+        } else if (tipe === 'salah') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, t);
+          osc.frequency.linearRampToValueAtTime(164.81, t + 0.25);
+          gain.gain.setValueAtTime(0.2 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.01 * v, t + 0.3);
+          osc.start(t);
+          osc.stop(t + 0.3);
+        } else if (tipe === 'selesai' || tipe === 'hore') {
+          osc.frequency.setValueAtTime(440, t);
+          osc.frequency.setValueAtTime(554.37, t + 0.1);
+          osc.frequency.setValueAtTime(659.25, t + 0.2);
+          osc.frequency.setValueAtTime(880, t + 0.3);
+          gain.gain.setValueAtTime(0.25 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.01 * v, t + 0.6);
+          osc.start(t);
+          osc.stop(t + 0.6);
+        } else if (tipe === 'klik') {
+          osc.frequency.setValueAtTime(600, t);
+          osc.frequency.exponentialRampToValueAtTime(300, t + 0.08);
+          gain.gain.setValueAtTime(0.12 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.01 * v, t + 0.08);
+          osc.start(t);
+          osc.stop(t + 0.08);
+        } else if (tipe === 'balik') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(350, t);
+          osc.frequency.exponentialRampToValueAtTime(500, t + 0.12);
+          gain.gain.setValueAtTime(0.15 * v, t);
+          gain.gain.exponentialRampToValueAtTime(0.01 * v, t + 0.15);
+          osc.start(t);
+          osc.stop(t + 0.15);
+        }
       }
     } catch (e) {
       console.warn('Audio SFX tidak dapat diputar:', e);
@@ -94,19 +183,16 @@ class AudioEfek {
   }
 }
 
-// Musik Latar Ceria Sintetis (Melodi Belajar Bel Pentatonik Lembut)
+// Musik Latar Ceria Sintetis (Dengan Pengatur Volume & Tema Melodi)
 class MusikLatar {
   constructor() {
     this.diaktifkan = localStorage.getItem('kupas_bgm_aktif') === 'true';
+    const savedVol = localStorage.getItem('kupas_volume_musik');
+    this.volume = savedVol !== null ? parseFloat(savedVol) : 0.6;
+    this.tema = localStorage.getItem('kupas_tema_musik') || 'pentatonik';
     this.ctx = null;
     this.timer = null;
     this.langkah = 0;
-    this.melodi = [
-      261.63, 329.63, 392.00, 523.25, 392.00, 329.63,
-      293.66, 329.63, 392.00, 440.00, 392.00, 0,
-      329.63, 392.00, 523.25, 440.00, 392.00, 329.63,
-      261.63, 293.66, 329.63, 261.63, 0, 0
-    ];
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
@@ -115,6 +201,58 @@ class MusikLatar {
         this.mulai();
       }
     });
+  }
+
+  aturVolume(val) {
+    this.volume = Math.max(0, Math.min(1, parseFloat(val) || 0));
+    localStorage.setItem('kupas_volume_musik', String(this.volume));
+    return this.volume;
+  }
+
+  aturTema(tema) {
+    this.tema = tema || 'pentatonik';
+    localStorage.setItem('kupas_tema_musik', this.tema);
+    this.langkah = 0;
+    if (this.diaktifkan && this.timer) {
+      this.mulai();
+    }
+    return this.tema;
+  }
+
+  ambilDaftarMelodi() {
+    if (this.tema === 'hutan') {
+      return {
+        tempo: 420,
+        wave: 'triangle',
+        nada: [
+          329.63, 0, 392.00, 440.00, 0, 493.88, 523.25, 0,
+          440.00, 392.00, 0, 329.63, 293.66, 0, 329.63, 392.00,
+          0, 261.63, 293.66, 0, 329.63, 0, 0, 0
+        ]
+      };
+    } else if (this.tema === 'petualang') {
+      return {
+        tempo: 230,
+        wave: 'sine',
+        nada: [
+          261.63, 261.63, 329.63, 392.00, 523.25, 523.25, 440.00, 392.00,
+          329.63, 349.23, 392.00, 523.25, 587.33, 523.25, 440.00, 392.00,
+          329.63, 293.66, 261.63, 0
+        ]
+      };
+    } else {
+      // pentatonik (Bawaan)
+      return {
+        tempo: 320,
+        wave: 'sine',
+        nada: [
+          261.63, 329.63, 392.00, 523.25, 392.00, 329.63,
+          293.66, 329.63, 392.00, 440.00, 392.00, 0,
+          329.63, 392.00, 523.25, 440.00, 392.00, 329.63,
+          261.63, 293.66, 329.63, 261.63, 0, 0
+        ]
+      };
+    }
   }
 
   toggle() {
@@ -130,35 +268,37 @@ class MusikLatar {
   }
 
   mulai() {
-    if (!this.diaktifkan) return;
+    if (!this.diaktifkan || this.volume <= 0) return;
     try {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!this.ctx) this.ctx = new AudioContext();
       if (this.ctx.state === 'suspended') this.ctx.resume();
       if (this.timer) clearInterval(this.timer);
 
+      const spek = this.ambilDaftarMelodi();
       this.timer = setInterval(() => {
-        if (!this.diaktifkan || !this.ctx) return;
-        const freq = this.melodi[this.langkah % this.melodi.length];
+        if (!this.diaktifkan || !this.ctx || this.volume <= 0) return;
+        const freq = spek.nada[this.langkah % spek.nada.length];
         this.langkah++;
         if (freq > 0) {
-          this.bunyikanNada(freq);
+          this.bunyikanNada(freq, spek.wave);
         }
-      }, 320);
+      }, spek.tempo);
     } catch (e) {
       console.warn('Musik tidak dapat dimulai:', e);
     }
   }
 
-  bunyikanNada(freq) {
-    if (!this.ctx) return;
+  bunyikanNada(freq, waveType = 'sine') {
+    if (!this.ctx || this.volume <= 0) return;
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
-    osc.type = 'sine';
+    osc.type = waveType;
     osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
 
-    gain.gain.setValueAtTime(0.04, this.ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.3);
+    const baseVol = 0.045 * this.volume;
+    gain.gain.setValueAtTime(baseVol, this.ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001 * this.volume, this.ctx.currentTime + 0.3);
 
     osc.connect(gain);
     gain.connect(this.ctx.destination);
@@ -185,6 +325,10 @@ class MusikLatar {
 
 export const suara = new AudioEfek();
 export const musik = new MusikLatar();
+if (typeof window !== 'undefined') {
+  window.__kupas_suara = suara;
+  window.__kupas_musik = musik;
+}
 
 /**
  * Mesin Gamifikasi Siswa (XP, Level, Streak Harian, Streak Jawaban, Lencana)

@@ -36,6 +36,11 @@ export const DEFAULT_PENGATURAN = Object.freeze({
 
   // 5. Tampilan & Suara
   sfx_aktif: true,
+  volume_sfx: 80, // 0 - 100 (%)
+  tema_sfx: 'ceria', // 'ceria' | 'retro' | 'lembut'
+  musik_aktif: true,
+  volume_musik: 60, // 0 - 100 (%)
+  tema_musik: 'pentatonik', // 'pentatonik' | 'hutan' | 'petualang'
   tingkat_gerak: 'penuh', // 'penuh' | 'sedang' | 'tenang'
   ukuran_teks: 'normal', // 'normal' | 'besar' (untuk smartboard / layar proyektor besar)
 
@@ -141,6 +146,20 @@ export const konfigurasiManager = {
       }
     }
 
+    if (data.volume_sfx !== undefined) {
+      const vol = Number(data.volume_sfx);
+      if (isNaN(vol) || vol < 0 || vol > 100) {
+        return { valid: false, pesan: 'Volume efek suara harus antara 0% sampai 100%.' };
+      }
+    }
+
+    if (data.volume_musik !== undefined) {
+      const vol = Number(data.volume_musik);
+      if (isNaN(vol) || vol < 0 || vol > 100) {
+        return { valid: false, pesan: 'Volume musik latar harus antara 0% sampai 100%.' };
+      }
+    }
+
     return { valid: true, pesan: '' };
   },
 
@@ -221,7 +240,16 @@ export const konfigurasiManager = {
     }
 
     // Suara & Teks
-    if (!config.sfx_aktif) list.push('🔇 Suara Bisu');
+    if (!config.sfx_aktif) {
+      list.push('🔇 SFX Bisu');
+    } else {
+      list.push(`🔊 SFX: ${config.volume_sfx ?? 80}%`);
+    }
+    if (config.musik_aktif === false) {
+      list.push('🔇 Musik Bisu');
+    } else {
+      list.push(`🎵 Musik: ${config.volume_musik ?? 60}%`);
+    }
     if (config.ukuran_teks === 'besar') list.push('📺 Smartboard');
 
     return list;
@@ -245,6 +273,26 @@ export const konfigurasiManager = {
     }
 
     const cfg = this.ambilPengaturan();
+    if (typeof window !== 'undefined') {
+      if (window.__kupas_suara) {
+        cfg.sfx_aktif = window.__kupas_suara.diaktifkan;
+        if (window.__kupas_suara.volume !== undefined) {
+          cfg.volume_sfx = Math.round(window.__kupas_suara.volume * 100);
+        }
+        if (window.__kupas_suara.tema) {
+          cfg.tema_sfx = window.__kupas_suara.tema;
+        }
+      }
+      if (window.__kupas_musik) {
+        cfg.musik_aktif = window.__kupas_musik.diaktifkan;
+        if (window.__kupas_musik.volume !== undefined) {
+          cfg.volume_musik = Math.round(window.__kupas_musik.volume * 100);
+        }
+        if (window.__kupas_musik.tema) {
+          cfg.tema_musik = window.__kupas_musik.tema;
+        }
+      }
+    }
 
     modalEl.innerHTML = `
       <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
@@ -457,12 +505,106 @@ export const konfigurasiManager = {
               <div class="accordion-item border border-2 border-dark rounded-3 overflow-hidden shadow-sm mb-2">
                 <h3 class="accordion-header" id="headingTampilan">
                   <button class="accordion-button collapsed fw-bold text-dark py-3" style="min-height: 48px;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTampilan" aria-expanded="false" aria-controls="collapseTampilan">
-                    <span class="me-2 fs-5">🎨</span> 5. Tampilan Layar & Suara
+                    <span class="me-2 fs-5">🔊</span> 5. Menu Suara & Pengaturan Layar
                   </button>
                 </h3>
                 <div id="collapseTampilan" class="accordion-collapse collapse" aria-labelledby="headingTampilan" data-bs-parent="#accordionPengaturanGame">
                   <div class="accordion-body bg-white p-3 p-md-4">
-                    <div class="row g-3">
+                    <div class="row g-4">
+                      
+                      <!-- PENGATURAN EFEK SUARA (SFX) -->
+                      <div class="col-12">
+                        <div class="p-3 border border-2 border-dark rounded-3 bg-light">
+                          <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-dark">
+                            <div>
+                              <strong class="d-block text-dark fs-6">🔊 Efek Suara (Sound Effect / SFX)</strong>
+                              <small class="text-secondary">Suara interaktif saat siswa memilih jawaban, perayaan jawaban benar, dan transisi soal.</small>
+                            </div>
+                            <div class="form-check form-switch ms-3 mb-0">
+                              <input class="form-check-input" type="checkbox" role="switch" id="cfg-sfx-aktif" ${cfg.sfx_aktif !== false ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''} style="cursor: pointer; width: 44px; height: 22px;">
+                            </div>
+                          </div>
+
+                          <div class="row g-3">
+                            <!-- Slider Volume SFX -->
+                            <div class="col-12 col-md-6">
+                              <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label for="cfg-volume-sfx" class="form-label fw-bold small text-dark mb-0">Volume Suara SFX</label>
+                                <span id="badge-vol-sfx" class="badge bg-dark fw-bold px-2 py-1">${cfg.volume_sfx ?? 80}%</span>
+                              </div>
+                              <input type="range" class="form-range" id="cfg-volume-sfx" min="0" max="100" step="5" value="${cfg.volume_sfx ?? 80}" ${isReadOnly ? 'disabled' : ''}>
+                              <div class="d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
+                                <span>0% (Bisu)</span>
+                                <span>50%</span>
+                                <span>100% (Maksimal)</span>
+                              </div>
+                            </div>
+
+                            <!-- Pilihan Tema SFX & Tombol Uji Suara -->
+                            <div class="col-12 col-md-6">
+                              <label for="cfg-tema-sfx" class="form-label fw-bold small text-dark mb-1">Ganti Sound Effect (Tema SFX)</label>
+                              <div class="input-group">
+                                <select id="cfg-tema-sfx" class="form-select border-2 border-dark fw-semibold" style="min-height: 44px;" ${isReadOnly ? 'disabled' : ''}>
+                                  <option value="ceria" ${cfg.tema_sfx === 'ceria' ? 'selected' : ''}>✨ Ceria Edukatif (Chime Bel Harmonis)</option>
+                                  <option value="retro" ${cfg.tema_sfx === 'retro' ? 'selected' : ''}>👾 Arcade 8-Bit (Game Retro Chiptune)</option>
+                                  <option value="lembut" ${cfg.tema_sfx === 'lembut' ? 'selected' : ''}>🍃 Nada Lembut (Marimba & Akustik Tenang)</option>
+                                </select>
+                                <button type="button" id="btn-tes-sfx" class="btn btn-outline-dark fw-bold px-3 d-flex align-items-center gap-1" title="Uji dengar efek suara saat ini">
+                                  <span>🔊 Tes</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- PENGATURAN MUSIK LATAR (BGM) -->
+                      <div class="col-12">
+                        <div class="p-3 border border-2 border-dark rounded-3 bg-light">
+                          <div class="d-flex align-items-center justify-content-between mb-3 pb-2 border-bottom border-dark">
+                            <div>
+                              <strong class="d-block text-dark fs-6">🎵 Musik Latar Suasana (BGM)</strong>
+                              <small class="text-secondary">Irama melodi sintetis Web Audio API yang mengiringi jalannya kuis agar suasana kelas lebih hidup.</small>
+                            </div>
+                            <div class="form-check form-switch ms-3 mb-0">
+                              <input class="form-check-input" type="checkbox" role="switch" id="cfg-musik-aktif" ${cfg.musik_aktif ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''} style="cursor: pointer; width: 44px; height: 22px;">
+                            </div>
+                          </div>
+
+                          <div class="row g-3">
+                            <!-- Slider Volume BGM -->
+                            <div class="col-12 col-md-6">
+                              <div class="d-flex justify-content-between align-items-center mb-1">
+                                <label for="cfg-volume-musik" class="form-label fw-bold small text-dark mb-0">Volume Musik Latar</label>
+                                <span id="badge-vol-musik" class="badge bg-primary fw-bold px-2 py-1">${cfg.volume_musik ?? 60}%</span>
+                              </div>
+                              <input type="range" class="form-range" id="cfg-volume-musik" min="0" max="100" step="5" value="${cfg.volume_musik ?? 60}" ${isReadOnly ? 'disabled' : ''}>
+                              <div class="d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
+                                <span>0% (Bisu)</span>
+                                <span>50%</span>
+                                <span>100% (Maksimal)</span>
+                              </div>
+                            </div>
+
+                            <!-- Pilihan Melodi BGM & Tombol Tes Musik -->
+                            <div class="col-12 col-md-6">
+                              <label for="cfg-tema-musik" class="form-label fw-bold small text-dark mb-1">Ganti Sound Music (Tema Melodi)</label>
+                              <div class="input-group">
+                                <select id="cfg-tema-musik" class="form-select border-2 border-dark fw-semibold" style="min-height: 44px;" ${isReadOnly ? 'disabled' : ''}>
+                                  <option value="pentatonik" ${cfg.tema_musik === 'pentatonik' ? 'selected' : ''}>🎵 Belajar Ceria (Nada Pentatonik Menyenangkan)</option>
+                                  <option value="hutan" ${cfg.tema_musik === 'hutan' ? 'selected' : ''}>🌲 Suasana Rimba Tropis (Tenang & Santai)</option>
+                                  <option value="petualang" ${cfg.tema_musik === 'petualang' ? 'selected' : ''}>🚀 Penjelajah Sains Hebat (Irama Semangat)</option>
+                                </select>
+                                <button type="button" id="btn-tes-musik" class="btn btn-outline-primary fw-bold px-3 d-flex align-items-center gap-1" title="Putar preview melodi musik">
+                                  <span id="label-tes-musik">▶️ Tes</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- PENGATURAN TAMPILAN SMARTBOARD & GERAK -->
                       <div class="col-12 col-md-6">
                         <label for="cfg-ukuran-teks" class="form-label fw-bold small text-dark">Ukuran Teks Layar Guru</label>
                         <select id="cfg-ukuran-teks" class="form-select border-2 border-dark fw-semibold" style="min-height: 48px;" ${isReadOnly ? 'disabled' : ''}>
@@ -482,13 +624,6 @@ export const konfigurasiManager = {
                         <small class="text-secondary d-block mt-1">Sesuaikan kenyamanan visual animasi untuk anak berkebutuhan khusus.</small>
                       </div>
 
-                      <div class="col-12">
-                        <div class="form-check form-switch p-2 border-2 border-dark rounded-3 bg-light d-flex align-items-center justify-content-between" style="min-height: 48px;">
-                          <label class="form-check-label fw-bold text-dark ps-2 cursor-pointer" for="cfg-sfx-aktif">🔊 Efek Suara Ceria (SFX)</label>
-                          <input class="form-check-input ms-0 me-2" type="checkbox" role="switch" id="cfg-sfx-aktif" ${cfg.sfx_aktif ? 'checked' : ''} ${isReadOnly ? 'disabled' : ''}>
-                        </div>
-                        <small class="text-secondary d-block mt-1">Mainkan efek suara menyenangkan saat jawaban masuk, pembahasan, dan perayaan.</small>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -546,6 +681,101 @@ export const konfigurasiManager = {
       </div>
     `;
 
+    // Kontrol Real-Time Suara & Musik di Modal
+    const inputVolSfx = modalEl.querySelector('#cfg-volume-sfx');
+    const badgeVolSfx = modalEl.querySelector('#badge-vol-sfx');
+    if (inputVolSfx && badgeVolSfx) {
+      inputVolSfx.addEventListener('input', (e) => {
+        badgeVolSfx.textContent = `${e.target.value}%`;
+      });
+    }
+
+    const inputVolMusik = modalEl.querySelector('#cfg-volume-musik');
+    const badgeVolMusik = modalEl.querySelector('#badge-vol-musik');
+    if (inputVolMusik && badgeVolMusik) {
+      inputVolMusik.addEventListener('input', (e) => {
+        badgeVolMusik.textContent = `${e.target.value}%`;
+      });
+    }
+
+    // Tombol Uji Efek Suara (SFX)
+    const btnTesSfx = modalEl.querySelector('#btn-tes-sfx');
+    if (btnTesSfx) {
+      btnTesSfx.addEventListener('click', () => {
+        if (!window.__kupas_suara) return;
+        const sfxAktif = modalEl.querySelector('#cfg-sfx-aktif')?.checked ?? true;
+        if (!sfxAktif) {
+          alert('Efek Suara SFX sedang dinonaktifkan. Silakan aktifkan switch SFX di atas untuk mendengar bunyi efek.');
+          return;
+        }
+        const vol = Number(inputVolSfx ? inputVolSfx.value : 80) / 100;
+        const tema = modalEl.querySelector('#cfg-tema-sfx')?.value || 'ceria';
+        window.__kupas_suara.aturVolume(vol);
+        window.__kupas_suara.aturTema(tema);
+        window.__kupas_suara.mainkan('hore');
+      });
+    }
+
+    // Tombol Uji Musik Latar (BGM)
+    const btnTesMusik = modalEl.querySelector('#btn-tes-musik');
+    const labelTesMusik = modalEl.querySelector('#label-tes-musik');
+    let timerPreviewMusik = null;
+    let sedangPreviewMusik = false;
+
+    const hentikanPreviewMusik = () => {
+      if (timerPreviewMusik) {
+        clearTimeout(timerPreviewMusik);
+        timerPreviewMusik = null;
+      }
+      if (window.__kupas_musik) {
+        window.__kupas_musik.jeda();
+      }
+      sedangPreviewMusik = false;
+      if (labelTesMusik) labelTesMusik.textContent = '▶️ Tes';
+      if (btnTesMusik) {
+        btnTesMusik.classList.remove('btn-danger');
+        btnTesMusik.classList.add('btn-outline-primary');
+      }
+    };
+
+    if (btnTesMusik) {
+      btnTesMusik.addEventListener('click', () => {
+        if (!window.__kupas_musik) return;
+
+        if (sedangPreviewMusik) {
+          hentikanPreviewMusik();
+          return;
+        }
+
+        const musikAktif = modalEl.querySelector('#cfg-musik-aktif')?.checked ?? true;
+        if (!musikAktif) {
+          alert('Musik Latar BGM sedang dinonaktifkan. Silakan aktifkan switch Musik di atas untuk mendengar nada musik.');
+          return;
+        }
+
+        const vol = Number(inputVolMusik ? inputVolMusik.value : 60) / 100;
+        const tema = modalEl.querySelector('#cfg-tema-musik')?.value || 'pentatonik';
+        window.__kupas_musik.aturVolume(vol);
+        window.__kupas_musik.aturTema(tema);
+        window.__kupas_musik.diaktifkan = true;
+        window.__kupas_musik.mulai();
+
+        sedangPreviewMusik = true;
+        if (labelTesMusik) labelTesMusik.textContent = '⏹️ Stop';
+        btnTesMusik.classList.remove('btn-outline-primary');
+        btnTesMusik.classList.add('btn-danger');
+
+        timerPreviewMusik = setTimeout(() => {
+          hentikanPreviewMusik();
+        }, 6500);
+      });
+    }
+
+    // Hentikan musik tes saat modal ditutup
+    modalEl.addEventListener('hidden.bs.modal', () => {
+      hentikanPreviewMusik();
+    });
+
     // Event Listener Simpan & Reset jika tidak read-only
     if (!isReadOnly) {
       const btnSimpan = modalEl.querySelector('#btn-simpan-pengaturan');
@@ -560,6 +790,8 @@ export const konfigurasiManager = {
       if (btnSimpan) {
         btnSimpan.addEventListener('click', () => {
           alertEl.classList.add('d-none');
+          hentikanPreviewMusik();
+
           try {
             const dataBaru = {
               jumlah_soal: Number(document.getElementById('cfg-jumlah-soal').value) || 0,
@@ -576,12 +808,40 @@ export const konfigurasiManager = {
               izinkan_gabung_setelah_mulai: document.getElementById('cfg-izinkan-gabung').checked,
               ukuran_teks: document.getElementById('cfg-ukuran-teks').value,
               tingkat_gerak: document.getElementById('cfg-tingkat-gerak').value,
-              sfx_aktif: document.getElementById('cfg-sfx-aktif').checked,
+              sfx_aktif: document.getElementById('cfg-sfx-aktif')?.checked ?? true,
+              volume_sfx: Number(document.getElementById('cfg-volume-sfx')?.value ?? 80),
+              tema_sfx: document.getElementById('cfg-tema-sfx')?.value || 'ceria',
+              musik_aktif: document.getElementById('cfg-musik-aktif')?.checked ?? true,
+              volume_musik: Number(document.getElementById('cfg-volume-musik')?.value ?? 60),
+              tema_musik: document.getElementById('cfg-tema-musik')?.value || 'pentatonik',
               tampilkan_kunci_jawaban: document.getElementById('cfg-tampilkan-kunci').checked,
               tampilkan_penjelasan: document.getElementById('cfg-tampilkan-penjelasan').checked
             };
 
             const tersimpan = this.simpanPengaturan(dataBaru);
+
+            // Sinkronkan ke AudioEfek & MusikLatar global
+            if (window.__kupas_suara) {
+              window.__kupas_suara.diaktifkan = dataBaru.sfx_aktif;
+              window.__kupas_suara.aturVolume(dataBaru.volume_sfx / 100);
+              window.__kupas_suara.aturTema(dataBaru.tema_sfx);
+              localStorage.setItem('kupas_suara_aktif', dataBaru.sfx_aktif ? 'true' : 'false');
+              if (typeof window.__kupas_suara.perbaruiUI === 'function') {
+                window.__kupas_suara.perbaruiUI();
+              }
+            }
+            if (window.__kupas_musik) {
+              window.__kupas_musik.diaktifkan = dataBaru.musik_aktif;
+              window.__kupas_musik.aturVolume(dataBaru.volume_musik / 100);
+              window.__kupas_musik.aturTema(dataBaru.tema_musik);
+              localStorage.setItem('kupas_bgm_aktif', dataBaru.musik_aktif ? 'true' : 'false');
+              if (!dataBaru.musik_aktif) {
+                window.__kupas_musik.jeda();
+              }
+              if (typeof window.__kupas_musik.perbaruiUI === 'function') {
+                window.__kupas_musik.perbaruiUI();
+              }
+            }
 
             // Tutup modal bootstrap
             if (window.bootstrap && window.bootstrap.Modal) {
@@ -602,7 +862,31 @@ export const konfigurasiManager = {
         btnReset.addEventListener('click', () => {
           const yakin = confirm('Apakah Bapak/Ibu guru yakin ingin mengembalikan semua parameter permainan ke pengaturan standar awal?');
           if (yakin) {
+            hentikanPreviewMusik();
             const res = this.resetPengaturan();
+
+            if (window.__kupas_suara) {
+              window.__kupas_suara.diaktifkan = res.sfx_aktif;
+              window.__kupas_suara.aturVolume((res.volume_sfx ?? 80) / 100);
+              window.__kupas_suara.aturTema(res.tema_sfx || 'ceria');
+              localStorage.setItem('kupas_suara_aktif', res.sfx_aktif ? 'true' : 'false');
+              if (typeof window.__kupas_suara.perbaruiUI === 'function') {
+                window.__kupas_suara.perbaruiUI();
+              }
+            }
+            if (window.__kupas_musik) {
+              window.__kupas_musik.diaktifkan = res.musik_aktif;
+              window.__kupas_musik.aturVolume((res.volume_musik ?? 60) / 100);
+              window.__kupas_musik.aturTema(res.tema_musik || 'pentatonik');
+              localStorage.setItem('kupas_bgm_aktif', res.musik_aktif ? 'true' : 'false');
+              if (!res.musik_aktif) {
+                window.__kupas_musik.jeda();
+              }
+              if (typeof window.__kupas_musik.perbaruiUI === 'function') {
+                window.__kupas_musik.perbaruiUI();
+              }
+            }
+
             if (window.bootstrap && window.bootstrap.Modal) {
               const modalInstance = window.bootstrap.Modal.getInstance(modalEl);
               if (modalInstance) modalInstance.hide();

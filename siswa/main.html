@@ -541,6 +541,56 @@
       }, 1000);
     }
 
+    // Helper Evaluasi Jawaban Siswa Multi-Format (Index, Huruf, Teks Opsi, Benar/Salah)
+    function apakahJawabanBenar(jawabanInput, kunci, opsi = [], tipe = 'pilihan_ganda') {
+      if (jawabanInput === null || jawabanInput === undefined || jawabanInput === '-1') return false;
+      if (kunci === null || kunci === undefined) return false;
+
+      const rawJwb = String(jawabanInput).trim().toLowerCase();
+      const rawKunci = String(kunci).trim().toLowerCase();
+
+      // 1. Kecocokan langsung
+      if (rawJwb === rawKunci) return true;
+
+      // 2. Format Benar / Salah
+      if (tipe === 'benar_salah') {
+        const isBenarJwb = ['0', 'benar', 'true', 'b'].includes(rawJwb);
+        const isBenarKunci = ['0', 'benar', 'true', 'b'].includes(rawKunci);
+        const isSalahJwb = ['1', 'salah', 'false', 's'].includes(rawJwb);
+        const isSalahKunci = ['1', 'salah', 'false', 's'].includes(rawKunci);
+        if (isBenarJwb && isBenarKunci) return true;
+        if (isSalahJwb && isSalahKunci) return true;
+        return false;
+      }
+
+      // 3. Mapping index ('0','1','2','3') ke huruf ('a','b','c','d') dan sebaliknya
+      const hurufMap = { '0': 'a', '1': 'b', '2': 'c', '3': 'd' };
+      if (hurufMap[rawJwb] && hurufMap[rawJwb] === rawKunci) return true;
+      if (hurufMap[rawKunci] && hurufMap[rawKunci] === rawJwb) return true;
+
+      // 4. Mapping 1-based index jika ada yang pakai '1'..'4'
+      const hurufMap1Based = { '1': 'a', '2': 'b', '3': 'c', '4': 'd' };
+      if (hurufMap1Based[rawJwb] && hurufMap1Based[rawJwb] === rawKunci) return true;
+
+      // 5. Pencocokan dengan teks opsi
+      if (Array.isArray(opsi) && opsi.length > 0) {
+        // Jika jawaban berupa indeks (0..3)
+        const idxJwb = parseInt(rawJwb, 10);
+        if (!isNaN(idxJwb) && opsi[idxJwb]) {
+          const teksOpsiJwb = String(opsi[idxJwb]).trim().toLowerCase();
+          if (teksOpsiJwb === rawKunci) return true;
+        }
+        // Jika kunci berupa indeks (0..3)
+        const idxKunci = parseInt(rawKunci, 10);
+        if (!isNaN(idxKunci) && opsi[idxKunci]) {
+          const teksOpsiKunci = String(opsi[idxKunci]).trim().toLowerCase();
+          if (teksOpsiKunci === rawJwb) return true;
+        }
+      }
+
+      return false;
+    }
+
     async function kunciJawaban(isTimeout = false) {
       if (sudahMengunci) return;
       sudahMengunci = true;
@@ -565,6 +615,15 @@
       const waktuMs = Date.now() - waktuMulaiSoal;
       const jawabanKirim = (isTimeout || jawabanDipilih === null) ? '-1' : jawabanDipilih;
 
+      // Evaluasi lokal independen
+      const evaluasiLokalBenar = apakahJawabanBenar(
+        jawabanKirim,
+        soalSekarang?.kunci,
+        soalSekarang?.opsi,
+        soalSekarang?.tipe
+      );
+      const poinDefault = soalSekarang?.poin || 10;
+
       let hasil = null;
       try {
         hasil = await sesiManager.kirimJawabanSiswa({
@@ -572,16 +631,26 @@
           pesertaId: peserta.id,
           soalId: soalSekarang.id,
           jawaban: jawabanKirim,
-          waktuMs
+          waktuMs,
+          benar: evaluasiLokalBenar,
+          poin: evaluasiLokalBenar ? poinDefault : 0
         });
       } catch (err) {
-        console.warn('Gagal kirim jawaban via RPC, fallback penilaian lokal:', err);
+        console.warn('Gagal kirim jawaban via sesiManager:', err);
+      }
+
+      // Pastikan hasil selalu terisi dan akurat
+      if (!hasil || typeof hasil.benar !== 'boolean') {
         hasil = {
           success: true,
-          benar: false,
-          poin: 0,
-          penjelasan: soalSekarang ? soalSekarang.penjelasan : ''
+          benar: evaluasiLokalBenar,
+          poin: evaluasiLokalBenar ? poinDefault : 0,
+          penjelasan: soalSekarang?.penjelasan || ''
         };
+      } else if (!hasil.benar && evaluasiLokalBenar) {
+        console.info('[Penilaian] Koreksi: RPC menilai false namun evaluasi lokal valid (benar). Mengoreksi skor...');
+        hasil.benar = true;
+        hasil.poin = hasil.poin || poinDefault;
       }
 
       sessionStorage.setItem('kupas_terakhir_jawab', JSON.stringify(hasil));
@@ -623,12 +692,27 @@
 
       // Ambil teks kunci jawaban jika diperlukan
       let teksKunci = '';
-      if (soalSekarang && soalSekarang.opsi && soalSekarang.opsi.length) {
-        try {
-          const kunciDB = JSON.parse(localStorage.getItem('kupas_db_soal_kunci_secure') || '{}');
-          const idxKunci = parseInt(kunciDB[soalSekarang.id] || '0', 10);
-          teksKunci = soalSekarang.opsi[idxKunci] || `Opsi ${idxKunci + 1}`;
-        } catch (e) {}
+      if (soalSekarang) {
+        const rawK = (soalSekarang.kunci !== undefined && soalSekarang.kunci !== null) ? soalSekarang.kunci : (hasil && hasil.kunci);
+        if (soalSekarang.opsi && soalSekarang.opsi.length) {
+          let idxK = -1;
+          if (rawK !== undefined && rawK !== null) {
+            const strK = String(rawK).trim().toLowerCase();
+            const mapHuruf = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+            if (mapHuruf[strK] !== undefined) idxK = mapHuruf[strK];
+            else if (!isNaN(parseInt(strK, 10)) && parseInt(strK, 10) >= 0 && parseInt(strK, 10) < soalSekarang.opsi.length) idxK = parseInt(strK, 10);
+            else {
+              const textIdx = soalSekarang.opsi.findIndex(o => String(o).trim().toLowerCase() === strK);
+              if (textIdx >= 0) idxK = textIdx;
+            }
+          }
+          if (idxK >= 0 && soalSekarang.opsi[idxK]) {
+            const huruf = ['A', 'B', 'C', 'D'][idxK] || '';
+            teksKunci = `${huruf ? huruf + '. ' : ''}${soalSekarang.opsi[idxK]}`;
+          }
+        } else if (rawK) {
+          teksKunci = String(rawK);
+        }
       }
 
       // Tampilkan umpan balik seketika

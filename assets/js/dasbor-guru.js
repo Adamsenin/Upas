@@ -16,7 +16,7 @@
 
 import { auth } from './auth.js';
 import { supabase } from './supabase.js';
-import { kuisManager } from './kuis.js?v=4.0.2';
+import { kuisManager } from './kuis.js?v=4.0.3';
 import { sesiManager } from './sesi.js';
 import { pasangHeader, umumkanAria, suara } from './ui.js';
 import { konfigurasiManager } from './konfigurasi.js';
@@ -137,18 +137,17 @@ function renderKontrolPaginasi(wadahId, infoPaginasi, onGantiHalaman) {
 export async function inisialisasiDasborGuru() {
   pasangHeader('guru', { berandaLink: '../index.html', rootAset: '../' });
 
-  state.guruAktif = await auth.ambilGuruAktif();
+  // Route Guard: Pastikan guru telah terotentikasi di Supabase
+  state.guruAktif = await auth.periksaAksesGuru();
   if (!state.guruAktif) {
-    state.guruAktif = {
-      id: 'guru-demo-1',
-      email: 'guru@sd.sch.id',
-      user_metadata: { nama: 'Ibu Guru IPAS', sekolah: 'SD Negeri Merdeka 01' }
-    };
+    return;
   }
 
   const infoEl = document.getElementById('info-guru');
   if (infoEl) {
-    infoEl.textContent = `Akun: ${state.guruAktif.user_metadata?.nama || state.guruAktif.email} (${state.guruAktif.user_metadata?.sekolah || 'SD Merdeka'})`;
+    const namaGuru = state.guruAktif.user_metadata?.nama || state.guruAktif.email?.split('@')[0] || 'Ibu/Bapak Guru';
+    const sekolahGuru = state.guruAktif.user_metadata?.sekolah ? ` (${state.guruAktif.user_metadata.sekolah})` : '';
+    infoEl.textContent = `Akun: ${namaGuru}${sekolahGuru}`;
   }
 
   const inputKKM = document.getElementById('input-kkm-global');
@@ -1041,8 +1040,10 @@ function pasangEventListeners() {
   const btnKeluar = document.getElementById('btn-keluar');
   if (btnKeluar) {
     btnKeluar.addEventListener('click', async () => {
-      await auth.keluarGuru();
-      window.location.href = 'masuk.html';
+      if (confirm('Apakah Anda yakin ingin keluar dari akun Guru?')) {
+        await auth.keluarGuru();
+        window.location.href = 'masuk.html';
+      }
     });
   }
 
