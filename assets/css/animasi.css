@@ -298,12 +298,49 @@
 }
 
 /* 2. EFEK INTERAKTIF HOVER / TEKAN / FOKUS (SENTUH, KLIK, KEYBOARD) */
+
+/* Stabilisasi Hit-Testing: Mencegah pointer kehilangan elemen ketika translateY/scale aktif pada hover */
+.motion-full button:not(:disabled),
+.motion-full .btn:not(:disabled),
+.motion-full .opsi-jawaban:not(:disabled),
+.motion-full .avatar-item,
+.motion-full .kupas-card-interaktif {
+  position: relative;
+  transition: transform 0.16s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.16s ease;
+}
+
+/* Cushion/buffer kursor di batas bawah dan sekeliling agar transform tidak memicu siklus hover-flicker */
+.motion-full button:not(:disabled)::after,
+.motion-full .btn:not(:disabled)::after,
+.motion-full .opsi-jawaban:not(:disabled)::after,
+.motion-full .avatar-item::after {
+  content: '';
+  position: absolute;
+  inset: -3px -3px -7px -3px;
+  pointer-events: auto;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* Pastikan elemen anak (ikon, teks span) tidak memicu event dispatch ulang yang memutus hover */
+.motion-full button:not(:disabled) > *,
+.motion-full .btn:not(:disabled) > *,
+.motion-full .opsi-jawaban:not(:disabled) > * {
+  pointer-events: none;
+}
+
 .motion-full button:not(:disabled):hover,
 .motion-full .btn:not(:disabled):hover,
 .motion-full .opsi-jawaban:not(:disabled):hover,
 .motion-full .avatar-item:hover,
 .motion-full .kupas-card-interaktif:hover {
   transform: translateY(-3px) scale(1.01);
+}
+
+/* Mencegah double-transform jitter ketika tombol berada di dalam kartu interaktif */
+.kupas-card-interaktif button:not(:disabled):hover,
+.kupas-card-interaktif .btn:not(:disabled):hover {
+  transform: none;
 }
 
 .motion-full button:not(:disabled):active,

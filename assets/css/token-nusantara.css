@@ -1,0 +1,81 @@
+/* ==========================================================================
+   KUPAS KUIS IPAS - Token Desain "Pulau Kupas" (token-nusantara.css)
+   Token baru dengan awalan --n-* agar tidak bertabrakan dengan token lama
+   (--kupas-*) di tema.css. Saat ini hanya dimuat oleh beranda (index.html);
+   halaman lain dapat memuatnya pada fase berikutnya.
+   ========================================================================== */
+
+:root {
+  /* 1. Warna inti (6 nilai bernama) */
+  --n-lontar: #FBF3E4;        /* Latar halaman */
+  --n-rimba: #1B3A2F;         /* Teks utama & garis ilustrasi (11,3:1 di atas Lontar) */
+  --n-kunyit: #F2A541;        /* Aksi utama (teks Rimba di atasnya 6,0:1) */
+  --n-laut: #23708A;          /* Laut, jalur peta, cincin fokus (5,1:1 di atas Lontar) */
+  --n-pandan: #2E7D4F;        /* Benar & progres (4,6:1 di atas Lontar) */
+  --n-bata: #B3412E;          /* Salah, selalu bersama ikon + teks (5,1:1 di atas Lontar) */
+
+  /* Turunan (tint) */
+  --n-lontar-gelap: #F1E4CB;
+  --n-santan: #FFFDF7;        /* Permukaan kartu informasi */
+  --n-rimba-lembut: #3E5A4F;  /* Teks sekunder (6,9:1 di atas Lontar) */
+  --n-kunyit-tua: #C77F14;    /* Bayangan tombol utama */
+  --n-kunyit-muda: #FCE3B8;
+  --n-laut-muda: #CFE6EC;
+  --n-laut-tua: #17566B;
+  --n-pandan-muda: #CFE8D6;
+  --n-pandan-tua: #1F5C39;
+  --n-pasir: #F3DDB0;
+
+  /* 2. Tipografi */
+  --n-font-display: 'Grandstander', 'Trebuchet MS', system-ui, sans-serif;
+  --n-font-baca: 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --n-fs-judul: clamp(1.75rem, 1.25rem + 2.2vw, 3.75rem);       /* 28 -> 60px (Aman anti-overflow di 320-360px) */
+  --n-fs-subjudul: clamp(1.375rem, 1.15rem + 0.9vw, 2rem);     /* 22 -> 32px */
+  --n-fs-lokasi: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);     /* 18 -> 22px */
+  --n-fs-isi: clamp(1rem, 0.94rem + 0.3vw, 1.1875rem);         /* 16 -> 19px */
+  --n-fs-kecil: clamp(0.875rem, 0.84rem + 0.2vw, 1rem);        /* 14 -> 16px (batas bawah) */
+  --n-fs-tombol: clamp(1.125rem, 1rem + 0.5vw, 1.4rem);        /* 18 -> 22px */
+
+  --n-lh-judul: 1.05;
+  --n-lh-isi: 1.5;
+
+  /* 3. Spasi (skala 4px) */
+  --n-sp-1: 0.25rem;
+  --n-sp-2: 0.5rem;
+  --n-sp-3: 0.75rem;
+  --n-sp-4: 1rem;
+  --n-sp-5: 1.5rem;
+  --n-sp-6: 2rem;
+  --n-sp-7: 3rem;
+  --n-sp-8: 4rem;
+
+  /* 4. Radius berbeda menurut peran */
+  --n-r-kontrol: 12px;        /* Kontrol kecil (bar atas) */
+  --n-r-pilihan: 18px;        /* Tab peran */
+  --n-r-kartu: 24px;          /* Kartu informasi */
+  --n-r-papan: 10px;          /* Papan nama lokasi peta */
+  --n-r-pil: 999px;           /* Aksi utama */
+
+  /* 5. Garis tepi berbeda menurut peran */
+  --n-garis-utama: 3px solid var(--n-rimba);
+  --n-garis-pilihan: 2px solid var(--n-rimba);
+  --n-garis-kontrol: 1.5px solid rgba(27, 58, 47, 0.45);
+
+  /* 6. Bayangan berbeda menurut peran */
+  --n-bayang-utama: 0 6px 0 var(--n-kunyit-tua), 0 10px 22px rgba(199, 127, 20, 0.28);   /* Satu-satunya bayangan keras */
+  --n-bayang-utama-tekan: 0 2px 0 var(--n-kunyit-tua);
+  --n-bayang-kartu: 0 10px 30px rgba(27, 58, 47, 0.10);
+  --n-bayang-medali: 0 4px 0 rgba(27, 58, 47, 0.18);
+
+  /* 7. Fokus & sentuh */
+  --n-fokus: 0 0 0 3px var(--n-lontar), 0 0 0 6px var(--n-laut);
+  --n-sentuh-min: 44px;
+  --n-sentuh-utama: 56px;
+
+  /* 8. Durasi gerak */
+  --n-durasi-cepat: 150ms;
+  --n-durasi-sedang: 260ms;
+  --n-ease-pantul: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --n-ease-halus: cubic-bezier(0.22, 1, 0.36, 1);
+}

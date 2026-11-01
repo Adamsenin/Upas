@@ -10,7 +10,281 @@
 
 import { supabase } from './supabase.js';
 
+// ============================================================================
+// HELPER VALIDASI & NORMALISASI IMPOR BANK SOAL
+// ============================================================================
+
+/**
+ * Normalisasi format kunci jawaban agar konsisten 0-3 untuk pilihan ganda
+ */
+export function normalisasiKunciJawaban(rawKunci, tipe, opsi = []) {
+  if (rawKunci === undefined || rawKunci === null) return '0';
+  const rawStr = String(rawKunci).trim();
+
+  if (tipe === 'benar_salah') {
+    const s = rawStr.toLowerCase();
+    if (['0', 'benar', 'true', 'b'].includes(s)) return '0';
+    if (['1', 'salah', 'false', 's'].includes(s)) return '1';
+    return '0';
+  }
+
+  if (tipe === 'isian_singkat') {
+    return rawStr.toLowerCase();
+  }
+
+  // Tipe: pilihan_ganda (harus indeks 0, 1, 2, 3)
+  const up = rawStr.toUpperCase();
+  if (['0', '1', '2', '3'].includes(up)) return up;
+  if (up === 'A') return '0';
+  if (up === 'B') return '1';
+  if (up === 'C') return '2';
+  if (up === 'D') return '3';
+
+  // 1-based index support jika ada guru yang memakai 1-4
+  if (up === '4') return '3';
+
+  // Cek apakah isi kunci cocok dengan teks salah satu opsi
+  if (Array.isArray(opsi) && opsi.length > 0) {
+    const idx = opsi.findIndex(o => String(o).trim().toLowerCase() === rawStr.toLowerCase());
+    if (idx >= 0 && idx <= 3) return String(idx);
+  }
+
+  // Default fallback 0 (opsi A)
+  return '0';
+}
+
+/**
+ * Parsing teks CSV ke array objek dengan penanganan tanda kutip dan spasi
+ */
+export function parseCSVKeObjek(teksCSV) {
+  if (!teksCSV) return [];
+  const baris = teksCSV.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  if (baris.length < 2) return [];
+
+  const pemisah = baris[0].includes(';') ? ';' : ',';
+  const splitBaris = (line) => {
+    const res = [];
+    let cur = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        inQuotes = !inQuotes;
+      } else if (ch === pemisah && !inQuotes) {
+        res.push(cur.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+        cur = '';
+      } else {
+        cur += ch;
+      }
+    }
+    res.push(cur.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+    return res;
+  };
+
+  const headers = splitBaris(baris[0]).map(h => h.trim().toLowerCase().replace(/\s+/g, '_'));
+  return baris.slice(1).map(line => {
+    const cols = splitBaris(line);
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = cols[i] ?? ''; });
+    return obj;
+  });
+}
+
+// ============================================================================
+// HELPER DETEKSI SKEMA & PAYLOAD ADAPTIF (KOMPATIBILITAS SUPABASE CLOUD)
+// ============================================================================
+
+let cacheKolomSoal = null;
+
+/**
+ * Deteksi kolom yang benar-benar ada pada tabel public.soal di Supabase
+ * Mencegah PostgREST schema cache rejection (misal: kamus_id atau opsi vs opsi_a..d)
+ */
+export async function ambilKolomTabelSoal() {
+  if (cacheKolomSoal) return new Set(cacheKolomSoal);
+
+  const set = new Set([
+    'id', 'urutan', 'teks', 'tipe', 'bab', 'tingkat_kesulitan',
+    'penjelasan', 'poin', 'waktu_detik'
+  ]);
+
+  const kandidat = [
+    'opsi', 'opsi_a', 'opsi_b', 'opsi_c', 'opsi_d',
+    'kuis_id', 'kamus_id', 'gambar_path'
+  ];
+
+  for (const col of kandidat) {
+    try {
+      const { error } = await supabase.from('soal').select(col).limit(1);
+      if (!error) {
+        set.add(col);
+      }
+    } catch (e) {}
+  }
+
+  cacheKolomSoal = set;
+  return new Set(cacheKolomSoal);
+}
+
+/**
+ * Membentuk objek payload yang adaptif dan kompatibel dengan kolom Supabase aktual
+ */
+export function buatPayloadSoalAdaptif(soalData, kuisIdTarget, kolomTersedia = new Set()) {
+  const payload = {
+    urutan: Number.isInteger(soalData.urutan) ? soalData.urutan : 1,
+    teks: String(soalData.teks || '').trim(),
+    tipe: soalData.tipe || 'pilihan_ganda',
+    bab: soalData.bab || 'Bab 1: Rantai Makanan',
+    tingkat_kesulitan: soalData.tingkat_kesulitan || 'sedang',
+    penjelasan: soalData.penjelasan || 'Pembahasan materi IPAS.',
+    waktu_detik: Number(soalData.waktu_detik) || 30,
+    poin: Number(soalData.poin) || 10
+  };
+
+  const opsiArr = Array.isArray(soalData.opsi) ? soalData.opsi : [];
+
+  // Format kolom opsi: jsonb vs opsi_a..d
+  if (kolomTersedia.has('opsi')) {
+    payload.opsi = opsiArr;
+  }
+  if (kolomTersedia.has('opsi_a')) {
+    payload.opsi_a = opsiArr[0] || '';
+    payload.opsi_b = opsiArr[1] || '';
+    payload.opsi_c = opsiArr[2] || '';
+    payload.opsi_d = opsiArr[3] || '';
+  }
+  if (!kolomTersedia.has('opsi') && !kolomTersedia.has('opsi_a')) {
+    payload.opsi_a = opsiArr[0] || '';
+    payload.opsi_b = opsiArr[1] || '';
+    payload.opsi_c = opsiArr[2] || '';
+    payload.opsi_d = opsiArr[3] || '';
+  }
+
+  // kuis_id (hanya jika kolom tersedia di DB)
+  if (kolomTersedia.has('kuis_id') && kuisIdTarget) {
+    payload.kuis_id = kuisIdTarget;
+  }
+
+  // kamus_id: JANGAN kirim jika kolom tidak ada di DB!
+  if (kolomTersedia.has('kamus_id') && soalData.kamus_id) {
+    payload.kamus_id = soalData.kamus_id;
+  }
+
+  // gambar_path (hanya jika kolom tersedia di DB)
+  if (kolomTersedia.has('gambar_path') && soalData.gambar_path) {
+    payload.gambar_path = soalData.gambar_path;
+  }
+
+  return payload;
+}
+
+/**
+ * Validasi mendalam seluruh baris sebelum transaksi penyimpanan dimulai
+ */
+export function validasiDanSiapkanSoal(daftarBaris, urutanAwal = 1) {
+  if (!Array.isArray(daftarBaris) || daftarBaris.length === 0) {
+    throw new Error('Berkas tidak memuat baris soal yang dapat diimpor.');
+  }
+
+  const errors = [];
+  const hasilSiap = [];
+
+  daftarBaris.forEach((row, idx) => {
+    const nomorBaris = idx + 2; // +1 header, +1 1-based index
+
+    // 1. Teks Pertanyaan (Wajib)
+    const teks = (row.teks || row.pertanyaan || row.Pertanyaan || '').toString().trim();
+    if (!teks) {
+      errors.push(`Baris ${nomorBaris}: Pertanyaan (teks) tidak boleh kosong.`);
+      return;
+    }
+
+    // 2. Tipe Soal
+    const tipeRaw = (row.tipe || row.Tipe || 'pilihan_ganda').toString().trim().toLowerCase();
+    const tipeValid = ['pilihan_ganda', 'benar_salah', 'isian_singkat'];
+    const tipe = tipeValid.includes(tipeRaw) ? tipeRaw : 'pilihan_ganda';
+
+    // 3. Bab / Topik & Tingkat Kesulitan
+    const bab = (row.bab || row.Bab || 'Bab 1: Rantai Makanan').toString().trim();
+    const kesulitanRaw = (row.tingkat_kesulitan || row.kesulitan || row.Kesulitan || 'sedang').toString().trim().toLowerCase();
+    const tingkat_kesulitan = ['mudah', 'sedang', 'sulit'].includes(kesulitanRaw) ? kesulitanRaw : 'sedang';
+
+    // 4. Opsi Jawaban
+    let opsi = [];
+    if (tipe === 'pilihan_ganda') {
+      if (Array.isArray(row.opsi)) {
+        opsi = row.opsi.map(x => String(x).trim());
+      } else {
+        const oA = (row.opsi_a ?? row.opsia ?? row.a ?? row.A ?? '').toString().trim();
+        const oB = (row.opsi_b ?? row.opsib ?? row.b ?? row.B ?? '').toString().trim();
+        const oC = (row.opsi_c ?? row.opsic ?? row.c ?? row.C ?? '').toString().trim();
+        const oD = (row.opsi_d ?? row.opsid ?? row.d ?? row.D ?? '').toString().trim();
+
+        opsi = [
+          oA || 'Opsi A',
+          oB || 'Opsi B',
+          oC || 'Opsi C',
+          oD || 'Opsi D'
+        ];
+      }
+
+      if (opsi.filter(Boolean).length < 2) {
+        errors.push(`Baris ${nomorBaris}: Soal pilihan ganda harus memiliki minimal 2 opsi pilihan.`);
+        return;
+      }
+    } else if (tipe === 'benar_salah') {
+      opsi = ['Benar', 'Salah'];
+    } else {
+      opsi = [];
+    }
+
+    // 5. Kunci Jawaban (Harus 0-3 untuk pilihan ganda)
+    const rawKunci = row.kunci ?? row.Kunci ?? '0';
+    const kunci = normalisasiKunciJawaban(rawKunci, tipe, opsi);
+
+    if (tipe === 'pilihan_ganda' && !['0', '1', '2', '3'].includes(kunci)) {
+      errors.push(`Baris ${nomorBaris}: Kunci jawaban tidak valid (harus 0–3 atau A–D, diberikan: "${rawKunci}").`);
+      return;
+    }
+
+    // 6. Penjelasan, Waktu, Poin
+    const penjelasan = (row.penjelasan || row.Penjelasan || 'Pembahasan materi IPAS.').toString().trim();
+    const waktu_detik = Math.max(5, parseInt(row.waktu_detik || row.waktu || row.Waktu || 30, 10) || 30);
+    const poin = Math.max(1, parseInt(row.poin || row.Poin || 10, 10) || 10);
+
+    // 7. Urutan Soal Terjamin Berurutan
+    const urutan = urutanAwal + hasilSiap.length;
+
+    hasilSiap.push({
+      soalPayload: {
+        urutan,
+        tipe,
+        bab,
+        tingkat_kesulitan,
+        teks,
+        opsi,
+        penjelasan,
+        waktu_detik,
+        poin,
+        kamus_id: row.kamus_id || null
+      },
+      kunci
+    });
+  });
+
+  if (errors.length > 0) {
+    const pesanRingkas = errors.slice(0, 5).join('\n');
+    const sisa = errors.length > 5 ? `\n...dan ${errors.length - 5} kesalahan lainnya.` : '';
+    throw new Error(`Validasi berkas soal gagal (${errors.length} masalah ditemukan):\n${pesanRingkas}${sisa}`);
+  }
+
+  return hasilSiap;
+}
+
 export const kuisManager = {
+  ambilKolomTabelSoal,
+  buatPayloadSoalAdaptif,
+
   // =========================================================================
   // 1. MANAJEMEN KUIS
   // =========================================================================
@@ -144,66 +418,100 @@ export const kuisManager = {
       .select('*')
       .order('urutan', { ascending: true });
     if (error) throw error;
-    return data || [];
+    
+    return (data || []).map(s => {
+      let opsiArray = [];
+      if (Array.isArray(s.opsi) && s.opsi.length > 0) {
+        opsiArray = s.opsi;
+      } else if (s.opsi_a !== undefined || s.opsi_b !== undefined || s.opsi_c !== undefined || s.opsi_d !== undefined) {
+        opsiArray = [s.opsi_a || '', s.opsi_b || '', s.opsi_c || '', s.opsi_d || ''];
+      } else if (typeof s.opsi === 'string') {
+        try { opsiArray = JSON.parse(s.opsi); } catch (e) { opsiArray = []; }
+      }
+      return {
+        ...s,
+        opsi: opsiArray
+      };
+    });
+  },
+
+  async ambilSoalKuis(kuisId) {
+    const { data, error } = await supabase
+      .from('soal')
+      .select('*')
+      .eq('kuis_id', kuisId)
+      .order('urutan', { ascending: true });
+    if (error) throw error;
+
+    return (data || []).map(s => {
+      let opsiArray = [];
+      if (Array.isArray(s.opsi) && s.opsi.length > 0) {
+        opsiArray = s.opsi;
+      } else if (s.opsi_a !== undefined || s.opsi_b !== undefined || s.opsi_c !== undefined || s.opsi_d !== undefined) {
+        opsiArray = [s.opsi_a || '', s.opsi_b || '', s.opsi_c || '', s.opsi_d || ''];
+      } else if (typeof s.opsi === 'string') {
+        try { opsiArray = JSON.parse(s.opsi); } catch (e) { opsiArray = []; }
+      }
+      return {
+        ...s,
+        opsi: opsiArray
+      };
+    });
   },
 
   async simpanSoal(kuisId, soalData, kunciJawaban) {
-    const {
-      id,
-      urutan,
-      tipe,
-      bab = 'Bab 1: Rantai Makanan',
-      tingkat_kesulitan = 'sedang',
-      teks,
-      opsi,
-      penjelasan,
-      waktu_detik,
-      poin,
-      kamus_id
-    } = soalData;
+    const kolomTersedia = await ambilKolomTabelSoal();
+    let payload = buatPayloadSoalAdaptif(soalData, kuisId || soalData.kuis_id, kolomTersedia);
+    let soalId = soalData.id;
 
-    const payloadSoal = {
-      urutan: Number(urutan) || 1,
-      tipe: tipe || 'pilihan_ganda',
-      bab,
-      tingkat_kesulitan,
-      teks,
-      opsi: Array.isArray(opsi) ? opsi : [],
-      penjelasan: penjelasan || '',
-      waktu_detik: Number(waktu_detik) || 30,
-      poin: Number(poin) || 10,
-      kamus_id: kamus_id || null
-    };
-
-    let soalId = id;
-    if (id) {
-      const { error } = await supabase
+    if (soalId) {
+      let resUpdate = await supabase
         .from('soal')
-        .update({ ...payloadSoal, kuis_id: kuisId || soalData.kuis_id })
-        .eq('id', id);
-      if (error) throw error;
+        .update(payload)
+        .eq('id', soalId);
+
+      // Penanganan otomatis jika ada kolom yang tidak ada di schema cache
+      if (resUpdate.error && resUpdate.error.message && resUpdate.error.message.includes("Could not find the '")) {
+        const match = resUpdate.error.message.match(/Could not find the '([^']+)' column/);
+        if (match && match[1]) {
+          kolomTersedia.delete(match[1]);
+          delete payload[match[1]];
+          resUpdate = await supabase.from('soal').update(payload).eq('id', soalId);
+        }
+      }
+      if (resUpdate.error) throw resUpdate.error;
     } else {
-      const { data, error } = await supabase
+      let resInsert = await supabase
         .from('soal')
-        .insert({
-          kuis_id: kuisId || 'kuis-ekosistem-1',
-          ...payloadSoal
-        });
-      if (error) throw error;
-      soalId = data?.[0]?.id;
+        .insert(payload)
+        .select();
+
+      if (resInsert.error && resInsert.error.message && resInsert.error.message.includes("Could not find the '")) {
+        const match = resInsert.error.message.match(/Could not find the '([^']+)' column/);
+        if (match && match[1]) {
+          kolomTersedia.delete(match[1]);
+          delete payload[match[1]];
+          resInsert = await supabase.from('soal').insert(payload).select();
+        }
+      }
+      if (resInsert.error) throw resInsert.error;
+      soalId = resInsert.data?.[0]?.id;
     }
 
-    if (kunciJawaban !== undefined && kunciJawaban !== null) {
+    if (kunciJawaban !== undefined && kunciJawaban !== null && soalId) {
+      const kunciNorm = normalisasiKunciJawaban(kunciJawaban, payload.tipe, soalData.opsi);
       const kunciDB = JSON.parse(localStorage.getItem('kupas_db_soal_kunci_secure') || '{}');
-      kunciDB[soalId] = String(kunciJawaban);
+      kunciDB[soalId] = String(kunciNorm);
       localStorage.setItem('kupas_db_soal_kunci_secure', JSON.stringify(kunciDB));
 
       try {
-        await supabase.from('soal_kunci').insert({
+        await supabase.from('soal_kunci').upsert({
           soal_id: soalId,
-          kunci: JSON.stringify(kunciJawaban)
+          kunci: JSON.stringify(kunciNorm)
         });
-      } catch (e) {}
+      } catch (e) {
+        console.warn('Tabel soal_kunci belum siap di cloud:', e.message);
+      }
     }
 
     return soalId;
@@ -212,58 +520,128 @@ export const kuisManager = {
   async hapusSoal(soalId) {
     const { error } = await supabase.from('soal').delete().eq('id', soalId);
     if (error) throw error;
+    try {
+      await supabase.from('soal_kunci').delete().eq('soal_id', soalId);
+      const kunciDB = JSON.parse(localStorage.getItem('kupas_db_soal_kunci_secure') || '{}');
+      delete kunciDB[soalId];
+      localStorage.setItem('kupas_db_soal_kunci_secure', JSON.stringify(kunciDB));
+    } catch (e) {}
   },
 
+  /**
+   * Impor Massal Soal dari CSV / Array Objek
+   * Dilengkapi validasi pra-impor, penyesuaian kolom adaptif, dan perlindungan rollback
+   */
   async imporSoalMassal(kuisIdTarget, daftarBaris) {
-    const soalSekarang = await this.ambilSemuaSoal();
-    let urutanMulai = soalSekarang.filter(s => s.kuis_id === kuisIdTarget).length + 1;
-    let jumlahBerhasil = 0;
+    if (!daftarBaris || !Array.isArray(daftarBaris) || daftarBaris.length === 0) {
+      throw new Error('Berkas tidak memuat baris data soal untuk diimpor.');
+    }
 
-    for (const row of daftarBaris) {
-      const teks = (row.teks || row.Pertanyaan || row.pertanyaan || '').toString().trim();
-      if (!teks) continue;
+    // 1. Deteksi kolom tabel soal aktual secara dinamis (bebas bug schema cache)
+    const kolomTersedia = await ambilKolomTabelSoal();
 
-      const tipeRaw = (row.tipe || row.Tipe || 'pilihan_ganda').toString().trim().toLowerCase();
-      const tipe = ['pilihan_ganda', 'benar_salah', 'isian_singkat'].includes(tipeRaw) ? tipeRaw : 'pilihan_ganda';
-      const bab = (row.bab || row.Bab || 'Bab 1: Rantai Makanan').toString().trim();
-      const kesulitanRaw = (row.tingkat_kesulitan || row.Kesulitan || row.kesulitan || 'sedang').toString().trim().toLowerCase();
-      const tingkat_kesulitan = ['mudah', 'sedang', 'sulit'].includes(kesulitanRaw) ? kesulitanRaw : 'sedang';
-
-      let opsi = [];
-      if (tipe === 'pilihan_ganda') {
-        if (Array.isArray(row.opsi)) {
-          opsi = row.opsi;
-        } else {
-          opsi = [
-            row.opsi_a || row.OpsiA || row.A || 'Opsi A',
-            row.opsi_b || row.OpsiB || row.B || 'Opsi B',
-            row.opsi_c || row.OpsiC || row.C || 'Opsi C',
-            row.opsi_d || row.OpsiD || row.D || 'Opsi D'
-          ].map(x => String(x).trim());
+    // 2. Tentukan target kuis yang valid jika kuis_id didukung di DB
+    let idKuisFinal = kuisIdTarget;
+    if (kolomTersedia.has('kuis_id')) {
+      try {
+        const { data: listKuis } = await supabase.from('kuis').select('id, judul').limit(10);
+        if (listKuis && listKuis.length > 0) {
+          const found = listKuis.find(k => k.id === kuisIdTarget);
+          idKuisFinal = found ? found.id : listKuis[0].id;
         }
-      } else if (tipe === 'benar_salah') {
-        opsi = ['Benar', 'Salah'];
+      } catch (e) {}
+      if (!idKuisFinal) idKuisFinal = '11111111-1111-1111-1111-111111111111';
+    } else {
+      idKuisFinal = null;
+    }
+
+    // 3. Tentukan urutan awal secara konsisten dari urutan tertinggi saat ini
+    let urutanAwal = 1;
+    try {
+      let queryUrutan = supabase.from('soal').select('urutan').order('urutan', { ascending: false }).limit(1);
+      if (kolomTersedia.has('kuis_id') && idKuisFinal) {
+        queryUrutan = queryUrutan.eq('kuis_id', idKuisFinal);
+      }
+      const { data: soalAda } = await queryUrutan;
+      if (soalAda && soalAda.length > 0 && Number.isInteger(soalAda[0].urutan)) {
+        urutanAwal = Number(soalAda[0].urutan) + 1;
+      }
+    } catch (e) {
+      try {
+        const soalSemua = await this.ambilSemuaSoal();
+        urutanAwal = soalSemua.length + 1;
+      } catch (errAll) {
+        urutanAwal = 1;
+      }
+    }
+
+    // 4. FASE VALIDASI ATOMIK PRA-IMPOR:
+    const itemTervalidasi = validasiDanSiapkanSoal(daftarBaris, urutanAwal);
+
+    // 5. FASE PENYIMPANAN ADAPTIF DENGAN PERLINDUNGAN ROLLBACK:
+    const idSoalTerbuat = [];
+    const kunciDB = JSON.parse(localStorage.getItem('kupas_db_soal_kunci_secure') || '{}');
+
+    try {
+      for (const item of itemTervalidasi) {
+        let payload = buatPayloadSoalAdaptif(item.soalPayload, idKuisFinal, kolomTersedia);
+
+        let resInsert = await supabase
+          .from('soal')
+          .insert(payload)
+          .select();
+
+        // Penanganan otomatis jika ada kolom yang ditolak oleh PostgREST schema cache
+        if (resInsert.error && resInsert.error.message && resInsert.error.message.includes("Could not find the '")) {
+          const match = resInsert.error.message.match(/Could not find the '([^']+)' column/);
+          if (match && match[1]) {
+            const badCol = match[1];
+            console.warn(`Menghapus kolom "${badCol}" yang tidak ada di schema cache lalu mencoba kembali.`);
+            kolomTersedia.delete(badCol);
+            delete payload[badCol];
+            resInsert = await supabase.from('soal').insert(payload).select();
+          }
+        }
+
+        if (resInsert.error) {
+          throw new Error(`Gagal menyimpan butir soal urutan #${payload.urutan}: ${resInsert.error.message}`);
+        }
+
+        const createdId = resInsert.data?.[0]?.id || ('soal-imp-' + Math.random().toString(36).substr(2, 9));
+        idSoalTerbuat.push(createdId);
+
+        // Simpan kunci jawaban lokal
+        kunciDB[createdId] = String(item.kunci);
+
+        // Coba simpan ke tabel soal_kunci jika tabel tersedia
+        try {
+          await supabase.from('soal_kunci').upsert({
+            soal_id: createdId,
+            kunci: JSON.stringify(item.kunci)
+          });
+        } catch (errKunci) {
+          // Abaikan jika tabel soal_kunci belum dibuat di Supabase
+        }
       }
 
-      const kunci = (row.kunci ?? row.Kunci ?? '0').toString().trim();
-      const penjelasan = (row.penjelasan || row.Penjelasan || 'Pembahasan materi IPAS.').toString().trim();
-      const waktu_detik = parseInt(row.waktu_detik || row.Waktu || 30, 10) || 30;
-      const poin = parseInt(row.poin || row.Poin || 10, 10) || 10;
+      localStorage.setItem('kupas_db_soal_kunci_secure', JSON.stringify(kunciDB));
+      return itemTervalidasi.length;
 
-      await this.simpanSoal(kuisIdTarget || 'kuis-ekosistem-1', {
-        urutan: urutanMulai++,
-        tipe,
-        bab,
-        tingkat_kesulitan,
-        teks,
-        opsi,
-        penjelasan,
-        waktu_detik,
-        poin
-      }, kunci);
-      jumlahBerhasil++;
+    } catch (errEksekusi) {
+      // ROLLBACK: Jika terjadi kegagalan, hapus butir yang sempat tersimpan
+      if (idSoalTerbuat.length > 0) {
+        console.warn(`Impor gagal di tengah jalan. Melakukan rollback terhadap ${idSoalTerbuat.length} soal...`);
+        for (const rollbackId of idSoalTerbuat) {
+          try {
+            await supabase.from('soal').delete().eq('id', rollbackId);
+            await supabase.from('soal_kunci').delete().eq('soal_id', rollbackId);
+            delete kunciDB[rollbackId];
+          } catch (eRollback) {}
+        }
+        localStorage.setItem('kupas_db_soal_kunci_secure', JSON.stringify(kunciDB));
+      }
+      throw new Error(`Transaksi impor dibatalkan: ${errEksekusi.message}`);
     }
-    return jumlahBerhasil;
   },
 
   // =========================================================================
@@ -386,15 +764,29 @@ export const kuisManager = {
   // =========================================================================
   async ambilAnalitikLengkap(kkmGlobal = 75) {
     const [daftarKuis, daftarSoal, daftarKelas, daftarSiswa] = await Promise.all([
-      this.ambilDaftarKuis(),
-      this.ambilSemuaSoal(),
-      this.ambilDaftarKelas(),
-      this.ambilDaftarSiswa()
+      this.ambilDaftarKuis().catch(err => { console.warn('Kuis belum tersedia di DB:', err.message); return []; }),
+      this.ambilSemuaSoal().catch(err => { console.warn('Soal belum tersedia di DB:', err.message); return []; }),
+      this.ambilDaftarKelas().catch(err => { console.warn('Kelas belum tersedia di DB:', err.message); return []; }),
+      this.ambilDaftarSiswa().catch(err => { console.warn('Siswa belum tersedia di DB:', err.message); return []; })
     ]);
 
-    const { data: daftarSesi } = await supabase.from('sesi').select('*').order('created_at', { ascending: true });
-    const { data: daftarPeserta } = await supabase.from('peserta').select('*');
-    const { data: daftarJawaban } = await supabase.from('jawaban').select('*');
+    let daftarSesi = [];
+    let daftarPeserta = [];
+    let daftarJawaban = [];
+    try {
+      const resSesi = await supabase.from('sesi').select('*').order('created_at', { ascending: true });
+      daftarSesi = resSesi.data || [];
+    } catch (e) {}
+
+    try {
+      const resPeserta = await supabase.from('peserta').select('*');
+      daftarPeserta = resPeserta.data || [];
+    } catch (e) {}
+
+    try {
+      const resJawaban = await supabase.from('jawaban').select('*');
+      daftarJawaban = resJawaban.data || [];
+    } catch (e) {}
 
     const sesiList = daftarSesi || [];
     const pesertaList = daftarPeserta || [];

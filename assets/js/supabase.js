@@ -520,6 +520,10 @@ class SupabaseMockClient {
         this._order = { col, ascending };
         return this;
       },
+      limit(n) {
+        this._limit = n;
+        return this;
+      },
       single() {
         this._single = true;
         return this;
@@ -553,6 +557,9 @@ class SupabaseMockClient {
             if (a[this._order.col] < b[this._order.col]) return this._order.ascending ? -1 : 1;
             return 0;
           });
+        }
+        if (this._limit !== undefined && this._limit !== null) {
+          rows = rows.slice(0, this._limit);
         }
         if (this._single) {
           resolve({ data: rows[0] || null, error: rows.length ? null : { message: 'Data tidak ditemukan' } });
@@ -649,6 +656,51 @@ class SupabaseMockClient {
           single() { this._single = true; return this; },
           then(resolve) {
             resolve({ data: this._single ? inserted[0] : inserted, error: null });
+          }
+        };
+        return builder;
+      },
+      upsert(items, options = {}) {
+        const user = getCurrentUser();
+        if (tabelKhususGuru.includes(table) && (!user || user.is_anonymous)) {
+          return {
+            select() { return this; },
+            single() { return this; },
+            then(resolve) {
+              resolve({ data: null, error: { message: `Izin ditolak: hanya guru yang dapat menyimpan data ${table} (RLS)` } });
+            }
+          };
+        }
+
+        const list = Array.isArray(items) ? items : [items];
+        const store = getStore();
+        const onConflict = options.onConflict || (table === 'soal_kunci' ? 'soal_id' : 'id');
+        const results = [];
+
+        list.forEach(it => {
+          const matchIdx = store.findIndex(item => item[onConflict] === it[onConflict]);
+          if (matchIdx >= 0) {
+            store[matchIdx] = { ...store[matchIdx], ...it };
+            results.push(store[matchIdx]);
+          } else {
+            const newItem = {
+              id: it.id || 'id-' + Math.random().toString(36).substr(2, 9),
+              created_at: new Date().toISOString(),
+              ...it
+            };
+            store.push(newItem);
+            results.push(newItem);
+          }
+        });
+
+        setStore(store);
+
+        const builder = {
+          _single: false,
+          select() { return this; },
+          single() { this._single = true; return this; },
+          then(resolve) {
+            resolve({ data: this._single ? results[0] : results, error: null });
           }
         };
         return builder;

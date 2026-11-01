@@ -16,7 +16,7 @@
 
 import { auth } from './auth.js';
 import { supabase } from './supabase.js';
-import { kuisManager } from './kuis.js';
+import { kuisManager } from './kuis.js?v=4.0.2';
 import { sesiManager } from './sesi.js';
 import { pasangHeader, umumkanAria, suara } from './ui.js';
 
@@ -866,6 +866,7 @@ function renderBankSoal() {
 }
 
 function parseCSVKeObjek(teksCSV) {
+  if (!teksCSV) return [];
   const baris = teksCSV.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
   if (baris.length < 2) return [];
   const pemisah = baris[0].includes(';') ? ';' : ',';
@@ -878,17 +879,17 @@ function parseCSVKeObjek(teksCSV) {
       if (ch === '"') {
         inQuotes = !inQuotes;
       } else if (ch === pemisah && !inQuotes) {
-        res.push(cur.trim());
+        res.push(cur.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
         cur = '';
       } else {
         cur += ch;
       }
     }
-    res.push(cur.trim());
+    res.push(cur.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
     return res;
   };
 
-  const headers = splitBaris(baris[0]);
+  const headers = splitBaris(baris[0]).map(h => h.trim().toLowerCase().replace(/\s+/g, '_'));
   return baris.slice(1).map(line => {
     const cols = splitBaris(line);
     const obj = {};
@@ -1173,7 +1174,8 @@ function pasangEventListeners() {
           rows = window.XLSX.utils.sheet_to_json(sheet);
         }
 
-        const jml = await kuisManager.imporSoalMassal('kuis-ekosistem-1', rows);
+        const targetId = state.kuisTerpilihId || state.data?.daftarKuis?.[0]?.id || 'kuis-ekosistem-1';
+        const jml = await kuisManager.imporSoalMassal(targetId, rows);
         suara.mainkan('benar');
         umumkanAria(`${jml} soal berhasil diimpor ke bank soal.`);
         alert(`Berhasil mengimpor ${jml} butir soal ke Bank Soal!`);

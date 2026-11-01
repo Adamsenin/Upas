@@ -9,10 +9,10 @@ import { supabase } from './supabase.js';
 
 // 1. Template Tim Tematik IPAS
 const TEMPLATE_TIM = [
-  { id: 'tim-1', nama: 'Tim Elang', ikon: '🦅', warnaClass: 'tim-merah', tombolBuzzer: 'A', skor: 0, benar: 0 },
-  { id: 'tim-2', nama: 'Tim Lumba-Lumba', ikon: '🐬', warnaClass: 'tim-biru', tombolBuzzer: 'L', skor: 0, benar: 0 },
-  { id: 'tim-3', nama: 'Tim Komodo', ikon: '🦎', warnaClass: 'tim-hijau', tombolBuzzer: 'Z', skor: 0, benar: 0 },
-  { id: 'tim-4', nama: 'Tim Harimau', ikon: '🐯', warnaClass: 'tim-kuning', tombolBuzzer: 'M', skor: 0, benar: 0 }
+  { id: 'tim-1', nama: 'Tim Elang', ikon: '🦅', warnaClass: 'tim-merah', modifierClass: 'kartu-regu-duel--elang', peran: 'Predator Udara Rimba', tombolBuzzer: 'A', skor: 0, benar: 0 },
+  { id: 'tim-2', nama: 'Tim Lumba-Lumba', ikon: '🐬', warnaClass: 'tim-biru', modifierClass: 'kartu-regu-duel--lumba', peran: 'Penjelajah Samudra', tombolBuzzer: 'L', skor: 0, benar: 0 },
+  { id: 'tim-3', nama: 'Tim Komodo', ikon: '🦎', warnaClass: 'tim-hijau', modifierClass: 'kartu-regu-duel--komodo', peran: 'Predator Purba Darat', tombolBuzzer: 'Z', skor: 0, benar: 0 },
+  { id: 'tim-4', nama: 'Tim Harimau', ikon: '🐯', warnaClass: 'tim-kuning', modifierClass: 'kartu-regu-duel--harimau', peran: 'Penguasa Hutan Rimba', tombolBuzzer: 'M', skor: 0, benar: 0 }
 ];
 
 // 2. Bank Soal IPAS Kelas 5 SD Kurikulum Merdeka
@@ -142,17 +142,64 @@ function perbaruiPratinjauLobi() {
   if (!wadah) return;
 
   const timTerpilih = TEMPLATE_TIM.slice(0, state.jumlahTim);
-  wadah.innerHTML = timTerpilih.map((tim) => `
-    <div class="col-6 col-md-${12 / state.jumlahTim}">
-      <div class="kartu-tim-scoreboard ${tim.warnaClass} h-100 text-center">
-        <span class="fs-1 d-block mb-1" aria-hidden="true">${tim.ikon}</span>
-        <h4 class="h6 fw-bolder mb-1">${tim.nama}</h4>
-        <span class="badge bg-white text-dark border border-dark rounded-pill px-2 py-1 small">
-          Tombol Bel: <strong>[ ${tim.tombolBuzzer} ]</strong>
-        </span>
+  const count = state.jumlahTim;
+
+  // Bangun elemen kartu regu face-off
+  const kartuTimHTML = timTerpilih.map((tim) => `
+    <div class="kartu-regu-duel ${tim.modifierClass || ''}" id="kartu-lobi-${tim.id}" data-tim-id="${tim.id}">
+      <div class="kartu-regu-insignia" aria-hidden="true">${tim.ikon}</div>
+      <h4 class="kartu-regu-nama">${tim.nama}</h4>
+      <span class="kartu-regu-peran">${tim.peran || 'Regu Sains'}</span>
+      <div class="keycap-wadah">
+        <button type="button" class="keycap-bel smartboard-btn" id="keycap-tim-${tim.id}" data-tombol-key="${tim.tombolBuzzer}" aria-label="Uji tombol bel ${tim.nama}, tombol keyboard ${tim.tombolBuzzer}">
+          <span class="keycap-huruf">${tim.tombolBuzzer}</span>
+          <span class="keycap-label-bawah">Bel Regu</span>
+        </button>
+        <p class="keycap-petunjuk">Ketuk atau tekan [ ${tim.tombolBuzzer} ]</p>
       </div>
     </div>
-  `).join('');
+  `);
+
+  if (count === 2) {
+    wadah.innerHTML = `
+      <div class="duel-faceoff-grid" data-tim-count="2">
+        ${kartuTimHTML[0]}
+        <div class="duel-vs-badge" aria-label="Lawan">VS</div>
+        ${kartuTimHTML[1]}
+      </div>
+    `;
+  } else {
+    wadah.innerHTML = `
+      <div class="duel-faceoff-grid" data-tim-count="${count}">
+        ${kartuTimHTML.join('')}
+      </div>
+    `;
+  }
+
+  // Pasang event listener interaktif pada keycap untuk uji coba bel di lobi
+  timTerpilih.forEach((tim) => {
+    const btnKeycap = document.getElementById(`keycap-tim-${tim.id}`);
+    if (btnKeycap) {
+      btnKeycap.addEventListener('click', () => {
+        ujiCobaBelLobi(tim);
+      });
+    }
+  });
+
+  umumkanAria(`Jumlah regu diatur ke ${count} regu. ${timTerpilih.map(t => t.nama + ' tombol ' + t.tombolBuzzer).join(', ')}.`);
+}
+
+// Uji coba bel interaktif di lobi sebelum pertandingan dimulai
+function ujiCobaBelLobi(tim) {
+  const keycap = document.getElementById(`keycap-tim-${tim.id}`);
+  if (keycap) {
+    keycap.classList.add('keycap-tertekan');
+    setTimeout(() => {
+      keycap.classList.remove('keycap-tertekan');
+    }, 220);
+  }
+  putarNadaBel();
+  umumkanAria(`Bel ${tim.nama} aktif, tombol ${tim.tombolBuzzer}!`);
 }
 
 // 6. Mulai Pertandingan Duel
@@ -596,7 +643,17 @@ function pasangKeyboardShortcut() {
   document.addEventListener('keydown', (e) => {
     const key = e.key.toUpperCase();
 
-    // Hotkey Buzzer
+    // Uji Coba Bel Interaktif saat di Layar Lobi
+    if (state.statusFase === 'lobi') {
+      const timCocok = TEMPLATE_TIM.slice(0, state.jumlahTim).find((t) => t.tombolBuzzer === key);
+      if (timCocok) {
+        e.preventDefault();
+        ujiCobaBelLobi(timCocok);
+        return;
+      }
+    }
+
+    // Hotkey Buzzer saat Pertandingan
     if (state.statusFase === 'tunggu_bel' && state.format === 'buzzer') {
       const timCocok = state.timBertanding.find((t) => t.tombolBuzzer === key);
       if (timCocok) {

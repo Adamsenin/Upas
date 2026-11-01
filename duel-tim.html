@@ -4,11 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Arena Duel Tim Smartboard - KUPAS KUIS IPAS Kelas V SD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Grandstander:wght@600;700;800&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/token-nusantara.css">
   <link rel="stylesheet" href="assets/css/tema.css">
   <link rel="stylesheet" href="assets/css/animasi.css">
   <link rel="stylesheet" href="assets/css/komponen.css">
   <link rel="stylesheet" href="assets/css/latar-hidup.css">
+  <link rel="stylesheet" href="assets/css/duel-tim.css">
 </head>
 <body class="motion-full d-flex flex-column min-vh-100 justify-content-between" data-latar-tema="arena">
   <!-- Navigasi Utama Aplikasi -->
@@ -18,101 +23,115 @@
   <main class="container-fluid px-2 px-sm-3 px-md-4 py-3 flex-grow-1" style="max-width: 1200px;">
     
     <!-- 1. LAYAR LOBI PENGATURAN DUEL -->
-    <section id="layar-lobi" class="anim-pop">
-      <div class="row align-items-center justify-content-center mb-3 g-2">
-        <div class="col-auto">
-          <img src="assets/svg/maskot-bersorak.svg" alt="Maskot Si Kupas bersorak" width="80" height="80" class="anim-bouncing" aria-hidden="true">
-        </div>
-        <div class="col">
-          <div class="balon-ucapan-maskot anim-slide-up" role="status" aria-live="polite">
-            <span class="badge rounded-pill fw-bold px-3 py-1 mb-1 d-inline-flex align-items-center gap-1" style="background-color: #FFE4E6; color: #BE123C; border: 2px solid var(--kupas-forest-dark);">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/>
-              </svg>
-              <span>Arena Interaktif Smartboard</span>
-            </span>
-            <h1 class="h4 fw-bolder mb-1" style="font-family: var(--font-heading); color: var(--kupas-forest-dark);">
-              Mode Duel Tim Smartboard IPAS
-            </h1>
-            <p class="mb-0 small text-secondary fw-semibold">
-              Bagi kelas menjadi 2-4 regu, adu ketangkasan menjawab soal di layar depan kelas, dan rebut gelar Juara Sains!
-            </p>
-          </div>
+    <section id="layar-lobi" class="duel-wadah-utama anim-pop">
+      <!-- Hero Wasit Si Kupas & Banner Judul Terintegrasi -->
+      <div class="duel-hero-wadah">
+        <img src="assets/svg/maskot-bersorak.svg" alt="Maskot Si Kupas wasit arena duel" width="96" height="96" class="duel-wasit-avatar anim-bouncing" aria-hidden="true">
+        <div class="duel-hero-konten">
+          <span class="duel-badge-arena">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/>
+            </svg>
+            <span>Arena Interaktif Smartboard IPAS</span>
+          </span>
+          <h1 class="duel-judul">Mode Duel Tim Smartboard</h1>
+          <p class="duel-subjudul">
+            Bagi kelas menjadi 2–4 regu, uji tombol belmu di layar, dan rebut gelar Juara Sains Nusantara!
+          </p>
         </div>
       </div>
 
-      <!-- Kartu Pengaturan Duel -->
-      <div class="kupas-card p-3 p-md-4 bg-white mb-3">
-        <h2 class="h5 fw-bolder mb-3 border-bottom pb-2 d-flex align-items-center gap-2" style="font-family: var(--font-heading); color: var(--kupas-forest-dark);">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <!-- Kartu Pengaturan Duel & Panggung Arena -->
+      <div class="duel-pengaturan-kartu">
+        <div class="duel-pengaturan-header">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
           </svg>
-          <span>Pengaturan Pertandingan</span>
-        </h2>
+          <h2 class="duel-pengaturan-judul">Pengaturan Pertandingan</h2>
+        </div>
 
-        <div class="row g-3 mb-4">
+        <!-- 3 Kelompok Pengaturan (Satu Bahasa Visual Konsisten) -->
+        <div class="duel-pengaturan-grid">
           <!-- A. Jumlah Tim -->
-          <div class="col-12 col-md-4">
-            <label class="form-label fw-bold text-dark small">Pilih Jumlah Tim:</label>
-            <div class="btn-group w-100" role="group" aria-label="Jumlah tim">
-              <input type="radio" class="btn-check" name="opsi-tim" id="tim-2" value="2" checked>
-              <label class="btn btn-outline-dark fw-bold py-2" for="tim-2">2 Tim</label>
-
-              <input type="radio" class="btn-check" name="opsi-tim" id="tim-3" value="3">
-              <label class="btn btn-outline-dark fw-bold py-2" for="tim-3">3 Tim</label>
-
-              <input type="radio" class="btn-check" name="opsi-tim" id="tim-4" value="4">
-              <label class="btn btn-outline-dark fw-bold py-2" for="tim-4">4 Tim</label>
+          <div class="duel-opsi-kolom">
+            <label class="duel-grup-label" id="label-opsi-tim">Pilih Jumlah Regu:</label>
+            <div class="duel-pilihan-grup" role="radiogroup" aria-labelledby="label-opsi-tim">
+              <div class="duel-opsi-item">
+                <input type="radio" class="btn-check" name="opsi-tim" id="tim-2" value="2" checked>
+                <label class="duel-opsi-label" for="tim-2">2 Regu</label>
+              </div>
+              <div class="duel-opsi-item">
+                <input type="radio" class="btn-check" name="opsi-tim" id="tim-3" value="3">
+                <label class="duel-opsi-label" for="tim-3">3 Regu</label>
+              </div>
+              <div class="duel-opsi-item">
+                <input type="radio" class="btn-check" name="opsi-tim" id="tim-4" value="4">
+                <label class="duel-opsi-label" for="tim-4">4 Regu</label>
+              </div>
             </div>
           </div>
 
           <!-- B. Format Duel -->
-          <div class="col-12 col-md-4">
-            <label class="form-label fw-bold text-dark small">Format Menjawab:</label>
-            <div class="btn-group w-100" role="group" aria-label="Format menjawab">
-              <input type="radio" class="btn-check" name="opsi-format" id="format-buzzer" value="buzzer" checked>
-              <label class="btn btn-outline-primary fw-bold py-2 d-flex align-items-center justify-content-center gap-1" for="format-buzzer">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                <span>Bel Cepat</span>
-              </label>
-
-              <input type="radio" class="btn-check" name="opsi-format" id="format-giliran" value="giliran">
-              <label class="btn btn-outline-success fw-bold py-2 d-flex align-items-center justify-content-center gap-1" for="format-giliran">
-                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
-                <span>Giliran</span>
-              </label>
+          <div class="duel-opsi-kolom">
+            <label class="duel-grup-label" id="label-opsi-format">Format Menjawab:</label>
+            <div class="duel-pilihan-grup" role="radiogroup" aria-labelledby="label-opsi-format">
+              <div class="duel-opsi-item">
+                <input type="radio" class="btn-check" name="opsi-format" id="format-buzzer" value="buzzer" checked>
+                <label class="duel-opsi-label" for="format-buzzer">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <span>Bel Cepat</span>
+                </label>
+              </div>
+              <div class="duel-opsi-item">
+                <input type="radio" class="btn-check" name="opsi-format" id="format-giliran" value="giliran">
+                <label class="duel-opsi-label" for="format-giliran">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+                  <span>Giliran</span>
+                </label>
+              </div>
             </div>
           </div>
 
           <!-- C. Jumlah Soal -->
-          <div class="col-12 col-md-4">
-            <label class="form-label fw-bold text-dark small">Panjang Ronde:</label>
-            <div class="btn-group w-100" role="group" aria-label="Panjang ronde">
-              <input type="radio" class="btn-check" name="opsi-soal" id="soal-5" value="5" checked>
-              <label class="btn btn-outline-secondary fw-bold py-2" for="soal-5">5 Soal</label>
-
-              <input type="radio" class="btn-check" name="opsi-soal" id="soal-8" value="8">
-              <label class="btn btn-outline-secondary fw-bold py-2" for="soal-8">8 Soal</label>
-
-              <input type="radio" class="btn-check" name="opsi-soal" id="soal-10" value="10">
-              <label class="btn btn-outline-secondary fw-bold py-2" for="soal-10">10 Soal</label>
+          <div class="duel-opsi-kolom">
+            <label class="duel-grup-label" id="label-opsi-soal">Panjang Ronde:</label>
+            <div class="duel-pilihan-grup" role="radiogroup" aria-labelledby="label-opsi-soal">
+              <div class="duel-opsi-item">
+                <input type="radio" class="btn-check" name="opsi-soal" id="soal-5" value="5" checked>
+                <label class="duel-opsi-label" for="soal-5">5 Soal</label>
+              </div>
+              <div class="duel-opsi-item">
+                <input type="radio" class="btn-check" name="opsi-soal" id="soal-8" value="8">
+                <label class="duel-opsi-label" for="soal-8">8 Soal</label>
+              </div>
+              <div class="duel-opsi-item">
+                <input type="radio" class="btn-check" name="opsi-soal" id="soal-10" value="10">
+                <label class="duel-opsi-label" for="soal-10">10 Soal</label>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Pratinjau Tim yang Akan Bertanding -->
-        <h3 class="h6 fw-bolder text-dark mb-2">Regu yang Bertanding:</h3>
-        <div class="row g-2 mb-4" id="wadah-pratinjau-tim">
-          <!-- Ditampilkan secara dinamis oleh JS -->
+        <!-- Panggung Duel Berhadapan (The Face-off Stage) -->
+        <div class="duel-panggung-wadah">
+          <div class="duel-panggung-header">
+            <h3 class="duel-panggung-judul">Panggung Regu yang Bertanding</h3>
+            <span class="duel-panggung-petunjuk">Sentuh keycap atau tekan keyboard untuk uji coba bel</span>
+          </div>
+
+          <!-- Wadah Pratinjau Tim Dinamis (Diisi oleh duel-tim.js) -->
+          <div id="wadah-pratinjau-tim" role="region" aria-live="polite">
+            <!-- Diisi secara dinamis oleh duel-tim.js -->
+          </div>
         </div>
 
-        <!-- Tombol Mulai Duel -->
-        <div class="d-flex justify-content-center">
-          <button type="button" class="btn btn-cta-petualang px-5 py-3 fs-4 smartboard-btn shadow-lg d-flex align-items-center gap-2" id="btn-mulai-duel" style="background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%); color: #FFFFFF; border: 3px solid var(--kupas-forest-dark); box-shadow: 4px 4px 0px var(--kupas-forest-dark);">
+        <!-- Tombol Mulai Duel Utama (Hero CTA) -->
+        <div class="duel-aksi-bawah">
+          <button type="button" class="btn-mulai-duel-utama smartboard-btn" id="btn-mulai-duel" aria-label="Mulai pertandingan duel kelas sekarang">
             <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/><line x1="13" y1="19" x2="19" y2="13"/><line x1="16" y1="16" x2="20" y2="20"/><line x1="19" y1="21" x2="21" y2="19"/><polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/><line x1="5" y1="14" x2="9" y2="18"/><line x1="7" y1="17" x2="4" y2="20"/><line x1="3" y1="19" x2="5" y2="21"/>
             </svg>
-            <span>Mulai Pertarungan Kelas!</span>
+            <span>Mulai Pertandingan Kelas!</span>
           </button>
         </div>
       </div>

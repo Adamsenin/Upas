@@ -1,0 +1,785 @@
+/* ==========================================================================
+   KUPAS KUIS IPAS - Komponen Beranda "Pulau Kupas" (beranda-pulau.css)
+   Khusus diterapkan pada body[data-halaman="beranda"]
+   ========================================================================== */
+
+body[data-halaman="beranda"] {
+  background-color: var(--n-lontar) !important;
+  background-image: none !important;
+  color: var(--n-rimba);
+  font-family: var(--n-font-baca);
+  font-size: var(--n-fs-isi);
+  line-height: var(--n-lh-isi);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* 1. PENYESUAIAN HEADER GLOBAL AGAR TENANG DI BERANDA */
+body[data-halaman="beranda"] .kupas-nav {
+  background: var(--n-lontar);
+  border-bottom: 2px solid rgba(27, 58, 47, 0.15);
+  box-shadow: none;
+  padding: 0.75rem 1rem;
+}
+
+body[data-halaman="beranda"] .navbar-brand {
+  font-family: var(--n-font-display);
+  font-weight: 800;
+  color: var(--n-rimba) !important;
+  font-size: 1.4rem;
+}
+
+body[data-halaman="beranda"] .navbar-brand .badge {
+  background-color: var(--n-kunyit) !important;
+  color: var(--n-rimba) !important;
+  border: 1.5px solid var(--n-rimba) !important;
+  font-family: var(--n-font-display);
+  font-size: 0.85rem;
+}
+
+body[data-halaman="beranda"] .kupas-nav .btn,
+body[data-halaman="beranda"] .kupas-nav select {
+  font-family: var(--n-font-baca);
+  border-radius: var(--n-r-kontrol);
+  font-size: var(--n-fs-kecil);
+  min-height: var(--n-sentuh-min);
+  box-shadow: none;
+}
+
+body[data-halaman="beranda"] #btn-toggle-suara,
+body[data-halaman="beranda"] #btn-toggle-musik {
+  border: var(--n-garis-kontrol);
+  background: var(--n-santan);
+  color: var(--n-rimba);
+}
+
+body[data-halaman="beranda"] #btn-toggle-suara:hover,
+body[data-halaman="beranda"] #btn-toggle-musik:hover {
+  background: var(--n-lontar-gelap);
+}
+
+/* 2. TATA LETAK UTAMA (BERANDA) */
+.beranda {
+  padding: 1.5rem 1rem 3rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.beranda-tata {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  width: 100%;
+  max-width: 100%;
+}
+
+.beranda-tata > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .beranda-tata {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 2.5rem;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .beranda-tata {
+    gap: 3.5rem;
+  }
+}
+
+/* 3. KOLOM KIRI (SAMBUTAN, PERAN, CTA, BUKU JEJAK) */
+.beranda-sambut {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.beranda-judul {
+  font-family: var(--n-font-display);
+  font-weight: 800;
+  font-size: var(--n-fs-judul);
+  line-height: var(--n-lh-judul);
+  color: var(--n-rimba);
+  margin: 0;
+  letter-spacing: -0.015em;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.beranda-pengantar {
+  font-size: var(--n-fs-isi);
+  color: var(--n-rimba-lembut);
+  margin: 0;
+  max-width: 520px;
+  width: 100%;
+}
+
+/* Pilihan Peran (Tab Siswa / Guru) */
+.pilih-peran {
+  display: inline-flex;
+  background: var(--n-lontar-gelap);
+  padding: 5px;
+  border-radius: var(--n-r-pilihan);
+  border: var(--n-garis-pilihan);
+  gap: 6px;
+  max-width: fit-content;
+}
+
+.pilih-peran-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  min-height: 48px;
+  border-radius: calc(var(--n-r-pilihan) - 4px);
+  border: none;
+  background: transparent;
+  color: var(--n-rimba-lembut);
+  font-family: var(--n-font-display);
+  font-weight: 700;
+  font-size: var(--n-fs-isi);
+  cursor: pointer;
+  position: relative;
+  transition: background var(--n-durasi-cepat) ease, color var(--n-durasi-cepat) ease;
+}
+
+.pilih-peran-tab > * {
+  pointer-events: none;
+}
+
+.pilih-peran-tab:hover {
+  transform: none !important; /* Mencegah loncatan posisi pada tab pill */
+}
+
+.pilih-peran-tab:focus-visible {
+  outline: none;
+  box-shadow: var(--n-fokus);
+}
+
+.pilih-peran-tab[aria-selected="true"] {
+  background: var(--n-rimba);
+  color: var(--n-lontar);
+  box-shadow: 0 2px 6px rgba(27, 58, 47, 0.2);
+}
+
+.pilih-peran-tab:not([aria-selected="true"]):hover {
+  color: var(--n-rimba);
+  background: rgba(27, 58, 47, 0.08);
+}
+
+/* Panel Peran & Tombol Utama */
+.panel-peran {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.panel-peran[hidden] {
+  display: none !important;
+}
+
+.tombol-utama {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: var(--n-kunyit);
+  color: var(--n-rimba);
+  border: var(--n-garis-utama);
+  border-radius: var(--n-r-pil);
+  padding: 1rem 2rem;
+  min-height: var(--n-sentuh-utama);
+  font-family: var(--n-font-display);
+  font-weight: 800;
+  font-size: var(--n-fs-tombol);
+  text-decoration: none;
+  box-shadow: var(--n-bayang-utama);
+  cursor: pointer;
+  max-width: 440px;
+  width: 100%;
+  position: relative;
+  transition: transform var(--n-durasi-cepat) var(--n-ease-pantul), box-shadow var(--n-durasi-cepat) ease;
+}
+
+/* Buffer area kursor agar translateY(-2px) tidak menyebabkan lepas-hover di batas tepi */
+.tombol-utama::after {
+  content: '';
+  position: absolute;
+  inset: -4px -4px -8px -4px;
+  pointer-events: auto;
+  border-radius: inherit;
+}
+
+.tombol-utama > * {
+  pointer-events: none;
+}
+
+.tombol-utama:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 var(--n-kunyit-tua), 0 14px 26px rgba(199, 127, 20, 0.32);
+  color: var(--n-rimba);
+}
+
+.tombol-utama:active {
+  transform: translateY(4px);
+  box-shadow: var(--n-bayang-utama-tekan);
+}
+
+.tombol-utama:focus-visible {
+  outline: none;
+  box-shadow: var(--n-fokus), var(--n-bayang-utama);
+}
+
+.tombol-utama--guru {
+  background: var(--n-laut-muda);
+  box-shadow: 0 6px 0 var(--n-laut-tua), 0 10px 22px rgba(35, 112, 138, 0.25);
+}
+
+.tombol-utama--guru:hover {
+  box-shadow: 0 8px 0 var(--n-laut-tua), 0 14px 26px rgba(35, 112, 138, 0.32);
+}
+
+.tombol-utama--guru:active {
+  box-shadow: 0 2px 0 var(--n-laut-tua);
+}
+
+.panel-peran-petunjuk {
+  font-size: var(--n-fs-kecil);
+  color: var(--n-rimba-lembut);
+  margin: 0;
+  padding-left: 0.5rem;
+}
+
+/* Buku Jejak Gamifikasi */
+.buku-jejak {
+  background: var(--n-santan);
+  border-radius: var(--n-r-kartu);
+  box-shadow: var(--n-bayang-kartu);
+  padding: 1.25rem 1.5rem;
+  margin-top: 1rem;
+  border: 1px solid rgba(27, 58, 47, 0.08);
+}
+
+.buku-jejak-judul {
+  font-family: var(--n-font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--n-rimba);
+  margin: 0 0 0.75rem 0;
+}
+
+/* Gaya adaptor komponen gamifikasi di dalam Buku Jejak */
+.buku-jejak .bilah-gamifikasi-diorama {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.buku-jejak .row {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.85rem !important;
+}
+
+.buku-jejak [class*="col-"] {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.buku-jejak .ring-xp-container {
+  width: 52px;
+  height: 52px;
+}
+
+body[data-halaman="beranda"] #gamifikasi-motivasi-teks {
+  font-size: var(--n-fs-kecil) !important; /* Minimal 14px */
+}
+
+body[data-halaman="beranda"] .kupas-bottom-nav-item span {
+  font-size: 14px !important; /* Memastikan teks bottom-nav ramah keterbacaan anak */
+}
+
+body[data-halaman="beranda"] .small,
+body[data-halaman="beranda"] small {
+  font-size: var(--n-fs-kecil) !important; /* Tidak ada teks di bawah 14px */
+}
+
+/* 4. KOLOM KANAN: PETA PULAU KUPAS */
+.peta-wadah {
+  position: relative;
+  width: 100%;
+}
+
+.peta-judul,
+.peta-pengantar {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.peta-pulau {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 800 / 640;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.pulau-ilustrasi {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+.pulau-laut {
+  fill: var(--n-laut-muda);
+}
+
+.pulau-jalur-dasar {
+  fill: none;
+  stroke: var(--n-pasir);
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pulau-jalur-titik {
+  fill: none;
+  stroke: var(--n-laut);
+  stroke-width: 3.5;
+  stroke-dasharray: 6 10;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Daftar Titik Lokasi Peta */
+.lokasi-daftar {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  inset: 0;
+}
+
+.lokasi-item {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -50%);
+  z-index: 20; /* Prioritas lebih tinggi dari maskot (z-index: 10) agar maskot tidak memotong hover */
+}
+
+.lokasi-item:hover,
+.lokasi-item:focus-within {
+  z-index: 30;
+}
+
+.lokasi {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--n-rimba);
+  cursor: pointer;
+  outline: none;
+  position: relative;
+}
+
+/* Hit-area extender di sekeliling lokasi agar pergerakan medali tidak memutus kontak kursor */
+.lokasi::before {
+  content: '';
+  position: absolute;
+  inset: -12px -16px;
+  border-radius: var(--n-r-kartu);
+  pointer-events: auto;
+  z-index: 0;
+}
+
+.lokasi:focus-visible .lokasi-medali,
+.lokasi:focus-visible .lokasi-papan {
+  box-shadow: var(--n-fokus);
+}
+
+.lokasi-medali {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--medali, var(--n-santan));
+  border: 2.5px solid var(--n-rimba);
+  box-shadow: var(--n-bayang-medali);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  pointer-events: none; /* Pointer events ditangani stabil oleh .lokasi */
+  transition: transform var(--n-durasi-sedang) var(--n-ease-pantul), box-shadow var(--n-durasi-sedang) ease;
+}
+
+.lokasi-medali svg {
+  width: 36px;
+  height: 36px;
+}
+
+.lokasi-papan {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--n-santan);
+  border: 1.5px solid var(--n-rimba);
+  border-radius: var(--n-r-papan);
+  padding: 0.35rem 0.75rem;
+  margin-top: 0.4rem;
+  box-shadow: 0 4px 12px rgba(27, 58, 47, 0.12);
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+  pointer-events: none; /* Pointer events ditangani stabil oleh .lokasi */
+  transition: background var(--n-durasi-cepat) ease, border-color var(--n-durasi-cepat) ease;
+}
+
+.lokasi-nama {
+  font-family: var(--n-font-display);
+  font-weight: 800;
+  font-size: var(--n-fs-lokasi);
+  line-height: 1.2;
+  color: var(--n-rimba);
+}
+
+@media (min-width: 1024px) and (max-width: 1240px) {
+  .lokasi-medali {
+    width: 48px;
+    height: 48px;
+  }
+  .lokasi-medali svg {
+    width: 28px;
+    height: 28px;
+  }
+  .lokasi-papan {
+    padding: 0.25rem 0.5rem;
+    margin-top: 0.25rem;
+  }
+  .lokasi-nama {
+    font-size: 0.95rem;
+  }
+  .lokasi-desk {
+    display: none; /* Hemat ruang pada desktop/tablet landscape 1024px */
+  }
+  .maskot-gambar {
+    width: 90px;
+  }
+  .maskot-balon {
+    max-width: 170px;
+    font-size: 0.8125rem;
+    padding: 0.35rem 0.65rem;
+  }
+}
+
+/* Hover & Fokus State Lokasi (Halus, stabil, tanpa jitter) */
+.lokasi:hover .lokasi-medali,
+.lokasi:focus-visible .lokasi-medali,
+.lokasi.lokasi--aktif .lokasi-medali {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 10px 18px rgba(27, 58, 47, 0.22);
+}
+
+.lokasi:hover .lokasi-papan,
+.lokasi:focus-visible .lokasi-papan,
+.lokasi.lokasi--aktif .lokasi-papan {
+  background: #FFFFFF;
+  border-color: var(--n-kunyit-tua);
+}
+
+/* Khusus Lokasi Arena Duel (Pulau Malam) */
+.lokasi--arena .lokasi-medali {
+  background: var(--n-rimba);
+  border-color: var(--n-kunyit);
+}
+
+.lokasi--arena .lokasi-papan {
+  background: var(--n-rimba);
+  border-color: var(--n-kunyit);
+}
+
+.lokasi--arena .lokasi-nama {
+  color: #FFFFFF;
+}
+
+.lokasi--arena .lokasi-desk {
+  color: var(--n-kunyit-muda);
+}
+
+/* 5. MASKOT SI KUPAS DI PETA (BERDIRI BEBAS & BERPINDAH LOKASI) */
+.maskot-peta {
+  position: absolute;
+  left: 45%;
+  top: 80%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  transition: left 0.5s var(--n-ease-pantul), top 0.5s var(--n-ease-pantul);
+}
+
+.maskot-balon {
+  background: #FFFFFF;
+  border: 2.5px solid var(--n-rimba);
+  border-radius: 16px;
+  padding: 0.45rem 0.85rem;
+  font-size: var(--n-fs-kecil);
+  font-weight: 700;
+  color: var(--n-rimba);
+  box-shadow: 0 6px 16px rgba(27, 58, 47, 0.14);
+  max-width: 220px;
+  text-align: center;
+  position: relative;
+  margin-bottom: 0.35rem;
+  pointer-events: none !important;
+  user-select: none;
+  line-height: 1.35;
+}
+
+.maskot-balon::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: #FFFFFF transparent;
+  display: block;
+  width: 0;
+}
+
+.maskot-balon::before {
+  content: '';
+  position: absolute;
+  bottom: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 11px 11px 0;
+  border-style: solid;
+  border-color: var(--n-rimba) transparent;
+  display: block;
+  width: 0;
+}
+
+.maskot-tombol {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  outline: none;
+  transition: transform var(--n-durasi-cepat) var(--n-ease-pantul);
+}
+
+.maskot-tombol:focus-visible {
+  box-shadow: var(--n-fokus);
+  border-radius: 50%;
+}
+
+.maskot-gambar {
+  width: clamp(90px, 9vw, 130px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 12px rgba(27, 58, 47, 0.18));
+}
+
+/* 6. KAKI HALAMAN BERANDA */
+.beranda-kaki {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  font-size: var(--n-fs-kecil);
+  color: var(--n-rimba-lembut);
+  border-top: 1px solid rgba(27, 58, 47, 0.12);
+  background: var(--n-lontar-gelap);
+  margin-top: auto;
+}
+
+/* 7. RESPONSIF PONSEL & TABLET KECIL (< 1024PX) */
+@media (max-width: 1023.98px) {
+  .beranda-tata {
+    gap: 2rem;
+  }
+
+  .beranda-sambut {
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .tombol-utama {
+    max-width: 100%;
+  }
+
+  /* Di layar kecil, peta menjadi alur setapak menurun */
+  .peta-pulau {
+    aspect-ratio: auto;
+    height: auto;
+    padding: 2rem 0;
+  }
+
+  .pulau-ilustrasi {
+    display: none; /* Ilustrasi 2D pulau horizontal digantikan alur zig-zag ramah sentuh */
+  }
+
+  .lokasi-daftar {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 4px dashed var(--n-laut);
+    margin-left: 1rem;
+  }
+
+  .lokasi-item {
+    position: static;
+    transform: none;
+  }
+
+  .lokasi {
+    flex-direction: row;
+    gap: 1.25rem;
+    align-items: center;
+    background: var(--n-santan);
+    padding: 0.85rem 1.25rem;
+    border-radius: var(--n-r-kartu);
+    border: 2px solid var(--n-rimba);
+    box-shadow: 0 4px 12px rgba(27, 58, 47, 0.08);
+    width: 100%;
+  }
+
+  .lokasi-medali {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+  }
+
+  .lokasi-papan {
+    align-items: flex-start;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    white-space: normal;
+  }
+
+  .lokasi--arena {
+    background: var(--n-rimba);
+    border-color: var(--n-kunyit);
+  }
+
+  .maskot-peta {
+    position: static;
+    transform: none;
+    margin: 1.5rem auto 0;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .beranda {
+    padding: 1rem 0.65rem 4rem;
+  }
+
+  .beranda-judul {
+    font-size: clamp(1.5rem, 1.2rem + 2vw, 1.85rem);
+    line-height: 1.15;
+  }
+
+  .pilih-peran {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+  }
+
+  .pilih-peran-tab {
+    flex: 1;
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .tombol-utama {
+    padding: 0.85rem 1rem;
+    font-size: 1.05rem;
+    gap: 0.5rem;
+  }
+
+  .lokasi-daftar {
+    padding-left: 1rem;
+    margin-left: 0.25rem;
+    gap: 1rem;
+  }
+
+  .lokasi {
+    padding: 0.75rem 0.95rem;
+    gap: 0.85rem;
+  }
+
+  .buku-jejak {
+    padding: 1rem;
+  }
+}
+
+/* 8. DUKUNGAN PREFERS-REDUCED-MOTION & MODE GERAK MINIM */
+body.motion-reduced [data-halaman="beranda"],
+body.motion-off [data-halaman="beranda"],
+body[data-halaman="beranda"].motion-reduced,
+body[data-halaman="beranda"].motion-off {
+  --n-durasi-cepat: 0.01ms !important;
+  --n-durasi-sedang: 0.01ms !important;
+}
+
+body[data-halaman="beranda"].motion-reduced .maskot-peta,
+body[data-halaman="beranda"].motion-off .maskot-peta {
+  transition: none !important;
+}
+
+body[data-halaman="beranda"].motion-reduced .tombol-utama,
+body[data-halaman="beranda"].motion-off .tombol-utama,
+body[data-halaman="beranda"].motion-reduced .lokasi,
+body[data-halaman="beranda"].motion-off .lokasi {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-halaman="beranda"] * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

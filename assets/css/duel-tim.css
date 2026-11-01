@@ -1,0 +1,576 @@
+/* ==========================================================================
+   KUPAS KUIS IPAS - Mode Duel Tim Smartboard (duel-tim.css)
+   Khusus diterapkan pada layar persiapan & arena duel (duel-tim.html)
+   Memanfaatkan token desain Nusantara (--n-*) untuk identitas visual yang khas.
+   ========================================================================== */
+
+/* 1. TATA LETAK UTAMA */
+body[data-latar-tema="arena"] {
+  background-color: var(--n-lontar, #FBF3E4);
+  color: var(--n-rimba, #1B3A2F);
+  font-family: var(--n-font-baca, 'Atkinson Hyperlegible', sans-serif);
+  font-size: var(--n-fs-isi, 1.0625rem);
+  line-height: var(--n-lh-isi, 1.5);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.duel-wadah-utama {
+  max-width: 1240px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* 2. HERO WASIT SI KUPAS & BANNER ARENA */
+.duel-hero-wadah {
+  background: var(--n-santan, #FFFDF7);
+  border: 2.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: var(--n-r-kartu, 24px);
+  box-shadow: 0 8px 24px rgba(27, 58, 47, 0.08);
+  padding: 1.25rem 1.75rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.duel-wasit-avatar {
+  flex-shrink: 0;
+  width: clamp(76px, 6vw, 96px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 6px 12px rgba(27, 58, 47, 0.16));
+}
+
+.duel-hero-konten {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.duel-badge-arena {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #FFE4E6;
+  color: #BE123C;
+  border: 1.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: var(--n-r-pil, 999px);
+  padding: 0.3rem 0.85rem;
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 800;
+  margin-bottom: 0.35rem;
+  box-shadow: 0 2px 0 rgba(27, 58, 47, 0.12);
+}
+
+.duel-judul {
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 1.35rem + 1vw, 2.4rem);
+  line-height: 1.15;
+  color: var(--n-rimba, #1B3A2F);
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -0.015em;
+}
+
+.duel-subjudul {
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.15rem);
+  color: var(--n-rimba-lembut, #3E5A4F);
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+/* 3. PANEL PENGATURAN PERTANDINGAN */
+.duel-pengaturan-kartu {
+  background: var(--n-santan, #FFFDF7);
+  border: 2.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: var(--n-r-kartu, 24px);
+  box-shadow: 0 10px 28px rgba(27, 58, 47, 0.08);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.duel-pengaturan-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-bottom: 2px solid rgba(27, 58, 47, 0.12);
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.duel-pengaturan-judul {
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-weight: 800;
+  font-size: clamp(1.15rem, 1.05rem + 0.3vw, 1.35rem);
+  color: var(--n-rimba, #1B3A2F);
+  margin: 0;
+}
+
+.duel-pengaturan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.duel-opsi-kolom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.duel-grup-label {
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-weight: 800;
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.1rem);
+  color: var(--n-rimba, #1B3A2F);
+  margin: 0;
+}
+
+/* KONSISTENSI STATUS TERPILIH (SATU BAHASA VISUAL) */
+.duel-pilihan-grup {
+  display: flex;
+  width: 100%;
+  background: var(--n-lontar-gelap, #F1E4CB);
+  border: 2px solid var(--n-rimba, #1B3A2F);
+  border-radius: var(--n-r-pilihan, 18px);
+  padding: 4px;
+  gap: 4px;
+}
+
+.duel-opsi-item {
+  flex: 1;
+  position: relative;
+  display: flex;
+}
+
+.duel-opsi-item .btn-check {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+.duel-opsi-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--n-r-pilihan, 18px) - 4px);
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: var(--n-rimba-lembut, #3E5A4F);
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 0.9rem + 0.15vw, 1.05rem);
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  transition: background var(--n-durasi-cepat, 150ms) ease,
+              color var(--n-durasi-cepat, 150ms) ease,
+              box-shadow var(--n-durasi-cepat, 150ms) ease;
+}
+
+.duel-opsi-label:hover {
+  background: rgba(27, 58, 47, 0.08);
+  color: var(--n-rimba, #1B3A2F);
+}
+
+.duel-opsi-label:focus-visible,
+.btn-check:focus-visible + .duel-opsi-label {
+  outline: none;
+  box-shadow: var(--n-fokus, 0 0 0 3px #FBF3E4, 0 0 0 6px #23708A);
+}
+
+/* Status Terpilih: Tegas, Mantap, Kontras Tinggi WCAG AA */
+.btn-check:checked + .duel-opsi-label {
+  background: var(--n-rimba, #1B3A2F) !important;
+  color: var(--n-santan, #FFFDF7) !important;
+  border-color: var(--n-rimba, #1B3A2F) !important;
+  font-weight: 800;
+  box-shadow: 0 3px 0 #0D1F18;
+}
+
+.btn-check:checked + .duel-opsi-label::before {
+  content: '✓';
+  color: var(--n-kunyit, #F2A541);
+  font-weight: 800;
+  margin-right: 0.2rem;
+}
+
+/* 4. PANGGUNG DUEL BERHADAPAN (FACE-OFF ARENA) */
+.duel-panggung-wadah {
+  background: #FAF6ED;
+  border: 2.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: var(--n-r-kartu, 24px);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  box-shadow: inset 0 2px 6px rgba(27, 58, 47, 0.04);
+}
+
+.duel-panggung-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.duel-panggung-judul {
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-weight: 800;
+  font-size: clamp(1.2rem, 1.1rem + 0.3vw, 1.45rem);
+  color: var(--n-rimba, #1B3A2F);
+  margin: 0;
+}
+
+.duel-panggung-petunjuk {
+  font-size: clamp(0.875rem, 0.85rem + 0.1vw, 1rem);
+  color: var(--n-rimba-lembut, #3E5A4F);
+  font-weight: 600;
+  background: var(--n-lontar-gelap, #F1E4CB);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--n-r-pil, 999px);
+  border: 1px solid rgba(27, 58, 47, 0.15);
+}
+
+/* Grid Arena Berhadapan */
+.duel-faceoff-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  position: relative;
+  width: 100%;
+}
+
+/* Khusus 2 Tim: Kiri vs Kanan dengan Lencana VS di Tengah */
+.duel-faceoff-grid[data-tim-count="2"] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+/* Khusus 3 Tim: 3 Kolom Seimbang */
+.duel-faceoff-grid[data-tim-count="3"] {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+/* Khusus 4 Tim: 4 Kolom di Smartboard / 2x2 di Tablet */
+.duel-faceoff-grid[data-tim-count="4"] {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.15rem;
+}
+
+/* Lencana VS Nusantara */
+.duel-vs-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: clamp(68px, 6vw, 84px);
+  height: clamp(68px, 6vw, 84px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FDE047 0%, var(--n-kunyit, #F2A541) 60%, var(--n-kunyit-tua, #C77F14) 100%);
+  border: 3.5px solid var(--n-rimba, #1B3A2F);
+  box-shadow: 0 6px 0 var(--n-rimba, #1B3A2F), 0 12px 24px rgba(27, 58, 47, 0.22);
+  color: var(--n-rimba, #1B3A2F);
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-weight: 800;
+  font-size: clamp(1.4rem, 1.2rem + 0.4vw, 1.8rem);
+  line-height: 1;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  z-index: 5;
+  user-select: none;
+  animation: kupas-denyut 2.5s ease-in-out infinite;
+}
+
+/* 5. KARTU REGU DUEL (THEMED TEAM CARDS) */
+.kartu-regu-duel {
+  background: var(--regu-bg, #FFFFFF);
+  border: 3px solid var(--regu-border, var(--n-rimba));
+  border-radius: var(--n-r-kartu, 24px);
+  box-shadow: 0 8px 0 var(--regu-border, var(--n-rimba)), 0 14px 28px rgba(27, 58, 47, 0.12);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: transform var(--n-durasi-cepat, 150ms) var(--n-ease-pantul), box-shadow var(--n-durasi-cepat, 150ms) ease;
+  overflow: hidden;
+}
+
+.kartu-regu-duel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 0 var(--regu-border, var(--n-rimba)), 0 18px 32px rgba(27, 58, 47, 0.16);
+}
+
+/* Variasi Warna Regu Tematik Nusantara */
+.kartu-regu-duel--elang {
+  --regu-warna: #E11D48;
+  --regu-bg: #FFF1F2;
+  --regu-border: #9F1239;
+  --regu-aksen: #FFE4E6;
+}
+
+.kartu-regu-duel--lumba {
+  --regu-warna: #0284C7;
+  --regu-bg: #F0F9FF;
+  --regu-border: #0369A1;
+  --regu-aksen: #E0F2FE;
+}
+
+.kartu-regu-duel--komodo {
+  --regu-warna: #16A34A;
+  --regu-bg: #F0FDF4;
+  --regu-border: #15803D;
+  --regu-aksen: #DCFCE7;
+}
+
+.kartu-regu-duel--harimau {
+  --regu-warna: #D97706;
+  --regu-bg: #FEFCE8;
+  --regu-border: #A16207;
+  --regu-aksen: #FEF08A;
+}
+
+/* Badge Insignia & Ikon Hewan */
+.kartu-regu-insignia {
+  width: clamp(68px, 6vw, 88px);
+  height: clamp(68px, 6vw, 88px);
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3px solid var(--regu-border);
+  box-shadow: 0 4px 0 var(--regu-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2.25rem, 1.8rem + 0.8vw, 3rem);
+  margin-bottom: 0.85rem;
+  transition: transform var(--n-durasi-cepat) var(--n-ease-pantul);
+}
+
+.kartu-regu-duel:hover .kartu-regu-insignia {
+  transform: scale(1.08) rotate(3deg);
+}
+
+.kartu-regu-nama {
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 1.25rem + 0.8vw, 2.25rem); /* Memenuhi syarat >= 28px di Smartboard */
+  line-height: 1.15;
+  color: var(--n-rimba, #1B3A2F);
+  margin: 0 0 0.35rem 0;
+}
+
+.kartu-regu-peran {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #FFFFFF;
+  border: 1.5px solid var(--regu-border);
+  border-radius: var(--n-r-pil, 999px);
+  padding: 0.25rem 0.75rem;
+  font-size: clamp(0.85rem, 0.8rem + 0.1vw, 0.95rem);
+  font-weight: 700;
+  color: var(--regu-border);
+  margin-bottom: 1.25rem;
+}
+
+/* KEYCAP BEL 3D TAKTIL RAKSASA (THE STAR OF THE PAGE) */
+.keycap-wadah {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  width: 100%;
+}
+
+.keycap-bel {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: clamp(110px, 10vw, 150px);
+  min-height: clamp(74px, 6vw, 92px);
+  background: #FFFFFF;
+  border: 3.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: 20px;
+  box-shadow: 0 8px 0 var(--n-rimba, #1B3A2F), 0 14px 22px rgba(27, 58, 47, 0.18);
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  user-select: none;
+  touch-action: manipulation;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+}
+
+.keycap-huruf {
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-weight: 800;
+  font-size: clamp(2.75rem, 2.25rem + 1.2vw, 3.6rem); /* Memenuhi syarat >= 48px di Smartboard */
+  line-height: 1;
+  color: var(--regu-warna, var(--n-rimba));
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+}
+
+.keycap-label-bawah {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--n-rimba-lembut, #3E5A4F);
+  margin-top: 2px;
+  pointer-events: none;
+}
+
+.keycap-bel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 0 var(--n-rimba, #1B3A2F), 0 18px 28px rgba(27, 58, 47, 0.22);
+}
+
+.keycap-bel:active,
+.keycap-bel.keycap-tertekan {
+  transform: translateY(6px) !important;
+  box-shadow: 0 2px 0 var(--n-rimba, #1B3A2F), 0 0 24px var(--regu-warna) !important;
+  background: var(--regu-aksen) !important;
+}
+
+.keycap-petunjuk {
+  font-size: clamp(0.85rem, 0.8rem + 0.1vw, 0.95rem);
+  font-weight: 700;
+  color: var(--n-rimba-lembut, #3E5A4F);
+  margin: 0;
+}
+
+/* 6. TOMBOL MULAI PERTANDINGAN KELAS (HERO CTA) */
+.duel-aksi-bawah {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.btn-mulai-duel-utama {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+  background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
+  color: #FFFFFF !important;
+  border: 3.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: var(--n-r-pil, 999px);
+  padding: 1.15rem 3rem;
+  min-height: 64px; /* Memenuhi syarat >= 64px di Smartboard */
+  font-family: var(--n-font-display, 'Grandstander', sans-serif);
+  font-weight: 800;
+  font-size: clamp(1.25rem, 1.15rem + 0.5vw, 1.6rem);
+  text-decoration: none;
+  box-shadow: 0 8px 0 var(--n-rimba, #1B3A2F), 0 16px 32px rgba(225, 29, 72, 0.38);
+  cursor: pointer;
+  position: relative;
+  transition: transform var(--n-durasi-cepat) var(--n-ease-pantul), box-shadow var(--n-durasi-cepat) ease;
+}
+
+.btn-mulai-duel-utama::after {
+  content: '';
+  position: absolute;
+  inset: -4px -4px -8px -4px;
+  pointer-events: auto;
+  border-radius: inherit;
+}
+
+.btn-mulai-duel-utama > * {
+  pointer-events: none;
+}
+
+.btn-mulai-duel-utama:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 11px 0 var(--n-rimba, #1B3A2F), 0 22px 38px rgba(225, 29, 72, 0.45);
+}
+
+.btn-mulai-duel-utama:active {
+  transform: translateY(5px) scale(0.99);
+  box-shadow: 0 3px 0 var(--n-rimba, #1B3A2F);
+}
+
+.btn-mulai-duel-utama:focus-visible {
+  outline: none;
+  box-shadow: var(--n-fokus), 0 8px 0 var(--n-rimba);
+}
+
+/* 7. RESPONSIF TABLET & PONSEL */
+@media (max-width: 1023.98px) {
+  .duel-pengaturan-grid {
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+  }
+
+  .duel-faceoff-grid[data-tim-count="4"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .duel-faceoff-grid[data-tim-count="3"] {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .duel-hero-wadah {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.25rem 1rem;
+    gap: 0.85rem;
+  }
+
+  .duel-panggung-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .duel-faceoff-grid[data-tim-count="2"] {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .duel-faceoff-grid[data-tim-count="4"] {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .duel-vs-badge {
+    margin: 0.5rem auto;
+  }
+
+  .btn-mulai-duel-utama {
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    font-size: 1.15rem;
+    gap: 0.5rem;
+  }
+}
+
+/* 8. PREFERS-REDUCED-MOTION SUPPORT */
+@media (prefers-reduced-motion: reduce) {
+  .duel-vs-badge,
+  .kartu-regu-duel,
+  .keycap-bel,
+  .btn-mulai-duel-utama {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Uji Coba HP & Multi-Perangkat - KUPAS KUIS IPAS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Grandstander:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/token-nusantara.css">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--n-lontar, #FBF3E4);
+      color: var(--n-rimba, #1B3A2F);
+      font-family: var(--n-font-body, 'Atkinson Hyperlegible', sans-serif);
+      line-height: 1.5;
+      padding: 1.5rem 1rem 3rem;
+      min-height: 100vh;
+    }
+    .wadah-uji {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .hero-kartu {
+      background: var(--n-santan, #FFFDF7);
+      border: 3.5px solid var(--n-rimba, #1B3A2F);
+      border-radius: 24px;
+      box-shadow: 0 8px 0 var(--n-rimba, #1B3A2F);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #DCFCE7;
+      color: #166534;
+      border: 2px solid #166534;
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .badge-status::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #22C55E;
+      display: inline-block;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+    }
+    h1 {
+      font-family: var(--n-font-display, 'Grandstander', sans-serif);
+      font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem);
+      font-weight: 800;
+      color: var(--n-rimba, #1B3A2F);
+      margin-bottom: 0.5rem;
+    }
+    .subjudul {
+      color: var(--n-rimba-lembut, #3E5A4F);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto 1.5rem;
+    }
+    .qr-box-wadah {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      background: #FFFFFF;
+      padding: 1.5rem;
+      border: 3px solid var(--n-rimba, #1B3A2F);
+      border-radius: 20px;
+      box-shadow: 0 6px 0 var(--n-rimba, #1B3A2F);
+      margin-bottom: 1.5rem;
+    }
+    #wadah-qrcode {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 220px;
+      min-height: 220px;
+    }
+    #wadah-qrcode img, #wadah-qrcode canvas {
+      display: block;
+      border-radius: 8px;
+    }
+    .url-display-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      background: var(--n-lontar-gelap, #F1E4CB);
+      border: 2px dashed var(--n-rimba, #1B3A2F);
+      border-radius: 14px;
+      padding: 0.75rem 1.25rem;
+      margin: 0 auto 1.5rem;
+      max-width: 520px;
+    }
+    .url-teks {
+      font-family: monospace;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--n-rimba, #1B3A2F);
+      word-break: break-all;
+    }
+    .btn-salin {
+      background: var(--n-kunyit, #F2A541);
+      color: var(--n-rimba, #1B3A2F);
+      border: 2px solid var(--n-rimba, #1B3A2F);
+      border-radius: 10px;
+      padding: 0.4rem 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .btn-salin:hover {
+      transform: translateY(-2px);
+    }
+    .btn-salin:active {
+      transform: translateY(2px);
+    }
+    .grid-halaman {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .kartu-tautan {
+      background: var(--n-santan, #FFFDF7);
+      border: 2.5px solid var(--n-rimba, #1B3A2F);
+      border-radius: 16px;
+      box-shadow: 0 4px 0 var(--n-rimba, #1B3A2F);
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      color: var(--n-rimba, #1B3A2F);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .kartu-tautan:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 var(--n-rimba, #1B3A2F);
+      color: var(--n-rimba, #1B3A2F);
+    }
+    .kartu-tautan-ikon {
+      font-size: 1.8rem;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--n-lontar, #FBF3E4);
+      border: 2px solid var(--n-rimba, #1B3A2F);
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .kartu-tautan-judul {
+      font-family: var(--n-font-display, 'Grandstander', sans-serif);
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 0.15rem;
+    }
+    .kartu-tautan-desc {
+      font-size: 0.85rem;
+      color: var(--n-rimba-lembut, #3E5A4F);
+    }
+    .panel-info {
+      background: var(--n-santan, #FFFDF7);
+      border: 3px solid var(--n-rimba, #1B3A2F);
+      border-radius: 20px;
+      box-shadow: 0 6px 0 var(--n-rimba, #1B3A2F);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .panel-info h2 {
+      font-family: var(--n-font-display, 'Grandstander', sans-serif);
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .daftar-uji {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .daftar-uji li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+    }
+    .daftar-uji input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: #16A34A;
+      cursor: pointer;
+    }
+    .perintah-box {
+      background: #1E293B;
+      color: #F8FAFC;
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="wadah-uji">
+    <!-- Kartu Utama QR Code -->
+    <div class="hero-kartu">
+      <div class="badge-status">Server Aktif di Jaringan LAN (Wi-Fi)</div>
+      <h1>Pusat Uji Coba Perangkat</h1>
+      <p class="subjudul">Buka kamera ponsel Anda dan arahkan ke kode QR di bawah untuk membuka KUPAS KUIS IPAS tanpa kabel.</p>
+
+      <!-- QR Container -->
+      <div class="qr-box-wadah">
+        <div id="wadah-qrcode" aria-label="QR Code untuk membuka situs di ponsel"></div>
+        <span style="font-size: 0.85rem; color: #64748B; margin-top: 0.5rem;">Pindai dengan Kamera HP / Google Lens</span>
+      </div>
+
+      <!-- Kotak Alamat URL -->
+      <div class="url-display-box">
+        <span class="url-teks" id="teks-url">http://192.168.1.9:8000</span>
+        <button type="button" class="btn-salin" id="btn-salin-url">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="label-salin">Salin</span>
+        </button>
+      </div>
+
+      <div style="font-size: 0.9rem; color: var(--n-rimba-lembut);">
+        Pastikan ponsel Anda terhubung ke <strong>Wi-Fi yang sama</strong> dengan laptop ini.
+      </div>
+    </div>
+
+    <!-- Pintasan Layar / Halaman Uji -->
+    <div class="panel-info">
+      <h2>
+        <span>🧭</span>
+        <span>Pintasan Halaman KUPAS di HP</span>
+      </h2>
+      <div class="grid-halaman">
+        <a href="index.html" class="kartu-tautan">
+          <div class="kartu-tautan-ikon">🏝️</div>
+          <div>
+            <div class="kartu-tautan-judul">Beranda Pulau</div>
+            <div class="kartu-tautan-desc">Peta petualangan & pilih peran</div>
+          </div>
+        </a>
+
+        <a href="gabung.html" class="kartu-tautan">
+          <div class="kartu-tautan-ikon">🎒</div>
+          <div>
+            <div class="kartu-tautan-judul">Gabung Kuis Siswa</div>
+            <div class="kartu-tautan-desc">Masuk dengan kode sesi kuis</div>
+          </div>
+        </a>
+
+        <a href="duel-tim.html" class="kartu-tautan">
+          <div class="kartu-tautan-ikon">⚔️</div>
+          <div>
+            <div class="kartu-tautan-judul">Mode Duel Smartboard</div>
+            <div class="kartu-tautan-desc">Lobi & tombol bel taktil 3D</div>
+          </div>
+        </a>
+
+        <a href="guru/dasbor.html" class="kartu-tautan">
+          <div class="kartu-tautan-ikon">📊</div>
+          <div>
+            <div class="kartu-tautan-judul">Dasbor Guru</div>
+            <div class="kartu-tautan-desc">Analitik, nilai, & manajemen kelas</div>
+          </div>
+        </a>
+
+        <a href="kamus-belajar.html" class="kartu-tautan">
+          <div class="kartu-tautan-ikon">📖</div>
+          <div>
+            <div class="kartu-tautan-judul">Kamus Belajar IPAS</div>
+            <div class="kartu-tautan-desc">Kartu istilah & flashcard seru</div>
+          </div>
+        </a>
+
+        <a href="siklus-air.html" class="kartu-tautan">
+          <div class="kartu-tautan-ikon">💧</div>
+          <div>
+            <div class="kartu-tautan-judul">Lab Siklus Air</div>
+            <div class="kartu-tautan-desc">Simulasi tahapan siklus hidrologi</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Checklist Uji Coba Manual di HP -->
+    <div class="panel-info">
+      <h2>
+        <span>📋</span>
+        <span>Daftar Uji Coba Manual di Ponsel</span>
+      </h2>
+      <ul class="daftar-uji">
+        <li>
+          <input type="checkbox" id="uji-1">
+          <label for="uji-1"><strong>Buka Beranda:</strong> Buka tautan di HP. Pastikan latar bergerak halus dan peta pulau pas dengan layar tanpa pergeseran samping.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="uji-2">
+          <label for="uji-2"><strong>Kamus Belajar:</strong> Buka Kamus Belajar di HP. Coba fitur pencarian istilah dan balikkan kartu (flashcard) dengan sentuhan jari.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="uji-3">
+          <label for="uji-3"><strong>Mode Duel Tim:</strong> Buka di layar HP/tablet. Uji coba tombol bel raksasa <code>[A]</code> dan <code>[L]</code> dengan ketukan jari (pastikan ada efek animasi dan nada bip).</label>
+        </li>
+        <li>
+          <input type="checkbox" id="uji-4">
+          <label for="uji-4"><strong>Dasbor Guru:</strong> Buka di laptop/tablet lain. Periksa apakah menu dan filter kuis dapat diklik.</label>
+        </li>
+        <li>
+          <input type="checkbox" id="uji-5">
+          <label for="uji-5"><strong>Sinkronisasi Realtime:</strong> Jika menggunakan Supabase Cloud sungguhan, pastikan aksi menjawab soal di HP langsung terbarui di layar guru.</label>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Troubleshooting Panduan Firewall & Tunnel -->
+    <div class="panel-info">
+      <h2>
+        <span>🔧</span>
+        <span>Bantuan & Pemecahan Masalah</span>
+      </h2>
+      <div style="font-size: 0.95rem; display: flex; flex-direction: column; gap: 0.85rem;">
+        <p><strong>1. Ponsel menampilkan "ERR_CONNECTION_TIMED_OUT":</strong><br>
+        Windows Firewall kemungkinan memblokir port 8000. Untuk mengizinkannya di jaringan privat, buka PowerShell (Run as Administrator) di laptop dan jalankan:
+        </p>
+        <div class="perintah-box">New-NetFirewallRule -DisplayName "KUPAS Kuis Port 8000" -Direction Inbound -LocalPort 8000 -Protocol TCP -Action Allow</div>
+
+        <p><strong>2. Wi-Fi memblokir koneksi antarperangkat (AP Isolation):</strong><br>
+        Jika router Wi-Fi kantor/sekolah memblokir komunikasi antar-perangkat, gunakan <strong>Cara B (Tautan Tunnel Sementara)</strong> dengan Cloudflare Tunnel:
+        </p>
+        <div class="perintah-box">cloudflared tunnel --url http://localhost:8000</div>
+        <p style="color: var(--n-rimba-lembut); font-size: 0.85rem;">(Atau via Node.js tanpa unduh: <code>npx localtunnel --port 8000</code>)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script Pembangkit QR Code -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script>
+    const TARGET_URL = 'http://192.168.1.9:8000';
+    const wadahQr = document.getElementById('wadah-qrcode');
+
+    function renderQR() {
+      if (typeof QRCode !== 'undefined') {
+        new QRCode(wadahQr, {
+          text: TARGET_URL,
+          width: 220,
+          height: 220,
+          colorDark: "#1B3A2F",
+          colorLight: "#FFFFFF",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      } else {
+        // Fallback jika offline tanpa CDN
+        wadahQr.innerHTML = `
+          <div style="text-align:center; padding: 1.5rem; border: 2px dashed #1B3A2F; border-radius: 12px; background: #FFF6E0;">
+            <p style="font-weight: 700; margin-bottom: 0.5rem; font-size: 1.1rem;">Ketik langsung di peramban HP:</p>
+            <p style="font-family: monospace; font-size: 1.2rem; color: #B3412E; font-weight: bold;">${TARGET_URL}</p>
+          </div>
+        `;
+      }
+    }
+
+    // Jalankan render setelah script dimuat
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderQR);
+    } else {
+      renderQR();
+    }
+
+    // Salin Tautan
+    document.getElementById('btn-salin-url').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(TARGET_URL);
+        const label = document.getElementById('label-salin');
+        label.textContent = 'Tersalin! ✓';
+        setTimeout(() => { label.textContent = 'Salin'; }, 2000);
+      } catch (err) {
+        alert('Tautan: ' + TARGET_URL);
+      }
+    });
+  </script>
+</body>
+</html>
+
