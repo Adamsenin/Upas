@@ -843,16 +843,17 @@
 
 @media (max-width: 480px) {
   .arena-radial-rantai {
-    max-width: 350px;
-    min-height: 370px;
+    max-width: 100%;
+    width: 100%;
+    min-height: 320px;
   }
   .radial-center-hub {
-    width: 75px;
-    height: 75px;
+    width: clamp(60px, 18vw, 75px);
+    height: clamp(60px, 18vw, 75px);
   }
   .radial-slot-drop {
-    width: 76px;
-    height: 94px;
+    width: clamp(62px, 19vw, 76px);
+    height: clamp(78px, 24vw, 94px);
     border-radius: var(--kupas-radius-md);
   }
   .kartu-makhluk-radial {
@@ -1353,16 +1354,18 @@
 
 .segmented-item {
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  padding: 0.35rem 0.9rem;
+  min-height: 48px;
+  padding: 0.5rem 1.15rem;
   border-radius: var(--kupas-radius-pill);
   color: var(--kupas-forest-dark);
   text-decoration: none;
   transition: background-color 0.15s ease, color 0.15s ease;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: center;
+  gap: 0.45rem;
 }
 
 .segmented-item.active {
@@ -1510,6 +1513,15 @@
   transform: translateY(1px);
 }
 
+@media (max-width: 639.98px) {
+  .banner-duel-koral {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+}
+
 .badge-bel-cepat {
   background-color: #FFFFFF;
   color: #BE123C;
@@ -1602,16 +1614,269 @@
   grid-column: span 2;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 639.98px) {
   .peta-diorama-grid {
     grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
   .kartu-lokasi-diorama.kartu-span-full {
     grid-column: span 1;
   }
 }
 
+@media (min-width: 640px) and (max-width: 1023.98px) {
+  .peta-diorama-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* ==========================================================================
+   15. MODAL PENGATURAN PARAMETER KUIS GURU
+   ========================================================================== */
+#modalPengaturanGame .modal-content {
+  background-color: #FFFFFF !important;
+  border: 3px solid var(--kupas-forest-dark, #0F3D2E) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28) !important;
+}
+
+#modalPengaturanGame .modal-header {
+  background-color: var(--kupas-cream-bg, #FFF6E0) !important;
+  border-bottom: 2px solid var(--kupas-forest-dark, #0F3D2E) !important;
+}
+
+#modalPengaturanGame .modal-body {
+  background-color: #FFFFFF !important;
+}
+
+#modalPengaturanGame .modal-footer {
+  background-color: var(--kupas-cream-bg, #FFF6E0) !important;
+  border-top: 2px solid var(--kupas-forest-dark, #0F3D2E) !important;
+}
+
+#modalPengaturanGame .accordion-item {
+  border: 2px solid var(--kupas-forest-dark, #0F3D2E) !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+#modalPengaturanGame .accordion-button:not(.collapsed) {
+  background-color: var(--kupas-forest-soft, #E8F5EE) !important;
+  color: var(--kupas-forest-dark, #0F3D2E) !important;
+  font-weight: 700;
+  box-shadow: none;
+}
+
+#modalPengaturanGame .accordion-button.collapsed {
+  background-color: #F8FAFC !important;
+  color: #1E293B !important;
+}
 
 
+/* ==========================================================================
+   16. REDESAIN DOKUMEN SERTIFIKAT A4 LANSKAP (sertifikat.html)
+   ========================================================================== */
+.sertifikat-showcase-card {
+  background: #FFFFFF;
+  border: 3px solid var(--kupas-forest-dark, #0F3D2E);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(15, 61, 46, 0.12), 4px 4px 0px var(--kupas-forest-dark, #0F3D2E);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
 
+.sertifikat-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: #F4EEDC;
+  background-image: radial-gradient(rgba(15, 61, 46, 0.08) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+  padding: 2rem 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-overflow-scrolling: touch;
+}
 
+.sertifikat-a4-frame {
+  width: 100%;
+  max-width: 960px;
+  min-width: 680px; /* Menjaga teks tetap tajam dan terbaca di semua perangkat */
+  aspect-ratio: 297 / 210;
+  background: #FFFDF7;
+  border-radius: 6px;
+  box-shadow: 0 16px 40px rgba(15, 61, 46, 0.22), 0 3px 10px rgba(0, 0, 0, 0.08);
+  position: relative;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .sertifikat-scroll-wrapper {
+    padding: 1.25rem 0.5rem;
+    justify-content: flex-start;
+  }
+}
+
+.sertifikat-svg-root {
+  width: 100%;
+  height: 100%;
+  display: block;
+  user-select: none;
+}
+
+/* Tombol Aksi Sertifikat (Target sentuh >= 48px) */
+.sertifikat-btn-aksi {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  padding: 0.65rem 1.4rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+/* Galeri Kartu Koleksi Sertifikat */
+.kartu-galeri-sertifikat {
+  background: #FFFFFF;
+  border: 2.5px solid var(--kupas-forest-dark, #0F3D2E);
+  border-radius: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.kartu-galeri-sertifikat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(15, 61, 46, 0.16);
+}
+
+.kartu-galeri-sertifikat.aktif {
+  border-color: var(--kupas-marigold, #F59E0B);
+  box-shadow: 0 0 0 3px var(--kupas-marigold, #F59E0B), 0 10px 26px rgba(245, 158, 11, 0.28);
+}
+
+.kartu-galeri-sertifikat.terkunci {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+  border-style: dashed;
+  opacity: 0.88;
+  cursor: default;
+}
+
+.kartu-galeri-sertifikat.terkunci:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Aturan CSS Khusus Cetak A4 Lanskap (@media print) */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+
+  body, html {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #FFFFFF !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Sembunyikan semua elemen UI situs saat mencetak */
+  header, footer, nav, .btn, .no-print, #wadah-navbar, .sertifikat-banner, .sertifikat-action-bar, .sertifikat-galeri-section, .modal, .offcanvas, .latar-pita-baca, .smartboard-btn {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .sertifikat-showcase-card {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  .sertifikat-scroll-wrapper {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  .sertifikat-a4-frame {
+    width: 297mm !important;
+    height: 210mm !important;
+    max-width: 297mm !important;
+    min-width: 297mm !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .sertifikat-svg-root {
+    width: 297mm !important;
+    height: 210mm !important;
+  }
+}
+
+/* Bilah Status Siswa Sticky di Layar Sempit (HP) */
+@media (max-width: 639.98px) {
+  .bilah-status-kuis-sticky {
+    position: sticky;
+    top: max(var(--safe-top), 0.5rem);
+    z-index: var(--z-sticky, 1010);
+    box-shadow: 0 6px 16px rgba(15, 61, 46, 0.14) !important;
+  }
+}
+
+/* Aturan Responsif Mobile untuk Modal & Dasbor Guru */
+#modalPengaturanGame .modal-dialog,
+.modal-dialog {
+  max-height: calc(100dvh - 32px);
+  margin: 16px auto;
+}
+
+#modalPengaturanGame .modal-content,
+.modal-content {
+  max-height: calc(100dvh - 32px);
+  display: flex;
+  flex-direction: column;
+}
+
+#modalPengaturanGame .modal-body,
+.modal-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#dasborTab {
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  white-space: nowrap !important;
+  padding-bottom: 0.5rem !important;
+}
+
+#dasborTab .nav-link {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}

@@ -9,6 +9,7 @@
  */
 
 import { animasi, TingkatGerak } from './animasi.js';
+import { konfigurasiManager } from './konfigurasi.js';
 
 // Pengatur Efek Suara Web Audio API Sederhana (Tanpa File Eksternal)
 class AudioEfek {
@@ -555,6 +556,10 @@ export function pasangHeader(peran = 'umum', opsi = {}) {
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                 <span>Ruang Guru Dasbor</span>
               </a>
+              <button type="button" id="btn-offcanvas-pengaturan-kuis" class="btn btn-kupas-kuning w-100 justify-content-start d-flex align-items-center gap-2 fw-bold" style="min-height: 48px;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span>Pengaturan Kuis</span>
+              </button>
             </div>
 
             <!-- Tombol Kamus Belajar Cepat (Desktop) -->
@@ -564,19 +569,19 @@ export function pasangHeader(peran = 'umum', opsi = {}) {
             </a>
 
             <!-- Tombol Suara SFX -->
-            <button id="btn-toggle-suara" type="button" class="btn btn-outline-dark btn-sm d-flex align-items-center justify-content-center gap-1" aria-label="Beralih efek suara">
+            <button id="btn-toggle-suara" type="button" class="btn btn-outline-dark btn-sm d-flex align-items-center justify-content-center gap-1 fw-bold" style="min-height: 48px; min-width: 48px; padding: 0.5rem 0.85rem;" aria-label="Beralih efek suara">
               SFX
             </button>
 
             <!-- Tombol Musik Latar BGM -->
-            <button id="btn-toggle-musik" type="button" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-1" aria-label="Beralih musik latar">
+            <button id="btn-toggle-musik" type="button" class="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-center gap-1 fw-bold" style="min-height: 48px; min-width: 48px; padding: 0.5rem 0.85rem;" aria-label="Beralih musik latar">
               Musik
             </button>
 
             <!-- Pengaturan Animasi -->
-            <div class="d-flex align-items-center justify-content-between gap-1 bg-white px-2 py-1 rounded-3 border border-2 border-dark" style="min-height: 44px;">
+            <div class="d-flex align-items-center justify-content-between gap-2 bg-white px-2 py-1 rounded-3 border border-2 border-dark" style="min-height: 48px;">
               <label for="select-animasi-global" class="small fw-bold mb-0">Gerak:</label>
-              <select id="select-animasi-global" class="form-select form-select-sm border-0 fw-bold py-0" style="width: auto; min-height: 36px;" aria-label="Pilih tingkat animasi">
+              <select id="select-animasi-global" class="form-select form-select-sm border-0 fw-bold py-0" style="width: auto; min-height: 48px; font-size: 0.95rem;" aria-label="Pilih tingkat animasi">
                 <option value="penuh" ${modeSekarang === 'penuh' ? 'selected' : ''}>Penuh</option>
                 <option value="kurang" ${modeSekarang === 'kurang' ? 'selected' : ''}>Kurang</option>
                 <option value="mati" ${modeSekarang === 'mati' ? 'selected' : ''}>Mati</option>
@@ -617,6 +622,9 @@ export function pasangHeader(peran = 'umum', opsi = {}) {
         <a href="${root}guru/kamus.html" class="kupas-sidebar-link ${pathSekarang.includes('guru/kamus.html') ? 'active' : ''}">
           <span>📖</span> <span>Kelola Kamus</span>
         </a>
+        <button type="button" id="btn-sidebar-pengaturan-kuis" class="kupas-sidebar-link border-0 bg-transparent text-start w-100" style="min-height: 48px; cursor: pointer;">
+          <span>⚙️</span> <span>Pengaturan Kuis</span>
+        </button>
         <hr class="border-dark my-2" />
         <a href="${root}kamus-belajar.html" class="kupas-sidebar-link">
           <span>🌿</span> <span>Kamus Siswa</span>
@@ -711,6 +719,28 @@ export function pasangHeader(peran = 'umum', opsi = {}) {
     btnMusik.addEventListener('click', () => {
       const aktif = musik.toggle();
       umumkanAria(aktif ? 'Musik latar diaktifkan' : 'Musik latar dimatikan');
+    });
+  }
+
+  // Listener Tombol Pengaturan Kuis Guru (Sidebar & Offcanvas)
+  const btnSidebarPengaturan = document.getElementById('btn-sidebar-pengaturan-kuis');
+  if (btnSidebarPengaturan) {
+    btnSidebarPengaturan.addEventListener('click', (e) => {
+      e.preventDefault();
+      konfigurasiManager.bukaModalPengaturan();
+    });
+  }
+
+  const btnOffcanvasPengaturan = document.getElementById('btn-offcanvas-pengaturan-kuis');
+  if (btnOffcanvasPengaturan) {
+    btnOffcanvasPengaturan.addEventListener('click', (e) => {
+      e.preventDefault();
+      const offcanvasEl = document.getElementById('kupasOffcanvasNav');
+      if (offcanvasEl && window.bootstrap && window.bootstrap.Offcanvas) {
+        const oc = window.bootstrap.Offcanvas.getInstance(offcanvasEl);
+        if (oc) oc.hide();
+      }
+      konfigurasiManager.bukaModalPengaturan();
     });
   }
 }

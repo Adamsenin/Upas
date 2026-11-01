@@ -7,6 +7,7 @@
  */
 
 import { supabase } from './supabase.js';
+import { konfigurasiManager } from './konfigurasi.js';
 
 /**
  * Sanitasi string sederhana pencegah XSS
@@ -103,6 +104,11 @@ export const auth = {
       throw new Error('Sesi kuis ini sudah selesai.');
     }
 
+    const cfg = konfigurasiManager.ambilPengaturan();
+    if (sesi.status === 'berjalan' && !cfg.izinkan_gabung_setelah_mulai) {
+      throw new Error('Kuis sudah dimulai dan guru tidak mengizinkan peserta baru bergabung.');
+    }
+
     // 2. Daftar atau gunakan sesi anonim Supabase
     let userId = null;
     try {
@@ -123,6 +129,16 @@ export const auth = {
     if (pesertaLama) {
       // Siswa terputus dan kembali dengan kode + nama yang sama
       return { sesi, peserta: pesertaLama, pulih: true };
+    }
+
+    if (cfg.maks_peserta > 0) {
+      const { data: listPeserta } = await supabase
+        .from('peserta')
+        .select('id')
+        .eq('sesi_id', sesi.id);
+      if (listPeserta && listPeserta.length >= cfg.maks_peserta) {
+        throw new Error(`Sesi kelas sudah penuh (maksimal ${cfg.maks_peserta} siswa). Hubungi gurumu ya!`);
+      }
     }
 
     const { data: pesertaBaru, error: errPeserta } = await supabase

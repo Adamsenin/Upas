@@ -161,9 +161,13 @@ class GameRantaiMakanan {
     if (this.judulSkenarioEl) this.judulSkenarioEl.textContent = target.judul;
     if (this.deskripsiSkenarioEl) this.deskripsiSkenarioEl.textContent = target.deskripsi;
 
-    // Acak urutan kartu makhluk
+    // Acak urutan kartu makhluk dengan Fisher-Yates
     const kartuAsli = Array.isArray(target.kartu_makhluk) ? target.kartu_makhluk : JSON.parse(target.kartu_makhluk || '[]');
-    let teracak = [...kartuAsli].sort(() => 0.5 - Math.random());
+    let teracak = [...kartuAsli];
+    for (let i = teracak.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [teracak[i], teracak[j]] = [teracak[j], teracak[i]];
+    }
     // Pastikan kartu awal tidak langsung benar agar ada tantangan belajar
     if (teracak.every((k, idx) => k.urutan === idx + 1) && teracak.length > 2) {
       const temp = teracak[0];

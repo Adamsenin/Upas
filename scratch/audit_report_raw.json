@@ -1,0 +1,7422 @@
+{
+  "Beranda (index.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 142,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 780,
+          "left": -20,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -20,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 780,
+          "left": 428,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1920,
+      "bodyW": 1920,
+      "hasHScroll": false,
+      "overflowCount": 11,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1952,
+          "left": -48,
+          "width": 2000
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 859,
+          "left": -48,
+          "width": 907
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1952,
+          "left": 1072,
+          "width": 880
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 265,
+          "left": -18,
+          "width": 283
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 64
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Gabung Siswa (gabung.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 170,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 171,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 172,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 172,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 178,
+          "h": 26
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 181,
+          "h": 27
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 187,
+          "h": 28
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1920,
+      "bodyW": 1920,
+      "hasHScroll": false,
+      "overflowCount": 11,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": -47,
+          "width": 2000
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 860,
+          "left": -47,
+          "width": 907
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": 1073,
+          "width": 880
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 64
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 187,
+          "h": 28
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Kuis Sesi Siswa (siswa/main.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 142,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 170,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 171,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 172,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 172,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 677,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 677,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 178,
+          "h": 26
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 780,
+          "left": -20,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -20,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 780,
+          "left": 428,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 181,
+          "h": 27
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 187,
+          "h": 28
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1920,
+      "bodyW": 1920,
+      "hasHScroll": false,
+      "overflowCount": 11,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1952,
+          "left": -48,
+          "width": 2000
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 859,
+          "left": -48,
+          "width": 907
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1952,
+          "left": 1072,
+          "width": 880
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 265,
+          "left": -18,
+          "width": 283
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 64
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 187,
+          "h": 28
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Kamus Belajar (kamus-belajar.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 50
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 11,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 452,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": 564,
+          "width": 462
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1905,
+      "bodyW": 1905,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": -46,
+          "width": 1984
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 853,
+          "left": -46,
+          "width": 900
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": 1065,
+          "width": 873
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 54,
+          "left": -11,
+          "width": 65
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Fakta vs Opini (fakta-opini.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1920,
+      "bodyW": 1920,
+      "hasHScroll": false,
+      "overflowCount": 11,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": -47,
+          "width": 2000
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 860,
+          "left": -47,
+          "width": 907
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": 1073,
+          "width": 880
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 65
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Rantai Makanan (rantai-makanan.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1905,
+      "bodyW": 1905,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": -47,
+          "width": 1984
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 853,
+          "left": -47,
+          "width": 900
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": 1065,
+          "width": 873
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 65
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Lab Siklus Air (siklus-air.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "g",
+          "id": "grup-hutan",
+          "className": "",
+          "text": "",
+          "w": 42,
+          "h": 19
+        },
+        {
+          "tag": "g",
+          "id": "grup-tanah-dalam",
+          "className": "",
+          "text": "",
+          "w": 128,
+          "h": 22
+        },
+        {
+          "tag": "g",
+          "id": "grup-awan",
+          "className": "",
+          "text": "",
+          "w": 64,
+          "h": 27
+        },
+        {
+          "tag": "input",
+          "id": "slider-suhu",
+          "className": "slider-suhu-kupas",
+          "text": "25",
+          "w": 210,
+          "h": 14
+        },
+        {
+          "tag": "input",
+          "id": "awan-cerah",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "g",
+          "id": "grup-hutan",
+          "className": "",
+          "text": "",
+          "w": 49,
+          "h": 22
+        },
+        {
+          "tag": "g",
+          "id": "grup-tanah-dalam",
+          "className": "",
+          "text": "",
+          "w": 148,
+          "h": 26
+        },
+        {
+          "tag": "g",
+          "id": "grup-awan",
+          "className": "",
+          "text": "",
+          "w": 74,
+          "h": 31
+        },
+        {
+          "tag": "input",
+          "id": "slider-suhu",
+          "className": "slider-suhu-kupas",
+          "text": "25",
+          "w": 250,
+          "h": 14
+        },
+        {
+          "tag": "input",
+          "id": "awan-cerah",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "g",
+          "id": "grup-hutan",
+          "className": "",
+          "text": "",
+          "w": 54,
+          "h": 25
+        },
+        {
+          "tag": "g",
+          "id": "grup-tanah-dalam",
+          "className": "",
+          "text": "",
+          "w": 164,
+          "h": 28
+        },
+        {
+          "tag": "g",
+          "id": "grup-awan",
+          "className": "",
+          "text": "",
+          "w": 82,
+          "h": 35
+        },
+        {
+          "tag": "input",
+          "id": "slider-suhu",
+          "className": "slider-suhu-kupas",
+          "text": "25",
+          "w": 280,
+          "h": 14
+        },
+        {
+          "tag": "input",
+          "id": "awan-cerah",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "g",
+          "id": "grup-hutan",
+          "className": "",
+          "text": "",
+          "w": 58,
+          "h": 26
+        },
+        {
+          "tag": "g",
+          "id": "grup-tanah-dalam",
+          "className": "",
+          "text": "",
+          "w": 175,
+          "h": 30
+        },
+        {
+          "tag": "g",
+          "id": "grup-awan",
+          "className": "",
+          "text": "",
+          "w": 87,
+          "h": 37
+        },
+        {
+          "tag": "input",
+          "id": "slider-suhu",
+          "className": "slider-suhu-kupas",
+          "text": "25",
+          "w": 302,
+          "h": 14
+        },
+        {
+          "tag": "input",
+          "id": "awan-cerah",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 5,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "slider-suhu",
+          "className": "slider-suhu-kupas",
+          "text": "25",
+          "w": 549,
+          "h": 14
+        },
+        {
+          "tag": "input",
+          "id": "awan-cerah",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "awan-mendung",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "awan-hujan",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "switch-hutan",
+          "className": "form-check-input",
+          "text": "on",
+          "w": 32,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 19,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 5,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "slider-suhu",
+          "className": "slider-suhu-kupas",
+          "text": "25",
+          "w": 650,
+          "h": 14
+        },
+        {
+          "tag": "input",
+          "id": "awan-cerah",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "awan-mendung",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "awan-hujan",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "switch-hutan",
+          "className": "form-check-input",
+          "text": "on",
+          "w": 32,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 5,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "slider-suhu",
+          "className": "slider-suhu-kupas",
+          "text": "25",
+          "w": 256,
+          "h": 14
+        },
+        {
+          "tag": "input",
+          "id": "awan-cerah",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "awan-mendung",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "awan-hujan",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "switch-hutan",
+          "className": "form-check-input",
+          "text": "on",
+          "w": 32,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1905,
+      "bodyW": 1905,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": -47,
+          "width": 1984
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 853,
+          "left": -47,
+          "width": 900
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": 1065,
+          "width": 873
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 65
+        }
+      ],
+      "smallTouchCount": 5,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "slider-suhu",
+          "className": "slider-suhu-kupas",
+          "text": "25",
+          "w": 330,
+          "h": 14
+        },
+        {
+          "tag": "input",
+          "id": "awan-cerah",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "awan-mendung",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "awan-hujan",
+          "className": "btn-check",
+          "text": "on",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "switch-hutan",
+          "className": "form-check-input",
+          "text": "on",
+          "w": 32,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Duel Tim (duel-tim.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "tim-2",
+          "className": "btn-check",
+          "text": "2",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-3",
+          "className": "btn-check",
+          "text": "3",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-4",
+          "className": "btn-check",
+          "text": "4",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-buzzer",
+          "className": "btn-check",
+          "text": "buzzer",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-giliran",
+          "className": "btn-check",
+          "text": "giliran",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "tim-2",
+          "className": "btn-check",
+          "text": "2",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-3",
+          "className": "btn-check",
+          "text": "3",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-4",
+          "className": "btn-check",
+          "text": "4",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-buzzer",
+          "className": "btn-check",
+          "text": "buzzer",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-giliran",
+          "className": "btn-check",
+          "text": "giliran",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "tim-2",
+          "className": "btn-check",
+          "text": "2",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-3",
+          "className": "btn-check",
+          "text": "3",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-4",
+          "className": "btn-check",
+          "text": "4",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-buzzer",
+          "className": "btn-check",
+          "text": "buzzer",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-giliran",
+          "className": "btn-check",
+          "text": "giliran",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "tim-2",
+          "className": "btn-check",
+          "text": "2",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-3",
+          "className": "btn-check",
+          "text": "3",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-4",
+          "className": "btn-check",
+          "text": "4",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-buzzer",
+          "className": "btn-check",
+          "text": "buzzer",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-giliran",
+          "className": "btn-check",
+          "text": "giliran",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "tim-2",
+          "className": "btn-check",
+          "text": "2",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-3",
+          "className": "btn-check",
+          "text": "3",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-4",
+          "className": "btn-check",
+          "text": "4",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-buzzer",
+          "className": "btn-check",
+          "text": "buzzer",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-giliran",
+          "className": "btn-check",
+          "text": "giliran",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "tim-2",
+          "className": "btn-check",
+          "text": "2",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-3",
+          "className": "btn-check",
+          "text": "3",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-4",
+          "className": "btn-check",
+          "text": "4",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-buzzer",
+          "className": "btn-check",
+          "text": "buzzer",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-giliran",
+          "className": "btn-check",
+          "text": "giliran",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "tim-2",
+          "className": "btn-check",
+          "text": "2",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-3",
+          "className": "btn-check",
+          "text": "3",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-4",
+          "className": "btn-check",
+          "text": "4",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-buzzer",
+          "className": "btn-check",
+          "text": "buzzer",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-giliran",
+          "className": "btn-check",
+          "text": "giliran",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1920,
+      "bodyW": 1920,
+      "hasHScroll": false,
+      "overflowCount": 11,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": -47,
+          "width": 2000
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 860,
+          "left": -47,
+          "width": 907
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": 1073,
+          "width": 880
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 65
+        }
+      ],
+      "smallTouchCount": 8,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "tim-2",
+          "className": "btn-check",
+          "text": "2",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-3",
+          "className": "btn-check",
+          "text": "3",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "tim-4",
+          "className": "btn-check",
+          "text": "4",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-buzzer",
+          "className": "btn-check",
+          "text": "buzzer",
+          "w": 13,
+          "h": 13
+        },
+        {
+          "tag": "input",
+          "id": "format-giliran",
+          "className": "btn-check",
+          "text": "giliran",
+          "w": 13,
+          "h": 13
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Sertifikat (sertifikat.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 11,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 452,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": 564,
+          "width": 462
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1905,
+      "bodyW": 1905,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": -46,
+          "width": 1984
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 854,
+          "left": -46,
+          "width": 900
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": 1065,
+          "width": 873
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 54,
+          "left": -11,
+          "width": 65
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Masuk Guru (guru/masuk.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 170,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 171,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 172,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 172,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 178,
+          "h": 26
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 181,
+          "h": 27
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 187,
+          "h": 28
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1920,
+      "bodyW": 1920,
+      "hasHScroll": false,
+      "overflowCount": 11,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": -47,
+          "width": 2000
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 860,
+          "left": -47,
+          "width": 907
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": 1073,
+          "width": 880
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 64
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "Kembali ke Beranda",
+          "w": 187,
+          "h": 28
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Dasbor Guru (guru/dasbor.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 41,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "input-kkm-global",
+          "className": "form-control form-control-sm border-2 bo",
+          "text": "75",
+          "w": 68,
+          "h": 36
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 41,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "input-kkm-global",
+          "className": "form-control form-control-sm border-2 bo",
+          "text": "75",
+          "w": 68,
+          "h": 36
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 41,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "input-kkm-global",
+          "className": "form-control form-control-sm border-2 bo",
+          "text": "75",
+          "w": 68,
+          "h": 36
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 40,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "input-kkm-global",
+          "className": "form-control form-control-sm border-2 bo",
+          "text": "75",
+          "w": 68,
+          "h": 36
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 32,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "input-kkm-global",
+          "className": "form-control form-control-sm border-2 bo",
+          "text": "75",
+          "w": 68,
+          "h": 36
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 28,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "input-kkm-global",
+          "className": "form-control form-control-sm border-2 bo",
+          "text": "75",
+          "w": 68,
+          "h": 36
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 29,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": 564,
+          "width": 462
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "input-kkm-global",
+          "className": "form-control form-control-sm border-2 bo",
+          "text": "75",
+          "w": 68,
+          "h": 36
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1905,
+      "bodyW": 1905,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": -46,
+          "width": 1984
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 853,
+          "left": -46,
+          "width": 900
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": 1065,
+          "width": 873
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 65
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "input",
+          "id": "input-kkm-global",
+          "className": "form-control form-control-sm border-2 bo",
+          "text": "75",
+          "w": 68,
+          "h": 36
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Layar Sesi Guru (guru/sesi.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 780,
+          "left": -20,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -20,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 780,
+          "left": 428,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1024,
+      "bodyW": 1024,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1041,
+          "left": -26,
+          "width": 1067
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 458,
+          "left": -26,
+          "width": 484
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1041,
+          "left": 572,
+          "width": 469
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1920,
+      "bodyW": 1920,
+      "hasHScroll": false,
+      "overflowCount": 11,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": -47,
+          "width": 2000
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 859,
+          "left": -47,
+          "width": 907
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1953,
+          "left": 1073,
+          "width": 880
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 265,
+          "left": -18,
+          "width": 283
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 64
+        }
+      ],
+      "smallTouchCount": 0,
+      "topSmallTouches": [],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Editor Guru (guru/editor.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 15,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 6,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor",
+          "w": 160,
+          "h": 25
+        },
+        {
+          "tag": "input",
+          "id": "kuis-acak-soal",
+          "className": "form-check-input m-0",
+          "text": "on",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "0",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "1",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "2",
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 15,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 6,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor",
+          "w": 161,
+          "h": 25
+        },
+        {
+          "tag": "input",
+          "id": "kuis-acak-soal",
+          "className": "form-check-input m-0",
+          "text": "on",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "0",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "1",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "2",
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 15,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 6,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor",
+          "w": 162,
+          "h": 25
+        },
+        {
+          "tag": "input",
+          "id": "kuis-acak-soal",
+          "className": "form-check-input m-0",
+          "text": "on",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "0",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "1",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "2",
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 6,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor",
+          "w": 162,
+          "h": 25
+        },
+        {
+          "tag": "input",
+          "id": "kuis-acak-soal",
+          "className": "form-check-input m-0",
+          "text": "on",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "0",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "1",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "2",
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 6,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor",
+          "w": 169,
+          "h": 26
+        },
+        {
+          "tag": "input",
+          "id": "kuis-acak-soal",
+          "className": "form-check-input m-0",
+          "text": "on",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "0",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "1",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "2",
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 6,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor",
+          "w": 171,
+          "h": 27
+        },
+        {
+          "tag": "input",
+          "id": "kuis-acak-soal",
+          "className": "form-check-input m-0",
+          "text": "on",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "0",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "1",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "2",
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 6,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor",
+          "w": 177,
+          "h": 28
+        },
+        {
+          "tag": "input",
+          "id": "kuis-acak-soal",
+          "className": "form-check-input m-0",
+          "text": "on",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "0",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "1",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "2",
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1905,
+      "bodyW": 1905,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": -47,
+          "width": 1984
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 853,
+          "left": -47,
+          "width": 900
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": 1064,
+          "width": 873
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 64
+        }
+      ],
+      "smallTouchCount": 6,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor",
+          "w": 178,
+          "h": 28
+        },
+        {
+          "tag": "input",
+          "id": "kuis-acak-soal",
+          "className": "form-check-input m-0",
+          "text": "on",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "0",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "1",
+          "w": 16,
+          "h": 16
+        },
+        {
+          "tag": "input",
+          "id": "",
+          "className": "form-check-input mt-0 radio-kunci",
+          "text": "2",
+          "w": 16,
+          "h": 16
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  },
+  "Kamus Guru (guru/kamus.html)": {
+    "320px (Mobile S)": {
+      "w": 320,
+      "h": 568,
+      "docW": 320,
+      "bodyW": 320,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": -9,
+          "width": 333
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 143,
+          "left": -9,
+          "width": 151
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 325,
+          "left": 178,
+          "width": 147
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 38,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor Guru",
+          "w": 201,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "360px (Android S)": {
+      "w": 360,
+      "h": 640,
+      "docW": 360,
+      "bodyW": 360,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": -10,
+          "width": 375
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 160,
+          "left": -10,
+          "width": 170
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 365,
+          "left": 200,
+          "width": 165
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 101,
+          "left": -18,
+          "width": 119
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor Guru",
+          "w": 203,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "390px (iPhone 12/13/14)": {
+      "w": 390,
+      "h": 844,
+      "docW": 390,
+      "bodyW": 390,
+      "hasHScroll": false,
+      "overflowCount": 14,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": -10,
+          "width": 406
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 174,
+          "left": -10,
+          "width": 184
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 396,
+          "left": 217,
+          "width": 179
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor Guru",
+          "w": 203,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "412px (Android L)": {
+      "w": 412,
+      "h": 915,
+      "docW": 412,
+      "bodyW": 412,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": -11,
+          "width": 429
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 184,
+          "left": -11,
+          "width": 195
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 418,
+          "left": 230,
+          "width": 189
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 102,
+          "left": -18,
+          "width": 120
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor Guru",
+          "w": 204,
+          "h": 25
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "667x375 (Mobile Landscape)": {
+      "w": 667,
+      "h": 375,
+      "docW": 667,
+      "bodyW": 667,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": -17,
+          "width": 695
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 298,
+          "left": -17,
+          "width": 315
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 678,
+          "left": 372,
+          "width": 306
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 103,
+          "left": -18,
+          "width": 121
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 39,
+          "left": -10,
+          "width": 49
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor Guru",
+          "w": 212,
+          "h": 26
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "768px (Tablet Portrait)": {
+      "w": 768,
+      "h": 1024,
+      "docW": 768,
+      "bodyW": 768,
+      "hasHScroll": false,
+      "overflowCount": 13,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": -19,
+          "width": 800
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 343,
+          "left": -19,
+          "width": 363
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 781,
+          "left": 429,
+          "width": 352
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 146,
+          "left": -18,
+          "width": 164
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 60,
+          "left": -7,
+          "width": 67
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor Guru",
+          "w": 215,
+          "h": 27
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1024px (Laptop/Tablet L)": {
+      "w": 1024,
+      "h": 768,
+      "docW": 1009,
+      "bodyW": 1009,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1026,
+          "left": -25,
+          "width": 1051
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 451,
+          "left": -25,
+          "width": 476
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 182,
+          "left": -18,
+          "width": 200
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 77,
+          "left": -5,
+          "width": 82
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 32,
+          "left": -13,
+          "width": 45
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor Guru",
+          "w": 223,
+          "h": 28
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    },
+    "1920px (Desktop/Smartboard)": {
+      "w": 1920,
+      "h": 1080,
+      "docW": 1905,
+      "bodyW": 1905,
+      "hasHScroll": false,
+      "overflowCount": 10,
+      "topOverflows": [
+        {
+          "tag": "g",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": -47,
+          "width": 1984
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 853,
+          "left": -47,
+          "width": 900
+        },
+        {
+          "tag": "ellipse",
+          "id": "",
+          "className": "",
+          "right": 1938,
+          "left": 1065,
+          "width": 873
+        },
+        {
+          "tag": "svg",
+          "id": "",
+          "className": "",
+          "right": 266,
+          "left": -18,
+          "width": 284
+        },
+        {
+          "tag": "path",
+          "id": "",
+          "className": "",
+          "right": 53,
+          "left": -11,
+          "width": 65
+        }
+      ],
+      "smallTouchCount": 1,
+      "topSmallTouches": [
+        {
+          "tag": "a",
+          "id": "",
+          "className": "text-decoration-none fw-bold text-second",
+          "text": "← Kembali ke Dasbor Guru",
+          "w": 224,
+          "h": 28
+        }
+      ],
+      "smallFontCount": 0,
+      "smallFontInputs": []
+    }
+  }
+}
