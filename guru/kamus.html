@@ -23,9 +23,19 @@
         <h1 class="h2 fw-bolder mb-0">Kelola Kamus Belajar IPAS</h1>
         <p class="text-secondary small mb-0">Tambah dan kelola istilah materi untuk persiapan belajar siswa.</p>
       </div>
-      <div class="d-flex gap-2">
-        <button id="btn-tambah-kamus" class="btn btn-kupas-hijau px-4 smartboard-btn" data-bs-toggle="modal" data-bs-target="#modalKamus">
-          + Tambah Entri Kamus
+      <div class="d-flex gap-2 flex-wrap align-items-center">
+        <button id="btn-template-kamus" type="button" class="btn btn-kupas-putih px-3 py-2 smartboard-btn d-inline-flex align-items-center gap-1" title="Unduh format template CSV kamus">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Template CSV Kamus</span>
+        </button>
+        <button id="btn-impor-kamus" type="button" class="btn btn-kupas-kuning px-3 py-2 smartboard-btn fw-bold d-inline-flex align-items-center gap-1" title="Impor data istilah dari file CSV atau Excel">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Impor Kamus (CSV / Excel)</span>
+        </button>
+        <input type="file" id="input-impor-kamus" accept=".csv, .txt, .xlsx, .xls" class="d-none">
+        <button id="btn-tambah-kamus" class="btn btn-kupas-hijau px-4 py-2 smartboard-btn d-inline-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#modalKamus">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>+ Tambah Entri Kamus</span>
         </button>
       </div>
     </div>
@@ -134,10 +144,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script type="module" src="../assets/js/latar-hidup.js"></script>
 
   <script type="module">
-    import { kamusManager } from '../assets/js/kamus.js';
+    import { kamusManager, parseCSVKeObjekKamus } from '../assets/js/kamus.js?v=4.0.3';
     import { auth } from '../assets/js/auth.js';
     import { pasangHeader, umumkanAria, suara } from '../assets/js/ui.js';
     import { animasi } from '../assets/js/animasi.js';
@@ -326,7 +337,88 @@
       }
     }
 
-    muatKamus();
+    // ========================================================================
+    // TAHAP 2: UNDUH TEMPLATE & IMPOR MASSAL KAMUS (CSV / EXCEL)
+    // ========================================================================
+    document.getElementById('btn-template-kamus')?.addEventListener('click', () => {
+      const templateContent = [
+        'istilah,kategori,definisi,contoh,status',
+        '"Produsen","Rantai Makanan","Makhluk hidup autotrof yang dapat menghasilkan makanannya sendiri melalui proses fotosintesis.","Padi, rumput, fitoplankton","terbit"',
+        '"Konsumen I","Rantai Makanan","Hewan pemakan tumbuhan (herbivora) yang memperoleh energi langsung dari produsen.","Belalang, kelinci, ulat","terbit"',
+        '"Konsumen II","Rantai Makanan","Hewan karnivora atau omnivora yang memangsa konsumen tingkat satu.","Katak, ayam, burung pemakan serangga","terbit"',
+        '"Dekomposer","Rantai Makanan","Organisme pengurai yang memecah materi organik makhluk hidup mati menjadi zat hara tanah.","Jamur, bakteri pembusuk, cacing tanah","terbit"',
+        '"Habitat","Ekosistem","Tempat hidup alami tempat bertumbuh dan berkembang biaknya suatu populasi makhluk hidup.","Hutan hujan tropis, sawah, terumbu karang","terbit"',
+        '"Simbiosis Mutualisme","Saling Bergantung","Bentuk interaksi antara dua organisme berbeda spesies yang saling menguntungkan kedua belah pihak.","Lebah dengan bunga, burung jalak dengan kerbau","terbit"'
+      ].join('\n');
+
+      const blob = new Blob(['\uFEFF' + templateContent], { type: 'text/csv;charset=utf-8;' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Template_Impor_Kamus_IPAS_KUPAS.csv';
+      a.click();
+      umumkanAria('Berkas template CSV kamus berhasil diunduh.');
+    });
+
+    const btnImporKamus = document.getElementById('btn-impor-kamus');
+    const inputImporKamus = document.getElementById('input-impor-kamus');
+
+    if (btnImporKamus && inputImporKamus) {
+      btnImporKamus.addEventListener('click', () => {
+        inputImporKamus.value = '';
+        inputImporKamus.click();
+      });
+
+      inputImporKamus.addEventListener('change', async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        btnImporKamus.disabled = true;
+        btnImporKamus.innerHTML = '<span>Mengimpor data kamus...</span>';
+
+        try {
+          let rows = [];
+          if (file.name.endsWith('.csv') || file.name.endsWith('.txt')) {
+            const text = await file.text();
+            rows = parseCSVKeObjekKamus(text);
+          } else if (window.XLSX) {
+            const buf = await file.arrayBuffer();
+            const wb = window.XLSX.read(buf, { type: 'array' });
+            const sheet = wb.Sheets[wb.SheetNames[0]];
+            rows = window.XLSX.utils.sheet_to_json(sheet);
+          } else {
+            throw new Error('Format berkas tidak didukung. Harap gunakan berkas CSV (.csv) atau Excel (.xlsx).');
+          }
+
+          if (!rows || rows.length === 0) {
+            throw new Error('Berkas tidak memuat baris data yang dapat dibaca.');
+          }
+
+          const guru = await auth.ambilGuruAktif();
+          const jml = await kamusManager.imporKamusMassal(guru?.id, rows);
+
+          suara.mainkan('benar');
+          umumkanAria(`${jml} istilah berhasil diimpor ke Kamus Belajar.`);
+          alert(`Berhasil mengimpor ${jml} entri istilah ke Kamus Belajar IPAS!`);
+          await muatKamus();
+        } catch (err) {
+          suara.mainkan('salah');
+          alert('Gagal mengimpor berkas kamus: ' + err.message);
+        } finally {
+          btnImporKamus.disabled = false;
+          btnImporKamus.innerHTML = `
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Impor Kamus (CSV / Excel)</span>
+          `;
+          inputImporKamus.value = '';
+        }
+      });
+    }
+
+    // Route Guard: Pastikan guru telah terotentikasi di Supabase
+    const guruAktif = await auth.periksaAksesGuru();
+    if (guruAktif) {
+      muatKamus();
+    }
   </script>
 </body>
 </html>

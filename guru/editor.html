@@ -22,9 +22,13 @@
         </a>
         <h1 class="h2 fw-bolder mb-0" id="halaman-judul">Editor Kuis IPAS</h1>
       </div>
-      <div class="d-flex gap-2">
-        <button id="btn-simpan-kuis" class="btn btn-kupas-hijau px-4 smartboard-btn">
+      <div class="d-flex flex-wrap gap-2">
+        <button id="btn-simpan-kuis" type="button" class="btn btn-kupas-hijau px-4 smartboard-btn shadow-sm">
           💾 Simpan Kuis
+        </button>
+        <button id="btn-simpan-dan-mulai" type="button" class="btn btn-kupas-kuning px-4 smartboard-btn fw-bold shadow-sm d-inline-flex align-items-center gap-2">
+          <span>🚀</span>
+          <span>Simpan & Langsung Mulai Sesi</span>
         </button>
       </div>
     </div>
@@ -82,11 +86,17 @@
       <!-- Kolom Kiri: Daftar Soal & Tambah Soal -->
       <div class="col-12 col-lg-5">
         <div class="kupas-card h-100">
-          <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
             <h2 class="h5 fw-bolder mb-0">Daftar Soal (<span id="jumlah-soal">0</span>)</h2>
-            <button id="btn-tambah-soal" class="btn btn-kupas-kuning btn-sm fw-bold">
-              + Tambah Soal
-            </button>
+            <div class="d-flex gap-1">
+              <button id="btn-ambil-bank-soal" type="button" class="btn btn-kupas-biru btn-sm fw-bold d-inline-flex align-items-center gap-1 shadow-sm" title="Ambil butir soal dari bank soal yang telah tersedia">
+                <span>📚</span>
+                <span>Ambil dari Bank Soal</span>
+              </button>
+              <button id="btn-tambah-soal" type="button" class="btn btn-kupas-kuning btn-sm fw-bold shadow-sm">
+                + Tambah Baru
+              </button>
+            </div>
           </div>
           <div id="daftar-soal-list" class="d-flex flex-column gap-2" style="max-height: 520px; overflow-y: auto;">
             <!-- Item soal dimuat di sini -->
@@ -189,6 +199,72 @@
     </div>
   </main>
 
+  <!-- Modal Ambil Soal dari Bank Soal IPAS (Fitur Ambil Data Kuis di Bank Soal) -->
+  <div class="modal fade" id="modalAmbilBankSoal" tabindex="-1" aria-labelledby="labelModalBankSoal" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content kupas-card border-3 border-dark">
+        <div class="modal-header border-bottom border-2 border-dark py-3" style="background-color: var(--kupas-cream-bg, #FFF6E0);">
+          <div class="d-flex align-items-center gap-2">
+            <span class="fs-3" aria-hidden="true">📚</span>
+            <div>
+              <h2 class="modal-title h5 fw-bolder text-dark mb-0" id="labelModalBankSoal">Pilih Soal dari Bank Soal IPAS</h2>
+              <small class="text-secondary">Pilih satu atau beberapa butir pertanyaan yang sudah ada di bank soal untuk dimasukkan ke kuis ini.</small>
+            </div>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+
+        <div class="modal-body p-3 p-md-4">
+          <!-- Filter dan Pencarian Bank Soal -->
+          <div class="row g-2 mb-3">
+            <div class="col-12 col-md-5">
+              <input type="text" id="cari-bank-editor" class="form-control border-2 border-dark fw-semibold" placeholder="🔍 Cari teks soal / kata kunci...">
+            </div>
+            <div class="col-6 col-md-4">
+              <select id="filter-bank-bab-editor" class="form-select border-2 border-dark fw-semibold">
+                <option value="semua">Semua Bab / Materi</option>
+              </select>
+            </div>
+            <div class="col-6 col-md-3">
+              <select id="filter-bank-kesulitan-editor" class="form-select border-2 border-dark fw-semibold">
+                <option value="semua">Semua Kesulitan</option>
+                <option value="mudah">Mudah</option>
+                <option value="sedang">Sedang</option>
+                <option value="sulit">Sulit</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Pilihan Checkbox Massal & Indikator Terpilih -->
+          <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+            <div class="form-check mb-0">
+              <input class="form-check-input border-2 border-dark cursor-pointer" type="checkbox" id="chk-pilih-semua-bank">
+              <label class="form-check-label fw-bold text-dark small cursor-pointer" for="chk-pilih-semua-bank">
+                Pilih Semua Soal yang Ditampilkan
+              </label>
+            </div>
+            <span class="badge bg-dark fw-bold px-2 py-1" id="badge-terpilih-bank">0 Soal Terpilih</span>
+          </div>
+
+          <!-- Wadah Daftar Butir Soal -->
+          <div id="wadah-daftar-bank-soal" class="d-flex flex-column gap-2" style="max-height: 400px; overflow-y: auto;">
+            <div class="text-center py-4 text-secondary">
+              <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+              <span>Memuat data butir soal dari database...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer border-top border-2 border-dark d-flex justify-content-between py-2 px-3" style="background-color: var(--kupas-cream-bg, #FFF6E0);">
+          <button type="button" class="btn btn-outline-dark fw-bold px-3" data-bs-dismiss="modal">Batal</button>
+          <button type="button" id="btn-terapkan-bank-soal" class="btn btn-kupas-hijau fw-bold px-4 smartboard-btn" disabled>
+            + Masukkan 0 Soal ke Kuis
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal Buat Entri Kamus Cepat dari Editor Soal (Fitur PRD 19) -->
   <div class="modal fade" id="modalKamusEditor" tabindex="-1" aria-labelledby="labelKamusEditor" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -235,9 +311,10 @@
   <script type="module" src="../assets/js/latar-hidup.js"></script>
 
   <script type="module">
-    import { kuisManager } from '../assets/js/kuis.js';
+    import { kuisManager, normalisasiKunciJawaban } from '../assets/js/kuis.js';
     import { kamusManager } from '../assets/js/kamus.js';
     import { auth } from '../assets/js/auth.js';
+    import { sesiManager } from '../assets/js/sesi.js';
     import { pasangHeader, umumkanAria, suara } from '../assets/js/ui.js';
     import { animasi } from '../assets/js/animasi.js';
 
@@ -253,6 +330,10 @@
     const modalKamusEditorEl = document.getElementById('modalKamusEditor');
     const modalKamusBS = new bootstrap.Modal(modalKamusEditorEl);
 
+    let dataBankSoalCache = [];
+    const modalBankSoalEl = document.getElementById('modalAmbilBankSoal');
+    const modalBankSoalBS = new bootstrap.Modal(modalBankSoalEl);
+
     async function muatPilihanKamus(kamusIdDipilih = '') {
       daftarKamusPilihan = await kamusManager.ambilSemuaKamus({ hanyaTerbit: false });
       const sel = document.getElementById('soal-kamus-id');
@@ -267,6 +348,10 @@
     }
 
     async function inisialisasi() {
+      // Route Guard: Pastikan guru telah terotentikasi di Supabase
+      const guru = await auth.periksaAksesGuru();
+      if (!guru) return;
+
       await muatPilihanKamus();
 
       if (kuisId) {
@@ -352,6 +437,8 @@
       const wadah = document.getElementById('wadah-opsi-jawaban');
       wadah.innerHTML = '';
 
+      const kNorm = normalisasiKunciJawaban(kunci, tipe, opsi);
+
       if (tipe === 'pilihan_ganda') {
         const opsiList = (opsi && opsi.length) ? opsi : ['Opsi A', 'Opsi B', 'Opsi C', 'Opsi D'];
         wadah.innerHTML = `
@@ -360,7 +447,7 @@
             ${opsiList.map((op, i) => `
               <div class="input-group">
                 <div class="input-group-text bg-white">
-                  <input class="form-check-input mt-0 radio-kunci" type="radio" name="kunciJawaban" value="${i}" ${String(kunci) === String(i) ? 'checked' : ''} aria-label="Jadikan opsi ${i+1} sebagai kunci benar">
+                  <input class="form-check-input mt-0 radio-kunci" type="radio" name="kunciJawaban" value="${i}" ${String(kNorm) === String(i) ? 'checked' : ''} aria-label="Jadikan opsi ${i+1} sebagai kunci benar">
                 </div>
                 <span class="input-group-text fw-bold">${i + 1}</span>
                 <input type="text" class="form-control border-2 border-dark input-opsi-teks" value="${op}" placeholder="Teks opsi ${i+1}">
@@ -374,11 +461,11 @@
           <label class="form-label fw-bold">Kunci Jawaban Benar / Salah</label>
           <div class="d-flex gap-4">
             <div class="form-check">
-              <input class="form-check-input border-dark radio-kunci" type="radio" name="kunciJawaban" id="kunciBenar" value="0" ${String(kunci) === '0' ? 'checked' : ''}>
+              <input class="form-check-input border-dark radio-kunci" type="radio" name="kunciJawaban" id="kunciBenar" value="0" ${String(kNorm) === '0' ? 'checked' : ''}>
               <label class="form-check-label fw-bold text-success" for="kunciBenar">Benar</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input border-dark radio-kunci" type="radio" name="kunciJawaban" id="kunciSalah" value="1" ${String(kunci) === '1' ? 'checked' : ''}>
+              <input class="form-check-input border-dark radio-kunci" type="radio" name="kunciJawaban" id="kunciSalah" value="1" ${String(kNorm) === '1' ? 'checked' : ''}>
               <label class="form-check-label fw-bold text-danger" for="kunciSalah">Salah</label>
             </div>
           </div>
@@ -500,8 +587,181 @@
       }
     });
 
-    // Simpan Kuis Keseluruhan ke Database
-    document.getElementById('btn-simpan-kuis').addEventListener('click', async () => {
+    // =========================================================================
+    // FITUR: AMBIL SOAL DARI BANK SOAL IPAS
+    // =========================================================================
+    document.getElementById('btn-ambil-bank-soal').addEventListener('click', async () => {
+      modalBankSoalBS.show();
+      const wadah = document.getElementById('wadah-daftar-bank-soal');
+      wadah.innerHTML = `
+        <div class="text-center py-4 text-secondary">
+          <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+          <span>Mengambil data butir soal dari bank soal...</span>
+        </div>
+      `;
+
+      try {
+        dataBankSoalCache = await kuisManager.ambilSemuaSoal();
+        
+        // Isi dropdown bab dari soal unik
+        const selBab = document.getElementById('filter-bank-bab-editor');
+        const babUnik = Array.from(new Set(dataBankSoalCache.map(s => s.bab || 'Bab 1: Rantai Makanan')));
+        selBab.innerHTML = '<option value="semua">Semua Bab / Materi</option>';
+        babUnik.forEach(b => {
+          const opt = document.createElement('option');
+          opt.value = b;
+          opt.textContent = b;
+          selBab.appendChild(opt);
+        });
+
+        renderDaftarPilihanBank();
+      } catch (err) {
+        wadah.innerHTML = `<div class="alert alert-danger mb-0">Gagal memuat bank soal: ${err.message}</div>`;
+      }
+    });
+
+    function renderDaftarPilihanBank() {
+      const wadah = document.getElementById('wadah-daftar-bank-soal');
+      const q = document.getElementById('cari-bank-editor').value.trim().toLowerCase();
+      const fBab = document.getElementById('filter-bank-bab-editor').value;
+      const fKesulitan = document.getElementById('filter-bank-kesulitan-editor').value;
+
+      const terfilter = dataBankSoalCache.filter(item => {
+        const cocokCari = !q || (item.teks && item.teks.toLowerCase().includes(q)) || (item.penjelasan && item.penjelasan.toLowerCase().includes(q));
+        const cocokBab = fBab === 'semua' || item.bab === fBab;
+        const cocokKesulitan = fKesulitan === 'semua' || item.tingkat_kesulitan === fKesulitan;
+        return cocokCari && cocokBab && cocokKesulitan;
+      });
+
+      if (terfilter.length === 0) {
+        wadah.innerHTML = `
+          <div class="text-center py-4 text-secondary p-3 bg-light rounded-3 border">
+            <span class="fs-3 d-block mb-1">📭</span>
+            <span>Tidak ada butir soal yang sesuai dengan pencarian atau filter.</span>
+          </div>
+        `;
+        perbaruiBadgeTerpilih();
+        return;
+      }
+
+      wadah.innerHTML = '';
+      terfilter.forEach((s, idx) => {
+        const div = document.createElement('div');
+        div.className = 'p-3 rounded-3 border-2 border-dark bg-white shadow-sm d-flex gap-3 align-items-start';
+        div.style.cursor = 'pointer';
+
+        const badgeDiff = s.tingkat_kesulitan === 'sulit' ? 'bg-danger text-white' : (s.tingkat_kesulitan === 'mudah' ? 'bg-success text-white' : 'bg-warning text-dark');
+
+        const opsiPreview = Array.isArray(s.opsi) && s.opsi.length > 0 
+          ? s.opsi.map((op, i) => `<span class="badge border border-dark ${String(s.kunci) === String(i) ? 'bg-success text-white' : 'bg-light text-dark'} small me-1 mb-1">${String.fromCharCode(65 + i)}. ${op}</span>`).join('')
+          : '';
+
+        div.innerHTML = `
+          <div class="pt-1">
+            <input type="checkbox" class="form-check-input chk-bank-item border-2 border-dark" value="${s.id}" style="width: 22px; height: 22px; cursor: pointer;">
+          </div>
+          <div class="flex-grow-1">
+            <div class="d-flex flex-wrap gap-1 mb-1 align-items-center">
+              <span class="badge bg-dark small">#${idx + 1}</span>
+              <span class="badge bg-primary small">${s.bab || 'IPAS'}</span>
+              <span class="badge ${badgeDiff} small text-uppercase">${s.tingkat_kesulitan || 'sedang'}</span>
+              <span class="badge bg-secondary small">⏱️ ${s.waktu_detik || 30} dtk</span>
+              <span class="badge bg-secondary small">⭐ ${s.poin || 10} poin</span>
+            </div>
+            <p class="fw-bold mb-1 text-dark">${s.teks}</p>
+            ${opsiPreview ? `<div class="d-flex flex-wrap mt-1">${opsiPreview}</div>` : ''}
+            ${s.penjelasan ? `<small class="text-secondary d-block mt-1"><em>💡 ${s.penjelasan}</em></small>` : ''}
+          </div>
+        `;
+
+        const inputChk = div.querySelector('.chk-bank-item');
+        if (inputChk) inputChk._soalData = s;
+        div._soalData = s;
+
+        div.addEventListener('click', (e) => {
+          if (e.target.tagName !== 'INPUT') {
+            const chk = div.querySelector('.chk-bank-item');
+            if (chk) chk.checked = !chk.checked;
+          }
+          perbaruiBadgeTerpilih();
+        });
+
+        wadah.appendChild(div);
+      });
+
+      perbaruiBadgeTerpilih();
+    }
+
+    function perbaruiBadgeTerpilih() {
+      const tercentang = document.querySelectorAll('.chk-bank-item:checked');
+      const jml = tercentang.length;
+      document.getElementById('badge-terpilih-bank').textContent = `${jml} Soal Terpilih`;
+      const btn = document.getElementById('btn-terapkan-bank-soal');
+      btn.disabled = jml === 0;
+      btn.textContent = `+ Masukkan ${jml} Soal ke Kuis`;
+    }
+
+    document.getElementById('cari-bank-editor').addEventListener('input', renderDaftarPilihanBank);
+    document.getElementById('filter-bank-bab-editor').addEventListener('change', renderDaftarPilihanBank);
+    document.getElementById('filter-bank-kesulitan-editor').addEventListener('change', renderDaftarPilihanBank);
+
+    document.getElementById('chk-pilih-semua-bank').addEventListener('change', (e) => {
+      const centang = e.target.checked;
+      document.querySelectorAll('.chk-bank-item').forEach(chk => {
+        chk.checked = centang;
+      });
+      perbaruiBadgeTerpilih();
+    });
+
+    document.getElementById('btn-terapkan-bank-soal').addEventListener('click', () => {
+      const tercentang = Array.from(document.querySelectorAll('.chk-bank-item:checked'));
+      if (tercentang.length === 0) return;
+
+      const soalDipilih = tercentang.map(chk => {
+        return chk._soalData || dataBankSoalCache.find(item => String(item.id) === String(chk.value));
+      }).filter(Boolean);
+
+      if (soalDipilih.length === 0) return;
+
+      // Jika saat ini daftarSoal hanya berisi 1 soal dummy bawaan, gantikan dengan soal terpilih
+      if (daftarSoal.length === 1 && daftarSoal[0].teks.includes('Makhluk hidup yang membuat makanan sendiri')) {
+        daftarSoal = [];
+      }
+
+      soalDipilih.forEach(s => {
+        const tipe = s.tipe || 'pilihan_ganda';
+        const opsi = Array.isArray(s.opsi) && s.opsi.length > 0 ? [...s.opsi] : ['Opsi A', 'Opsi B', 'Opsi C', 'Opsi D'];
+        const kunciNorm = normalisasiKunciJawaban(s.kunci, tipe, opsi);
+        daftarSoal.push({
+          urutan: daftarSoal.length + 1,
+          tipe: tipe,
+          bab: s.bab || 'Bab 1: Rantai Makanan',
+          tingkat_kesulitan: s.tingkat_kesulitan || 'sedang',
+          teks: s.teks,
+          gambar_path: s.gambar_path || null,
+          opsi: opsi,
+          kunci: String(kunciNorm),
+          penjelasan: s.penjelasan || '',
+          waktu_detik: parseInt(s.waktu_detik, 10) || 30,
+          poin: parseInt(s.poin, 10) || 10,
+          kamus_id: s.kamus_id || null
+        });
+      });
+
+      indeksSoalDipilih = 0;
+      renderDaftarSoal();
+      muatFormSoal(0);
+
+      modalBankSoalBS.hide();
+      suara.mainkan('benar');
+      umumkanAria(`${soalDipilih.length} butir soal dari Bank Soal berhasil dimasukkan ke kuis.`);
+      alert(`Berhasil menambahkan ${soalDipilih.length} butir soal dari Bank Soal ke kuis!`);
+    });
+
+    // =========================================================================
+    // SIMPAN KUIS & LANGSUNG MULAI SESI
+    // =========================================================================
+    async function eksekusiSimpanKuis(langsungMulai = false) {
       const judul = document.getElementById('kuis-judul').value.trim();
       const topik = document.getElementById('kuis-topik').value.trim();
       const deskripsi = document.getElementById('kuis-deskripsi').value.trim();
@@ -517,13 +777,29 @@
         return;
       }
 
-      const btn = document.getElementById('btn-simpan-kuis');
-      btn.disabled = true;
-      btn.textContent = 'Menyimpan...';
+      if (!daftarSoal || daftarSoal.length === 0) {
+        alert('Kuis harus memiliki minimal 1 butir soal!');
+        return;
+      }
+
+      const btnSimpan = document.getElementById('btn-simpan-kuis');
+      const btnMulai = document.getElementById('btn-simpan-dan-mulai');
+      if (btnSimpan) {
+        btnSimpan.disabled = true;
+        btnSimpan.textContent = 'Menyimpan...';
+      }
+      if (btnMulai) {
+        btnMulai.disabled = true;
+        btnMulai.textContent = langsungMulai ? 'Menyimpan & Membuat Sesi...' : 'Menyimpan...';
+      }
 
       try {
+        const guru = await auth.ambilGuruAktif();
+        const guruId = guru?.id || '00000000-0000-0000-0000-000000000001';
+
         const idHasil = await kuisManager.simpanKuis({
           id: kuisId || undefined,
+          guru_id: guruId,
           judul,
           topik,
           deskripsi,
@@ -535,22 +811,46 @@
           acak_soal
         });
 
-        // Simpan setiap soal
+        const targetKuisId = idHasil || kuisId;
+
+        // Simpan setiap butir soal
         for (let i = 0; i < daftarSoal.length; i++) {
           const s = daftarSoal[i];
           s.urutan = i + 1;
-          await kuisManager.simpanSoal(idHasil || kuisId, s, s.kunci);
+          await kuisManager.simpanSoal(targetKuisId, s, s.kunci);
         }
 
-        umumkanAria('Kuis berhasil disimpan secara permanen!');
-        alert('Kuis berhasil disimpan!');
-        window.location.href = 'dasbor.html';
+        if (langsungMulai) {
+          const sesi = await sesiManager.buatSesi(targetKuisId, guruId, 'custom', 1.0);
+          suara.mainkan('hore');
+          umumkanAria('Kuis berhasil disimpan! Membuka lobi sesi permainan...');
+          window.location.href = `sesi.html?kode=${sesi.kode}`;
+        } else {
+          suara.mainkan('benar');
+          umumkanAria('Kuis berhasil disimpan secara permanen!');
+          const mulaiSekarang = confirm('Kuis berhasil disimpan! Apakah Bapak/Ibu Guru ingin langsung memulai sesi bermain kuis ini sekarang bersama siswa?');
+          if (mulaiSekarang) {
+            const sesi = await sesiManager.buatSesi(targetKuisId, guruId, 'custom', 1.0);
+            window.location.href = `sesi.html?kode=${sesi.kode}`;
+          } else {
+            window.location.href = 'dasbor.html';
+          }
+        }
       } catch (err) {
-        btn.disabled = false;
-        btn.textContent = '💾 Simpan Kuis';
+        if (btnSimpan) {
+          btnSimpan.disabled = false;
+          btnSimpan.textContent = '💾 Simpan Kuis';
+        }
+        if (btnMulai) {
+          btnMulai.disabled = false;
+          btnMulai.innerHTML = '<span>🚀</span> <span>Simpan & Langsung Mulai Sesi</span>';
+        }
         alert('Gagal menyimpan kuis: ' + err.message);
       }
-    });
+    }
+
+    document.getElementById('btn-simpan-kuis').addEventListener('click', () => eksekusiSimpanKuis(false));
+    document.getElementById('btn-simpan-dan-mulai').addEventListener('click', () => eksekusiSimpanKuis(true));
 
     // Buat Entri Kamus Baru Langsung dari Editor Soal (Fitur 5)
     document.getElementById('btn-modal-entri-baru').addEventListener('click', () => {

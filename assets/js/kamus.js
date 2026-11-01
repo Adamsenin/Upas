@@ -74,10 +74,11 @@ export const kamusManager = {
       if (error) throw error;
       return id;
     } else {
+      const validGuruId = (guru_id && /^[0-9a-fA-F-]{36}$/.test(guru_id)) ? guru_id : null;
       const { data, error } = await supabase
         .from('kamus')
         .insert({
-          guru_id: guru_id || 'guru-demo-1',
+          guru_id: validGuruId,
           ...dataBersih
         })
         .select()
@@ -85,6 +86,70 @@ export const kamusManager = {
       if (error) throw error;
       return data?.id;
     }
+  },
+
+  // Impor Kamus Massal dari CSV / Excel (Fitur Tahap 2)
+  async imporKamusMassal(guruId, daftarBaris) {
+    if (!Array.isArray(daftarBaris) || daftarBaris.length === 0) {
+      throw new Error('Berkas tidak memuat baris entri istilah yang dapat diimpor.');
+    }
+
+    const itemSiap = [];
+    const errors = [];
+    const validGuruId = (guruId && /^[0-9a-fA-F-]{36}$/.test(guruId)) ? guruId : null;
+
+    daftarBaris.forEach((row, idx) => {
+      const nomorBaris = idx + 2;
+      const istilah = bersihkanTeks(row.istilah || row.Istilah || row.kata || row.Kata || '');
+      const kategori = bersihkanTeks(row.kategori || row.Kategori || 'Ekosistem');
+      const definisi = bersihkanTeks(row.definisi || row.Definisi || row.arti || row.Arti || row.penjelasan || '');
+      const contoh = bersihkanTeks(row.contoh || row.Contoh || '');
+      const statusRaw = (row.status || row.Status || 'terbit').toString().trim().toLowerCase();
+      const status = statusRaw === 'draf' ? 'draf' : 'terbit';
+
+      if (!istilah) {
+        errors.push(`Baris ${nomorBaris}: Istilah/kata tidak boleh kosong.`);
+        return;
+      }
+      if (!definisi) {
+        errors.push(`Baris ${nomorBaris}: Definisi/penjelasan istilah tidak boleh kosong.`);
+        return;
+      }
+
+      itemSiap.push({
+        guru_id: validGuruId,
+        istilah,
+        kategori: kategori || 'Ekosistem',
+        definisi,
+        contoh: contoh || null,
+        status
+      });
+    });
+
+    if (itemSiap.length === 0) {
+      throw new Error('Tidak ada data kamus valid yang dapat diimpor:\n' + errors.slice(0, 5).join('\n'));
+    }
+
+    // Coba simpan sekaligus (bulk insert)
+    const { data, error } = await supabase
+      .from('kamus')
+      .insert(itemSiap)
+      .select();
+
+    if (error) {
+      // Fallback simpan per baris jika bulk insert ditolak
+      let sukses = 0;
+      for (const item of itemSiap) {
+        try {
+          const res = await supabase.from('kamus').insert(item);
+          if (!res.error) sukses++;
+        } catch (e) {}
+      }
+      if (sukses > 0) return sukses;
+      throw new Error('Gagal menyimpan entri kamus ke database: ' + error.message);
+    }
+
+    return (data && data.length) ? data.length : itemSiap.length;
   },
 
   // Hapus entri kamus (Khusus Guru)
@@ -130,4 +195,40 @@ export const kamusManager = {
     return tersimpan.length;
   }
 };
+
+/**
+ * Pengurai berkas CSV menjadi array objek kamus yang bersih
+ */
+export function parseCSVKeObjekKamus(teksCSV) {
+  if (!teksCSV) return [];
+  const baris = teksCSV.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  if (baris.length < 2) return [];
+  const pemisah = baris[0].includes(';') ? ';' : ',';
+  const splitBaris = (line) => {
+    const res = [];
+    let cur = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        inQuotes = !inQuotes;
+      } else if (ch === pemisah && !inQuotes) {
+        res.push(cur.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+        cur = '';
+      } else {
+        cur += ch;
+      }
+    }
+    res.push(cur.trim().replace(/^"|"$/g, '').replace(/""/g, '"'));
+    return res;
+  };
+
+  const headers = splitBaris(baris[0]).map(h => h.trim().toLowerCase().replace(/\s+/g, '_'));
+  return baris.slice(1).map(line => {
+    const cols = splitBaris(line);
+    const obj = {};
+    headers.forEach((h, i) => { obj[h] = cols[i] ?? ''; });
+    return obj;
+  });
+}
 

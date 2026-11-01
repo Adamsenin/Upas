@@ -120,10 +120,12 @@
 
     pasangHeader('guru', { berandaLink: '../index.html', rootAset: '../' });
 
-    // Cek jika guru sudah masuk, langsung ke dasbor
+    // Cek jika guru sudah masuk, langsung ke dasbor atau tujuan sebelumnya
     auth.ambilGuruAktif().then(user => {
       if (user) {
-        window.location.href = 'dasbor.html';
+        const tujuan = sessionStorage.getItem('kupas_redirect_tujuan') || 'dasbor.html';
+        sessionStorage.removeItem('kupas_redirect_tujuan');
+        window.location.href = tujuan;
       }
     });
 
@@ -132,11 +134,17 @@
     const maskotEl = document.getElementById('maskot-auth');
 
     function tampilkanError(pesan) {
-      alertEl.textContent = pesan;
+      if (pesan && pesan.toLowerCase().includes('email not confirmed')) {
+        alertEl.innerHTML = `<strong>Email belum dikonfirmasi!</strong><br>Supabase secara default mengaktifkan verifikasi email.<br>• Buka Inbox/Spam email Anda dan klik tautan verifikasi, atau<br>• Di Dashboard Supabase: buka menu <strong>Authentication &gt; Providers &gt; Email</strong> lalu matikan (uncheck) opsi <em>"Confirm email"</em> agar akun bisa langsung masuk.`;
+      } else if (pesan && pesan.toLowerCase().includes('invalid login credentials')) {
+        alertEl.textContent = 'Email atau kata sandi salah. Silakan periksa kembali.';
+      } else {
+        alertEl.textContent = pesan;
+      }
       alertEl.classList.remove('d-none');
       maskotEl.src = '../assets/svg/maskot-bingung.svg';
       animasi.goyang(kartuAuth);
-      umumkanAria('Kesalahan: ' + pesan);
+      umumkanAria('Kesalahan: ' + (alertEl.textContent || pesan));
     }
 
     // Tangani Masuk
@@ -160,7 +168,9 @@
         maskotEl.src = '../assets/svg/maskot-bersorak.svg';
         umumkanAria('Berhasil masuk! Mengalihkan ke dasbor...');
         setTimeout(() => {
-          window.location.href = 'dasbor.html';
+          const tujuan = sessionStorage.getItem('kupas_redirect_tujuan') || 'dasbor.html';
+          sessionStorage.removeItem('kupas_redirect_tujuan');
+          window.location.href = tujuan;
         }, 400);
       } catch (err) {
         btn.disabled = false;
@@ -188,14 +198,25 @@
       btn.textContent = 'Mendaftarkan...';
 
       try {
-        await auth.daftarGuru(email, pass, nama, sekolah);
-        alertEl.className = 'alert alert-success border-2 border-dark fw-semibold';
-        alertEl.textContent = 'Pendaftaran berhasil! Mengalihkan ke dasbor...';
-        alertEl.classList.remove('d-none');
-        maskotEl.src = '../assets/svg/maskot-senang.svg';
-        setTimeout(() => {
-          window.location.href = 'dasbor.html';
-        }, 800);
+        const res = await auth.daftarGuru(email, pass, nama, sekolah);
+        if (res?.session) {
+          alertEl.className = 'alert alert-success border-2 border-dark fw-semibold';
+          alertEl.textContent = 'Pendaftaran berhasil! Mengalihkan ke dasbor...';
+          alertEl.classList.remove('d-none');
+          maskotEl.src = '../assets/svg/maskot-senang.svg';
+          setTimeout(() => {
+            const tujuan = sessionStorage.getItem('kupas_redirect_tujuan') || 'dasbor.html';
+            sessionStorage.removeItem('kupas_redirect_tujuan');
+            window.location.href = tujuan;
+          }, 800);
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Buat Akun Guru Baru';
+          alertEl.className = 'alert alert-warning border-2 border-dark fw-semibold';
+          alertEl.innerHTML = `Akun berhasil dibuat! Namun Supabase mewajibkan verifikasi email.<br>• Silakan buka <strong>Inbox / Spam di ${email}</strong> untuk klik tautan konfirmasi, atau<br>• Di Dashboard Supabase: buka <em>Authentication &gt; Users</em> lalu klik <em>Confirm email</em> pada akun Anda.`;
+          alertEl.classList.remove('d-none');
+          maskotEl.src = '../assets/svg/maskot-berpikir.svg';
+        }
       } catch (err) {
         btn.disabled = false;
         btn.textContent = 'Buat Akun Guru Baru';

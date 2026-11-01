@@ -5,6 +5,7 @@
 
 import { pasangHeader, pasangPanelGamifikasi, suara, umumkanAria, gamifikasi } from './ui.js';
 import { animasi, TingkatGerak } from './animasi.js';
+import { auth } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Pasang Navigasi Global & Panel Gamifikasi Buku Jejak
@@ -38,6 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
       aktifkanTab(tabGuru, tabSiswa, panelGuru, panelSiswa);
       umumkanAria('Peran Guru aktif. Tombol Buka Ruang Guru siap.');
     });
+
+    // Cegat tombol Buka Ruang Guru: Wajib login guru terlebih dahulu
+    const btnGuru = document.getElementById('btn-saya-guru');
+    if (btnGuru) {
+      btnGuru.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const guru = await auth.ambilGuruAktif();
+        if (guru) {
+          window.location.href = 'guru/dasbor.html';
+        } else {
+          try {
+            sessionStorage.setItem('kupas_redirect_tujuan', 'dasbor.html');
+          } catch (err) {}
+          window.location.href = 'guru/masuk.html';
+        }
+      });
+    }
 
     // Dukungan Keyboard Panah Kiri/Kanan pada Tablist
     [tabSiswa, tabGuru].forEach((tab) => {
