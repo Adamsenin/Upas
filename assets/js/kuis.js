@@ -1023,3 +1023,9 @@ export const kuisManager = {
     };
   }
 };
+
+if (typeof window !== 'undefined') {
+  window.kuisManager = kuisManager;
+  window.ambilKolomTabelSoal = ambilKolomTabelSoal;
+  window.buatPayloadSoalAdaptif = buatPayloadSoalAdaptif;
+}

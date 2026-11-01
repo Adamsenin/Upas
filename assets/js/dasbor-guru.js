@@ -16,7 +16,7 @@
 
 import { auth } from './auth.js';
 import { supabase } from './supabase.js';
-import { kuisManager } from './kuis.js?v=4.0.3';
+import { kuisManager } from './kuis.js?v=4.0.4';
 import { sesiManager } from './sesi.js';
 import { pasangHeader, umumkanAria, suara } from './ui.js';
 import { konfigurasiManager } from './konfigurasi.js';
