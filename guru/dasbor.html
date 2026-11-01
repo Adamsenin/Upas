@@ -84,88 +84,56 @@
     </div>
 
     <!-- 1. KARTU RINGKASAN STATISTIK -->
-    <section aria-label="Ringkasan Statistik Kelas" class="row g-3 mb-4">
-      <div class="col-6 col-md-4 col-xl">
-        <div class="kupas-card h-100 p-3 bg-white">
-          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-              aria-hidden="true">
-              <line x1="18" y1="20" x2="18" y2="10" />
-              <line x1="12" y1="20" x2="12" y2="4" />
-              <line x1="6" y1="20" x2="6" y2="14" />
-            </svg>
-            <span>Rata-rata Nilai</span>
-          </span>
-          <div class="h2 fw-bolder text-success mb-0 mt-1" id="stat-rata-rata">0</div>
-          <small class="text-secondary fw-semibold">Skala 0–100</small>
+    <section aria-label="Ringkasan Statistik Kelas" class="stat-kpi-grid mb-4">
+      <div class="stat-kpi-card stat-kpi-success">
+        <div class="kpi-label">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
+          <span>Rata-rata Nilai</span>
         </div>
+        <div class="kpi-nilai text-success" id="stat-rata-rata">0</div>
+        <div class="kpi-subteks">Skala capaian 0–100</div>
       </div>
-      <div class="col-6 col-md-4 col-xl">
-        <div class="kupas-card h-100 p-3 bg-white">
-          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-              aria-hidden="true">
-              <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2" />
-              <path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2" />
-              <path d="M4 3h16v6a8 8 0 0 1-16 0V3z" />
-              <path d="M12 17v4" />
-              <path d="M8 21h8" />
-            </svg>
-            <span>Tertinggi / Terendah</span>
-          </span>
-          <div class="h3 fw-bolder text-dark mb-0 mt-1" id="stat-tinggi-rendah">0 / 0</div>
-          <small class="text-secondary fw-semibold">Rentang capaian</small>
+
+      <div class="stat-kpi-card stat-kpi-warning">
+        <div class="kpi-label">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2" /><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2" /><path d="M4 3h16v6a8 8 0 0 1-16 0V3z" /><path d="M12 17v4" /><path d="M8 21h8" /></svg>
+          <span>Tertinggi / Terendah</span>
         </div>
+        <div class="kpi-nilai text-dark" id="stat-tinggi-rendah">0 / 0</div>
+        <div class="kpi-subteks">Rentang capaian kelas</div>
       </div>
-      <div class="col-6 col-md-4 col-xl">
-        <div class="kupas-card h-100 p-3 bg-white">
-          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-              aria-hidden="true">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            <span>Ketuntasan KKM</span>
-          </span>
-          <div class="h2 fw-bolder text-primary mb-0 mt-1" id="stat-ketuntasan">0%</div>
-          <small class="text-secondary fw-semibold">Siswa lulus KKM</small>
+
+      <div class="stat-kpi-card stat-kpi-primary">
+        <div class="kpi-label">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>
+          <span>Ketuntasan KKM</span>
         </div>
+        <div class="kpi-nilai text-primary" id="stat-ketuntasan">0%</div>
+        <div class="kpi-subteks">Siswa lulus KKM</div>
       </div>
-      <div class="col-6 col-md-6 col-xl">
-        <div class="kupas-card h-100 p-3 bg-white">
-          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-              aria-hidden="true">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-              <circle cx="9" cy="7" r="4" />
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-            <span>Jumlah Peserta</span>
-          </span>
-          <div class="h3 fw-bolder text-dark mb-0 mt-1" id="stat-jumlah-peserta">0 Siswa</div>
-          <small class="text-secondary fw-semibold">Partisipasi sesi</small>
+
+      <div class="stat-kpi-card stat-kpi-primary">
+        <div class="kpi-label">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+          <span>Jumlah Peserta</span>
         </div>
+        <div class="kpi-nilai text-dark" id="stat-jumlah-peserta">0 Siswa</div>
+        <div class="kpi-subteks">Partisipasi sesi aktif</div>
       </div>
-      <div class="col-12 col-md-6 col-xl">
-        <div class="kupas-card h-100 p-3 bg-white">
-          <span class="text-secondary small fw-bold d-flex align-items-center gap-1">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
-              aria-hidden="true">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="8" x2="12" y2="12" />
-              <line x1="12" y1="16" x2="12.01" y2="16" />
-            </svg>
-            <span>Perlu Perhatian</span>
-          </span>
-          <div class="h3 fw-bolder text-danger mb-0 mt-1" id="stat-jumlah-remedial">0 Siswa</div>
-          <small class="text-secondary fw-semibold">Remedial / Belum ikut</small>
+
+      <div class="stat-kpi-card stat-kpi-danger">
+        <div class="kpi-label">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" /></svg>
+          <span>Perlu Perhatian</span>
         </div>
+        <div class="kpi-nilai text-danger" id="stat-jumlah-remedial">0 Siswa</div>
+        <div class="kpi-subteks">Remedial / Belum ikut</div>
       </div>
     </section>
 
     <!-- Navigasi Tab Fitur Dasbor Guru -->
-    <ul class="nav nav-pills gap-2 mb-4 p-2 bg-white rounded-4 border border-3 border-dark" id="dasborTab"
+    <div class="tab-nav-scroller">
+      <ul class="nav nav-pills gap-2 mb-4 p-2 bg-white rounded-4 border border-3 border-dark" id="dasborTab"
       role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active fw-bold text-dark border border-dark d-inline-flex align-items-center gap-1"
@@ -247,6 +215,7 @@
         </button>
       </li>
     </ul>
+    </div>
 
     <div class="tab-content" id="dasborTabContent">
       <!-- ==================================================================
@@ -801,7 +770,7 @@
 
   <!-- Modal 1: Pilih Mode Sesi Kuis -->
   <div class="modal fade" id="modalMulaiSesi" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content kupas-card border-3 border-dark">
         <div class="modal-header border-bottom-0 pb-0">
           <h2 class="modal-title h4 fw-bolder" id="modalLabel">Mulai Sesi Kelas</h2>
@@ -920,7 +889,7 @@
 
   <!-- Modal 2: Pengaturan Jadwal, Durasi, KKM & Acak Soal Kuis -->
   <div class="modal fade" id="modalAturKuis" tabindex="-1" aria-labelledby="labelAturKuis" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content kupas-card border-3 border-dark">
         <div class="modal-header border-bottom-0 pb-0">
           <h2 class="modal-title h5 fw-bolder" id="labelAturKuis"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Pengaturan Kuis & Jadwal</h2>
@@ -1025,7 +994,7 @@
 
   <!-- Modal 3: Tambah / Impor Siswa Massal -->
   <div class="modal fade" id="modalTambahSiswa" tabindex="-1" aria-labelledby="labelTambahSiswa" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content kupas-card border-3 border-dark">
         <div class="modal-header border-bottom-0 pb-0">
           <h2 class="modal-title h5 fw-bolder" id="labelTambahSiswa">+ Tambah / Impor Siswa Massal</h2>
@@ -1117,7 +1086,7 @@
   <script type="module" src="../assets/js/latar-hidup.js"></script>
 
   <script type="module">
-    import { inisialisasiDasborGuru } from '../assets/js/dasbor-guru.js?v=4.0.4';
+    import { inisialisasiDasborGuru } from '../assets/js/dasbor-guru.js?v=4.2.0';
     import { konfigurasiManager } from '../assets/js/konfigurasi.js';
 
     inisialisasiDasborGuru();

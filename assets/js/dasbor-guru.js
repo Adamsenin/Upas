@@ -16,7 +16,14 @@
 
 import { auth } from './auth.js';
 import { supabase } from './supabase.js';
-import { kuisManager } from './kuis.js?v=4.0.4';
+import { kuisManager, ambilKolomTabelSoal, buatPayloadSoalAdaptif, normalisasiKunciJawaban } from './kuis.js?v=4.2.0';
+
+if (typeof window !== 'undefined') {
+  window.kuisManager = kuisManager;
+  window.ambilKolomTabelSoal = ambilKolomTabelSoal;
+  window.buatPayloadSoalAdaptif = buatPayloadSoalAdaptif;
+  window.normalisasiKunciJawaban = normalisasiKunciJawaban;
+}
 import { sesiManager } from './sesi.js';
 import { pasangHeader, umumkanAria, suara } from './ui.js';
 import { konfigurasiManager } from './konfigurasi.js';

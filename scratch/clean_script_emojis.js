@@ -45,3 +45,4 @@ p404 = p404.replace(/🎒/g, '');
 fs.writeFileSync('404.html', p404, 'utf8');
 
 console.log('Script emojis cleaned completely!');
+

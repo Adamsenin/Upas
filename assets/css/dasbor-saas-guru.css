@@ -1,7 +1,7 @@
 /* ==========================================================================
    KUPAS KUIS IPAS - Modern Education SaaS Dashboard (dasbor-saas-guru.css)
    Desain Profesional, Efisien, Berkontras Tinggi & Terstruktur untuk Guru
-   Sesuai Rekomendasi Desain UI/UX Pro Max
+   Sesuai Rekomendasi Desain UI/UX Pro Max (Zero Cutoff & Pure Responsiveness)
    ========================================================================== */
 
 @import './token-nusantara.css';
@@ -12,47 +12,162 @@ body[data-latar-tema="arena-tenang"] {
   background-color: #F4F6F5 !important;
   color: var(--n-rimba, #1B3A2F);
   font-family: var(--n-font-baca, 'Atkinson Hyperlegible', sans-serif);
+  overflow-x: hidden;
 }
 
-/* 2. KARTU SAAS PROFESIONAL */
-.dasbor-saas-card {
+/* 2. LAYOUT APP WRAPPER & COLLAPSIBLE SIDEBAR */
+.kupas-app-wrapper.has-sidebar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 100%;
+  min-height: calc(100vh - 68px);
+  position: relative;
+  box-sizing: border-box;
+}
+
+.kupas-sidebar {
+  width: 250px;
+  flex-shrink: 0;
   background: #FFFFFF !important;
-  border: 1.5px solid rgba(27, 58, 47, 0.15) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 4px 16px rgba(27, 58, 47, 0.05) !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  border-right: 2px solid rgba(27, 58, 47, 0.15) !important;
+  padding: 1.25rem 1rem;
+  position: sticky;
+  top: 68px;
+  height: calc(100vh - 68px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1020;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), padding 0.25s ease !important;
+  box-shadow: 2px 0 12px rgba(27, 58, 47, 0.04);
+  display: flex;
+  flex-direction: column;
 }
 
-.dasbor-saas-card:hover {
-  box-shadow: 0 8px 24px rgba(27, 58, 47, 0.08) !important;
+/* Mode Sidebar Diciutkan (Icon Rail 72px) - Menghemat Ruang Layar */
+.kupas-sidebar.collapsed {
+  width: 72px !important;
+  padding: 1.25rem 0.4rem !important;
 }
 
-/* 3. KPI STAT METRIC CARDS */
+.kupas-sidebar.collapsed .sidebar-label {
+  display: none !important;
+}
+
+.kupas-sidebar.collapsed .kupas-sidebar-link {
+  justify-content: center !important;
+  padding: 0.75rem 0 !important;
+  gap: 0 !important;
+}
+
+.kupas-sidebar.collapsed #btn-toggle-sidebar {
+  margin: 0 auto !important;
+}
+
+.kupas-sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  min-height: 48px;
+  border-radius: 12px;
+  font-family: var(--n-font-display, 'Grandstander', cursive);
+  font-weight: 700;
+  color: var(--n-rimba, #1B3A2F);
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.kupas-sidebar-link:hover {
+  background-color: rgba(35, 112, 138, 0.08);
+  color: var(--n-laut, #23708A);
+  border-color: rgba(35, 112, 138, 0.2);
+  transform: translateX(2px);
+}
+
+.kupas-sidebar-link.active {
+  background-color: var(--n-rimba, #1B3A2F) !important;
+  color: #FFFFFF !important;
+  border-color: var(--n-rimba, #1B3A2F) !important;
+  box-shadow: 0 4px 10px rgba(27, 58, 47, 0.18);
+}
+
+.kupas-sidebar-link.active svg {
+  stroke: var(--n-kunyit, #F2A541) !important;
+}
+
+/* 3. AREA KONTEN UTAMA FLUID (ANTI-OVERFLOW) */
+.kupas-main-content {
+  flex: 1 1 calc(100% - 250px);
+  min-width: 0 !important;
+  max-width: calc(100% - 250px);
+  padding: 1.5rem !important;
+  box-sizing: border-box;
+  transition: flex 0.25s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.25s ease;
+}
+
+.kupas-app-wrapper.sidebar-collapsed .kupas-main-content {
+  flex: 1 1 calc(100% - 72px) !important;
+  max-width: calc(100% - 72px) !important;
+}
+
+@media (max-width: 1023px) {
+  .kupas-sidebar {
+    display: none !important;
+  }
+  .kupas-main-content {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    padding: 1rem !important;
+    margin-bottom: 72px; /* Ruang untuk bottom nav */
+  }
+}
+
+/* 4. KARTU STATISTIK KPI FLEKSIBEL */
+.stat-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
 .stat-kpi-card {
   background: #FFFFFF;
   border: 1.5px solid rgba(27, 58, 47, 0.12);
   border-radius: 16px;
-  padding: 1.25rem 1.5rem;
+  padding: 1.15rem 1.25rem;
   box-shadow: 0 4px 12px rgba(27, 58, 47, 0.04);
   position: relative;
   overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-width: 0;
+}
+
+.stat-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(27, 58, 47, 0.08);
 }
 
 .stat-kpi-card .kpi-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--n-rimba-lembut, #3E5A4F);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .stat-kpi-card .kpi-nilai {
   font-family: var(--n-font-display, 'Grandstander', cursive);
-  font-size: 2.25rem;
+  font-size: clamp(1.6rem, 2.2vw, 2.25rem);
   font-weight: 800;
   color: var(--n-rimba, #1B3A2F);
   line-height: 1.1;
@@ -60,8 +175,11 @@ body[data-latar-tema="arena-tenang"] {
 }
 
 .stat-kpi-card .kpi-subteks {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #64748B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Aksen Warna Lembut pada Border Kiri KPI */
@@ -70,25 +188,44 @@ body[data-latar-tema="arena-tenang"] {
 .stat-kpi-warning { border-left: 5px solid var(--n-kunyit, #F2A541); }
 .stat-kpi-danger  { border-left: 5px solid var(--n-bata, #B3412E); }
 
-/* 4. TAB NAVIGASI DASBOR */
+/* 5. TAB NAVIGASI DASBOR GURU (RESPONSIF & ANTI-TERPOTONG) */
+.tab-nav-scroller {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+  margin-bottom: 1.25rem;
+  scrollbar-width: thin;
+}
+
 #dasborTab {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+  width: max-content;
+  min-width: 100%;
   background: #FFFFFF !important;
   border: 1.5px solid rgba(27, 58, 47, 0.15) !important;
   border-radius: 16px !important;
   padding: 0.4rem !important;
-  gap: 0.35rem !important;
+  gap: 0.4rem !important;
   box-shadow: 0 4px 12px rgba(27, 58, 47, 0.04) !important;
 }
 
 #dasborTab .nav-link {
   font-family: var(--n-font-display, 'Grandstander', cursive) !important;
   font-weight: 700 !important;
-  font-size: 0.95rem !important;
+  font-size: 0.9rem !important;
   color: var(--n-rimba, #1B3A2F) !important;
   border-radius: 12px !important;
-  padding: 0.65rem 1.25rem !important;
+  padding: 0.6rem 1.15rem !important;
   transition: all 0.15s ease !important;
   border: 1.5px solid transparent !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
 }
 
 #dasborTab .nav-link:hover:not(.active) {
@@ -100,62 +237,114 @@ body[data-latar-tema="arena-tenang"] {
   background: var(--n-rimba, #1B3A2F) !important;
   color: #FFFFFF !important;
   border-color: var(--n-rimba, #1B3A2F) !important;
-  box-shadow: 0 4px 12px rgba(27, 58, 47, 0.2) !important;
+  box-shadow: 0 4px 10px rgba(27, 58, 47, 0.2) !important;
 }
 
 #dasborTab .nav-link.active svg {
   stroke: var(--n-kunyit, #F2A541) !important;
 }
 
-/* 5. TABEL DATA SAAS BERKONTRAS TINGGI */
-.table-saas-container {
-  background: #FFFFFF;
-  border: 1.5px solid rgba(27, 58, 47, 0.15);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(27, 58, 47, 0.04);
+/* 6. TABEL DATA SAAS ANTI-OVERFLOW DENGAN HORIZONTAL SCROLL INTERNAL */
+.table-responsive {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  border-radius: 14px !important;
+  border: 1.5px solid rgba(27, 58, 47, 0.15) !important;
+  background: #FFFFFF !important;
+  margin-bottom: 0 !important;
 }
 
-.table-saas-container .table {
-  margin-bottom: 0;
+.table {
+  margin-bottom: 0 !important;
+  min-width: 620px;
   vertical-align: middle;
 }
 
-.table-saas-container .table thead th {
-  background: #F8FAFC;
-  color: var(--n-rimba, #1B3A2F);
-  font-family: var(--n-font-display, 'Grandstander', cursive);
-  font-weight: 800;
-  font-size: 0.9rem;
+.table thead th {
+  background: #F8FAFC !important;
+  color: var(--n-rimba, #1B3A2F) !important;
+  font-family: var(--n-font-display, 'Grandstander', cursive) !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 1rem 1.25rem;
-  border-bottom: 2px solid rgba(27, 58, 47, 0.15);
+  padding: 0.85rem 1rem !important;
+  border-bottom: 2px solid rgba(27, 58, 47, 0.15) !important;
+  white-space: nowrap;
 }
 
-.table-saas-container .table tbody td {
-  padding: 1rem 1.25rem;
-  color: var(--n-rimba, #1B3A2F);
-  border-bottom: 1px solid rgba(27, 58, 47, 0.08);
+.table tbody td {
+  padding: 0.85rem 1rem !important;
+  color: var(--n-rimba, #1B3A2F) !important;
+  border-bottom: 1px solid rgba(27, 58, 47, 0.08) !important;
 }
 
-.table-saas-container .table tbody tr:hover {
-  background-color: rgba(242, 165, 65, 0.06);
+.table tbody tr:hover {
+  background-color: rgba(242, 165, 65, 0.06) !important;
 }
 
-/* 6. TOMBOL AKSI GURU SESI & KONTROL */
-.btn-saas-action {
-  font-size: 0.85rem;
-  font-weight: 700;
-  border-radius: 10px;
-  padding: 0.4rem 0.85rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  transition: all 0.15s ease;
+/* 7. MODAL SCROLLABLE (MENCEGAH MODAL MELEBIHI TINGGI LAYAR) */
+.modal-dialog {
+  max-width: 680px;
+  margin: 1.75rem auto;
 }
 
-/* 7. KODE SESI SMARTBOARD (GURU/SESI.HTML) */
+.modal-dialog.modal-lg {
+  max-width: 900px;
+}
+
+.modal-content {
+  max-height: calc(100dvh - 3rem) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-radius: 20px !important;
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  box-shadow: 0 16px 48px rgba(27, 58, 47, 0.22) !important;
+  overflow: hidden !important;
+}
+
+.modal-body {
+  overflow-y: auto !important;
+  max-height: calc(100dvh - 180px) !important;
+  padding: 1.25rem 1.5rem !important;
+}
+
+.modal-header,
+.modal-footer {
+  flex-shrink: 0 !important;
+  background: #FFFDF7 !important;
+}
+
+/* 8. GRAFIK KANVAS FLUID */
+.chart-container-fluid {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  max-height: 280px;
+  overflow: hidden;
+}
+
+/* 9. BEACON STATUS LIVE SESI REALTIME */
+.beacon-live {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22C55E;
+  box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+  animation: beaconPulse 2s infinite;
+  margin-right: 6px;
+}
+
+@keyframes beaconPulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* 10. KONTROL SMARTBOARD FRIENDLY */
 .kode-sesi-display {
   font-family: var(--n-font-display, 'Grandstander', cursive) !important;
   font-size: clamp(2.5rem, 5vw, 4.5rem) !important;
@@ -166,63 +355,4 @@ body[data-latar-tema="arena-tenang"] {
   box-shadow: 0 8px 0 rgba(27, 58, 47, 0.16), 0 16px 32px rgba(27, 58, 47, 0.1) !important;
   padding: 1rem 2rem !important;
   color: var(--n-rimba, #1B3A2F) !important;
-}
-
-/* 8. FORM EDITOR SOAL (GURU/EDITOR.HTML) */
-.editor-opsi-item {
-  background: #FFFFFF;
-  border: 1.5px solid rgba(27, 58, 47, 0.2);
-  border-radius: 14px;
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  transition: all 0.15s ease;
-}
-
-.editor-opsi-item:hover,
-.editor-opsi-item:focus-within {
-  border-color: var(--n-laut, #23708A);
-  box-shadow: 0 0 0 3px rgba(35, 112, 138, 0.15);
-}
-
-/* ==========================================================================
-   AKSESIBILITAS SAAS GURU & KONTROL SMARTBOARD
-   ========================================================================== */
-button:focus-visible,
-.btn:focus-visible,
-input:focus-visible,
-select:focus-visible,
-[tabindex="0"]:focus-visible {
-  outline: 3px solid var(--n-laut, #23708A) !important;
-  outline-offset: 3px !important;
-}
-
-button,
-.btn,
-.nav-link {
-  min-height: 44px;
-}
-
-.smartboard-btn {
-  min-height: 52px !important;
-}
-
-@media (min-width: 1024px) {
-  .smartboard-btn {
-    min-height: 60px !important;
-  }
-}
-
-/* Responsif Mobile & Tablet untuk Dasbor Guru */
-@media (max-width: 768px) {
-  .stat-kpi-card {
-    padding: 1rem;
-  }
-  .stat-kpi-card .kpi-nilai {
-    font-size: 1.85rem;
-  }
-  .table-saas-container {
-    border-radius: 12px;
-  }
 }
