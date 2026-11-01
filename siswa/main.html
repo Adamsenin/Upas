@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../assets/css/tema.css">
   <link rel="stylesheet" href="../assets/css/animasi.css">
   <link rel="stylesheet" href="../assets/css/komponen.css">
+  <link rel="stylesheet" href="../assets/css/petualangan-siswa.css">
   <link rel="stylesheet" href="../assets/css/latar-hidup.css">
 </head>
 <body class="motion-full" data-latar-tema="fokus-kuis">
@@ -30,13 +31,13 @@
 
         <div class="d-flex align-items-center gap-2 flex-wrap">
           <span class="badge bg-light text-dark border border-2 border-dark rounded-pill px-2 py-1" title="Streak Jawaban Benar Beruntun">
-            🔥 Streak: <strong id="badge-streak-siswa">0</strong>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="#F59E0B" stroke="#B45309" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 17c1.38 0 2.5-1.12 2.5-2.5 0-1.63-1.04-2.45-1.74-3.5C11.13 9.94 11 8.87 11 8c0 1-1.5 2-2 3.5-.47 1.4-.5 2.1-.5 3z"/><path d="M12 2c1 3 4 4.5 4 9a6 6 0 1 1-12 0c0-3.5 3-6.5 4-8.5.5 1.5 1.5 2 2 2 1-1 1.5-2 2-2.5z"/></svg> Streak: <strong id="badge-streak-siswa">0</strong>
           </span>
           <span class="badge bg-info-subtle text-dark border border-2 border-dark rounded-pill px-2 py-1" title="Total Poin Pengalaman (XP)">
             ⭐ XP: <strong id="badge-xp-siswa">120</strong>
           </span>
           <div class="d-flex align-items-center bg-warning-subtle border border-2 border-dark rounded-pill px-3 py-1">
-            <span class="small fw-bold me-1">🏆 Skor:</span>
+            <span class="small fw-bold me-1"><svg viewBox="0 0 24 24" width="18" height="18" fill="#F59E0B" stroke="#B45309" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><path d="M4 3h16v6a8 8 0 0 1-16 0V3z"/><path d="M12 17v4"/><path d="M8 21h8"/></svg> Skor:</span>
             <strong class="fs-5 fw-bolder text-dark" id="badge-skor-siswa">0</strong>
           </div>
         </div>
@@ -47,16 +48,16 @@
     <section id="siswa-lobi" class="kupas-card text-center py-5 anim-slide-up">
       <div class="mb-3">
         <img src="../assets/svg/maskot-semangat.svg" alt="Maskot Si Kupas Semangat Menunggu" width="115" height="115" class="anim-melambai mb-2" id="maskot-siswa-lobi">
-        <h1 class="h3 fw-bolder mb-1">Kamu Sudah di Lobi! 🎉</h1>
+        <h1 class="h3 fw-bolder mb-1">Kamu Sudah di Lobi!</h1>
         <p class="text-secondary lead fs-6 mb-3">Siapkan semangatmu! Menunggu Pak/Ibu Guru memulai kuis di layar kelas...</p>
       </div>
 
       <div class="p-3 bg-success-subtle rounded-4 border-2 border-dark d-inline-block anim-denyut">
-        <span class="fw-bolder text-success">✓ Terhubung ke Sesi Kelas Realtime</span>
+        <span class="fw-bolder text-success">Terhubung ke Sesi Kelas Realtime</span>
       </div>
 
       <div class="mt-4 pt-2 text-secondary small">
-        💡 Tip Aksesibilitas: Kamu dapat memakai tombol <strong>1, 2, 3, 4</strong> pada keyboard untuk memilih jawaban!
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a6 6 0 0 0-6 6c0 2.22 1.21 4.16 3 5.2V16a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.8c1.79-1.04 3-2.98 3-5.2a6 6 0 0 0-6-6z"/><line x1="9" y1="21" x2="15" y2="21"/></svg> Tip Aksesibilitas: Kamu dapat memakai tombol <strong>1, 2, 3, 4</strong> pada keyboard untuk memilih jawaban!
       </div>
     </section>
 
@@ -100,12 +101,12 @@
 
       <!-- Wadah Isian Singkat bila tipe isian_singkat -->
       <div id="siswa-wadah-isian" class="d-none mb-3">
-        <label for="siswa-input-isian" class="form-label fw-bold">✏️ Tuliskan Jawaban Singkatmu:</label>
+        <label for="siswa-input-isian" class="form-label fw-bold"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg> Tuliskan Jawaban Singkatmu:</label>
         <input type="text" class="form-control form-control-lg border-2 border-dark fw-bold" id="siswa-input-isian" placeholder="Ketik jawabanmu di sini..." inputmode="text" autocomplete="off" style="font-size: 1.15rem; min-height: 52px;">
       </div>
 
       <button id="btn-kirim-jawaban" class="btn btn-kupas-hijau w-100 py-3 fs-5 smartboard-btn" disabled>
-        Kunci Jawaban 🔒
+        Kunci Jawaban <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
       </button>
 
       <div class="text-center mt-2 text-secondary small">
@@ -126,12 +127,12 @@
       </div>
 
       <div class="feedback-box text-start mb-3" id="feedback-kotak">
-        <h3 class="h6 fw-bolder text-uppercase text-secondary mb-1">💡 Pembahasan IPAS:</h3>
+        <h3 class="h6 fw-bolder text-uppercase text-secondary mb-1"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a6 6 0 0 0-6 6c0 2.22 1.21 4.16 3 5.2V16a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-2.8c1.79-1.04 3-2.98 3-5.2a6 6 0 0 0-6-6z"/><line x1="9" y1="21" x2="15" y2="21"/></svg> Pembahasan IPAS:</h3>
         <p class="fs-6 fw-semibold mb-0 text-dark" id="feedback-penjelasan">Penjelasan konsep rantai makanan...</p>
         <!-- Tombol Pelajari Istilah Kamus (Fitur 6) -->
         <div id="wadah-tombol-kamus-siswa" class="mt-3 d-none">
           <button type="button" id="btn-pelajari-kamus-siswa" class="btn btn-kupas-biru btn-sm fw-bold">
-            📖 Pelajari: -
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Pelajari: -
           </button>
           <div id="detail-kamus-siswa" class="p-3 mt-2 bg-white rounded-3 border-2 border-dark d-none">
             <span class="badge bg-warning text-dark border border-dark rounded-pill mb-1" id="kamus-siswa-kategori"></span>
@@ -151,16 +152,16 @@
       </div>
 
       <div id="feedback-status-lanjut" class="p-2 bg-light rounded-3 border-2 border-dark text-secondary small fw-bold">
-        <span id="feedback-hitung-mundur-teks">⚡ Lanjut otomatis ke soal berikutnya dalam 2 detik...</span>
+        <span id="feedback-hitung-mundur-teks"><svg viewBox="0 0 24 24" width="16" height="16" fill="#F59E0B" stroke="#B45309" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Lanjut otomatis ke soal berikutnya dalam 2 detik...</span>
       </div>
       <button id="btn-langsung-soal-berikutnya" type="button" class="btn btn-kupas-hijau fw-bold mt-2 w-100 smartboard-btn" style="min-height: 48px;">
-        Lanjut Sekarang ➔
+        <span>Lanjut Sekarang</span> <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </button>
     </section>
 
     <!-- TAMPILAN 4: PAPAN PERINGKAT SISWA -->
     <section id="siswa-skor" class="kupas-card d-none anim-slide-up text-center py-4">
-      <h2 class="h3 fw-bolder mb-2">🏆 Papan Peringkat Kelas</h2>
+      <h2 class="h3 fw-bolder mb-2"><svg viewBox="0 0 24 24" width="18" height="18" fill="#F59E0B" stroke="#B45309" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><path d="M4 3h16v6a8 8 0 0 1-16 0V3z"/><path d="M12 17v4"/><path d="M8 21h8"/></svg> Papan Peringkat Kelas</h2>
       <div class="p-3 bg-success-subtle rounded-4 border-3 border-dark mb-3">
         <span class="text-secondary small fw-bold d-block">Posisi Kamu Saat Ini:</span>
         <span class="display-5 fw-bolder text-success" id="siswa-peringkat-kamu">#1</span>
@@ -177,7 +178,7 @@
     <!-- TAMPILAN 5: LAYAR HASIL AKHIR YANG MERIAH -->
     <section id="siswa-hasil" class="kupas-card d-none anim-slide-up text-center py-4">
       <img src="../assets/svg/maskot-bersorak.svg" alt="Maskot Si Kupas Bersorak Gembira" width="120" height="120" class="anim-lompat-benar mb-2">
-      <h2 class="display-6 fw-bolder mb-1">Petualangan Selesai! 🎉</h2>
+      <h2 class="display-6 fw-bolder mb-1">Petualangan Selesai!</h2>
       <p class="text-secondary lead fs-6 mb-3">Hebat sekali! Kamu sudah menyelesaikan tantangan ekosistem hari ini!</p>
 
       <!-- Ringkasan Skor & XP Naik -->
@@ -198,7 +199,7 @@
 
       <!-- Lencana yang Diraih -->
       <div class="p-3 bg-success-subtle rounded-4 border-3 border-dark mb-4 anim-pop mx-auto" style="max-width: 460px;">
-        <span class="fs-1" aria-hidden="true">🎖️</span>
+        <span class="d-inline-flex p-3 rounded-circle" style="background:#FEF3C7;"><svg viewBox="0 0 24 24" width="18" height="18" fill="#F59E0B" stroke="#B45309" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span>
         <h3 class="h5 fw-bolder mb-1 text-dark">Lencana Baru Terbuka: Penjelajah Cilik IPAS</h3>
         <p class="small text-secondary mb-2">Diberikan atas semangat belajar ekosistem & rantai makanan tanpa menyerah!</p>
         <div id="wadah-lencana-akhir" class="d-flex flex-wrap justify-content-center gap-1"></div>
@@ -208,13 +209,13 @@
 
       <div class="d-flex flex-wrap justify-content-center gap-2">
         <a id="btn-lihat-sertifikat-akhir" href="../sertifikat.html" class="btn btn-kupas-kuning btn-lg px-4 smartboard-btn fw-bolder d-none">
-          🏆 Buka Sertifikat Penyelamat Ekosistem
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#F59E0B" stroke="#B45309" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/><path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/><path d="M4 3h16v6a8 8 0 0 1-16 0V3z"/><path d="M12 17v4"/><path d="M8 21h8"/></svg> Buka Sertifikat Penyelamat Ekosistem
         </a>
         <a href="../kamus-belajar.html" class="btn btn-kupas-biru btn-lg px-4 smartboard-btn fw-bold">
-          📖 Buka Kamus Belajar
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> Buka Kamus Belajar
         </a>
         <a href="../index.html" class="btn btn-kupas-hijau btn-lg px-4 smartboard-btn fw-bold">
-          🏠 Kembali ke Beranda
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Kembali ke Beranda
         </a>
       </div>
     </section>
@@ -391,7 +392,7 @@
       const btnKirim = document.getElementById('btn-kirim-jawaban');
 
       btnKirim.disabled = true;
-      btnKirim.textContent = 'Kunci Jawaban 🔒';
+      btnKirim.textContent = 'Kunci Jawaban';
       btnKirim.classList.remove('btn-secondary');
       btnKirim.classList.add('btn-kupas-hijau');
 
@@ -479,7 +480,7 @@
         const indAktif = elemenBtn.querySelector('.indikator-pilih-opsi');
         if (indAktif) {
           indAktif.className = 'badge bg-dark text-white rounded-pill small indikator-pilih-opsi';
-          indAktif.textContent = '✓ Dipilih';
+          indAktif.textContent = 'Dipilih';
         }
         suara.mainkan('klik');
         animasi.pop(elemenBtn);
@@ -607,7 +608,7 @@
       const btnKirim = document.getElementById('btn-kirim-jawaban');
       if (btnKirim) {
         btnKirim.disabled = true;
-        btnKirim.textContent = isTimeout ? 'Waktu Habis ⏱️' : 'Jawaban Terkunci ✓';
+        btnKirim.textContent = isTimeout ? 'Waktu Habis' : 'Jawaban Terkunci';
         btnKirim.classList.remove('btn-kupas-hijau');
         btnKirim.classList.add('btn-secondary');
       }
@@ -765,12 +766,12 @@
       if (benar) {
         maskotFeedback.src = '../assets/svg/maskot-bersorak.svg';
         maskotFeedback.className = 'mb-2 anim-lompat-benar';
-        judulFeedback.textContent = '✓ Hebat, Jawabanmu Benar! 🌟';
+        judulFeedback.textContent = 'Hebat, Jawabanmu Benar!';
         judulFeedback.className = 'h3 fw-bolder mb-1 text-success';
         subpesanFeedback.textContent = infoG.streakJawab >= 2
-          ? `🔥 Luar biasa! Kamu menjawab ${infoG.streakJawab} soal benar berturut-turut!`
+          ? `Luar biasa! Kamu menjawab ${infoG.streakJawab} soal benar berturut-turut!`
           : 'Teruskan langkah hebatmu menjelajahi rantai makanan!';
-        badgePoin.textContent = `✓ +${payload.poin || 10} Poin`;
+        badgePoin.textContent = `+${payload.poin || 10} Poin`;
         badgePoin.className = 'badge fs-6 rounded-pill px-3 py-2 border border-dark bg-success text-white';
         badgeXP.textContent = `+${infoG.streakJawab >= 3 ? 35 : 25} XP ⭐`;
         kotakFeedback.className = 'feedback-box text-start mb-3 feedback-benar';
@@ -780,7 +781,7 @@
       } else {
         maskotFeedback.src = '../assets/svg/maskot-sedih-menyemangati.svg';
         maskotFeedback.className = 'mb-2 anim-melambai';
-        judulFeedback.textContent = payload.isTimeout ? '⏱️ Waktu Habis!' : '💡 Belum Tepat, Ayo Semangat! 💪';
+        judulFeedback.textContent = payload.isTimeout ? 'Waktu Habis!' : 'Belum Tepat, Ayo Semangat!';
         judulFeedback.className = 'h3 fw-bolder mb-1 text-dark';
         subpesanFeedback.textContent = pesanSemangatRamah[(payload.soalIndex || 0) % pesanSemangatRamah.length];
         badgePoin.textContent = '+0 Poin';
@@ -823,7 +824,7 @@
         const k = payload.kamusEntri;
         wadahKamusSiswa.classList.remove('d-none');
         const btnKamus = document.getElementById('btn-pelajari-kamus-siswa');
-        btnKamus.textContent = `📖 Pelajari: ${k.istilah}`;
+        btnKamus.textContent = `Pelajari: ${k.istilah}`;
         document.getElementById('kamus-siswa-kategori').textContent = k.kategori;
         document.getElementById('kamus-siswa-istilah').textContent = k.istilah;
         document.getElementById('kamus-siswa-definisi').textContent = k.definisi;
@@ -867,16 +868,16 @@
       const updateTeksJeda = () => {
         if (teksHitungMundur) {
           if (isSoalTerakhir) {
-            teksHitungMundur.textContent = `🏁 Soal terakhir selesai! Membuka hasil akhir dalam ${sisaDetik} detik...`;
+            teksHitungMundur.textContent = `Soal terakhir selesai! Membuka hasil akhir dalam ${sisaDetik} detik...`;
           } else {
-            teksHitungMundur.textContent = `⚡ Lanjut otomatis ke soal berikutnya dalam ${sisaDetik} detik...`;
+            teksHitungMundur.textContent = `Lanjut otomatis ke soal berikutnya dalam ${sisaDetik} detik...`;
           }
         }
       };
       updateTeksJeda();
 
       if (btnLangsung) {
-        btnLangsung.textContent = isSoalTerakhir ? 'Lihat Hasil Akhir Sekarang ➔' : 'Lanjut Sekarang ➔';
+        btnLangsung.textContent = isSoalTerakhir ? 'Lihat Hasil Akhir Sekarang' : 'Lanjut Sekarang';
       }
 
       const eksekusiLanjut = () => {
@@ -924,7 +925,7 @@
         if (wadahList) {
           daftarPesertaUpdate.slice(0, 5).forEach((p, i) => {
             const adalahSaya = p.id === peserta.id;
-            const medali = i === 0 ? '🥇' : (i === 1 ? '🥈' : (i === 2 ? '🥉' : `#${i + 1}`));
+            const medali = `#${i + 1}`;
             const row = document.createElement('div');
             row.className = `p-2 px-3 rounded-3 border border-2 border-dark d-flex justify-content-between align-items-center anim-slide-up anim-stagger-${Math.min(i + 1, 5)} ${adalahSaya ? 'bg-warning-subtle fw-bolder' : 'bg-white'}`;
             row.innerHTML = `

@@ -1,0 +1,516 @@
+/* ==========================================================================
+   KUPAS KUIS IPAS - Petualangan Siswa (petualangan-siswa.css)
+   Desain Claymorphism, Playful Modern, Aksesibel & Edukatif untuk Kelas V SD
+   Sesuai Rekomendasi Desain UI/UX Pro Max
+   ========================================================================== */
+
+@import './token-nusantara.css';
+
+/* 1. KANVAS DASAR SISWA */
+body[data-latar-tema] {
+  background-color: var(--n-lontar, #FBF3E4) !important;
+  color: var(--n-rimba, #1B3A2F);
+  font-family: var(--n-font-baca, 'Atkinson Hyperlegible', sans-serif);
+}
+
+/* Kartu Claymorphic Lembut untuk Anak SD */
+.kupas-card {
+  background: var(--n-santan, #FFFDF7) !important;
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 22px !important;
+  box-shadow: 0 6px 0 rgba(27, 58, 47, 0.12), 0 14px 28px rgba(27, 58, 47, 0.08), inset 0 2px 0 rgba(255, 255, 255, 0.85) !important;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease !important;
+}
+
+.kupas-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 rgba(27, 58, 47, 0.14), 0 18px 32px rgba(27, 58, 47, 0.10), inset 0 2px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Balon Ucapan Maskot Si Kupas yang Ramah */
+.balon-ucapan-maskot {
+  background: #FFFFFF !important;
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 4px 12px rgba(27, 58, 47, 0.08), inset 0 2px 0 rgba(255, 255, 255, 0.9) !important;
+  padding: 0.9rem 1.25rem !important;
+  position: relative;
+}
+
+.balon-ucapan-maskot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -12px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 12px solid var(--n-rimba, #1B3A2F);
+}
+
+.balon-ucapan-maskot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 10px solid #FFFFFF;
+}
+
+/* ==========================================================================
+   2. RANTAI MAKANAN (RADIAL / CIRCULAR DIORAMA)
+   ========================================================================== */
+.arena-radial-rantai {
+  background: radial-gradient(circle at center, #FFFFFF 0%, #FBF3E4 80%, #F5E8D0 100%);
+  border: 2.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: 28px;
+  box-shadow: inset 0 4px 16px rgba(27, 58, 47, 0.06);
+  padding: 1.5rem;
+}
+
+.radial-center-hub {
+  width: 140px !important;
+  height: 140px !important;
+  background: radial-gradient(circle, #FEF08A 0%, #FDE047 50%, #F2A541 100%) !important;
+  border: 3px solid var(--n-rimba, #1B3A2F) !important;
+  box-shadow: 0 0 28px rgba(242, 165, 65, 0.5), 0 6px 0 rgba(27, 58, 47, 0.18) !important;
+  animation: denyutHub 3s infinite ease-in-out;
+}
+
+@keyframes denyutHub {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.04); }
+}
+
+.radial-slot-drop {
+  border-radius: 20px !important;
+  border: 2.5px dashed var(--n-laut, #23708A) !important;
+  background-color: rgba(207, 230, 236, 0.35) !important;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.radial-slot-drop.slot-target-hover {
+  border-color: var(--n-kunyit, #F2A541) !important;
+  background-color: var(--n-kunyit-muda, #FCE3B8) !important;
+  transform: translate(-50%, -50%) scale(1.12) !important;
+  box-shadow: 0 0 24px rgba(242, 165, 65, 0.65), 0 6px 0 rgba(27, 58, 47, 0.2) !important;
+}
+
+.kartu-makhluk-radial {
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 18px !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 4px 0 rgba(27, 58, 47, 0.16), 0 8px 16px rgba(27, 58, 47, 0.08) !important;
+  cursor: grab;
+}
+
+.kartu-makhluk-radial:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 7px 0 rgba(27, 58, 47, 0.18), 0 12px 20px rgba(27, 58, 47, 0.12) !important;
+}
+
+.kartu-makhluk-radial.kartu-terpilih {
+  border-color: var(--n-kunyit, #F2A541) !important;
+  box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 6px var(--n-kunyit, #F2A541), 0 8px 16px rgba(27, 58, 47, 0.2) !important;
+  animation: kartuTerpilihGoyang 0.4s infinite alternate ease-in-out;
+}
+
+@keyframes kartuTerpilihGoyang {
+  0% { transform: scale(1.03) rotate(-1deg); }
+  100% { transform: scale(1.03) rotate(1deg); }
+}
+
+.panah-busur-energi {
+  stroke: rgba(27, 58, 47, 0.25);
+  stroke-width: 3.5;
+  stroke-dasharray: 8 6;
+  fill: none;
+}
+
+.panah-busur-energi.anim-aliran-energi {
+  stroke: var(--n-pandan, #2E7D4F) !important;
+  stroke-width: 4.5 !important;
+  stroke-dasharray: 12 6 !important;
+  animation: panahAliranMaju 0.8s infinite linear;
+  filter: drop-shadow(0 0 6px rgba(46, 125, 79, 0.6));
+}
+
+@keyframes panahAliranMaju {
+  to { stroke-dashoffset: -18; }
+}
+
+/* ==========================================================================
+   3. SIKLUS AIR (LAB DIORAMA INTERAKTIF)
+   ========================================================================== */
+.lab-stage-container {
+  background: linear-gradient(180deg, #E0F2FE 0%, #BAE6FD 45%, #F0FDF4 75%, #DCFCE7 100%) !important;
+  border: 3px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 26px !important;
+  box-shadow: 0 8px 0 rgba(27, 58, 47, 0.12), 0 18px 36px rgba(27, 58, 47, 0.10) !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.lab-control-panel {
+  background: var(--n-santan, #FFFDF7) !important;
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 22px !important;
+  padding: 1.25rem !important;
+}
+
+.slider-suhu-kupas {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38BDF8 0%, #FBBF24 50%, #EF4444 100%);
+  border: 2px solid var(--n-rimba, #1B3A2F);
+  outline: none;
+}
+
+.slider-suhu-kupas::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3px solid var(--n-rimba, #1B3A2F);
+  box-shadow: 0 3px 0 rgba(27, 58, 47, 0.25);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.slider-suhu-kupas::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* ==========================================================================
+   4. FAKTA VS OPINI (PAPAN DETEKTIF SAINS)
+   ========================================================================== */
+.arena-fakta-opini {
+  background: #FFFDF7;
+  border-radius: 24px;
+}
+
+.kartu-pernyataan-detektif {
+  background: #FFFFFF !important;
+  border: 3px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 24px !important;
+  padding: 1.75rem 1.5rem !important;
+  box-shadow: 0 8px 0 rgba(27, 58, 47, 0.14), 0 18px 32px rgba(27, 58, 47, 0.08) !important;
+  font-family: var(--n-font-baca, 'Atkinson Hyperlegible', sans-serif) !important;
+  font-size: 1.35rem !important;
+  line-height: 1.4 !important;
+  font-weight: 700 !important;
+  color: var(--n-rimba, #1B3A2F) !important;
+}
+
+.dropzone-fakta {
+  background: linear-gradient(180deg, #F0FDF4 0%, #DCFCE7 100%) !important;
+  border: 3px dashed var(--n-pandan, #2E7D4F) !important;
+  border-radius: 22px !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.dropzone-opini {
+  background: linear-gradient(180deg, #FFFBEB 0%, #FEF3C7 100%) !important;
+  border: 3px dashed var(--n-kunyit-tua, #C77F14) !important;
+  border-radius: 22px !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.dropzone-fakta.hover,
+.dropzone-opini.hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(46, 125, 79, 0.35);
+}
+
+.btn-stempel-fakta {
+  background: var(--n-pandan, #2E7D4F) !important;
+  color: #FFFFFF !important;
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 5px 0 var(--n-pandan-tua, #1F5C39), 0 8px 16px rgba(46, 125, 79, 0.3) !important;
+  font-family: var(--n-font-display, 'Grandstander', cursive) !important;
+  font-weight: 800 !important;
+  min-height: 54px !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn-stempel-fakta:active {
+  transform: translateY(4px) !important;
+  box-shadow: 0 1px 0 var(--n-pandan-tua, #1F5C39) !important;
+}
+
+.btn-stempel-opini {
+  background: var(--n-kunyit, #F2A541) !important;
+  color: var(--n-rimba, #1B3A2F) !important;
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 5px 0 var(--n-kunyit-tua, #C77F14), 0 8px 16px rgba(199, 127, 20, 0.3) !important;
+  font-family: var(--n-font-display, 'Grandstander', cursive) !important;
+  font-weight: 800 !important;
+  min-height: 54px !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn-stempel-opini:active {
+  transform: translateY(4px) !important;
+  box-shadow: 0 1px 0 var(--n-kunyit-tua, #C77F14) !important;
+}
+
+/* ==========================================================================
+   5. KAMUS BELAJAR (ENSIKLOPEDIA & FLASHCARD)
+   ========================================================================== */
+.chip-kategori-wadah {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chip-kategori {
+  border: 2px solid var(--n-rimba, #1B3A2F) !important;
+  background: var(--n-santan, #FFFDF7) !important;
+  color: var(--n-rimba, #1B3A2F) !important;
+  border-radius: 999px !important;
+  font-family: var(--n-font-display, 'Grandstander', cursive) !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  padding: 0.45rem 1.15rem !important;
+  white-space: nowrap !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.chip-kategori.active,
+.chip-kategori:hover {
+  background: var(--n-rimba, #1B3A2F) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(27, 58, 47, 0.2) !important;
+}
+
+.kartu-kamus-item {
+  background: #FFFFFF !important;
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 5px 0 rgba(27, 58, 47, 0.12), 0 10px 20px rgba(27, 58, 47, 0.06) !important;
+  padding: 1.25rem !important;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.kartu-kamus-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 0 rgba(27, 58, 47, 0.14), 0 16px 24px rgba(27, 58, 47, 0.10) !important;
+}
+
+/* ==========================================================================
+   6. SERTIFIKAT PRESTASI (PIAGAM EMAS EMAS MEWAH)
+   ========================================================================== */
+.sertifikat-bingkai-emas {
+  background: radial-gradient(circle at center, #FFFFFF 0%, #FFFDF7 60%, #FDF7E7 100%) !important;
+  border: 6px solid #D97706 !important;
+  outline: 3px solid var(--n-rimba, #1B3A2F) !important;
+  outline-offset: -12px !important;
+  border-radius: 28px !important;
+  box-shadow: 0 14px 0 rgba(27, 58, 47, 0.14), 0 24px 48px rgba(27, 58, 47, 0.12) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.sertifikat-bingkai-emas::before {
+  content: '';
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  border: 1.5px dashed #B45309;
+  border-radius: 18px;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   7. GABUNG SESI & MAIN KUIS SISWA (64PX ANSWER BUTTONS & HUD)
+   ========================================================================== */
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 0.75rem;
+}
+
+.avatar-item {
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  border-radius: 18px !important;
+  background: #FFFFFF !important;
+  box-shadow: 0 4px 0 rgba(27, 58, 47, 0.12) !important;
+  padding: 0.75rem 0.5rem !important;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.avatar-item:hover {
+  transform: translateY(-2px);
+  background: var(--n-kunyit-muda, #FCE3B8) !important;
+}
+
+.avatar-item.terpilih {
+  background: #FEF3C7 !important;
+  border-color: #B45309 !important;
+  box-shadow: 0 0 0 3px #FFFFFF, 0 0 0 5px #F59E0B, 0 6px 0 rgba(27, 58, 47, 0.16) !important;
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* Tombol Jawaban Besar 64px untuk Siswa SD */
+.opsi-jawaban-siswa {
+  min-height: 64px !important;
+  border-radius: 18px !important;
+  border: 2.5px solid var(--n-rimba, #1B3A2F) !important;
+  box-shadow: 0 5px 0 rgba(27, 58, 47, 0.18), 0 8px 16px rgba(27, 58, 47, 0.08) !important;
+  font-family: var(--n-font-baca, 'Atkinson Hyperlegible', sans-serif) !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0.75rem 1.25rem !important;
+  text-align: left !important;
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  position: relative !important;
+}
+
+.opsi-jawaban-siswa:hover:not(:disabled) {
+  transform: translateY(-2px) scale(1.01) !important;
+}
+
+.opsi-jawaban-siswa:active:not(:disabled) {
+  transform: translateY(3px) !important;
+  box-shadow: 0 2px 0 rgba(27, 58, 47, 0.18) !important;
+}
+
+.opsi-a-koral {
+  background-color: #FFF1F2 !important;
+  color: #9F1239 !important;
+}
+.opsi-a-koral .badge-huruf {
+  background-color: #E11D48 !important;
+  color: #FFFFFF !important;
+}
+
+.opsi-b-laut {
+  background-color: #F0F9FF !important;
+  color: #075985 !important;
+}
+.opsi-b-laut .badge-huruf {
+  background-color: #0284C7 !important;
+  color: #FFFFFF !important;
+}
+
+.opsi-c-kunyit {
+  background-color: #FEFCE8 !important;
+  color: #854D0E !important;
+}
+.opsi-c-kunyit .badge-huruf {
+  background-color: #F59E0B !important;
+  color: #000000 !important;
+}
+
+.opsi-d-pandan {
+  background-color: #F0FDF4 !important;
+  color: #166534 !important;
+}
+.opsi-d-pandan .badge-huruf {
+  background-color: #16A34A !important;
+  color: #FFFFFF !important;
+}
+
+.badge-huruf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 2px solid var(--n-rimba, #1B3A2F);
+  font-family: var(--n-font-display, 'Grandstander', cursive);
+  font-weight: 800;
+  font-size: 1.25rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   AKSESIBILITAS WCAG & STABILISASI SENTUH SMARTBOARD / TABLET / HP
+   ========================================================================== */
+button:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 3px solid var(--n-laut, #23708A) !important;
+  outline-offset: 3px !important;
+}
+
+/* Ukuran Target Sentuh Minimal 48px di HP */
+button,
+.btn,
+.nav-link,
+.chip-kategori,
+.avatar-item {
+  min-height: 48px;
+}
+
+/* Ukuran Tombol Smartboard Minimal 56px - 64px */
+.smartboard-btn {
+  min-height: 56px !important;
+}
+
+@media (min-width: 1024px) {
+  .smartboard-btn {
+    min-height: 64px !important;
+    font-size: 1.15rem !important;
+  }
+}
+
+/* Responsif Layar Kecil (375px) */
+@media (max-width: 480px) {
+  .arena-radial-rantai {
+    min-height: 480px !important;
+    padding: 0.5rem !important;
+  }
+  .radial-center-hub {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .radial-slot-drop {
+    width: 95px !important;
+    height: 125px !important;
+  }
+  .kartu-makhluk-radial {
+    padding: 0.35rem 0.25rem !important;
+  }
+  .kartu-nama-teks {
+    font-size: 0.72rem !important;
+  }
+  .kartu-pernyataan-detektif {
+    font-size: 1.1rem !important;
+    padding: 1.25rem 1rem !important;
+  }
+  .opsi-jawaban-siswa {
+    min-height: 58px !important;
+    font-size: 1rem !important;
+    padding: 0.6rem 0.85rem !important;
+  }
+}

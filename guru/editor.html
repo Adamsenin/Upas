@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../assets/css/tema.css">
   <link rel="stylesheet" href="../assets/css/animasi.css">
   <link rel="stylesheet" href="../assets/css/komponen.css">
+  <link rel="stylesheet" href="../assets/css/dasbor-saas-guru.css">
   <link rel="stylesheet" href="../assets/css/latar-hidup.css">
 </head>
 <body class="motion-full" data-latar-tema="tenang">
@@ -24,10 +25,10 @@
       </div>
       <div class="d-flex flex-wrap gap-2">
         <button id="btn-simpan-kuis" type="button" class="btn btn-kupas-hijau px-4 smartboard-btn shadow-sm">
-          💾 Simpan Kuis
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> <span>Simpan Kuis</span>
         </button>
         <button id="btn-simpan-dan-mulai" type="button" class="btn btn-kupas-kuning px-4 smartboard-btn fw-bold shadow-sm d-inline-flex align-items-center gap-2">
-          <span>🚀</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
           <span>Simpan & Langsung Mulai Sesi</span>
         </button>
       </div>
@@ -90,7 +91,7 @@
             <h2 class="h5 fw-bolder mb-0">Daftar Soal (<span id="jumlah-soal">0</span>)</h2>
             <div class="d-flex gap-1">
               <button id="btn-ambil-bank-soal" type="button" class="btn btn-kupas-biru btn-sm fw-bold d-inline-flex align-items-center gap-1 shadow-sm" title="Ambil butir soal dari bank soal yang telah tersedia">
-                <span>📚</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
                 <span>Ambil dari Bank Soal</span>
               </button>
               <button id="btn-tambah-soal" type="button" class="btn btn-kupas-kuning btn-sm fw-bold shadow-sm">
@@ -205,7 +206,7 @@
       <div class="modal-content kupas-card border-3 border-dark">
         <div class="modal-header border-bottom border-2 border-dark py-3" style="background-color: var(--kupas-cream-bg, #FFF6E0);">
           <div class="d-flex align-items-center gap-2">
-            <span class="fs-3" aria-hidden="true">📚</span>
+            <span class="d-inline-flex p-2 rounded-circle" style="background:rgba(35,112,138,0.12);"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg></span>
             <div>
               <h2 class="modal-title h5 fw-bolder text-dark mb-0" id="labelModalBankSoal">Pilih Soal dari Bank Soal IPAS</h2>
               <small class="text-secondary">Pilih satu atau beberapa butir pertanyaan yang sudah ada di bank soal untuk dimasukkan ke kuis ini.</small>
@@ -218,7 +219,7 @@
           <!-- Filter dan Pencarian Bank Soal -->
           <div class="row g-2 mb-3">
             <div class="col-12 col-md-5">
-              <input type="text" id="cari-bank-editor" class="form-control border-2 border-dark fw-semibold" placeholder="🔍 Cari teks soal / kata kunci...">
+              <input type="text" id="cari-bank-editor" class="form-control border-2 border-dark fw-semibold" placeholder="Cari teks soal / kata kunci...">
             </div>
             <div class="col-6 col-md-4">
               <select id="filter-bank-bab-editor" class="form-select border-2 border-dark fw-semibold">
@@ -636,7 +637,7 @@
       if (terfilter.length === 0) {
         wadah.innerHTML = `
           <div class="text-center py-4 text-secondary p-3 bg-light rounded-3 border">
-            <span class="fs-3 d-block mb-1">📭</span>
+            <span class="d-inline-flex p-3 rounded-circle mb-2" style="background:#F1F5F9;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
             <span>Tidak ada butir soal yang sesuai dengan pencarian atau filter.</span>
           </div>
         `;
@@ -670,7 +671,7 @@
             </div>
             <p class="fw-bold mb-1 text-dark">${s.teks}</p>
             ${opsiPreview ? `<div class="d-flex flex-wrap mt-1">${opsiPreview}</div>` : ''}
-            ${s.penjelasan ? `<small class="text-secondary d-block mt-1"><em>💡 ${s.penjelasan}</em></small>` : ''}
+            ${s.penjelasan ? `<small class="text-secondary d-block mt-1"><em>${s.penjelasan}</em></small>` : ''}
           </div>
         `;
 
@@ -839,11 +840,11 @@
       } catch (err) {
         if (btnSimpan) {
           btnSimpan.disabled = false;
-          btnSimpan.textContent = '💾 Simpan Kuis';
+          btnSimpan.textContent = 'Simpan Kuis';
         }
         if (btnMulai) {
           btnMulai.disabled = false;
-          btnMulai.innerHTML = '<span>🚀</span> <span>Simpan & Langsung Mulai Sesi</span>';
+          btnMulai.innerHTML = '<span>Simpan & Langsung Mulai Sesi</span>';
         }
         alert('Gagal menyimpan kuis: ' + err.message);
       }
