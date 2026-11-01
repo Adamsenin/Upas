@@ -263,7 +263,9 @@ class GameRantaiMakanan {
     // Pusat Energi Hub (Matahari / Ekosistem)
     const centerHub = `
       <div class="radial-center-hub anim-pop" aria-hidden="true">
-        <span class="fs-1 d-block anim-melambai" style="line-height: 1;">☀️</span>
+        <span class="d-inline-flex align-items-center justify-content-center anim-melambai" style="width: 44px; height: 44px;" aria-hidden="true">
+    <svg viewBox="0 0 48 48" width="40" height="40" fill="none"><circle cx="24" cy="24" r="11" fill="#FEF08A" stroke="#B45309" stroke-width="2.5"/><path d="M24 4V10M24 38V44M4 24H10M38 24H44M9.86 9.86L14.1 14.1M33.9 33.9L38.14 38.14M9.86 38.14L14.1 33.9M33.9 14.1L38.14 9.86" stroke="#B45309" stroke-width="3" stroke-linecap="round"/></svg>
+  </span>
         <span class="badge bg-white text-dark border border-dark rounded-pill px-2 py-0 mt-1 fw-bold" style="font-size: 0.65rem;">
           Aliran Energi
         </span>

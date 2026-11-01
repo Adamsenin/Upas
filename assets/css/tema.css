@@ -4,36 +4,37 @@
    Tema: Hutan Tropis Indonesia, Krem Hangat & Aksen Marigold/Koral
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Grandstander:wght@600;700;800;900&family=Atkinson+Hyperlegible:wght@400;700&family=Nunito:wght@600;700;800;900&display=swap');
+@import './token-nusantara.css';
 
 :root {
   /* 1. Palet Desain "Diorama Ekosistem" (Patokan Ketat) */
-  --kupas-forest-dark: #0F3D2E;      /* Hijau Hutan Tua (Teks, kontur, elemen utama) */
+  --kupas-forest-dark: var(--n-rimba, #1B3A2F);      /* Hijau Hutan Tua (Teks, kontur, elemen utama) */
   --kupas-forest-hover: #0A291F;
   --kupas-forest-light: #165B45;
   --kupas-forest-soft: #E8F5EE;
 
-  --kupas-cream-bg: #FFF6E0;         /* Krem Hangat (Latar utama & kartu kanvas) */
-  --kupas-cream-surface: #FFFFFF;    /* Putih murni untuk kontras kartu tertentu */
-  --kupas-cream-alt: #FBF0D3;
+  --kupas-cream-bg: var(--n-lontar, #FBF3E4);         /* Krem Hangat (Latar utama & kartu kanvas) */
+  --kupas-cream-surface: var(--n-santan, #FFFDF7);    /* Putih murni untuk kontras kartu tertentu */
+  --kupas-cream-alt: var(--n-lontar-gelap, #F1E4CB);
 
-  --kupas-marigold: #F59E0B;         /* Kuning Marigold (Aksi Utama / CTA Mulai) */
-  --kupas-marigold-hover: #D97706;
-  --kupas-marigold-light: #FEF3C7;
+  --kupas-marigold: var(--n-kunyit, #F2A541);         /* Kuning Marigold (Aksi Utama / CTA Mulai) */
+  --kupas-marigold-hover: var(--n-kunyit-tua, #C77F14);
+  --kupas-marigold-light: var(--n-kunyit-muda, #FCE3B8);
 
-  --kupas-coral: #E11D48;            /* Koral Berani (Mode Duel Tim & Urgensi) */
+  --kupas-coral: var(--n-bata, #B3412E);            /* Koral Berani (Mode Duel Tim & Urgensi) */
   --kupas-coral-hover: #BE123C;
-  --kupas-coral-soft: #FFE4E6;
+  --kupas-coral-soft: #FDE8E4;
 
-  --kupas-water-blue: #0284C7;       /* Biru Samudra (HANYA zona air/danau/siklus air) */
-  --kupas-water-hover: #0369A1;
-  --kupas-water-soft: #E0F2FE;
+  --kupas-water-blue: var(--n-laut, #23708A);       /* Biru Samudra (HANYA zona air/danau/siklus air) */
+  --kupas-water-hover: var(--n-laut-tua, #17566B);
+  --kupas-water-soft: var(--n-laut-muda, #CFE6EC);
 
   /* Semantik & Feedback Siswa */
-  --kupas-success: #16A34A;
-  --kupas-success-soft: #DCFCE7;
-  --kupas-danger: #E11D48;
-  --kupas-danger-soft: #FFE4E6;
+  --kupas-success: var(--n-pandan, #2E7D4F);
+  --kupas-success-soft: var(--n-pandan-muda, #CFE8D6);
+  --kupas-danger: var(--n-bata, #B3412E);
+  --kupas-danger-soft: #FDE8E4;
   --kupas-warning: #F59E0B;
   --kupas-warning-soft: #FEF3C7;
 
@@ -71,8 +72,8 @@
   --kupas-kartu-bg: #FFFFFF;
 
   /* 2. Tipografi Diorama Ramah Anak */
-  --font-heading: 'Fredoka', cursive, system-ui, -apple-system, sans-serif;
-  --font-body: 'Nunito', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Grandstander', 'Fredoka', cursive, system-ui, -apple-system, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', 'Nunito', system-ui, -apple-system, sans-serif;
   --kupas-font-heading: var(--font-heading);
   --kupas-font-body: var(--font-body);
 
@@ -102,12 +103,12 @@
   --kupas-radius-pill: 9999px;
 
   /* 5. Garis Kontur & Bayangan Game 2D */
-  --kupas-garis-tipis: 2px solid var(--kupas-forest-dark);
-  --kupas-garis-tebal: 3.5px solid var(--kupas-forest-dark);
-  --kupas-bayangan-sm: 2.5px 2.5px 0px var(--kupas-forest-dark);
-  --kupas-bayangan: 4px 4px 0px var(--kupas-forest-dark), 0 8px 16px rgba(15, 61, 46, 0.08);
-  --kupas-bayangan-lg: 6px 6px 0px var(--kupas-forest-dark), 0 14px 28px rgba(15, 61, 46, 0.12);
-  --kupas-bayangan-cta: 0 6px 0px #92400E, 0 12px 24px rgba(245, 158, 11, 0.35);
+  --kupas-garis-tipis: 1.5px solid var(--kupas-forest-dark);
+  --kupas-garis-tebal: 2.5px solid var(--kupas-forest-dark);
+  --kupas-bayangan-sm: 0 3px 0 rgba(27, 58, 47, 0.16), 0 4px 10px rgba(27, 58, 47, 0.05);
+  --kupas-bayangan: 0 6px 0 rgba(27, 58, 47, 0.12), 0 14px 28px rgba(27, 58, 47, 0.08), inset 0 2px 0 rgba(255, 255, 255, 0.85);
+  --kupas-bayangan-lg: 0 10px 0 rgba(27, 58, 47, 0.14), 0 22px 36px rgba(27, 58, 47, 0.10), inset 0 2px 0 rgba(255, 255, 255, 0.9);
+  --kupas-bayangan-cta: 0 5px 0 var(--n-kunyit-tua, #C77F14), 0 10px 24px rgba(199, 127, 20, 0.32);
 
   /* 6. Skala Z-Index */
   --z-base: 1;
@@ -197,7 +198,7 @@ button, .btn, .opsi-jawaban, .avatar-pilihan, .avatar-item {
   border-radius: var(--kupas-radius);
   border: var(--kupas-garis-tebal);
   box-shadow: var(--kupas-bayangan);
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease;
   cursor: pointer;
   touch-action: manipulation;
 }
@@ -220,7 +221,8 @@ button, .btn, .opsi-jawaban, .avatar-pilihan, .avatar-item {
 button:active:not(:disabled),
 .btn:active:not(:disabled),
 .opsi-jawaban:active:not(:disabled) {
-  transform: scale(0.95) translate(2px, 2px);
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(27, 58, 47, 0.15);
 }
 
 button:disabled, .btn:disabled {
