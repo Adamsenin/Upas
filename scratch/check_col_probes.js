@@ -16,3 +16,4 @@ async function checkColumns() {
 }
 
 checkColumns();
+

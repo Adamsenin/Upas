@@ -9,3 +9,4 @@ km = km.replace(/id="modalKamus"[^>]*>[\r\n\s]*<div class="modal-dialog modal-di
 fs.writeFileSync('guru/kamus.html', km, 'utf8');
 
 console.log('Scrollable modals applied to editor.html and kamus.html!');
+

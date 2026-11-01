@@ -342,3 +342,4 @@ content = content.replace(endWindowOld, endWindowNew);
 
 fs.writeFileSync(kuisPath, content, 'utf-8');
 console.log('Successfully updated assets/js/kuis.js with unbreakable adaptive engine!');
+

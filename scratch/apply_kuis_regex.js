@@ -91,3 +91,4 @@ if (isCRLF) {
 
 fs.writeFileSync(kuisPath, content, 'utf-8');
 console.log('Clean regex replacement complete.');
+

@@ -19,3 +19,4 @@ content = content.replace(
 
 fs.writeFileSync(kuisPath, content, 'utf8');
 console.log('Fixed extra brace in simpanSoal.');
+

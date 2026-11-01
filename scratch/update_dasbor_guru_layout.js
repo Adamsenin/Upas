@@ -67,3 +67,4 @@ html = html.replace(/class="modal-dialog"/g, 'class="modal-dialog modal-dialog-c
 
 fs.writeFileSync('guru/dasbor.html', html, 'utf8');
 console.log('Successfully updated guru/dasbor.html layout!');
+

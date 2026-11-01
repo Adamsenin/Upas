@@ -24,3 +24,4 @@ dasborHtml = dasborHtml.replace(
 );
 fs.writeFileSync('guru/dasbor.html', dasborHtml, 'utf8');
 console.log('Updated guru/dasbor.html');
+

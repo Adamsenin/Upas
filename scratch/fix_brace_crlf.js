@@ -14,3 +14,4 @@ if (hadCRLF) {
 }
 fs.writeFileSync('assets/js/kuis.js', content, 'utf8');
 console.log('Fixed brace via normalized CRLF');
+
