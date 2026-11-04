@@ -73,3 +73,4 @@ if (isCRLF) {
 
 fs.writeFileSync('assets/js/ui.js', content, 'utf8');
 console.log('Successfully updated assets/js/ui.js with Adventure navigation');
+

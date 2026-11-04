@@ -560,3 +560,4 @@ console.log('Generating adventure PNG assets...');
 }
 
 console.log('All Adventure PNG assets successfully created!');
+

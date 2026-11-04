@@ -1,11 +1,14 @@
 /**
- * KUPAS KUIS IPAS v4.0 - Mesin Petualangan Mandiri (adventure-platformer.js)
+ * KUPAS KUIS IPAS v4.2 - Mesin Petualangan Mandiri (adventure-platformer.js)
  * Platformer 2D Side-scroller Edukasi IPAS Kelas V SD
  *
  * Fitur:
  * - 60 FPS Physics Engine (Gravity, Momentum, Solid Tile Collisions).
  * - Multi-layer Parallax Scrolling (Sky, Hills, Foliage, Playfield).
- * - Animated Character Sprite System (Idle, Run, Jump, Fall, Cheer).
+ * - Custom Game Assets System (Organized Asset Manifest & Dynamic Loader).
+ * - Custom Character Sprite System (Configurable Spritesheet, Scale, Origin Anchor).
+ * - 7 Player Animation States: Idle, Run, Jump, Fall, Land, Hurt, Celebrate.
+ * - Invariant Player Hitbox & Physics (Physics invariant across all custom characters).
  * - 5 Interactive Environmental Story Challenges (Jembatan, Bunga, Kincir, Koleksi, Gerbang).
  * - Standalone IPAS Question Engine (No Lobby, No Sockets, No Sesi Dependency).
  * - Multi-platform Controls: Keyboard (WASD/Arrows/Space/E) & Mobile Virtual Touch Buttons.
@@ -110,7 +113,7 @@ class AdventureAudio {
       const gain = this.ctx.createGain();
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(150, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(320, this.ctx.currentTime + 0.15);
+      osc.frequency.exponentialRampToValueAtTime(340, this.ctx.currentTime + 0.15);
       gain.gain.setValueAtTime(0.18, this.ctx.currentTime);
       gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
       osc.connect(gain);
@@ -172,19 +175,21 @@ class AdventureAudio {
       const gain = this.ctx.createGain();
       osc.type = 'sawtooth';
       osc.frequency.setValueAtTime(220, now);
-      osc.frequency.linearRampToValueAtTime(180, now + 0.2);
-      gain.gain.setValueAtTime(0.12, now);
-      gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
+      osc.frequency.linearRampToValueAtTime(160, now + 0.22);
+      gain.gain.setValueAtTime(0.14, now);
+      gain.gain.linearRampToValueAtTime(0.01, now + 0.22);
       osc.connect(gain);
       gain.connect(this.ctx.destination);
       osc.start();
-      osc.stop(now + 0.2);
+      osc.stop(now + 0.22);
     } catch (e) {}
   }
 
   toggleMute() {
     this.muted = !this.muted;
-    localStorage.setItem('kupas_suara_aktif', this.muted ? 'false' : 'true');
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('kupas_suara_aktif', this.muted ? 'false' : 'true');
+    }
     return !this.muted;
   }
 }
@@ -192,7 +197,324 @@ class AdventureAudio {
 export const adventureAudio = new AdventureAudio();
 
 // ============================================================================
-// 3. BANK SOAL & TANTANGAN IPAS PADANG RUMPUT (STANDALONE)
+// 3. ASSET MANIFEST & CUSTOM GAME ASSETS ARCHITECTURE
+// ============================================================================
+export const DEFAULT_MANIFEST = {
+  version: "1.2.0",
+  name: "KUPAS Adventure Asset Manifest",
+  defaultCharacter: "si_kupas",
+  characters: {
+    si_kupas: {
+      id: "si_kupas",
+      name: "Si Kupas Penjelajah",
+      badge: "Penjelajah Padang",
+      avatar: "assets/svg/maskot-senang.svg",
+      description: "Pemberani, lincah, dan penuh semangat menjaga keharmonisan ekosistem nusantara.",
+      spriteSrc: "assets/images/adventure/character-spritesheet.png",
+      frameWidth: 48,
+      frameHeight: 48,
+      scale: 1.0,
+      anchorX: 24,
+      anchorY: 46,
+      animations: {
+        idle: { name: "idle", frames: [0], speed: 4, loop: true },
+        run: { name: "run", frames: [1, 2, 3, 4], speed: 10, loop: true },
+        jump: { name: "jump", frames: [5], speed: 1, loop: false },
+        fall: { name: "fall", frames: [6], speed: 1, loop: false },
+        land: { name: "land", frames: [0], speed: 8, loop: false },
+        hurt: { name: "hurt", frames: [8], speed: 4, loop: false },
+        celebrate: { name: "celebrate", frames: [7], speed: 6, loop: true }
+      }
+    },
+    rara: {
+      id: "rara",
+      name: "Rara Peneliti Alam",
+      badge: "Peneliti Ekosistem",
+      avatar: "assets/images/adventure/character-rara.png",
+      description: "Cerdas, teliti, gemar mencatat observasi flora fauna dan fenomena ilmiah di lapangan.",
+      spriteSrc: "assets/images/adventure/character-rara.png",
+      frameWidth: 48,
+      frameHeight: 48,
+      scale: 1.0,
+      anchorX: 24,
+      anchorY: 46,
+      animations: {
+        idle: { name: "idle", frames: [0], speed: 4, loop: true },
+        run: { name: "run", frames: [1, 2, 3, 4], speed: 10, loop: true },
+        jump: { name: "jump", frames: [5], speed: 1, loop: false },
+        fall: { name: "fall", frames: [6], speed: 1, loop: false },
+        land: { name: "land", frames: [0], speed: 8, loop: false },
+        hurt: { name: "hurt", frames: [8], speed: 4, loop: false },
+        celebrate: { name: "celebrate", frames: [7], speed: 6, loop: true }
+      }
+    }
+  },
+  environments: {
+    level1: {
+      id: 1,
+      nama: "Padang Rumput Asri",
+      bgSky: "assets/images/adventure/bg-sky.png",
+      bgTrees: "assets/images/adventure/bg-trees.png",
+      tileset: "assets/images/adventure/tileset-grassland.png",
+      banner: "assets/images/adventure/level1-banner.png",
+      skyParallax: 0.1,
+      treesParallax: 0.35
+    }
+  },
+  props: {
+    jembatan: { x: 760, y: 432, width: 200, height: 32, repairPrompt: "Perbaiki Jembatan" },
+    bunga: { x: 1400, y: 400, waterPrompt: "Bantu Bunga Liar" },
+    kincir: { x: 2060, y: 380, turnPrompt: "Putar Kincir Air" },
+    gerbang: { x: 3350, y: 304, width: 80, height: 140, openPrompt: "Buka Gerbang Padang" }
+  },
+  collectibles: {
+    biotik: [
+      { id: "bio_kupu", name: "Kupu-kupu Biru", icon: "🦋", x: 2350, y: 300 },
+      { id: "bio_jamur", name: "Jamur Hutan", icon: "🍄", x: 2540, y: 225 },
+      { id: "bio_ulat", name: "Ulat Daun", icon: "🐛", x: 2740, y: 295 }
+    ],
+    abiotik: [
+      { id: "abio_air", name: "Tetes Air Sungai", icon: "💧", x: 2420, y: 400 },
+      { id: "abio_batu", name: "Batu Kerikil", icon: "🪨", x: 2620, y: 400 },
+      { id: "abio_cahaya", name: "Kristal Sinar Mentari", icon: "☀️", x: 2940, y: 215 }
+    ]
+  }
+};
+
+/**
+ * Pengelola Aset Permainan Terorganisasi (AdventureAssetManager)
+ * Mendukung pemuatan dinamis manifest, penggantian aset kustom, dan caching gambar.
+ */
+export class AdventureAssetManager {
+  constructor(manifest = DEFAULT_MANIFEST) {
+    this.manifest = JSON.parse(JSON.stringify(manifest));
+    this.images = new Map();
+    this.activeCharacterId = (typeof localStorage !== 'undefined' && localStorage.getItem('kupas_selected_character')) || 'si_kupas';
+    this.customCharacterConfig = null;
+
+    this.muatKarakterKustomTersimpan();
+  }
+
+  muatKarakterKustomTersimpan() {
+    try {
+      if (typeof localStorage !== 'undefined') {
+        const stored = localStorage.getItem('kupas_custom_character');
+        if (stored) {
+          this.customCharacterConfig = JSON.parse(stored);
+        }
+      }
+    } catch (e) {}
+  }
+
+  async init() {
+    // Muat file manifest eksternal jika didukung oleh browser/fetch
+    try {
+      if (typeof fetch === 'function') {
+        const res = await fetch('assets/data/adventure-manifest.json');
+        if (res.ok) {
+          const json = await res.json();
+          if (json && json.characters) {
+            this.manifest = json;
+          }
+        }
+      }
+    } catch (e) {
+      // Tetap gunakan DEFAULT_MANIFEST yang sudah tertanam
+    }
+
+    this.muatKarakterKustomTersimpan();
+    await this.preloadAll();
+  }
+
+  getCharacters() {
+    const chars = Object.values(this.manifest.characters);
+    if (this.customCharacterConfig) {
+      chars.push(this.customCharacterConfig);
+    }
+    return chars;
+  }
+
+  getSelectedCharacter() {
+    if (this.activeCharacterId === 'custom' && this.customCharacterConfig) {
+      return this.customCharacterConfig;
+    }
+    return this.manifest.characters[this.activeCharacterId] || this.manifest.characters.si_kupas;
+  }
+
+  setSelectedCharacter(charId) {
+    if (this.manifest.characters[charId] || (charId === 'custom' && this.customCharacterConfig)) {
+      this.activeCharacterId = charId;
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('kupas_selected_character', charId);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  setCustomCharacter(config) {
+    this.customCharacterConfig = {
+      id: 'custom',
+      name: config.name || 'Karakter Kustom',
+      badge: config.badge || 'Penjelajah Kustom',
+      avatar: config.spriteSrc,
+      description: config.description || 'Karakter sprite khusus buatan siswa/guru.',
+      spriteSrc: config.spriteSrc,
+      frameWidth: Number(config.frameWidth) || 48,
+      frameHeight: Number(config.frameHeight) || 48,
+      scale: Number(config.scale) || 1.0,
+      anchorX: config.anchorX !== undefined ? Number(config.anchorX) : (Number(config.frameWidth) ? Number(config.frameWidth) / 2 : 24),
+      anchorY: config.anchorY !== undefined ? Number(config.anchorY) : (Number(config.frameHeight) ? Number(config.frameHeight) - 2 : 46),
+      animations: config.animations || {
+        idle: { name: 'idle', frames: [0], speed: 4, loop: true },
+        run: { name: 'run', frames: [1, 2, 3, 4], speed: 10, loop: true },
+        jump: { name: 'jump', frames: [5], speed: 1, loop: false },
+        fall: { name: 'fall', frames: [6], speed: 1, loop: false },
+        land: { name: 'land', frames: [0], speed: 8, loop: false },
+        hurt: { name: 'hurt', frames: [8], speed: 4, loop: false },
+        celebrate: { name: 'celebrate', frames: [7], speed: 6, loop: true }
+      }
+    };
+
+    if (typeof localStorage !== 'undefined') {
+      try {
+        localStorage.setItem('kupas_custom_character', JSON.stringify(this.customCharacterConfig));
+        localStorage.setItem('kupas_selected_character', 'custom');
+      } catch (e) {}
+    }
+    this.activeCharacterId = 'custom';
+    return this.customCharacterConfig;
+  }
+
+  getImage(src) {
+    if (!src) return null;
+    if (!this.images.has(src)) {
+      const img = new Image();
+      img.src = src;
+      this.images.set(src, img);
+    }
+    return this.images.get(src);
+  }
+
+  loadImage(src) {
+    return new Promise((resolve) => {
+      if (!src) return resolve(null);
+      const img = this.getImage(src);
+      if (img.complete) return resolve(img);
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(img);
+    });
+  }
+
+  async preloadAll() {
+    const promises = [];
+    for (const char of this.getCharacters()) {
+      if (char.spriteSrc) promises.push(this.loadImage(char.spriteSrc));
+    }
+    const env = this.manifest.environments.level1;
+    if (env) {
+      if (env.bgSky) promises.push(this.loadImage(env.bgSky));
+      if (env.bgTrees) promises.push(this.loadImage(env.bgTrees));
+      if (env.tileset) promises.push(this.loadImage(env.tileset));
+      if (env.banner) promises.push(this.loadImage(env.banner));
+    }
+    return Promise.allSettled(promises);
+  }
+}
+
+export const adventureAssetManager = new AdventureAssetManager();
+
+// ============================================================================
+// 4. ANIMATOR SPRITE FLEKSIBEL (7 ANIMATION STATES: IDLE, RUN, JUMP, FALL, LAND, HURT, CELEBRATE)
+// ============================================================================
+export class SpriteAnimator {
+  constructor(charConfig = {}) {
+    this.setConfig(charConfig);
+    this.currentAnim = 'idle';
+    this.frameIndex = 0;
+    this.timer = 0;
+  }
+
+  setConfig(config) {
+    this.config = {
+      frameWidth: Number(config.frameWidth) || 48,
+      frameHeight: Number(config.frameHeight) || 48,
+      scale: Number(config.scale) || 1.0,
+      anchorX: config.anchorX !== undefined ? Number(config.anchorX) : 24,
+      anchorY: config.anchorY !== undefined ? Number(config.anchorY) : 46,
+      animations: config.animations || {
+        idle: { name: 'idle', frames: [0], speed: 4, loop: true },
+        run: { name: 'run', frames: [1, 2, 3, 4], speed: 10, loop: true },
+        jump: { name: 'jump', frames: [5], speed: 1, loop: false },
+        fall: { name: 'fall', frames: [6], speed: 1, loop: false },
+        land: { name: 'land', frames: [0], speed: 8, loop: false },
+        hurt: { name: 'hurt', frames: [8], speed: 4, loop: false },
+        celebrate: { name: 'celebrate', frames: [7], speed: 6, loop: true }
+      }
+    };
+  }
+
+  play(animName) {
+    if (this.currentAnim === animName) return;
+    this.currentAnim = animName;
+    this.frameIndex = 0;
+    this.timer = 0;
+  }
+
+  update(dt = 0.016) {
+    const anim = this.config.animations[this.currentAnim] || this.config.animations.idle;
+    if (!anim || !anim.frames || anim.frames.length === 0) return;
+
+    this.timer += dt * (anim.speed || 6);
+    if (this.timer >= 1) {
+      const step = Math.floor(this.timer);
+      this.timer -= step;
+      this.frameIndex += step;
+
+      if (this.frameIndex >= anim.frames.length) {
+        if (anim.loop !== false) {
+          this.frameIndex = this.frameIndex % anim.frames.length;
+        } else {
+          this.frameIndex = anim.frames.length - 1;
+        }
+      }
+    }
+  }
+
+  getCurrentFrame() {
+    const anim = this.config.animations[this.currentAnim] || this.config.animations.idle;
+    if (!anim || !anim.frames || anim.frames.length === 0) return 0;
+    const idx = Math.min(this.frameIndex, anim.frames.length - 1);
+    return anim.frames[idx];
+  }
+
+  draw(ctx, img, x, y, facing = 1) {
+    if (!img || !img.complete) return false;
+
+    const frame = this.getCurrentFrame();
+    const fw = this.config.frameWidth;
+    const fh = this.config.frameHeight;
+    const scale = this.config.scale;
+    const ax = this.config.anchorX;
+    const ay = this.config.anchorY;
+
+    const cols = Math.max(1, Math.floor(img.width / fw) || 1);
+    const col = frame % cols;
+    const row = Math.floor(frame / cols);
+    const sx = col * fw;
+    const sy = row * fh;
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(facing * scale, scale);
+    ctx.drawImage(img, sx, sy, fw, fh, -ax, -ay, fw, fh);
+    ctx.restore();
+    return true;
+  }
+}
+
+// ============================================================================
+// 5. BANK SOAL & TANTANGAN IPAS PADANG RUMPUT (STANDALONE)
 // ============================================================================
 const TANTANGAN_LEVEL_1 = {
   jembatan: {
@@ -268,10 +590,10 @@ const TANTANGAN_LEVEL_1 = {
 };
 
 // ============================================================================
-// 4. KELAS MESIN PERMAINAN PLATFORMER 2D (GAME ENGINE)
+// 6. KELAS MESIN PERMAINAN PLATFORMER 2D (GAME ENGINE)
 // ============================================================================
 export class AdventureGameEngine {
-  constructor(canvasEl) {
+  constructor(canvasEl, assetManager = null) {
     this.canvas = canvasEl;
     this.ctx = canvasEl.getContext('2d', { alpha: false });
 
@@ -285,12 +607,17 @@ export class AdventureGameEngine {
     this.worldWidth = 3600;
     this.worldHeight = 540;
 
-    // Assets Images
+    // Asset Manager & Animator Sprite Karakter
+    this.assetManager = assetManager || adventureAssetManager;
+    const selectedChar = this.assetManager.getSelectedCharacter();
+    this.animator = new SpriteAnimator(selectedChar);
+
+    // Assets Images Cache
     this.assets = {
-      sky: new Image(),
-      trees: new Image(),
-      character: new Image(),
-      tileset: new Image()
+      sky: this.assetManager.getImage(this.assetManager.manifest.environments.level1.bgSky),
+      trees: this.assetManager.getImage(this.assetManager.manifest.environments.level1.bgTrees),
+      character: this.assetManager.getImage(selectedChar.spriteSrc),
+      tileset: this.assetManager.getImage(this.assetManager.manifest.environments.level1.tileset)
     };
     this.assetsLoaded = false;
 
@@ -302,7 +629,7 @@ export class AdventureGameEngine {
     // Kamera side-scroller
     this.camera = { x: 0, y: 0 };
 
-    // Karakter Pemain (Si Kupas Penjelajah)
+    // Karakter Pemain (Hitbox & Fisika INVARIAN, tidak berubah saat ganti sprite)
     this.player = {
       x: 100,
       y: 380,
@@ -317,7 +644,11 @@ export class AdventureGameEngine {
       facing: 1, // 1: kanan, -1: kiri
       animFrame: 0,
       animTimer: 0,
-      state: 'idle' // idle, run, jump, fall, cheer
+      state: 'idle', // idle, run, jump, fall, land, hurt, celebrate
+      hurtTimer: 0,
+      celebrateTimer: 0,
+      landTimer: 0,
+      wasOnGround: true
     };
 
     // Input Controller
@@ -347,13 +678,9 @@ export class AdventureGameEngine {
       }
     };
 
-    // Daftar Partikel Visual (Debu, Percikan Air, Bintang)
+    // Partikel Visual, Koleksi & Platform
     this.particles = [];
-
-    // Koleksi Item Lingkungan (Biotik & Abiotik)
     this.collectibleItems = [];
-
-    // Kotak Rintangan / Platform Solid
     this.solidPlatforms = [];
 
     // Pointer ke dialog tantangan UI
@@ -367,16 +694,38 @@ export class AdventureGameEngine {
   }
 
   async inisialisasi() {
+    await this.assetManager.init();
     this.muatAsetVisual();
     this.bangunDuniaLevel1();
     this.pasangInputListener();
+    this.perbaruiKarakterAktif();
+  }
+
+  perbaruiKarakterAktif() {
+    const char = this.assetManager.getSelectedCharacter();
+    this.animator.setConfig(char);
+    this.assets.character = this.assetManager.getImage(char.spriteSrc);
+  }
+
+  gantiKarakter(charId) {
+    const berhasil = this.assetManager.setSelectedCharacter(charId);
+    if (berhasil) {
+      this.perbaruiKarakterAktif();
+    }
+    return berhasil;
   }
 
   muatAsetVisual() {
-    const root = 'assets/images/adventure/';
+    const env = this.assetManager.manifest.environments.level1;
+    const char = this.assetManager.getSelectedCharacter();
+
+    this.assets.sky = this.assetManager.getImage(env.bgSky);
+    this.assets.trees = this.assetManager.getImage(env.bgTrees);
+    this.assets.tileset = this.assetManager.getImage(env.tileset);
+    this.assets.character = this.assetManager.getImage(char.spriteSrc);
+
     let loadedCount = 0;
     const total = 4;
-
     const onLoad = () => {
       loadedCount++;
       if (loadedCount >= total) {
@@ -384,15 +733,14 @@ export class AdventureGameEngine {
       }
     };
 
-    this.assets.sky.src = `${root}bg-sky.png`;
-    this.assets.trees.src = `${root}bg-trees.png`;
-    this.assets.character.src = `${root}character-spritesheet.png`;
-    this.assets.tileset.src = `${root}tileset-grassland.png`;
+    if (this.assets.sky.complete) loadedCount++; else this.assets.sky.onload = onLoad;
+    if (this.assets.trees.complete) loadedCount++; else this.assets.trees.onload = onLoad;
+    if (this.assets.tileset.complete) loadedCount++; else this.assets.tileset.onload = onLoad;
+    if (this.assets.character.complete) loadedCount++; else this.assets.character.onload = onLoad;
 
-    this.assets.sky.onload = onLoad;
-    this.assets.trees.onload = onLoad;
-    this.assets.character.onload = onLoad;
-    this.assets.tileset.onload = onLoad;
+    if (loadedCount >= total) {
+      this.assetsLoaded = true;
+    }
   }
 
   bangunDuniaLevel1() {
@@ -405,7 +753,6 @@ export class AdventureGameEngine {
       { x: 500, y: 280, width: 130, height: 28, tipe: 'platform' },
 
       // Jembatan Kayu (x: 760 .. 960, y: 432)
-      // Catatan: Jika belum selesai, tengah jembatan bolong & ada penghalang
       { x: 760, y: 432, width: 200, height: 32, tipe: 'jembatan' },
 
       // Tanah 2: Area Tengah (x: 960 .. 2100, y: 444)
@@ -441,11 +788,13 @@ export class AdventureGameEngine {
   }
 
   pasangInputListener() {
+    if (typeof window === 'undefined') return;
     window.addEventListener('keydown', this.handleKeyDown);
     window.addEventListener('keyup', this.handleKeyUp);
   }
 
   lepasInputListener() {
+    if (typeof window === 'undefined') return;
     window.removeEventListener('keydown', this.handleKeyDown);
     window.removeEventListener('keyup', this.handleKeyUp);
   }
@@ -476,7 +825,7 @@ export class AdventureGameEngine {
   mulai() {
     if (this.isRunning) return;
     this.isRunning = true;
-    this.lastTime = performance.now();
+    this.lastTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
     this.rafId = requestAnimationFrame(this.loop);
   }
 
@@ -503,7 +852,7 @@ export class AdventureGameEngine {
     this.lastTime = now;
 
     if (!this.dialogAktif) {
-      this.updateFisika();
+      this.updateFisika(dt);
       this.updateKamera();
       this.updateKoleksi();
       this.updatePartikel();
@@ -514,8 +863,10 @@ export class AdventureGameEngine {
     this.rafId = requestAnimationFrame(this.loop);
   }
 
-  updateFisika() {
+  updateFisika(dt = 0.016) {
     const p = this.player;
+    const wasInAir = !p.onGround;
+    const prevVy = p.vy;
 
     // Horizontal Movement
     if (this.keys.left) {
@@ -539,7 +890,7 @@ export class AdventureGameEngine {
 
     // Terapkan Gravitasi
     p.vy += p.gravity;
-    if (p.vy > 14) p.vy = 14; // Batas kecepatan jatuh terminal
+    if (p.vy > 14) p.vy = 14;
 
     // Prediksi posisi baru
     let newX = p.x + p.vx;
@@ -548,65 +899,80 @@ export class AdventureGameEngine {
     // Batasi batas kiri dunia
     if (newX < 0) newX = 0;
 
-    // Penghalang Jembatan jika belum selesai diperbaiki (x: 750 .. 960)
+    // Penghalang Jembatan Rusak:
     if (!this.stateLevel.jembatanSelesai) {
-      if (newX + p.width > 750 && p.x < 760) {
-        newX = 750 - p.width;
+      const batasKiriJembatan = 750;
+      if (p.x + p.width <= batasKiriJembatan && newX + p.width > batasKiriJembatan) {
+        newX = batasKiriJembatan - p.width;
         p.vx = 0;
       }
     }
 
-    // Penghalang Gerbang Akhir jika belum selesai
-    if (!this.stateLevel.koleksiSelesai) {
-      if (newX + p.width > 3100 && p.x + p.width <= 3100) {
-        newX = 3100 - p.width;
-        p.vx = 0;
-      }
-    }
-
-    // Deteksi Tabrakan Platform Solid
+    // Collision Detection Platform Solid
     p.onGround = false;
+
     for (const plat of this.solidPlatforms) {
-      // Abaikan jembatan jika belum diperbaiki
       if (plat.tipe === 'jembatan' && !this.stateLevel.jembatanSelesai) {
         continue;
       }
 
-      // Tabrakan vertikal (mendarat di atas permukaan)
-      const tabrakX = newX + p.width > plat.x + 4 && newX < plat.x + plat.width - 4;
-      const mendarat = p.y + p.height <= plat.y + 12 && newY + p.height >= plat.y;
+      const playerBottom = p.y + p.height;
+      const newBottom = newY + p.height;
+      const playerCenterX = newX + p.width / 2;
 
-      if (tabrakX && mendarat && p.vy >= 0) {
-        newY = plat.y - p.height;
-        p.vy = 0;
-        p.onGround = true;
+      if (playerCenterX >= plat.x && playerCenterX <= plat.x + plat.width) {
+        if (playerBottom <= plat.y + 10 && newBottom >= plat.y && p.vy >= 0) {
+          newY = plat.y - p.height;
+          p.vy = 0;
+          p.onGround = true;
+          break;
+        }
       }
     }
 
-    // Terapkan posisi akhir
+    // Deteksi Efek Mendarat (Land State)
+    if (wasInAir && p.onGround && prevVy > 4) {
+      p.landTimer = 0.14;
+      this.buatPartikelDebu(p.x + p.width / 2, p.y + p.height, 4);
+    }
+
     p.x = newX;
     p.y = newY;
 
-    // Jika jatuh ke jurang (misal di bawah jembatan saat rusak), respawn aman di pos terdekat
+    // Respawn aman jika jatuh ke jurang sungai
     if (p.y > this.worldHeight + 30) {
       this.respawnPlayer();
     }
 
-    // Update State Animasi Sprite
-    if (!p.onGround) {
+    // Evaluasi 7 State Animasi Sprite Karakter
+    if (p.hurtTimer > 0) {
+      p.hurtTimer -= dt;
+      p.state = 'hurt';
+    } else if (p.celebrateTimer > 0) {
+      p.celebrateTimer -= dt;
+      p.state = 'celebrate';
+    } else if (p.landTimer > 0) {
+      p.landTimer -= dt;
+      p.state = 'land';
+    } else if (!p.onGround) {
       p.state = p.vy < 0 ? 'jump' : 'fall';
     } else if (Math.abs(p.vx) > 0.5) {
       p.state = 'run';
-      p.animTimer += 0.2;
-      p.animFrame = 1 + (Math.floor(p.animTimer) % 4);
     } else {
       p.state = 'idle';
-      p.animFrame = 0;
     }
+
+    // Sinkronkan ke Animator Sprite
+    this.animator.play(p.state);
+    this.animator.update(dt);
   }
 
   respawnPlayer() {
     const p = this.player;
+    p.hurtTimer = 0.5;
+    p.state = 'hurt';
+    adventureAudio.playWrong();
+
     if (p.x < 900) {
       p.x = 200;
       p.y = 380;
@@ -619,34 +985,33 @@ export class AdventureGameEngine {
     }
     p.vx = 0;
     p.vy = 0;
-    this.buatPartikelDebu(p.x + p.width / 2, p.y + p.height, 12);
   }
 
   updateKamera() {
-    // Kamera mengikuti pemain secara mulus (smooth lerp) dengan deadzone di tengah
-    const targetX = this.player.x - this.virtualWidth / 2 + this.player.width / 2;
-    this.camera.x += (targetX - this.camera.x) * 0.12;
+    const targetCamX = this.player.x - this.virtualWidth * 0.35;
+    this.camera.x += (targetCamX - this.camera.x) * 0.12;
 
-    // Batasi kamera dalam batas dunia
     if (this.camera.x < 0) this.camera.x = 0;
-    if (this.camera.x > this.worldWidth - this.virtualWidth) {
-      this.camera.x = this.worldWidth - this.virtualWidth;
-    }
+    const maxCamX = this.worldWidth - this.virtualWidth;
+    if (this.camera.x > maxCamX) this.camera.x = maxCamX;
   }
 
   updateKoleksi() {
-    const p = this.player;
-    const px = p.x + p.width / 2;
-    const py = p.y + p.height / 2;
+    const px = this.player.x + this.player.width / 2;
+    const py = this.player.y + this.player.height / 2;
 
     for (const item of this.collectibleItems) {
       if (item.diambil) continue;
+
       const dx = px - item.x;
       const dy = py - item.y;
-      if (dx * dx + dy * dy < (item.r + 20) * (item.r + 20)) {
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < item.r + this.player.width / 2) {
         item.diambil = true;
-        adventureAudio.playCoin();
         this.tambahKoin(3);
+        adventureAudio.playCoin();
+        this.buatPartikelKilau(item.x, item.y, item.tipe === 'biotik' ? '#22C55E' : '#38BDF8', 12);
 
         if (item.tipe === 'biotik') {
           this.stateLevel.koleksiItem.biotik++;
@@ -654,32 +1019,23 @@ export class AdventureGameEngine {
           this.stateLevel.koleksiItem.abiotik++;
         }
 
-        this.buatPartikelKilau(item.x, item.y, item.tipe === 'biotik' ? '#22C55E' : '#38BDF8', 12);
-        this.perbaruiHUD();
-
-        // Cek jika seluruh komponen telah terkumpul
-        if (
-          this.stateLevel.koleksiItem.biotik >= this.stateLevel.koleksiItem.targetBiotik &&
-          this.stateLevel.koleksiItem.abiotik >= this.stateLevel.koleksiItem.targetAbiotik &&
-          !this.stateLevel.koleksiSelesai
-        ) {
+        const k = this.stateLevel.koleksiItem;
+        if (!this.stateLevel.koleksiSelesai && k.biotik >= k.targetBiotik && k.abiotik >= k.targetAbiotik) {
           this.stateLevel.koleksiSelesai = true;
           this.stateLevel.misiSelesai++;
-          adventureAudio.playSuccess();
           this.tambahKoin(10);
+          adventureAudio.playSuccess();
+          this.buatPartikelKilau(this.player.x + 20, this.player.y - 10, '#F59E0B', 30);
           this.perbaruiHUD();
         }
       }
     }
   }
 
-  // ==========================================================================
-  // PEMICU INTERAKSI TANTANGAN IPAS
-  // ==========================================================================
   periksaPemicuInteraksi() {
     const px = this.player.x + this.player.width / 2;
 
-    // 1. Dekat Jembatan Rusak (x: ~700..780)
+    // 1. Dekat Jembatan Rusak (x: ~680..780)
     if (px >= 680 && px <= 780 && !this.stateLevel.jembatanSelesai) {
       this.bukaDialogTantangan(TANTANGAN_LEVEL_1.jembatan, () => {
         this.stateLevel.jembatanSelesai = true;
@@ -715,10 +1071,9 @@ export class AdventureGameEngine {
       return;
     }
 
-    // 5. Dekat Gerbang Penjaga Akhir (x: ~3250..3400)
+    // 4. Dekat Gerbang Penjaga Akhir (x: ~3250..3400)
     if (px >= 3250 && px <= 3400 && !this.stateLevel.gerbangSelesai) {
       this.bukaDialogTantangan(TANTANGAN_LEVEL_1.gerbang_1, () => {
-        // Lanjut ke tantangan gerbang bagian 2
         setTimeout(() => {
           this.bukaDialogTantangan(TANTANGAN_LEVEL_1.gerbang_2, () => {
             this.stateLevel.gerbangSelesai = true;
@@ -738,19 +1093,25 @@ export class AdventureGameEngine {
     this.dialogAktif = true;
     this.callbackTantanganSelesai = onSelesai;
 
+    if (typeof document === 'undefined') return;
     const overlay = document.getElementById('dialog-tantangan-overlay');
     if (!overlay) return;
 
-    document.getElementById('dialog-judul').textContent = dataTantangan.judul;
-    document.getElementById('dialog-instruksi').textContent = dataTantangan.instruksi;
-    document.getElementById('dialog-soal-teks').textContent = dataTantangan.pertanyaan;
+    const elJudul = document.getElementById('dialog-judul');
+    const elInstruksi = document.getElementById('dialog-instruksi');
+    const elSoal = document.getElementById('dialog-soal-teks');
+    if (elJudul) elJudul.textContent = dataTantangan.judul;
+    if (elInstruksi) elInstruksi.textContent = dataTantangan.instruksi;
+    if (elSoal) elSoal.textContent = dataTantangan.pertanyaan;
 
     const wadahOpsi = document.getElementById('dialog-grid-opsi');
-    wadahOpsi.innerHTML = '';
+    if (wadahOpsi) wadahOpsi.innerHTML = '';
 
     const wadahFeedback = document.getElementById('dialog-feedback-wadah');
-    wadahFeedback.className = 'dialog-feedback-wadah';
-    wadahFeedback.style.display = 'none';
+    if (wadahFeedback) {
+      wadahFeedback.className = 'dialog-feedback-wadah';
+      wadahFeedback.style.display = 'none';
+    }
 
     const keys = ['1', '2', '3', '4'];
     dataTantangan.opsi.forEach((opsiTeks, idx) => {
@@ -761,14 +1122,20 @@ export class AdventureGameEngine {
 
       btn.onclick = () => {
         if (idx === dataTantangan.kunci) {
-          // Jawaban Benar
+          // Jawaban Benar -> Rayakan & Lanjut
           adventureAudio.playSuccess();
-          wadahFeedback.className = 'dialog-feedback-wadah sukses';
-          wadahFeedback.innerHTML = `<strong>Hebat Sekali! Jawabanmu Benar!</strong><br>${dataTantangan.penjelasan}`;
-          wadahFeedback.style.display = 'block';
+          this.player.celebrateTimer = 0.8;
+          this.player.state = 'celebrate';
 
-          // Nonaktifkan tombol opsi sementara
-          wadahOpsi.querySelectorAll('button').forEach(b => b.disabled = true);
+          if (wadahFeedback) {
+            wadahFeedback.className = 'dialog-feedback-wadah sukses';
+            wadahFeedback.innerHTML = `<strong>Hebat Sekali! Jawabanmu Tepat! 🌟</strong><br>${dataTantangan.penjelasan}`;
+            wadahFeedback.style.display = 'block';
+          }
+
+          if (wadahOpsi) {
+            wadahOpsi.querySelectorAll('button').forEach(b => b.disabled = true);
+          }
 
           setTimeout(() => {
             overlay.classList.remove('aktif');
@@ -778,15 +1145,20 @@ export class AdventureGameEngine {
             }
           }, 1400);
         } else {
-          // Jawaban Salah: feedback mendidik, beri kesempatan coba lagi
+          // Jawaban Salah -> Feedback mendidik, berikan kesempatan mencoba lagi
           adventureAudio.playWrong();
-          wadahFeedback.className = 'dialog-feedback-wadah gagal';
-          wadahFeedback.innerHTML = `<strong>Yuk, periksa lagi!</strong> Belum tepat. <em>Petunjuk: ${dataTantangan.penjelasan}</em>`;
-          wadahFeedback.style.display = 'block';
+          this.player.hurtTimer = 0.5;
+          this.player.state = 'hurt';
+
+          if (wadahFeedback) {
+            wadahFeedback.className = 'dialog-feedback-wadah gagal';
+            wadahFeedback.innerHTML = `<strong>Yuk, periksa lagi!</strong> Belum tepat. <em>Petunjuk: ${dataTantangan.penjelasan}</em>`;
+            wadahFeedback.style.display = 'block';
+          }
         }
       };
 
-      wadahOpsi.appendChild(btn);
+      if (wadahOpsi) wadahOpsi.appendChild(btn);
     });
 
     overlay.classList.add('aktif');
@@ -807,9 +1179,9 @@ export class AdventureGameEngine {
 
   tampilkanKemenanganLevel() {
     adventureAudio.playSuccess();
-    this.player.state = 'cheer';
+    this.player.celebrateTimer = 9999;
+    this.player.state = 'celebrate';
 
-    // Hitung Bintang & Simpan Progres
     const stars = 3;
     const coins = this.stateLevel.koinTerkumpul;
     const score = 1000 + coins * 50;
@@ -820,8 +1192,10 @@ export class AdventureGameEngine {
       if (typeof document === 'undefined') return;
       const modal = document.getElementById('modal-victory-overlay');
       if (modal) {
-        document.getElementById('victory-koin').textContent = `+${coins} Koin Daun 🍃`;
-        document.getElementById('victory-skor').textContent = `Skor Petualangan: ${score}`;
+        const koinEl = document.getElementById('victory-koin');
+        const skorEl = document.getElementById('victory-skor');
+        if (koinEl) koinEl.textContent = `+${coins} Koin Daun 🍃`;
+        if (skorEl) skorEl.textContent = `Skor Petualangan: ${score}`;
         modal.classList.add('aktif');
       }
     }, 1200);
@@ -875,7 +1249,7 @@ export class AdventureGameEngine {
   }
 
   // ==========================================================================
-  // RENDERING DUNIA PLATFORMER
+  // RENDERING DUNIA PLATFORMER 2D
   // ==========================================================================
   render() {
     const ctx = this.ctx;
@@ -883,8 +1257,8 @@ export class AdventureGameEngine {
 
     ctx.clearRect(0, 0, this.virtualWidth, this.virtualHeight);
 
-    // 1. Layer 1: Parallax Sky (bergerak sangat lambat 0.1x)
-    if (this.assetsLoaded && this.assets.sky.complete) {
+    // 1. Layer 1: Parallax Sky (bergerak lambat 0.1x)
+    if (this.assets.sky && this.assets.sky.complete) {
       const skyOffset = (cx * 0.1) % 960;
       ctx.drawImage(this.assets.sky, -skyOffset, 0, 960, 540);
       ctx.drawImage(this.assets.sky, 960 - skyOffset, 0, 960, 540);
@@ -894,13 +1268,13 @@ export class AdventureGameEngine {
     }
 
     // 2. Layer 2: Parallax Midground Trees & Hills (bergerak 0.35x)
-    if (this.assetsLoaded && this.assets.trees.complete) {
+    if (this.assets.trees && this.assets.trees.complete) {
       const treeOffset = (cx * 0.35) % 960;
       ctx.drawImage(this.assets.trees, -treeOffset, 180, 960, 360);
       ctx.drawImage(this.assets.trees, 960 - treeOffset, 180, 960, 360);
     }
 
-    // 3. Layer 3: Playfield (Dunia Nyata Platform & Tantangan)
+    // 3. Layer 3: Playfield (Dunia Platform & Interaksi)
     ctx.save();
     ctx.translate(-cx, 0);
 
@@ -926,7 +1300,6 @@ export class AdventureGameEngine {
         ctx.fillStyle = '#8E552A';
         ctx.fillRect(plat.x, plat.y + 18, plat.width, plat.height - 18);
       } else if (plat.tipe === 'platform') {
-        // Platform melayang
         ctx.fillStyle = '#4AB23E';
         ctx.fillRect(plat.x, plat.y, plat.width, 8);
         ctx.fillStyle = '#8E552A';
@@ -940,15 +1313,17 @@ export class AdventureGameEngine {
 
     // Ombak buih sungai
     ctx.fillStyle = '#FFFDF7';
+    const nowTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
     for (let i = 770; i < 950; i += 32) {
-      ctx.fillRect(i + Math.sin(performance.now() * 0.005 + i) * 6, 484, 20, 4);
+      ctx.fillRect(i + Math.sin(nowTime * 0.005 + i) * 6, 484, 20, 4);
     }
   }
 
   renderObjekTantangan(ctx) {
-    // 1. Tantangan 1: Jembatan Kayu (x: 760, y: 432)
+    const nowTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
+
+    // 1. Jembatan Kayu (x: 760, y: 432)
     if (this.stateLevel.jembatanSelesai) {
-      // Jembatan tersambung utuh sempurna
       ctx.fillStyle = '#BE824B';
       ctx.fillRect(760, 432, 200, 14);
       ctx.fillStyle = '#8C552D';
@@ -956,29 +1331,25 @@ export class AdventureGameEngine {
       ctx.fillRect(860, 420, 8, 24);
       ctx.fillRect(952, 420, 8, 24);
     } else {
-      // Jembatan patah terbelah
       ctx.fillStyle = '#BE824B';
       ctx.fillRect(760, 432, 60, 14);
       ctx.fillRect(900, 432, 60, 14);
 
-      // Papan tanda peringatan interaksi
       ctx.fillStyle = '#DC2626';
       ctx.fillRect(740, 400, 24, 24);
       ctx.fillStyle = '#FFFDF7';
       ctx.font = 'bold 12px sans-serif';
       ctx.fillText('!', 749, 417);
 
-      // Label interaksi
       if (Math.abs((this.player.x + this.player.width / 2) - 740) < 60) {
         this.renderPetunjukInteraksi(ctx, 740, 380, 'Perbaiki Jembatan');
       }
     }
 
-    // 2. Tantangan 2: Bunga Padang Rumput (x: 1400, y: 400)
+    // 2. Bunga Padang Rumput (x: 1400, y: 400)
     if (this.stateLevel.bungaSelesai) {
-      // Bunga mekar semerbak pink & kuning cerah
       ctx.fillStyle = '#22C55E';
-      ctx.fillRect(1408, 410, 4, 34); // Tangkai segar
+      ctx.fillRect(1408, 410, 4, 34);
       ctx.beginPath();
       ctx.arc(1410, 396, 16, 0, Math.PI * 2);
       ctx.fillStyle = '#F43F5E';
@@ -988,9 +1359,8 @@ export class AdventureGameEngine {
       ctx.fillStyle = '#FACC15';
       ctx.fill();
     } else {
-      // Bunga layu cokelat keemasan
       ctx.fillStyle = '#78733C';
-      ctx.fillRect(1408, 420, 4, 24); // Tangkai melengkung layu
+      ctx.fillRect(1408, 420, 4, 24);
       ctx.beginPath();
       ctx.arc(1402, 412, 11, 0, Math.PI * 2);
       ctx.fillStyle = '#B4825A';
@@ -1001,20 +1371,18 @@ export class AdventureGameEngine {
       }
     }
 
-    // 3. Tantangan 3: Kincir Air (x: 2060, y: 380)
+    // 3. Kincir Air (x: 2060, y: 380)
     ctx.save();
     ctx.translate(2060, 380);
-    const rotSpeed = this.stateLevel.kincirSelesai ? performance.now() * 0.0025 : 0;
+    const rotSpeed = this.stateLevel.kincirSelesai ? nowTime * 0.0025 : 0;
     ctx.rotate(rotSpeed);
 
-    // Roda kincir
     ctx.strokeStyle = '#8C552D';
     ctx.lineWidth = 5;
     ctx.beginPath();
     ctx.arc(0, 0, 36, 0, Math.PI * 2);
     ctx.stroke();
 
-    // 8 Bilah kincir
     for (let i = 0; i < 8; i++) {
       ctx.rotate(Math.PI / 4);
       ctx.fillStyle = '#BE824B';
@@ -1022,7 +1390,6 @@ export class AdventureGameEngine {
     }
     ctx.restore();
 
-    // As roda kincir
     ctx.fillStyle = '#4A2810';
     ctx.beginPath();
     ctx.arc(2060, 380, 8, 0, Math.PI * 2);
@@ -1032,15 +1399,13 @@ export class AdventureGameEngine {
       this.renderPetunjukInteraksi(ctx, 2060, 315, 'Putar Kincir Air');
     }
 
-    // 5. Tantangan 5: Gerbang Penjaga Kuno (x: 3350, y: 320)
-    // Pilar Gerbang
+    // 4. Gerbang Penjaga Kuno (x: 3350, y: 320)
     ctx.fillStyle = '#78827D';
     ctx.fillRect(3320, 300, 30, 144);
     ctx.fillRect(3430, 300, 30, 144);
     ctx.fillRect(3320, 276, 140, 28);
 
     if (this.stateLevel.gerbangSelesai) {
-      // Gerbang terbuka dengan portal cahaya hijau bercahaya
       ctx.fillStyle = 'rgba(74, 222, 128, 0.45)';
       ctx.fillRect(3350, 304, 80, 140);
     } else {
@@ -1053,18 +1418,17 @@ export class AdventureGameEngine {
   }
 
   renderKoleksiItem(ctx) {
+    const nowTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
     for (const item of this.collectibleItems) {
       if (item.diambil) continue;
 
-      const bob = Math.sin(performance.now() * 0.005 + item.x) * 4;
+      const bob = Math.sin(nowTime * 0.005 + item.x) * 4;
 
-      // Lingkaran kilau latar
       ctx.beginPath();
       ctx.arc(item.x, item.y + bob, item.r, 0, Math.PI * 2);
       ctx.fillStyle = item.tipe === 'biotik' ? 'rgba(34, 197, 94, 0.25)' : 'rgba(56, 189, 248, 0.25)';
       ctx.fill();
 
-      // Ikon visual item
       ctx.font = '22px sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -1117,31 +1481,27 @@ export class AdventureGameEngine {
 
   renderPemain(ctx) {
     const p = this.player;
+    const char = this.assetManager.getSelectedCharacter();
+    const charImg = this.assetManager.getImage(char.spriteSrc);
 
-    ctx.save();
-    ctx.translate(p.x + p.width / 2, p.y + p.height / 2);
-    ctx.scale(p.facing, 1);
+    const drew = this.animator.draw(
+      ctx,
+      charImg,
+      p.x + p.width / 2,
+      p.y + p.height,
+      p.facing
+    );
 
-    if (this.assetsLoaded && this.assets.character.complete) {
-      // 8 Frame @ 48x48
-      const frameIdx = p.state === 'idle' ? 0 :
-                       p.state === 'run' ? p.animFrame :
-                       p.state === 'jump' ? 5 :
-                       p.state === 'fall' ? 6 : 7;
-
-      ctx.drawImage(
-        this.assets.character,
-        frameIdx * 48, 0, 48, 48,
-        -p.width / 2 - 2, -p.height / 2, 48, 48
-      );
-    } else {
-      // Fallback procedural rendering
+    if (!drew) {
+      // Fallback procedural rendering jika gambar sedang memuat
+      ctx.save();
+      ctx.translate(p.x + p.width / 2, p.y + p.height / 2);
+      ctx.scale(p.facing, 1);
       ctx.fillStyle = '#2E7D4F';
       ctx.fillRect(-p.width / 2, -p.height / 2, p.width, p.height);
       ctx.fillStyle = '#F2A541';
-      ctx.fillRect(-p.width / 2, -p.height / 2, p.width, 14); // Hat
+      ctx.fillRect(-p.width / 2, -p.height / 2, p.width, 14);
+      ctx.restore();
     }
-
-    ctx.restore();
   }
 }

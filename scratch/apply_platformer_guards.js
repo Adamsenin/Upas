@@ -66,3 +66,4 @@ content = content.replace(
 
 fs.writeFileSync('assets/js/adventure-platformer.js', content, 'utf8');
 console.log('Guards and barrier updated in assets/js/adventure-platformer.js');
+
