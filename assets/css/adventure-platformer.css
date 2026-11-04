@@ -1,0 +1,475 @@
+/**
+ * KUPAS KUIS IPAS - Lembar Gaya Adventure Platformer (adventure-platformer.css)
+ * Desain Playful Adventure World untuk Siswa SD Kelas V
+ */
+
+/* ==========================================================================
+   1. WADAH UTAMA & TEMA PETUALANGAN
+   ========================================================================== */
+.adventure-body {
+  background-color: var(--n-lontar, #FBF3E4);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(46, 125, 79, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(35, 112, 138, 0.08) 0%, transparent 40%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  font-family: var(--font-dasar, 'Plus Jakarta Sans', system-ui, sans-serif);
+  color: var(--n-rimba, #1B3A2F);
+}
+
+.adventure-header {
+  background: var(--n-santan, #FFFDF7);
+  border-bottom: 3px solid var(--n-rimba, #1B3A2F);
+  box-shadow: 0 4px 12px rgba(27, 58, 47, 0.08);
+}
+
+/* ==========================================================================
+   2. LAYAR PEMILIHAN LEVEL
+   ========================================================================== */
+.layar-level-wadah {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.adventure-hero-banner {
+  background: linear-gradient(135deg, #1B3A2F 0%, #2E7D4F 100%);
+  color: #FFFDF7;
+  border: 3px solid #1B3A2F;
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 8px 0 rgba(27, 58, 47, 0.25);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+.adventure-hero-banner::after {
+  content: '';
+  position: absolute;
+  right: -20px;
+  bottom: -40px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(242, 165, 65, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.adventure-stat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.stat-chip {
+  background: rgba(255, 253, 247, 0.15);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 253, 247, 0.35);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFFDF7;
+}
+
+.grid-pilih-level {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.kartu-level {
+  background: var(--n-santan, #FFFDF7);
+  border: 3px solid var(--n-rimba, #1B3A2F);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 0 var(--n-rimba, #1B3A2F);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.kartu-level:not(.terkunci):hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 0 var(--n-rimba, #1B3A2F);
+}
+
+.kartu-level-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-bottom: 3px solid var(--n-rimba, #1B3A2F);
+  background: #A9D18E;
+}
+
+.kartu-level-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.kartu-level.terkunci {
+  filter: grayscale(0.85);
+  opacity: 0.8;
+  cursor: not-allowed;
+}
+
+.bintang-level {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0.5rem 0;
+  color: #D1D5DB;
+  font-size: 1.25rem;
+}
+
+.bintang-level .aktif {
+  color: var(--n-kunyit, #F2A541);
+  text-shadow: 0 2px 4px rgba(242, 165, 65, 0.4);
+}
+
+/* ==========================================================================
+   3. VIEWPORT PERMAINAN (CANVAS 2D)
+   ========================================================================== */
+.layar-game-wadah {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.canvas-bingkai {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #23708A;
+  border: 4px solid var(--n-rimba, #1B3A2F);
+  border-radius: 24px;
+  box-shadow: 0 10px 0 var(--n-rimba, #1B3A2F), 0 20px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  touch-action: none;
+}
+
+#canvas-adventure {
+  width: 100%;
+  height: 100%;
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* ==========================================================================
+   4. IN-GAME HUD (OVERLAY ATAS CANVAS)
+   ========================================================================== */
+.game-hud {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hud-item {
+  pointer-events: auto;
+  background: rgba(255, 253, 247, 0.92);
+  backdrop-filter: blur(6px);
+  border: 2.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-weight: 800;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 4px 0 var(--n-rimba, #1B3A2F);
+}
+
+.hud-koin {
+  color: #B45309;
+}
+
+.hud-misi {
+  color: #15803D;
+}
+
+.hud-tombol-keluar {
+  cursor: pointer;
+  background: #FFFDF7;
+  border: 2.5px solid #1B3A2F;
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  font-weight: 800;
+  box-shadow: 0 4px 0 #1B3A2F;
+  transition: transform 0.1s;
+}
+
+.hud-tombol-keluar:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #1B3A2F;
+}
+
+/* ==========================================================================
+   5. KOTAK DIALOG & MODAL TANTANGAN IN-GAME
+   ========================================================================== */
+.dialog-tantangan-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(27, 58, 47, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.dialog-tantangan-overlay.aktif {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.dialog-kotak {
+  background: var(--n-santan, #FFFDF7);
+  border: 4px solid var(--n-rimba, #1B3A2F);
+  border-radius: 24px;
+  max-width: 620px;
+  width: 100%;
+  padding: 1.5rem;
+  box-shadow: 0 10px 0 var(--n-rimba, #1B3A2F);
+  animation: popDialog 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popDialog {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 2px dashed rgba(27, 58, 47, 0.2);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.dialog-avatar {
+  width: 52px;
+  height: 52px;
+  border: 2.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: 50%;
+  background: #F3DDB0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.dialog-soal-teks {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--n-rimba, #1B3A2F);
+  margin-bottom: 1.25rem;
+}
+
+.grid-opsi-jawaban {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.65rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 560px) {
+  .grid-opsi-jawaban {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.btn-opsi-adventure {
+  background: #FFFDF7;
+  border: 2.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: 14px;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  box-shadow: 0 4px 0 var(--n-rimba, #1B3A2F);
+  cursor: pointer;
+  transition: transform 0.1s, background 0.15s;
+}
+
+.btn-opsi-adventure:hover {
+  background: #F8FAFC;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--n-rimba, #1B3A2F);
+}
+
+.btn-opsi-adventure:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--n-rimba, #1B3A2F);
+}
+
+.opsi-key-badge {
+  background: var(--n-kunyit, #F2A541);
+  color: var(--n-rimba, #1B3A2F);
+  border: 1.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: 6px;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.dialog-feedback-wadah {
+  display: none;
+  border-radius: 14px;
+  padding: 0.85rem 1rem;
+  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.dialog-feedback-wadah.sukses {
+  display: block;
+  background: #DCFCE7;
+  border: 2px solid #16A34A;
+  color: #166534;
+}
+
+.dialog-feedback-wadah.gagal {
+  display: block;
+  background: #FEF3C7;
+  border: 2px solid #D97706;
+  color: #92400E;
+}
+
+/* ==========================================================================
+   6. KONTROL SENTUH VIRTUAL (MOBILE & SMARTBOARD)
+   ========================================================================== */
+.kontrol-sentuh-wadah {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 960px;
+  padding: 0.75rem 0.5rem 0;
+  user-select: none;
+}
+
+.dpad-wadah, .aksi-wadah {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-sentuh {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: var(--n-santan, #FFFDF7);
+  border: 3px solid var(--n-rimba, #1B3A2F);
+  box-shadow: 0 5px 0 var(--n-rimba, #1B3A2F);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--n-rimba, #1B3A2F);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+
+.btn-sentuh:active, .btn-sentuh.ditekan {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 var(--n-rimba, #1B3A2F);
+  background: #F3DDB0;
+}
+
+.btn-sentuh-lompat {
+  background: #FEF08A;
+}
+
+.btn-sentuh-aksi {
+  background: #BAE6FD;
+}
+
+/* Petunjuk Keyboard Desktop */
+.petunjuk-keyboard {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #4B5563;
+  text-align: center;
+}
+
+.kbd-chip {
+  background: #FFFDF7;
+  border: 1.5px solid var(--n-rimba, #1B3A2F);
+  border-radius: 6px;
+  padding: 0.1rem 0.4rem;
+  font-weight: 700;
+  font-size: 0.75rem;
+  box-shadow: 0 1.5px 0 var(--n-rimba, #1B3A2F);
+}
+
+/* ==========================================================================
+   7. MODAL LEVEL CLEARED / VICTORY
+   ========================================================================== */
+.modal-victory-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(27, 58, 47, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-victory-overlay.aktif {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.victory-card {
+  background: #FFFDF7;
+  border: 4px solid #1B3A2F;
+  border-radius: 28px;
+  max-width: 500px;
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 12px 0 #1B3A2F;
+  animation: popDialog 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.victory-bintang {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
