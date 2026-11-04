@@ -1,23 +1,24 @@
 /**
- * KUPAS KUIS IPAS v4.2 - Mesin Petualangan Mandiri (adventure-platformer.js)
+ * KUPAS KUIS IPAS v4.3 - Mesin Petualangan Mandiri (adventure-platformer.js)
  * Platformer 2D Side-scroller Edukasi IPAS Kelas V SD
  *
- * Fitur:
- * - 60 FPS Physics Engine (Gravity, Momentum, Solid Tile Collisions).
- * - Multi-layer Parallax Scrolling (Sky, Hills, Foliage, Playfield).
- * - Custom Game Assets System (Organized Asset Manifest & Dynamic Loader).
- * - Custom Character Sprite System (Configurable Spritesheet, Scale, Origin Anchor).
- * - 7 Player Animation States: Idle, Run, Jump, Fall, Land, Hurt, Celebrate.
- * - Invariant Player Hitbox & Physics (Physics invariant across all custom characters).
- * - 5 Interactive Environmental Story Challenges (Jembatan, Bunga, Kincir, Koleksi, Gerbang).
- * - Standalone IPAS Question Engine (No Lobby, No Sockets, No Sesi Dependency).
- * - Multi-platform Controls: Keyboard (WASD/Arrows/Space/E) & Mobile Virtual Touch Buttons.
- * - Local & Profile Persistent Progress (Stars, Leaf Coins, Badges).
- * - Full Memory & Audio Cleanup on Exit.
+ * Phase 2 - Custom Character & Asset Integration:
+ * - Karakter Tunggal Orisinal: Aliya Penjelajah (character-aliya.png).
+ * - Konfigurasi Karakter Terpisah (adventure-character-config.js).
+ * - Konfigurasi Lingkungan Terpisah (adventure-env-config.js) -> Pisahkan Visual & Collision.
+ * - Pemuatan Asinkron dengan Proteksi Anti-Flicker (Game loop tidak mulai sebelum aset siap).
+ * - 7 Animasi Sprite Lengkap: idle, run, jump, fall, land, hurt, celebrate.
+ * - Animasi Presisi Berbasis Delta Time (dt) & Penjajaran Titik Kaki (Zero Floating / Sinking).
+ * - Fisika & Hitbox Logis Tetap Invarian (44x48 px, speed 4.4, jump -12.8, gravity 0.58).
+ * - 5 Tantangan Edukasi IPAS Mandiri (Jembatan, Bunga, Kincir, Koleksi, Gerbang).
+ * - Pembersihan Memori & Event Listener pada Cleanup.
  */
 
+import { CHARACTER_CONFIG } from './adventure-character-config.js';
+import { ENV_COLLISION_DATA, ENV_VISUAL_ASSETS } from './adventure-env-config.js';
+
 // ============================================================================
-// 1. MANAJEMEN PENYIMPANAN PROGRES ADVENTURE (TERISOLASI DARI KUIS BERSAMA)
+// 1. MANAJEMEN PENYIMPANAN PROGRES ADVENTURE
 // ============================================================================
 export const adventureProgress = {
   getStorageKey() {
@@ -30,7 +31,6 @@ export const adventureProgress = {
       if (data && data.levels) return data;
     } catch (e) {}
 
-    // Bawaan awal
     return {
       totalCoins: 0,
       totalStars: 0,
@@ -61,13 +61,11 @@ export const adventureProgress = {
     lvl.score = Math.max(lvl.score || 0, score);
     p.levels[levelId] = lvl;
 
-    // Buka level berikutnya
     const nextLevel = levelId + 1;
     if (p.levels[nextLevel]) {
       p.levels[nextLevel].unlocked = true;
     }
 
-    // Tambah koin dan lencana
     p.totalCoins = (p.totalCoins || 0) + coinsEarned;
     let totalBintang = 0;
     Object.values(p.levels).forEach(l => { totalBintang += (l.stars || 0); });
@@ -132,8 +130,8 @@ class AdventureAudio {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(987.77, now); // B5
-      osc.frequency.setValueAtTime(1318.51, now + 0.08); // E6
+      osc.frequency.setValueAtTime(987.77, now);
+      osc.frequency.setValueAtTime(1318.51, now + 0.08);
       gain.gain.setValueAtTime(0.15, now);
       gain.gain.linearRampToValueAtTime(0.01, now + 0.22);
       osc.connect(gain);
@@ -149,7 +147,7 @@ class AdventureAudio {
     if (!this.ctx) return;
     try {
       const now = this.ctx.currentTime;
-      const notes = [523.25, 659.25, 783.99, 1046.50]; // C E G C
+      const notes = [523.25, 659.25, 783.99, 1046.50];
       notes.forEach((freq, idx) => {
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
@@ -197,261 +195,14 @@ class AdventureAudio {
 export const adventureAudio = new AdventureAudio();
 
 // ============================================================================
-// 3. ASSET MANIFEST & CUSTOM GAME ASSETS ARCHITECTURE
-// ============================================================================
-export const DEFAULT_MANIFEST = {
-  version: "1.2.0",
-  name: "KUPAS Adventure Asset Manifest",
-  defaultCharacter: "si_kupas",
-  characters: {
-    si_kupas: {
-      id: "si_kupas",
-      name: "Si Kupas Penjelajah",
-      badge: "Penjelajah Padang",
-      avatar: "assets/svg/maskot-senang.svg",
-      description: "Pemberani, lincah, dan penuh semangat menjaga keharmonisan ekosistem nusantara.",
-      spriteSrc: "assets/images/adventure/character-spritesheet.png",
-      frameWidth: 48,
-      frameHeight: 48,
-      scale: 1.0,
-      anchorX: 24,
-      anchorY: 46,
-      animations: {
-        idle: { name: "idle", frames: [0], speed: 4, loop: true },
-        run: { name: "run", frames: [1, 2, 3, 4], speed: 10, loop: true },
-        jump: { name: "jump", frames: [5], speed: 1, loop: false },
-        fall: { name: "fall", frames: [6], speed: 1, loop: false },
-        land: { name: "land", frames: [0], speed: 8, loop: false },
-        hurt: { name: "hurt", frames: [8], speed: 4, loop: false },
-        celebrate: { name: "celebrate", frames: [7], speed: 6, loop: true }
-      }
-    },
-    rara: {
-      id: "rara",
-      name: "Rara Peneliti Alam",
-      badge: "Peneliti Ekosistem",
-      avatar: "assets/images/adventure/character-rara.png",
-      description: "Cerdas, teliti, gemar mencatat observasi flora fauna dan fenomena ilmiah di lapangan.",
-      spriteSrc: "assets/images/adventure/character-rara.png",
-      frameWidth: 48,
-      frameHeight: 48,
-      scale: 1.0,
-      anchorX: 24,
-      anchorY: 46,
-      animations: {
-        idle: { name: "idle", frames: [0], speed: 4, loop: true },
-        run: { name: "run", frames: [1, 2, 3, 4], speed: 10, loop: true },
-        jump: { name: "jump", frames: [5], speed: 1, loop: false },
-        fall: { name: "fall", frames: [6], speed: 1, loop: false },
-        land: { name: "land", frames: [0], speed: 8, loop: false },
-        hurt: { name: "hurt", frames: [8], speed: 4, loop: false },
-        celebrate: { name: "celebrate", frames: [7], speed: 6, loop: true }
-      }
-    }
-  },
-  environments: {
-    level1: {
-      id: 1,
-      nama: "Padang Rumput Asri",
-      bgSky: "assets/images/adventure/bg-sky.png",
-      bgTrees: "assets/images/adventure/bg-trees.png",
-      tileset: "assets/images/adventure/tileset-grassland.png",
-      banner: "assets/images/adventure/level1-banner.png",
-      skyParallax: 0.1,
-      treesParallax: 0.35
-    }
-  },
-  props: {
-    jembatan: { x: 760, y: 432, width: 200, height: 32, repairPrompt: "Perbaiki Jembatan" },
-    bunga: { x: 1400, y: 400, waterPrompt: "Bantu Bunga Liar" },
-    kincir: { x: 2060, y: 380, turnPrompt: "Putar Kincir Air" },
-    gerbang: { x: 3350, y: 304, width: 80, height: 140, openPrompt: "Buka Gerbang Padang" }
-  },
-  collectibles: {
-    biotik: [
-      { id: "bio_kupu", name: "Kupu-kupu Biru", icon: "🦋", x: 2350, y: 300 },
-      { id: "bio_jamur", name: "Jamur Hutan", icon: "🍄", x: 2540, y: 225 },
-      { id: "bio_ulat", name: "Ulat Daun", icon: "🐛", x: 2740, y: 295 }
-    ],
-    abiotik: [
-      { id: "abio_air", name: "Tetes Air Sungai", icon: "💧", x: 2420, y: 400 },
-      { id: "abio_batu", name: "Batu Kerikil", icon: "🪨", x: 2620, y: 400 },
-      { id: "abio_cahaya", name: "Kristal Sinar Mentari", icon: "☀️", x: 2940, y: 215 }
-    ]
-  }
-};
-
-/**
- * Pengelola Aset Permainan Terorganisasi (AdventureAssetManager)
- * Mendukung pemuatan dinamis manifest, penggantian aset kustom, dan caching gambar.
- */
-export class AdventureAssetManager {
-  constructor(manifest = DEFAULT_MANIFEST) {
-    this.manifest = JSON.parse(JSON.stringify(manifest));
-    this.images = new Map();
-    this.activeCharacterId = (typeof localStorage !== 'undefined' && localStorage.getItem('kupas_selected_character')) || 'si_kupas';
-    this.customCharacterConfig = null;
-
-    this.muatKarakterKustomTersimpan();
-  }
-
-  muatKarakterKustomTersimpan() {
-    try {
-      if (typeof localStorage !== 'undefined') {
-        const stored = localStorage.getItem('kupas_custom_character');
-        if (stored) {
-          this.customCharacterConfig = JSON.parse(stored);
-        }
-      }
-    } catch (e) {}
-  }
-
-  async init() {
-    // Muat file manifest eksternal jika didukung oleh browser/fetch
-    try {
-      if (typeof fetch === 'function') {
-        const res = await fetch('assets/data/adventure-manifest.json');
-        if (res.ok) {
-          const json = await res.json();
-          if (json && json.characters) {
-            this.manifest = json;
-          }
-        }
-      }
-    } catch (e) {
-      // Tetap gunakan DEFAULT_MANIFEST yang sudah tertanam
-    }
-
-    this.muatKarakterKustomTersimpan();
-    await this.preloadAll();
-  }
-
-  getCharacters() {
-    const chars = Object.values(this.manifest.characters);
-    if (this.customCharacterConfig) {
-      chars.push(this.customCharacterConfig);
-    }
-    return chars;
-  }
-
-  getSelectedCharacter() {
-    if (this.activeCharacterId === 'custom' && this.customCharacterConfig) {
-      return this.customCharacterConfig;
-    }
-    return this.manifest.characters[this.activeCharacterId] || this.manifest.characters.si_kupas;
-  }
-
-  setSelectedCharacter(charId) {
-    if (this.manifest.characters[charId] || (charId === 'custom' && this.customCharacterConfig)) {
-      this.activeCharacterId = charId;
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem('kupas_selected_character', charId);
-      }
-      return true;
-    }
-    return false;
-  }
-
-  setCustomCharacter(config) {
-    this.customCharacterConfig = {
-      id: 'custom',
-      name: config.name || 'Karakter Kustom',
-      badge: config.badge || 'Penjelajah Kustom',
-      avatar: config.spriteSrc,
-      description: config.description || 'Karakter sprite khusus buatan siswa/guru.',
-      spriteSrc: config.spriteSrc,
-      frameWidth: Number(config.frameWidth) || 48,
-      frameHeight: Number(config.frameHeight) || 48,
-      scale: Number(config.scale) || 1.0,
-      anchorX: config.anchorX !== undefined ? Number(config.anchorX) : (Number(config.frameWidth) ? Number(config.frameWidth) / 2 : 24),
-      anchorY: config.anchorY !== undefined ? Number(config.anchorY) : (Number(config.frameHeight) ? Number(config.frameHeight) - 2 : 46),
-      animations: config.animations || {
-        idle: { name: 'idle', frames: [0], speed: 4, loop: true },
-        run: { name: 'run', frames: [1, 2, 3, 4], speed: 10, loop: true },
-        jump: { name: 'jump', frames: [5], speed: 1, loop: false },
-        fall: { name: 'fall', frames: [6], speed: 1, loop: false },
-        land: { name: 'land', frames: [0], speed: 8, loop: false },
-        hurt: { name: 'hurt', frames: [8], speed: 4, loop: false },
-        celebrate: { name: 'celebrate', frames: [7], speed: 6, loop: true }
-      }
-    };
-
-    if (typeof localStorage !== 'undefined') {
-      try {
-        localStorage.setItem('kupas_custom_character', JSON.stringify(this.customCharacterConfig));
-        localStorage.setItem('kupas_selected_character', 'custom');
-      } catch (e) {}
-    }
-    this.activeCharacterId = 'custom';
-    return this.customCharacterConfig;
-  }
-
-  getImage(src) {
-    if (!src) return null;
-    if (!this.images.has(src)) {
-      const img = new Image();
-      img.src = src;
-      this.images.set(src, img);
-    }
-    return this.images.get(src);
-  }
-
-  loadImage(src) {
-    return new Promise((resolve) => {
-      if (!src) return resolve(null);
-      const img = this.getImage(src);
-      if (img.complete) return resolve(img);
-      img.onload = () => resolve(img);
-      img.onerror = () => resolve(img);
-    });
-  }
-
-  async preloadAll() {
-    const promises = [];
-    for (const char of this.getCharacters()) {
-      if (char.spriteSrc) promises.push(this.loadImage(char.spriteSrc));
-    }
-    const env = this.manifest.environments.level1;
-    if (env) {
-      if (env.bgSky) promises.push(this.loadImage(env.bgSky));
-      if (env.bgTrees) promises.push(this.loadImage(env.bgTrees));
-      if (env.tileset) promises.push(this.loadImage(env.tileset));
-      if (env.banner) promises.push(this.loadImage(env.banner));
-    }
-    return Promise.allSettled(promises);
-  }
-}
-
-export const adventureAssetManager = new AdventureAssetManager();
-
-// ============================================================================
-// 4. ANIMATOR SPRITE FLEKSIBEL (7 ANIMATION STATES: IDLE, RUN, JUMP, FALL, LAND, HURT, CELEBRATE)
+// 3. ANIMATOR SPRITE DELTA-TIME (7 ANIMASI: IDLE, RUN, JUMP, FALL, LAND, HURT, CELEBRATE)
 // ============================================================================
 export class SpriteAnimator {
-  constructor(charConfig = {}) {
-    this.setConfig(charConfig);
+  constructor(charConfig = CHARACTER_CONFIG) {
+    this.config = charConfig;
     this.currentAnim = 'idle';
     this.frameIndex = 0;
     this.timer = 0;
-  }
-
-  setConfig(config) {
-    this.config = {
-      frameWidth: Number(config.frameWidth) || 48,
-      frameHeight: Number(config.frameHeight) || 48,
-      scale: Number(config.scale) || 1.0,
-      anchorX: config.anchorX !== undefined ? Number(config.anchorX) : 24,
-      anchorY: config.anchorY !== undefined ? Number(config.anchorY) : 46,
-      animations: config.animations || {
-        idle: { name: 'idle', frames: [0], speed: 4, loop: true },
-        run: { name: 'run', frames: [1, 2, 3, 4], speed: 10, loop: true },
-        jump: { name: 'jump', frames: [5], speed: 1, loop: false },
-        fall: { name: 'fall', frames: [6], speed: 1, loop: false },
-        land: { name: 'land', frames: [0], speed: 8, loop: false },
-        hurt: { name: 'hurt', frames: [8], speed: 4, loop: false },
-        celebrate: { name: 'celebrate', frames: [7], speed: 6, loop: true }
-      }
-    };
   }
 
   play(animName) {
@@ -465,7 +216,7 @@ export class SpriteAnimator {
     const anim = this.config.animations[this.currentAnim] || this.config.animations.idle;
     if (!anim || !anim.frames || anim.frames.length === 0) return;
 
-    this.timer += dt * (anim.speed || 6);
+    this.timer += dt * (anim.fps || 6);
     if (this.timer >= 1) {
       const step = Math.floor(this.timer);
       this.timer -= step;
@@ -481,46 +232,58 @@ export class SpriteAnimator {
     }
   }
 
-  getCurrentFrame() {
+  getCurrentFrameData() {
     const anim = this.config.animations[this.currentAnim] || this.config.animations.idle;
-    if (!anim || !anim.frames || anim.frames.length === 0) return 0;
+    if (!anim || !anim.frames || anim.frames.length === 0) {
+      return this.config.animations.idle.frames[0];
+    }
     const idx = Math.min(this.frameIndex, anim.frames.length - 1);
     return anim.frames[idx];
   }
 
-  draw(ctx, img, x, y, facing = 1) {
-    if (!img || !img.complete) return false;
+  /**
+   * Menggambar sprite dengan titik kaki yang konsisten
+   * @param {CanvasRenderingContext2D} ctx
+   * @param {HTMLImageElement} img
+   * @param {number} footCenterX - Posisi X kaki karakter di dunia game
+   * @param {number} footBottomY - Posisi Y dasar kaki karakter di dunia game
+   * @param {number} facing - 1 (kanan) atau -1 (kiri)
+   */
+  draw(ctx, img, footCenterX, footBottomY, facing = 1) {
+    if (!img || !img.complete || img.naturalWidth === 0) return false;
 
-    const frame = this.getCurrentFrame();
-    const fw = this.config.frameWidth;
-    const fh = this.config.frameHeight;
-    const scale = this.config.scale;
-    const ax = this.config.anchorX;
-    const ay = this.config.anchorY;
+    const f = this.getCurrentFrameData();
+    const scale = this.config.visualScale || 0.115;
 
-    const cols = Math.max(1, Math.floor(img.width / fw) || 1);
-    const col = frame % cols;
-    const row = Math.floor(frame / cols);
-    const sx = col * fw;
-    const sy = row * fh;
+    const destW = f.sw * scale;
+    const destH = f.sh * scale;
+    const footOffsetY = f.footOffset * scale;
+    const centerOffsetX = f.centerX * scale;
 
     ctx.save();
-    ctx.translate(x, y);
-    ctx.scale(facing * scale, scale);
-    ctx.drawImage(img, sx, sy, fw, fh, -ax, -ay, fw, fh);
+    ctx.translate(footCenterX, footBottomY);
+    ctx.scale(facing, 1);
+
+    // Gambar frame tepat dari source rectangle (sx, sy, sw, sh)
+    ctx.drawImage(
+      img,
+      f.sx, f.sy, f.sw, f.sh,
+      -centerOffsetX, -footOffsetY, destW, destH
+    );
+
     ctx.restore();
     return true;
   }
 }
 
 // ============================================================================
-// 5. BANK SOAL & TANTANGAN IPAS PADANG RUMPUT (STANDALONE)
+// 4. BANK SOAL & TANTANGAN IPAS PADANG RUMPUT (STANDALONE)
 // ============================================================================
 const TANTANGAN_LEVEL_1 = {
   jembatan: {
     id: 't1_jembatan',
     judul: 'Tantangan 1: Jembatan Rusak',
-    instruksi: 'Jembatan kayu penghubung seberang sungai patah! Kita butuh bahan perbaikan dari alam sekitar.',
+    instruksi: 'Jembatan kayu patah! Butuh pemahaman bahan alam dari sekitar sungai.',
     pertanyaan: 'Manakah di bawah ini yang seluruhnya merupakan komponen ABIOTIK (benda tak hidup) di sekitar sungai padang rumput?',
     opsi: [
       'Batu kerikil, air sungai, dan sinar matahari',
@@ -534,7 +297,7 @@ const TANTANGAN_LEVEL_1 = {
   bunga: {
     id: 't2_bunga',
     judul: 'Tantangan 2: Bunga Padang Layu',
-    instruksi: 'Bunga liar ini layu dan kepanasan. Agar dapat berfotosintesis dan kembali mekar segar, apa yang dibutuhkannya?',
+    instruksi: 'Bunga padang layu kepanasan. Agar berfotosintesis dan kembali mekar, apa yang dibutuhkannya?',
     pertanyaan: 'Bahan apakah yang diserap oleh akar tumbuhan dari dalam tanah dan daun dari udara untuk proses fotosintesis?',
     opsi: [
       'Menghirup gas oksigen dan pupuk buatan',
@@ -543,12 +306,12 @@ const TANTANGAN_LEVEL_1 = {
       'Gas nitrogen dan serbuk kapur'
     ],
     kunci: 1,
-    penjelasan: 'Tumbuhan hijau membutuhkan air dari dalam tanah dan karbon dioksida (CO2) dari udara, yang diolah dengan bantuan cahaya matahari dan klorofil untuk menghasilkan makanan.'
+    penjelasan: 'Tumbuhan hijau membutuhkan air dari tanah dan karbon dioksida (CO2) dari udara, dibantu cahaya matahari dan klorofil.'
   },
   kincir: {
     id: 't3_kincir',
     judul: 'Tantangan 3: Kincir Air Macet',
-    instruksi: 'Saluran air irigasi macet sehingga kincir air berhenti berputar. Bagaimana kincir air dapat bergerak kembali?',
+    instruksi: 'Saluran irigasi macet sehingga kincir air berhenti berputar. Bagaimana kincir air dapat berputar kembali?',
     pertanyaan: 'Perubahan bentuk energi apakah yang dimanfaatkan kincir air dari arus sungai untuk menyiram padang rumput?',
     opsi: [
       'Energi panas bumi menjadi energi listrik',
@@ -557,7 +320,7 @@ const TANTANGAN_LEVEL_1 = {
       'Energi kimia air menjadi energi cahaya'
     ],
     kunci: 1,
-    penjelasan: 'Arus air sungai yang mengalir memiliki energi kinetik (gerak). Tekanan aliran air mendorong bilah kincir sehingga menghasilkan energi gerak mekanis.'
+    penjelasan: 'Arus air sungai yang mengalir memiliki energi kinetik (gerak) yang mendorong bilah kincir menjadi gerak mekanis.'
   },
   gerbang_1: {
     id: 't5_gerbang_1',
@@ -571,12 +334,12 @@ const TANTANGAN_LEVEL_1 = {
       'Burung Elang'
     ],
     kunci: 0,
-    penjelasan: 'Rumput hijau adalah produsen karena dapat membuat makanannya sendiri melalui fotosintesis.'
+    penjelasan: 'Rumput hijau adalah produsen karena mampu membuat makanannya sendiri melalui proses fotosintesis.'
   },
   gerbang_2: {
     id: 't5_gerbang_2',
     judul: 'Ujian Penjaga: Keseimbangan Ekosistem',
-    instruksi: 'Pertanyaan terakhir sebelum Gerbang Kemenangan terbuka!',
+    instruksi: 'Pertanyaan penutup sebelum Gerbang Kemenangan terbuka!',
     pertanyaan: 'Jika populasi katak di padang rumput punah karena diburu, dampak langsung apa yang terjadi pada rantai makanan?',
     opsi: [
       'Populasi belalang melonjak pesat karena pemangsanya hilang',
@@ -585,15 +348,15 @@ const TANTANGAN_LEVEL_1 = {
       'Seluruh tumbuhan langsung layu seketika'
     ],
     kunci: 0,
-    penjelasan: 'Katak adalah predator pengendali belalang. Jika katak punah, belalang akan bertambah sangat banyak dan memakan rumput secara berlebihan.'
+    penjelasan: 'Katak adalah predator pengendali belalang. Jika katak punah, belalang melonjak drastis dan merusak rumput.'
   }
 };
 
 // ============================================================================
-// 6. KELAS MESIN PERMAINAN PLATFORMER 2D (GAME ENGINE)
+// 5. KELAS MESIN PERMAINAN PLATFORMER 2D (GAME ENGINE)
 // ============================================================================
 export class AdventureGameEngine {
-  constructor(canvasEl, assetManager = null) {
+  constructor(canvasEl) {
     this.canvas = canvasEl;
     this.ctx = canvasEl.getContext('2d', { alpha: false });
 
@@ -604,22 +367,22 @@ export class AdventureGameEngine {
     this.canvas.height = this.virtualHeight;
 
     // Dimensi Dunia (Lebar peta side-scrolling)
-    this.worldWidth = 3600;
-    this.worldHeight = 540;
+    this.worldWidth = ENV_COLLISION_DATA.worldWidth || 3600;
+    this.worldHeight = ENV_COLLISION_DATA.worldHeight || 540;
 
-    // Asset Manager & Animator Sprite Karakter
-    this.assetManager = assetManager || adventureAssetManager;
-    const selectedChar = this.assetManager.getSelectedCharacter();
-    this.animator = new SpriteAnimator(selectedChar);
+    // Karakter Utama Orisinal & Animator
+    this.characterConfig = CHARACTER_CONFIG;
+    this.animator = new SpriteAnimator(this.characterConfig);
 
-    // Assets Images Cache
+    // Cache Aset Gambar
     this.assets = {
-      sky: this.assetManager.getImage(this.assetManager.manifest.environments.level1.bgSky),
-      trees: this.assetManager.getImage(this.assetManager.manifest.environments.level1.bgTrees),
-      character: this.assetManager.getImage(selectedChar.spriteSrc),
-      tileset: this.assetManager.getImage(this.assetManager.manifest.environments.level1.tileset)
+      character: new Image(),
+      sky: new Image(),
+      trees: new Image(),
+      tileset: new Image()
     };
     this.assetsLoaded = false;
+    this.isLoadingAssets = false;
 
     // Game loop & Timing
     this.isRunning = false;
@@ -629,12 +392,12 @@ export class AdventureGameEngine {
     // Kamera side-scroller
     this.camera = { x: 0, y: 0 };
 
-    // Karakter Pemain (Hitbox & Fisika INVARIAN, tidak berubah saat ganti sprite)
+    // Karakter Pemain (Hitbox & Fisika Invarian)
     this.player = {
       x: 100,
       y: 380,
-      width: 44,
-      height: 48,
+      width: CHARACTER_CONFIG.hitbox.width,   // 44
+      height: CHARACTER_CONFIG.hitbox.height, // 48
       vx: 0,
       vy: 0,
       speed: 4.4,
@@ -642,13 +405,10 @@ export class AdventureGameEngine {
       gravity: 0.58,
       onGround: false,
       facing: 1, // 1: kanan, -1: kiri
-      animFrame: 0,
-      animTimer: 0,
       state: 'idle', // idle, run, jump, fall, land, hurt, celebrate
       hurtTimer: 0,
       celebrateTimer: 0,
-      landTimer: 0,
-      wasOnGround: true
+      landTimer: 0
     };
 
     // Input Controller
@@ -659,7 +419,7 @@ export class AdventureGameEngine {
       interact: false
     };
 
-    // State Tantangan & Objek Interaktif Level 1
+    // State Tantangan Level 1
     this.stateLevel = {
       levelId: 1,
       koinTerkumpul: 0,
@@ -678,10 +438,10 @@ export class AdventureGameEngine {
       }
     };
 
-    // Partikel Visual, Koleksi & Platform
+    // Partikel Visual & Koleksi
     this.particles = [];
     this.collectibleItems = [];
-    this.solidPlatforms = [];
+    this.solidPlatforms = [...ENV_COLLISION_DATA.platforms];
 
     // Pointer ke dialog tantangan UI
     this.dialogAktif = false;
@@ -693,98 +453,58 @@ export class AdventureGameEngine {
     this.loop = this.loop.bind(this);
   }
 
+  /**
+   * Pemuatan aset secara asinkron dengan proteksi anti-flicker
+   */
   async inisialisasi() {
-    await this.assetManager.init();
-    this.muatAsetVisual();
+    await this.muatSemuaAset();
     this.bangunDuniaLevel1();
     this.pasangInputListener();
-    this.perbaruiKarakterAktif();
   }
 
-  perbaruiKarakterAktif() {
-    const char = this.assetManager.getSelectedCharacter();
-    this.animator.setConfig(char);
-    this.assets.character = this.assetManager.getImage(char.spriteSrc);
+  loadImagePromise(img, src, fallbackSrc = null) {
+    return new Promise((resolve) => {
+      img.onload = () => resolve(true);
+      img.onerror = () => {
+        if (fallbackSrc && src !== fallbackSrc) {
+          console.warn(`Gagal memuat ${src}, beralih ke fallback ${fallbackSrc}`);
+          img.src = fallbackSrc;
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+        } else {
+          console.warn(`Gagal memuat aset: ${src}`);
+          resolve(false);
+        }
+      };
+      img.src = src;
+    });
   }
 
-  gantiKarakter(charId) {
-    const berhasil = this.assetManager.setSelectedCharacter(charId);
-    if (berhasil) {
-      this.perbaruiKarakterAktif();
-    }
-    return berhasil;
-  }
+  async muatSemuaAset() {
+    if (this.assetsLoaded) return;
+    this.isLoadingAssets = true;
 
-  muatAsetVisual() {
-    const env = this.assetManager.manifest.environments.level1;
-    const char = this.assetManager.getSelectedCharacter();
+    const env = ENV_VISUAL_ASSETS.level1;
+    const char = this.characterConfig;
 
-    this.assets.sky = this.assetManager.getImage(env.bgSky);
-    this.assets.trees = this.assetManager.getImage(env.bgTrees);
-    this.assets.tileset = this.assetManager.getImage(env.tileset);
-    this.assets.character = this.assetManager.getImage(char.spriteSrc);
+    const promises = [
+      this.loadImagePromise(this.assets.character, char.spriteSrc, char.fallbackSpriteSrc),
+      this.loadImagePromise(this.assets.sky, env.bgSky),
+      this.loadImagePromise(this.assets.trees, env.bgTrees),
+      this.loadImagePromise(this.assets.tileset, env.tileset)
+    ];
 
-    let loadedCount = 0;
-    const total = 4;
-    const onLoad = () => {
-      loadedCount++;
-      if (loadedCount >= total) {
-        this.assetsLoaded = true;
-      }
-    };
-
-    if (this.assets.sky.complete) loadedCount++; else this.assets.sky.onload = onLoad;
-    if (this.assets.trees.complete) loadedCount++; else this.assets.trees.onload = onLoad;
-    if (this.assets.tileset.complete) loadedCount++; else this.assets.tileset.onload = onLoad;
-    if (this.assets.character.complete) loadedCount++; else this.assets.character.onload = onLoad;
-
-    if (loadedCount >= total) {
-      this.assetsLoaded = true;
-    }
+    await Promise.allSettled(promises);
+    this.assetsLoaded = true;
+    this.isLoadingAssets = false;
   }
 
   bangunDuniaLevel1() {
-    this.solidPlatforms = [
-      // Tanah 1: Area Awal (x: 0 .. 760, y: 444)
-      { x: 0, y: 444, width: 760, height: 96, tipe: 'tanah' },
-
-      // Platform mengambang batu/tanah area awal
-      { x: 300, y: 350, width: 120, height: 28, tipe: 'platform' },
-      { x: 500, y: 280, width: 130, height: 28, tipe: 'platform' },
-
-      // Jembatan Kayu (x: 760 .. 960, y: 432)
-      { x: 760, y: 432, width: 200, height: 32, tipe: 'jembatan' },
-
-      // Tanah 2: Area Tengah (x: 960 .. 2100, y: 444)
-      { x: 960, y: 444, width: 1140, height: 96, tipe: 'tanah' },
-
-      // Platform dekat Bunga & Kincir
-      { x: 1250, y: 360, width: 110, height: 28, tipe: 'platform' },
-      { x: 1600, y: 340, width: 140, height: 28, tipe: 'platform' },
-      { x: 1850, y: 290, width: 130, height: 28, tipe: 'platform' },
-
-      // Tanah 3: Saluran Kincir & Area Koleksi (x: 2100 .. 3600, y: 444)
-      { x: 2100, y: 444, width: 1500, height: 96, tipe: 'tanah' },
-
-      // Platform zona koleksi ekosistem
-      { x: 2320, y: 350, width: 100, height: 26, tipe: 'platform' },
-      { x: 2500, y: 270, width: 110, height: 26, tipe: 'platform' },
-      { x: 2700, y: 340, width: 120, height: 26, tipe: 'platform' },
-      { x: 2900, y: 260, width: 130, height: 26, tipe: 'platform' }
-    ];
-
-    // Koleksi 6 Objek Ekosistem di Area x: 2300 - 3000
-    this.collectibleItems = [
-      // 3 Komponen Biotik
-      { id: 'bio_kupu', tipe: 'biotik', nama: 'Kupu-kupu Biru 🦋', x: 2350, y: 300, r: 18, diambil: false },
-      { id: 'bio_jamur', tipe: 'biotik', nama: 'Jamur Hutan 🍄', x: 2540, y: 225, r: 18, diambil: false },
-      { id: 'bio_ulat', tipe: 'biotik', nama: 'Ulat Daun 🐛', x: 2740, y: 295, r: 18, diambil: false },
-
-      // 3 Komponen Abiotik
-      { id: 'abio_air', tipe: 'abiotik', nama: 'Tetes Air Sungai 💧', x: 2420, y: 400, r: 18, diambil: false },
-      { id: 'abio_batu', tipe: 'abiotik', nama: 'Batu Kerikil 🪨', x: 2620, y: 400, r: 18, diambil: false },
-      { id: 'abio_cahaya', tipe: 'abiotik', nama: 'Kristal Sinar Mentari ☀️', x: 2940, y: 215, r: 18, diambil: false }
-    ];
+    this.solidPlatforms = JSON.parse(JSON.stringify(ENV_COLLISION_DATA.platforms));
+    this.collectibleItems = ENV_VISUAL_ASSETS.collectibles.map(item => ({
+      ...item,
+      diambil: false
+    }));
   }
 
   pasangInputListener() {
@@ -822,8 +542,14 @@ export class AdventureGameEngine {
     if (k === 'e' || k === 'enter') this.keys.interact = false;
   }
 
-  mulai() {
+  async mulai() {
     if (this.isRunning) return;
+
+    // Pastikan aset penting sudah siap sebelum game loop diputar (anti-flicker)
+    if (!this.assetsLoaded) {
+      await this.muatSemuaAset();
+    }
+
     this.isRunning = true;
     this.lastTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
     this.rafId = requestAnimationFrame(this.loop);
@@ -844,7 +570,7 @@ export class AdventureGameEngine {
   }
 
   // ==========================================================================
-  // GAME LOOP: UPDATE & RENDER (60 FPS)
+  // GAME LOOP: UPDATE & RENDER DENGAN DELTA TIME (60 FPS)
   // ==========================================================================
   loop(now) {
     if (!this.isRunning) return;
@@ -876,7 +602,7 @@ export class AdventureGameEngine {
       p.vx = p.speed;
       p.facing = 1;
     } else {
-      p.vx *= 0.78; // Gesekan alami
+      p.vx *= 0.78;
       if (Math.abs(p.vx) < 0.1) p.vx = 0;
     }
 
@@ -892,14 +618,12 @@ export class AdventureGameEngine {
     p.vy += p.gravity;
     if (p.vy > 14) p.vy = 14;
 
-    // Prediksi posisi baru
     let newX = p.x + p.vx;
     let newY = p.y + p.vy;
 
-    // Batasi batas kiri dunia
     if (newX < 0) newX = 0;
 
-    // Penghalang Jembatan Rusak:
+    // Penghalang Jembatan Rusak (belum selesai)
     if (!this.stateLevel.jembatanSelesai) {
       const batasKiriJembatan = 750;
       if (p.x + p.width <= batasKiriJembatan && newX + p.width > batasKiriJembatan) {
@@ -962,7 +686,7 @@ export class AdventureGameEngine {
       p.state = 'idle';
     }
 
-    // Sinkronkan ke Animator Sprite
+    // Sinkronkan ke Animator Sprite Berbasis Delta Time
     this.animator.play(p.state);
     this.animator.update(dt);
   }
@@ -1122,7 +846,6 @@ export class AdventureGameEngine {
 
       btn.onclick = () => {
         if (idx === dataTantangan.kunci) {
-          // Jawaban Benar -> Rayakan & Lanjut
           adventureAudio.playSuccess();
           this.player.celebrateTimer = 0.8;
           this.player.state = 'celebrate';
@@ -1145,7 +868,6 @@ export class AdventureGameEngine {
             }
           }, 1400);
         } else {
-          // Jawaban Salah -> Feedback mendidik, berikan kesempatan mencoba lagi
           adventureAudio.playWrong();
           this.player.hurtTimer = 0.5;
           this.player.state = 'hurt';
@@ -1201,9 +923,6 @@ export class AdventureGameEngine {
     }, 1200);
   }
 
-  // ==========================================================================
-  // PARTIKEL VISUAL (DEBU & KILAU BINTANG)
-  // ==========================================================================
   buatPartikelDebu(x, y, count = 6) {
     for (let i = 0; i < count; i++) {
       this.particles.push({
@@ -1258,7 +977,7 @@ export class AdventureGameEngine {
     ctx.clearRect(0, 0, this.virtualWidth, this.virtualHeight);
 
     // 1. Layer 1: Parallax Sky (bergerak lambat 0.1x)
-    if (this.assets.sky && this.assets.sky.complete) {
+    if (this.assets.sky && this.assets.sky.complete && this.assets.sky.naturalWidth > 0) {
       const skyOffset = (cx * 0.1) % 960;
       ctx.drawImage(this.assets.sky, -skyOffset, 0, 960, 540);
       ctx.drawImage(this.assets.sky, 960 - skyOffset, 0, 960, 540);
@@ -1268,13 +987,13 @@ export class AdventureGameEngine {
     }
 
     // 2. Layer 2: Parallax Midground Trees & Hills (bergerak 0.35x)
-    if (this.assets.trees && this.assets.trees.complete) {
+    if (this.assets.trees && this.assets.trees.complete && this.assets.trees.naturalWidth > 0) {
       const treeOffset = (cx * 0.35) % 960;
       ctx.drawImage(this.assets.trees, -treeOffset, 180, 960, 360);
       ctx.drawImage(this.assets.trees, 960 - treeOffset, 180, 960, 360);
     }
 
-    // 3. Layer 3: Playfield (Dunia Platform & Interaksi)
+    // 3. Layer 3: Playfield (Dunia Platform, Objek, & Pemain)
     ctx.save();
     ctx.translate(-cx, 0);
 
@@ -1290,13 +1009,11 @@ export class AdventureGameEngine {
   renderPlatformDanTanah(ctx) {
     for (const plat of this.solidPlatforms) {
       if (plat.tipe === 'tanah') {
-        // Lapisan rumput hijau subur di atas tanah
         ctx.fillStyle = '#4AB23E';
         ctx.fillRect(plat.x, plat.y, plat.width, 16);
         ctx.fillStyle = '#2E7D4F';
         ctx.fillRect(plat.x, plat.y + 14, plat.width, 4);
 
-        // Lapisan tanah lempung cokelat subur
         ctx.fillStyle = '#8E552A';
         ctx.fillRect(plat.x, plat.y + 18, plat.width, plat.height - 18);
       } else if (plat.tipe === 'platform') {
@@ -1307,15 +1024,15 @@ export class AdventureGameEngine {
       }
     }
 
-    // Jurang Sungai Padang Rumput (x: 760 .. 960, y: 444 .. 540)
+    // Jurang Sungai Padang Rumput
+    const rz = ENV_COLLISION_DATA.riverZone;
     ctx.fillStyle = '#23708A';
-    ctx.fillRect(760, 480, 200, 60);
+    ctx.fillRect(rz.x, rz.y, rz.width, rz.height);
 
-    // Ombak buih sungai
     ctx.fillStyle = '#FFFDF7';
     const nowTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
-    for (let i = 770; i < 950; i += 32) {
-      ctx.fillRect(i + Math.sin(nowTime * 0.005 + i) * 6, 484, 20, 4);
+    for (let i = rz.x + 10; i < rz.x + rz.width - 10; i += 32) {
+      ctx.fillRect(i + Math.sin(nowTime * 0.005 + i) * 6, rz.y + 4, 20, 4);
     }
   }
 
@@ -1481,26 +1198,28 @@ export class AdventureGameEngine {
 
   renderPemain(ctx) {
     const p = this.player;
-    const char = this.assetManager.getSelectedCharacter();
-    const charImg = this.assetManager.getImage(char.spriteSrc);
+
+    // Titik pusat kaki karakter di koordinat dunia game
+    const footCenterX = p.x + p.width / 2;
+    const footBottomY = p.y + p.height;
 
     const drew = this.animator.draw(
       ctx,
-      charImg,
-      p.x + p.width / 2,
-      p.y + p.height,
+      this.assets.character,
+      footCenterX,
+      footBottomY,
       p.facing
     );
 
+    // Fallback procedural rendering hanya jika citra sprite belum siap
     if (!drew) {
-      // Fallback procedural rendering jika gambar sedang memuat
       ctx.save();
-      ctx.translate(p.x + p.width / 2, p.y + p.height / 2);
+      ctx.translate(footCenterX, footBottomY);
       ctx.scale(p.facing, 1);
       ctx.fillStyle = '#2E7D4F';
-      ctx.fillRect(-p.width / 2, -p.height / 2, p.width, p.height);
+      ctx.fillRect(-p.width / 2, -p.height, p.width, p.height);
       ctx.fillStyle = '#F2A541';
-      ctx.fillRect(-p.width / 2, -p.height / 2, p.width, 14);
+      ctx.fillRect(-p.width / 2, -p.height, p.width, 14);
       ctx.restore();
     }
   }

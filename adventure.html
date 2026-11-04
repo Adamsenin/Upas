@@ -30,15 +30,20 @@
       
       <!-- Banner Hero Petualangan Claymorphic -->
       <div class="adventure-hero-banner">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
           <div>
-            <span class="badge bg-warning text-dark border border-dark rounded-pill fw-bold mb-2 px-3 py-1">
-              ✨ Mode Mandiri (Single Player)
-            </span>
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge bg-warning text-dark border border-dark rounded-pill fw-bold px-3 py-1">
+                ✨ Mode Mandiri (Single Player)
+              </span>
+              <span class="badge bg-success text-white border border-dark rounded-pill fw-bold px-3 py-1">
+                🎒 Petualang: Aliya
+              </span>
+            </div>
             <h1 class="h2 fw-bolder mb-1">Adventure: Petualangan IPAS</h1>
-            <p class="mb-0 text-white-50">Jelajahi dunia 2D, pelajari ekosistem alam, dan selesaikan misi langsung tanpa kode sesi!</p>
+            <p class="mb-0 text-white-50">Jelajahi dunia ekosistem bersama Aliya, temukan rahasia alam, dan selesaikan misi langsung tanpa kode sesi!</p>
           </div>
-          <a href="index.html" class="btn btn-kupas-kuning btn-sm fw-bold d-inline-flex align-items-center gap-1 shadow-sm">
+          <a href="index.html" class="btn btn-kupas-kuning btn-sm fw-bold d-inline-flex align-items-center gap-1 shadow-sm rounded-pill px-3 py-2">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
             <span>Kembali ke Beranda</span>
           </a>
@@ -61,60 +66,15 @@
         </div>
       </div>
 
-      <!-- ==================================================================
-           SELEKSI KARAKTER PETUALANG (SEBELUM LEVEL 1 DIMULAI)
-           ================================================================== -->
-      <div class="wadah-pilih-karakter">
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
-          <div>
-            <h2 class="h5 fw-bolder mb-0">🎭 Pilih Karakter Petualangan</h2>
-            <p class="small text-secondary mb-0">Pilih karakter favoritmu atau buat karakter kustom buatanmu sendiri!</p>
-          </div>
-          <button type="button" class="btn btn-outline-dark btn-sm fw-bold d-inline-flex align-items-center gap-1 rounded-pill" id="btn-buka-modal-kustom">
-            <span>⚙️ Karakter Kustom</span>
-          </button>
-        </div>
-
-        <div class="grid-pilih-karakter" id="grid-pilih-karakter">
-          <!-- Karakter 1: Si Kupas Penjelajah -->
-          <div class="kartu-karakter terpilih" data-char-id="si_kupas" id="kartu-char-si_kupas" role="button" tabindex="0">
-            <span class="badge bg-success kartu-karakter-badge" id="badge-char-si_kupas">✓ Aktif</span>
-            <div class="avatar-preview-box">
-              <img src="assets/svg/maskot-senang.svg" alt="Si Kupas" class="avatar-preview-img">
-            </div>
-            <h3 class="h6 fw-bolder mb-1">Si Kupas Penjelajah</h3>
-            <span class="badge bg-warning text-dark border border-dark rounded-pill small mb-2">Penjelajah Padang</span>
-            <p class="small text-secondary mb-0">Pemberani, lincah, dan menjaga keharmonisan ekosistem alam nusantara.</p>
-          </div>
-
-          <!-- Karakter 2: Rara Peneliti Alam -->
-          <div class="kartu-karakter" data-char-id="rara" id="kartu-char-rara" role="button" tabindex="0">
-            <span class="badge bg-secondary kartu-karakter-badge" id="badge-char-rara">Pilih</span>
-            <div class="avatar-preview-box" style="background: #E0E7FF;">
-              <img src="assets/images/adventure/character-rara.png" alt="Rara Peneliti Alam" class="avatar-preview-img" style="object-position: 0 0;">
-            </div>
-            <h3 class="h6 fw-bolder mb-1">Rara Peneliti Alam</h3>
-            <span class="badge bg-info text-dark border border-dark rounded-pill small mb-2">Peneliti Ekosistem</span>
-            <p class="small text-secondary mb-0">Cerdas, teliti, gemar mencatat observasi flora fauna di alam bebas.</p>
-          </div>
-
-          <!-- Karakter 3: Slot Kustom (Jika Ada atau Buat Baru) -->
-          <div class="kartu-karakter d-none" data-char-id="custom" id="kartu-char-custom" role="button" tabindex="0">
-            <span class="badge bg-secondary kartu-karakter-badge" id="badge-char-custom">Pilih</span>
-            <div class="avatar-preview-box" style="background: #FEE2E2;">
-              <img src="assets/svg/maskot-senang.svg" alt="Karakter Kustom" class="avatar-preview-img" id="img-char-custom">
-            </div>
-            <h3 class="h6 fw-bolder mb-1" id="nama-char-custom">Karakter Kustom</h3>
-            <span class="badge bg-primary text-white border border-dark rounded-pill small mb-2" id="badge-label-custom">Kustom Buatanmu</span>
-            <p class="small text-secondary mb-0" id="desc-char-custom">Sprite sheet kustom hasil unggahanmu.</p>
-          </div>
-        </div>
-      </div>
-
       <!-- Grid Kartu Pemilihan Level -->
       <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h5 fw-bolder mb-0">🗺️ Pilih Zona Ekosistem Petualangan</h2>
-        <span class="text-secondary small">Level 1 siap dimainkan</span>
+        <div>
+          <h2 class="h5 fw-bolder mb-0">🗺️ Zona Ekosistem Petualangan</h2>
+          <small class="text-secondary">Pilih level untuk memulai eksplorasi interaktif</small>
+        </div>
+        <span class="badge bg-light text-success border border-success fw-bold px-3 py-1 rounded-pill">
+          ● Level 1 Terbuka
+        </span>
       </div>
 
       <div class="grid-pilih-level">
@@ -127,7 +87,7 @@
               <span class="small fw-bold text-success">● Siap Main</span>
             </div>
             <h3 class="h6 fw-bolder mt-2 mb-1">Padang Rumput Asri</h3>
-            <p class="small text-secondary mb-2">Perbaiki jembatan rusak, siram bunga padang liar, dan gerakkan kincir air!</p>
+            <p class="small text-secondary mb-2">Bantu Aliya memperbaiki jembatan patah, siram bunga liar, dan putar kincir air irigasi!</p>
             
             <div class="bintang-level" id="bintang-level-1">
               <span class="bintang-item">★</span>
@@ -135,7 +95,7 @@
               <span class="bintang-item">★</span>
             </div>
 
-            <button type="button" class="btn btn-kupas-hijau btn-sm fw-bold mt-auto w-100" id="btn-main-level-1">
+            <button type="button" class="btn btn-kupas-hijau btn-sm fw-bold mt-auto w-100 rounded-pill py-2" id="btn-main-level-1">
               ▶ Mulai Petualangan
             </button>
           </div>
@@ -153,7 +113,7 @@
             </div>
             <h3 class="h6 fw-bolder mt-2 mb-1">Sawah & Rantai Makanan</h3>
             <p class="small text-secondary mb-2">Bantu petani menjaga keseimbangan rantai makanan dari serbuan hama!</p>
-            <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100" disabled>
+            <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100 rounded-pill" disabled>
               🔒 Selesaikan Level 1
             </button>
           </div>
@@ -171,7 +131,7 @@
             </div>
             <h3 class="h6 fw-bolder mt-2 mb-1">Hutan Rimba & Simbiosis</h3>
             <p class="small text-secondary mb-2">Temukan hubungan simbiosis antar satwa di rimbunnya hutan tropis.</p>
-            <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100" disabled>
+            <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100 rounded-pill" disabled>
               🔒 Selesaikan Level 2
             </button>
           </div>
@@ -189,7 +149,7 @@
             </div>
             <h3 class="h6 fw-bolder mt-2 mb-1">Danau & Siklus Air</h3>
             <p class="small text-secondary mb-2">Pelajari proses evaporasi, kondensasi, dan presipitasi di danau pegunungan.</p>
-            <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100" disabled>
+            <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100 rounded-pill" disabled>
               🔒 Selesaikan Level 3
             </button>
           </div>
@@ -207,12 +167,10 @@
         <!-- In-Game HUD Claymorphic -->
         <div class="game-hud">
           <div class="d-flex align-items-center gap-2">
-            <!-- Avatar & Nama Karakter Aktif -->
+            <!-- Avatar & Nama Karakter Tunggal: Aliya -->
             <div class="hud-item hud-avatar">
-              <div class="hud-avatar-icon">
-                <img src="assets/svg/maskot-senang.svg" alt="Pemain" id="hud-char-avatar-img">
-              </div>
-              <span id="hud-char-nama" class="small fw-bolder text-dark">Si Kupas</span>
+              <span class="badge bg-success rounded-circle p-1">🎒</span>
+              <span class="small fw-bolder text-dark">Aliya</span>
             </div>
 
             <!-- Koin Daun -->
@@ -245,7 +203,7 @@
           <div class="dialog-kotak">
             <div class="dialog-header">
               <div class="dialog-avatar">
-                <img src="assets/svg/maskot-senang.svg" alt="Maskot" width="40" height="40" id="dialog-mascot-img">
+                <img src="assets/svg/maskot-senang.svg" alt="Maskot" width="40" height="40">
               </div>
               <div>
                 <h3 id="dialog-judul" class="h6 fw-bolder mb-0">Tantangan IPAS</h3>
@@ -268,7 +226,7 @@
               🎉 LEVEL SELESAI!
             </span>
             <h3 class="h4 fw-bolder mt-2 mb-1">Misi Padang Rumput Tuntas!</h3>
-            <p class="text-secondary small">Kamu berhasil membantu seluruh komponen ekosistem padang rumput tetap seimbang!</p>
+            <p class="text-secondary small">Kamu bersama Aliya berhasil membantu seluruh komponen ekosistem padang rumput tetap seimbang!</p>
 
             <div class="victory-bintang">
               <span class="text-warning">★</span>
@@ -329,81 +287,18 @@
 
   </main>
 
-  <!-- ====================================================================
-       MODAL KONFIGURASI KARAKTER KUSTOM (CUSTOM SPRITE SYSTEM)
-       ==================================================================== -->
-  <div class="modal fade" id="modal-karakter-kustom" tabindex="-1" aria-labelledby="modalKarakterLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content border-3 border-dark rounded-4 shadow-lg" style="background: #FFFDF7;">
-        <div class="modal-header border-bottom border-dark">
-          <h5 class="modal-title fw-bold" id="modalKarakterLabel">🎨 Buat / Atur Karakter Kustom</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-        </div>
-        <div class="modal-body">
-          <p class="small text-secondary mb-3">
-            Gunakan gambar PNG transparan (sprite sheet) milikmu sendiri. Karakter baru akan mengikuti fisika game standar tanpa mengubah tantangan atau koordinat!
-          </p>
-
-          <form id="form-karakter-kustom">
-            <div class="mb-3">
-              <label for="input-kustom-nama" class="form-label fw-bold small">Nama Karakter</label>
-              <input type="text" class="form-control form-control-sm border-2 border-dark rounded-3" id="input-kustom-nama" placeholder="Contoh: Budi Si Petualang" required value="Karakter Saya">
-            </div>
-
-            <div class="mb-3">
-              <label for="input-kustom-badge" class="form-label fw-bold small">Gelar / Badge</label>
-              <input type="text" class="form-control form-control-sm border-2 border-dark rounded-3" id="input-kustom-badge" placeholder="Contoh: Ahli Tanaman" required value="Penjelajah Cilik">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label fw-bold small">Pilih Berkas Sprite Sheet (PNG Transparan)</label>
-              <input type="file" class="form-control form-control-sm border-2 border-dark rounded-3" id="input-kustom-file" accept="image/png,image/webp">
-              <div class="form-text small">Atau masukkan URL gambar jika disimpan daring:</div>
-              <input type="url" class="form-control form-control-sm border-2 border-dark rounded-3 mt-1" id="input-kustom-url" placeholder="https://.../sprite.png">
-            </div>
-
-            <div class="row g-2 mb-3">
-              <div class="col-6">
-                <label for="input-kustom-fw" class="form-label fw-bold small">Lebar Frame (px)</label>
-                <input type="number" class="form-control form-control-sm border-2 border-dark rounded-3" id="input-kustom-fw" value="48" min="16" max="256">
-              </div>
-              <div class="col-6">
-                <label for="input-kustom-fh" class="form-label fw-bold small">Tinggi Frame (px)</label>
-                <input type="number" class="form-control form-control-sm border-2 border-dark rounded-3" id="input-kustom-fh" value="48" min="16" max="256">
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label fw-bold small">Pratinjau Sprite Karakter</label>
-              <div class="preview-sprite-box">
-                <canvas id="canvas-preview-karakter" width="48" height="48"></canvas>
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-end gap-2 mt-4">
-              <button type="button" class="btn btn-outline-secondary btn-sm fw-bold rounded-pill" data-bs-dismiss="modal">Batal</button>
-              <button type="submit" class="btn btn-kupas-hijau btn-sm fw-bold rounded-pill px-3">💾 Terapkan Karakter</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Script Bootstrap & Inisialisasi Adventure Platformer -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="module" src="assets/js/latar-hidup.js"></script>
   
   <script type="module">
     import { pasangHeader, suara } from './assets/js/ui.js';
     import {
       adventureProgress,
       adventureAudio,
-      adventureAssetManager,
       AdventureGameEngine
     } from './assets/js/adventure-platformer.js';
 
-    // 1. Pasang Navigasi Atas Standar
+    // 1. Pasang Navigasi Atas Standar KUPAS
     pasangHeader('siswa', { berandaLink: 'index.html', rootAset: '' });
 
     // 2. Elemen Layar & Canvas
@@ -437,164 +332,16 @@
 
     renderProgresUI();
 
-    // 4. Sinkronisasi UI Seleksi Karakter
-    function perbaruiUISeleksiKarakter() {
-      const activeChar = adventureAssetManager.getSelectedCharacter();
-      const customChar = adventureAssetManager.customCharacterConfig;
-
-      // Slot custom
-      const kartuCustom = document.getElementById('kartu-char-custom');
-      if (kartuCustom) {
-        if (customChar) {
-          kartuCustom.classList.remove('d-none');
-          document.getElementById('nama-char-custom').textContent = customChar.name;
-          document.getElementById('badge-label-custom').textContent = customChar.badge;
-          document.getElementById('desc-char-custom').textContent = customChar.description;
-          if (customChar.spriteSrc) {
-            document.getElementById('img-char-custom').src = customChar.spriteSrc;
-          }
-        } else {
-          kartuCustom.classList.add('d-none');
-        }
-      }
-
-      // Update badge dan kelas aktif
-      const kartuList = document.querySelectorAll('.kartu-karakter');
-      kartuList.forEach(k => {
-        const charId = k.getAttribute('data-char-id');
-        const badge = k.querySelector('.kartu-karakter-badge');
-        if (charId === activeChar.id) {
-          k.classList.add('terpilih');
-          if (badge) {
-            badge.className = 'badge bg-success kartu-karakter-badge';
-            badge.textContent = '✓ Aktif';
-          }
-        } else {
-          k.classList.remove('terpilih');
-          if (badge) {
-            badge.className = 'badge bg-secondary kartu-karakter-badge';
-            badge.textContent = 'Pilih';
-          }
-        }
-      });
-
-      // Update HUD Mini Avatar
-      const hudAvatarImg = document.getElementById('hud-char-avatar-img');
-      const hudNama = document.getElementById('hud-char-nama');
-      if (hudAvatarImg) hudAvatarImg.src = activeChar.avatar || activeChar.spriteSrc;
-      if (hudNama) hudNama.textContent = activeChar.name.split(' ')[0] || activeChar.name;
-    }
-
-    perbaruiUISeleksiKarakter();
-
-    // Event listener memilih karakter dari kartu
-    document.querySelectorAll('.kartu-karakter').forEach(k => {
-      k.addEventListener('click', () => {
-        const charId = k.getAttribute('data-char-id');
-        if (charId) {
-          suara.mainkan('klik');
-          adventureAssetManager.setSelectedCharacter(charId);
-          perbaruiUISeleksiKarakter();
-          if (gameEngine) {
-            gameEngine.gantiKarakter(charId);
-          }
-        }
-      });
-    });
-
-    // 5. Inisialisasi Modal Karakter Kustom
-    const modalKustomEl = document.getElementById('modal-karakter-kustom');
-    const modalKustomBs = new bootstrap.Modal(modalKustomEl);
-    const canvasPreview = document.getElementById('canvas-preview-karakter');
-    const ctxPreview = canvasPreview.getContext('2d');
-    let previewImg = new Image();
-    let previewDataUrl = '';
-
-    document.getElementById('btn-buka-modal-kustom')?.addEventListener('click', () => {
-      suara.mainkan('klik');
-      const custom = adventureAssetManager.customCharacterConfig;
-      if (custom) {
-        document.getElementById('input-kustom-nama').value = custom.name;
-        document.getElementById('input-kustom-badge').value = custom.badge;
-        document.getElementById('input-kustom-fw').value = custom.frameWidth;
-        document.getElementById('input-kustom-fh').value = custom.frameHeight;
-        if (custom.spriteSrc && !custom.spriteSrc.startsWith('data:')) {
-          document.getElementById('input-kustom-url').value = custom.spriteSrc;
-        }
-        previewImg.src = custom.spriteSrc;
-        previewImg.onload = renderPreviewKarakter;
-      }
-      modalKustomBs.show();
-    });
-
-    function renderPreviewKarakter() {
-      ctxPreview.clearRect(0, 0, 48, 48);
-      if (previewImg.complete && previewImg.naturalWidth > 0) {
-        const fw = Number(document.getElementById('input-kustom-fw').value) || 48;
-        const fh = Number(document.getElementById('input-kustom-fh').value) || 48;
-        ctxPreview.drawImage(previewImg, 0, 0, fw, fh, 0, 0, 48, 48);
-      }
-    }
-
-    document.getElementById('input-kustom-file')?.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          previewDataUrl = ev.target.result;
-          previewImg.src = previewDataUrl;
-          previewImg.onload = renderPreviewKarakter;
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    document.getElementById('input-kustom-url')?.addEventListener('input', (e) => {
-      const url = e.target.value.trim();
-      if (url) {
-        previewImg.src = url;
-        previewImg.onload = renderPreviewKarakter;
-      }
-    });
-
-    document.getElementById('form-karakter-kustom')?.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const nama = document.getElementById('input-kustom-nama').value.trim();
-      const badge = document.getElementById('input-kustom-badge').value.trim();
-      const fw = Number(document.getElementById('input-kustom-fw').value) || 48;
-      const fh = Number(document.getElementById('input-kustom-fh').value) || 48;
-      const urlInput = document.getElementById('input-kustom-url').value.trim();
-      const finalSrc = previewDataUrl || urlInput || 'assets/images/adventure/character-spritesheet.png';
-
-      adventureAssetManager.setCustomCharacter({
-        name: nama,
-        badge: badge,
-        spriteSrc: finalSrc,
-        frameWidth: fw,
-        frameHeight: fh,
-        scale: 1.0
-      });
-
-      suara.mainkan('sukses');
-      perbaruiUISeleksiKarakter();
-      modalKustomBs.hide();
-
-      if (gameEngine) {
-        gameEngine.gantiKarakter('custom');
-      }
-    });
-
-    // 6. Masuk ke Level 1
-    document.getElementById('btn-main-level-1')?.addEventListener('click', () => {
+    // 4. Masuk ke Level 1 Langsung Memainkan Karakter Aliya
+    document.getElementById('btn-main-level-1')?.addEventListener('click', async () => {
       suara.mainkan('klik');
       layarPilihLevel.classList.add('d-none');
       layarPermainan.classList.remove('d-none');
 
       if (!gameEngine) {
-        gameEngine = new AdventureGameEngine(canvasEl, adventureAssetManager);
-        gameEngine.inisialisasi();
+        gameEngine = new AdventureGameEngine(canvasEl);
+        await gameEngine.inisialisasi();
       } else {
-        gameEngine.perbaruiKarakterAktif();
         gameEngine.bangunDuniaLevel1();
         gameEngine.stateLevel.misiSelesai = 0;
         gameEngine.stateLevel.koinTerkumpul = 0;
@@ -610,12 +357,11 @@
         gameEngine.player.state = 'idle';
       }
 
-      perbaruiUISeleksiKarakter();
       gameEngine.perbaruiHUD();
       gameEngine.mulai();
     });
 
-    // 7. Toggle Audio Suara In-Game
+    // 5. Toggle Audio Suara In-Game
     document.getElementById('btn-hud-sound')?.addEventListener('click', () => {
       const aktif = adventureAudio.toggleMute();
       suara.mainkan('klik');
@@ -623,7 +369,7 @@
       if (soundIcon) soundIcon.textContent = aktif ? '🔊' : '🔇';
     });
 
-    // 8. Keluar dari Level ke Menu Pilihan Level
+    // 6. Keluar dari Level ke Menu Pilihan Level
     function keluarKeMenuLevel() {
       if (gameEngine) {
         gameEngine.berhenti();
@@ -633,7 +379,6 @@
       layarPermainan.classList.add('d-none');
       layarPilihLevel.classList.remove('d-none');
       renderProgresUI();
-      perbaruiUISeleksiKarakter();
     }
 
     document.getElementById('btn-keluar-level')?.addEventListener('click', () => {
@@ -668,7 +413,7 @@
       }
     });
 
-    // 9. Hubungkan Kontrol Sentuh Virtual (Pointer Events)
+    // 7. Hubungkan Kontrol Sentuh Virtual (Pointer Events)
     function pasangTombolSentuh(idBtn, onDown, onUp) {
       const el = document.getElementById(idBtn);
       if (!el) return;
@@ -705,7 +450,7 @@
       () => { if (gameEngine) gameEngine.keys.interact = false; }
     );
 
-    // 10. Shortcut Keyboard Angka 1-4 untuk Menjawab Soal saat Dialog Aktif
+    // 8. Shortcut Keyboard Angka 1-4 untuk Menjawab Soal saat Dialog Aktif
     window.addEventListener('keydown', (e) => {
       const overlay = document.getElementById('dialog-tantangan-overlay');
       if (overlay && overlay.classList.contains('aktif')) {
@@ -720,7 +465,7 @@
       }
     });
 
-    // 11. Cleanup otomatis saat keluar halaman
+    // 9. Cleanup otomatis saat keluar halaman
     window.addEventListener('beforeunload', () => {
       if (gameEngine) gameEngine.cleanup();
     });

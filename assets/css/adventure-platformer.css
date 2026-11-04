@@ -44,7 +44,7 @@
   box-shadow: 0 8px 0 rgba(27, 58, 47, 0.25), 0 16px 24px rgba(27, 58, 47, 0.15);
   position: relative;
   overflow: hidden;
-  margin-bottom: 2rem;
+  margin-bottom: 2.25rem;
 }
 
 .adventure-hero-banner::after {
@@ -80,84 +80,7 @@
 }
 
 /* ==========================================================================
-   3. SELEKSI KARAKTER PETUALANG (CLAYMORPHIC CARDS)
-   ========================================================================== */
-.wadah-pilih-karakter {
-  background: var(--n-santan, #FFFDF7);
-  border: 3.5px solid var(--n-rimba, #1B3A2F);
-  border-radius: 24px;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 6px 0 var(--n-rimba, #1B3A2F), 0 12px 20px rgba(27, 58, 47, 0.08);
-}
-
-.grid-pilih-karakter {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.kartu-karakter {
-  background: #FDFBF7;
-  border: 3px solid #D1D5DB;
-  border-radius: 20px;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 4px 0 #D1D5DB;
-}
-
-.kartu-karakter:hover {
-  transform: translateY(-4px);
-  border-color: var(--n-rimba, #1B3A2F);
-  box-shadow: 0 8px 0 var(--n-rimba, #1B3A2F);
-}
-
-.kartu-karakter.terpilih {
-  border-color: var(--n-rimba, #1B3A2F);
-  background: #F0FDF4;
-  box-shadow: 0 6px 0 var(--n-rimba, #1B3A2F), inset 0 0 0 2px #22C55E;
-  transform: translateY(-2px);
-}
-
-.kartu-karakter-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 0.72rem;
-  padding: 0.15rem 0.55rem;
-}
-
-.avatar-preview-box {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: #FEF3C7;
-  border: 3px solid var(--n-rimba, #1B3A2F);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 3px 0 var(--n-rimba, #1B3A2F);
-}
-
-.avatar-preview-img {
-  width: 48px;
-  height: 48px;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-  object-fit: contain;
-}
-
-/* ==========================================================================
-   4. GRID KARTU PEMILIHAN LEVEL
+   3. GRID KARTU PEMILIHAN LEVEL
    ========================================================================== */
 .grid-pilih-level {
   display: grid;
@@ -216,7 +139,7 @@
 }
 
 /* ==========================================================================
-   5. VIEWPORT PERMAINAN (CANVAS 2D)
+   4. VIEWPORT PERMAINAN (CANVAS 2D)
    ========================================================================== */
 .layar-game-wadah {
   position: relative;
@@ -250,7 +173,7 @@
 }
 
 /* ==========================================================================
-   6. IN-GAME HUD (OVERLAY CLAYMORPHIC ATAS CANVAS)
+   5. IN-GAME HUD (OVERLAY CLAYMORPHIC ATAS CANVAS)
    ========================================================================== */
 .game-hud {
   position: absolute;
@@ -282,24 +205,6 @@
 .hud-avatar {
   padding: 0.25rem 0.65rem;
   gap: 0.4rem;
-}
-
-.hud-avatar-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid var(--n-rimba, #1B3A2F);
-  background: #FEF3C7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.hud-avatar-icon img {
-  width: 22px;
-  height: 22px;
-  image-rendering: pixelated;
 }
 
 .hud-koin {
@@ -343,7 +248,7 @@
 }
 
 /* ==========================================================================
-   7. KOTAK DIALOG & MODAL TANTANGAN IN-GAME (CLAYMORPHIC)
+   6. KOTAK DIALOG & MODAL TANTANGAN IN-GAME (CLAYMORPHIC)
    ========================================================================== */
 .dialog-tantangan-overlay {
   position: absolute;
@@ -498,7 +403,7 @@
 }
 
 /* ==========================================================================
-   8. KONTROL SENTUH VIRTUAL MOBILE (CLAYMORPHIC TOUCHPAD)
+   7. KONTROL SENTUH VIRTUAL MOBILE (CLAYMORPHIC TOUCHPAD)
    ========================================================================== */
 .kontrol-sentuh-wadah {
   display: flex;
@@ -565,7 +470,7 @@
 }
 
 /* ==========================================================================
-   9. MODAL LEVEL CLEARED / VICTORY (CLAYMORPHIC)
+   8. MODAL LEVEL CLEARED / VICTORY (CLAYMORPHIC)
    ========================================================================== */
 .modal-victory-overlay {
   position: absolute;
@@ -613,29 +518,8 @@
   100% { transform: translateY(-6px); }
 }
 
-/* ==========================================================================
-   10. MODAL KARAKTER KUSTOM (CLAYMORPHIC)
-   ========================================================================== */
-.preview-sprite-box {
-  background: #F3F4F6;
-  border: 3px dashed #9CA3AF;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 120px;
-  overflow: hidden;
-}
-
-#canvas-preview-karakter {
-  width: 96px;
-  height: 96px;
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .kartu-level, .kartu-karakter, .btn-opsi-adventure, .btn-sentuh, .victory-bintang {
+  .kartu-level, .btn-opsi-adventure, .btn-sentuh, .victory-bintang {
     transition: none !important;
     animation: none !important;
   }

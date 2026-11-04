@@ -377,3 +377,4 @@ if (!fs.existsSync(outDir)) {
   fs.writeFileSync(path.join(outDir, 'character-rara.png'), png);
   console.log('✓ character-rara.png (Rara Peneliti Alam, 9 frames) generated.');
 }
+

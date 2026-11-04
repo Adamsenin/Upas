@@ -1,52 +1,15 @@
 {
-  "version": "1.2.0",
-  "name": "KUPAS Adventure Asset Manifest",
-  "defaultCharacter": "si_kupas",
-  "characters": {
-    "si_kupas": {
-      "id": "si_kupas",
-      "name": "Si Kupas Penjelajah",
-      "badge": "Penjelajah Padang",
-      "avatar": "assets/svg/maskot-senang.svg",
-      "description": "Pemberani, lincah, dan penuh semangat menjaga keharmonisan ekosistem nusantara.",
-      "spriteSrc": "assets/images/adventure/character-spritesheet.png",
-      "frameWidth": 48,
-      "frameHeight": 48,
-      "scale": 1.0,
-      "anchorX": 24,
-      "anchorY": 46,
-      "animations": {
-        "idle": { "name": "idle", "frames": [0], "speed": 4, "loop": true },
-        "run": { "name": "run", "frames": [1, 2, 3, 4], "speed": 10, "loop": true },
-        "jump": { "name": "jump", "frames": [5], "speed": 1, "loop": false },
-        "fall": { "name": "fall", "frames": [6], "speed": 1, "loop": false },
-        "land": { "name": "land", "frames": [0], "speed": 6, "loop": false },
-        "hurt": { "name": "hurt", "frames": [8], "speed": 4, "loop": false },
-        "celebrate": { "name": "celebrate", "frames": [7], "speed": 6, "loop": true }
-      }
-    },
-    "rara": {
-      "id": "rara",
-      "name": "Rara Peneliti Alam",
-      "badge": "Peneliti Ekosistem",
-      "avatar": "assets/images/adventure/character-rara.png",
-      "description": "Cerdas, teliti, gemar mencatat observasi flora fauna dan fenomena ilmiah di lapangan.",
-      "spriteSrc": "assets/images/adventure/character-rara.png",
-      "frameWidth": 48,
-      "frameHeight": 48,
-      "scale": 1.0,
-      "anchorX": 24,
-      "anchorY": 46,
-      "animations": {
-        "idle": { "name": "idle", "frames": [0], "speed": 4, "loop": true },
-        "run": { "name": "run", "frames": [1, 2, 3, 4], "speed": 10, "loop": true },
-        "jump": { "name": "jump", "frames": [5], "speed": 1, "loop": false },
-        "fall": { "name": "fall", "frames": [6], "speed": 1, "loop": false },
-        "land": { "name": "land", "frames": [0], "speed": 6, "loop": false },
-        "hurt": { "name": "hurt", "frames": [8], "speed": 4, "loop": false },
-        "celebrate": { "name": "celebrate", "frames": [7], "speed": 6, "loop": true }
-      }
-    }
+  "version": "2.0.0",
+  "name": "KUPAS Adventure Asset Manifest - Phase 2",
+  "character": {
+    "id": "aliya",
+    "name": "Aliya Penjelajah",
+    "badge": "Penjelajah Ekosistem",
+    "avatar": "assets/images/adventure/character-aliya.png",
+    "description": "Karakter utama petualangan IPAS nusantara yang cerdas, lincah, dan cinta alam.",
+    "spriteSrc": "assets/images/adventure/character-aliya.png",
+    "fallbackSpriteSrc": "assets/images/adventure/character-spritesheet.png",
+    "configModule": "assets/js/adventure-character-config.js"
   },
   "environments": {
     "level1": {
@@ -60,42 +23,5 @@
       "treesParallax": 0.35
     }
   },
-  "props": {
-    "jembatan": {
-      "x": 760,
-      "y": 432,
-      "width": 200,
-      "height": 32,
-      "repairPrompt": "Perbaiki Jembatan"
-    },
-    "bunga": {
-      "x": 1400,
-      "y": 400,
-      "waterPrompt": "Bantu Bunga Liar"
-    },
-    "kincir": {
-      "x": 2060,
-      "y": 380,
-      "turnPrompt": "Putar Kincir Air"
-    },
-    "gerbang": {
-      "x": 3350,
-      "y": 304,
-      "width": 80,
-      "height": 140,
-      "openPrompt": "Buka Gerbang Padang"
-    }
-  },
-  "collectibles": {
-    "biotik": [
-      { "id": "bio_kupu", "name": "Kupu-kupu Biru", "icon": "🦋", "x": 2350, "y": 300 },
-      { "id": "bio_jamur", "name": "Jamur Hutan", "icon": "🍄", "x": 2540, "y": 225 },
-      { "id": "bio_ulat", "name": "Ulat Daun", "icon": "🐛", "x": 2740, "y": 295 }
-    ],
-    "abiotik": [
-      { "id": "abio_air", "name": "Tetes Air Sungai", "icon": "💧", "x": 2420, "y": 400 },
-      { "id": "abio_batu", "name": "Batu Kerikil", "icon": "🪨", "x": 2620, "y": 400 },
-      { "id": "abio_cahaya", "name": "Kristal Sinar Mentari", "icon": "☀️", "x": 2940, "y": 215 }
-    ]
-  }
+  "collisionModule": "assets/js/adventure-env-config.js"
 }
