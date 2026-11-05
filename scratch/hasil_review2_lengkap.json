@@ -1,0 +1,416 @@
+{
+  "resolusiLayout": [
+    {
+      "viewport": "375x667 (Ponsel Potret)",
+      "metrics": {
+        "windowInnerWidth": 375,
+        "windowInnerHeight": 667,
+        "bodyScrollHeight": 667,
+        "bodyClientHeight": 667,
+        "isZeroScroll": true,
+        "canvasDisplayWidth": 1034,
+        "canvasDisplayHeight": 581,
+        "canvasInternalWidth": 2067,
+        "canvasInternalHeight": 1163,
+        "canvasAspectRatio": "1.7778",
+        "canvasRatioDelta": "0.0000",
+        "is16to9Valid": true,
+        "devicePixelRatio": 2,
+        "isRetinaSharp": true,
+        "hudBounding": {
+          "top": 6,
+          "bottom": 54,
+          "left": -323,
+          "right": 698,
+          "isInsideViewport": false
+        },
+        "modalBounding": {
+          "top": 195,
+          "bottom": 387,
+          "left": -122,
+          "right": 498,
+          "isInsideViewport": false
+        }
+      }
+    },
+    {
+      "viewport": "667x375 (Ponsel Lanskap)",
+      "metrics": {
+        "windowInnerWidth": 667,
+        "windowInnerHeight": 375,
+        "bodyScrollHeight": 375,
+        "bodyClientHeight": 375,
+        "isZeroScroll": true,
+        "canvasDisplayWidth": 515,
+        "canvasDisplayHeight": 289,
+        "canvasInternalWidth": 1029,
+        "canvasInternalHeight": 579,
+        "canvasAspectRatio": "1.7778",
+        "canvasRatioDelta": "0.0000",
+        "is16to9Valid": true,
+        "devicePixelRatio": 2,
+        "isRetinaSharp": true,
+        "hudBounding": {
+          "top": 6,
+          "bottom": 54,
+          "left": 82,
+          "right": 585,
+          "isInsideViewport": true
+        },
+        "modalBounding": {
+          "top": 42,
+          "bottom": 247,
+          "left": 92,
+          "right": 575,
+          "isInsideViewport": true
+        }
+      }
+    },
+    {
+      "viewport": "1366x768 (Laptop HD)",
+      "metrics": {
+        "windowInnerWidth": 1366,
+        "windowInnerHeight": 768,
+        "bodyScrollHeight": 768,
+        "bodyClientHeight": 768,
+        "isZeroScroll": true,
+        "canvasDisplayWidth": 1152,
+        "canvasDisplayHeight": 648,
+        "canvasInternalWidth": 1152,
+        "canvasInternalHeight": 648,
+        "canvasAspectRatio": "1.7778",
+        "canvasRatioDelta": "0.0000",
+        "is16to9Valid": true,
+        "devicePixelRatio": 1,
+        "isRetinaSharp": true,
+        "hudBounding": {
+          "top": 14,
+          "bottom": 62,
+          "left": 121,
+          "right": 1245,
+          "isInsideViewport": true
+        },
+        "modalBounding": {
+          "top": 228,
+          "bottom": 420,
+          "left": 373,
+          "right": 993,
+          "isInsideViewport": true
+        }
+      }
+    },
+    {
+      "viewport": "1920x1080 (Desktop / Smartboard FHD)",
+      "metrics": {
+        "windowInnerWidth": 1920,
+        "windowInnerHeight": 1080,
+        "bodyScrollHeight": 1080,
+        "bodyClientHeight": 1080,
+        "isZeroScroll": true,
+        "canvasDisplayWidth": 1707,
+        "canvasDisplayHeight": 960,
+        "canvasInternalWidth": 1707,
+        "canvasInternalHeight": 960,
+        "canvasAspectRatio": "1.7778",
+        "canvasRatioDelta": "0.0000",
+        "is16to9Valid": true,
+        "devicePixelRatio": 1,
+        "isRetinaSharp": true,
+        "hudBounding": {
+          "top": 14,
+          "bottom": 62,
+          "left": 121,
+          "right": 1799,
+          "isInsideViewport": true
+        },
+        "modalBounding": {
+          "top": 384,
+          "bottom": 576,
+          "left": 650,
+          "right": 1270,
+          "isInsideViewport": true
+        }
+      }
+    }
+  ],
+  "bagian2A": {
+    "playerY": 396,
+    "playerHeight": 48,
+    "playerBottom": 444,
+    "groundY": 444,
+    "isFlushZeroFloat": true,
+    "totalCoinsChecked": 18,
+    "minCoinY": 230,
+    "maxCoinY": 405,
+    "anyCoinBuried": false,
+    "allCoinsReachable": true
+  },
+  "bagian2B_jembatan": [
+    {
+      "level": "1-1",
+      "bridgeType": "jembatan_ranting",
+      "dimensi": {
+        "x": 880,
+        "y": 444,
+        "w": 220
+      },
+      "terbukaSebelum": false,
+      "lariKiriKeKanan": {
+        "finalX": 1142,
+        "reachedOpposite": true,
+        "fellInPit": false,
+        "minStandingY": 396,
+        "maxStandingY": 396,
+        "isSmoothStanding": true
+      },
+      "seberangBalik": {
+        "finalX": 828,
+        "reachedBack": true,
+        "fellInPit": false
+      },
+      "lompatTepi": {
+        "landedOnBridge": true,
+        "landingY": 444,
+        "bridgeY": 444,
+        "delta": 0
+      }
+    },
+    {
+      "level": "1-1",
+      "bridgeType": "jembatan_ranting_2",
+      "dimensi": {
+        "x": 2200,
+        "y": 444,
+        "w": 220
+      },
+      "terbukaSebelum": false,
+      "lariKiriKeKanan": {
+        "finalX": 3545,
+        "reachedOpposite": true,
+        "fellInPit": false,
+        "minStandingY": 396,
+        "maxStandingY": 396,
+        "isSmoothStanding": true
+      },
+      "seberangBalik": {
+        "finalX": 3195,
+        "reachedBack": true,
+        "fellInPit": false
+      },
+      "lompatTepi": {
+        "landedOnBridge": true,
+        "landingY": 444,
+        "bridgeY": 444,
+        "delta": 0
+      }
+    },
+    {
+      "level": "1-2",
+      "bridgeType": "jembatan_kanopi_1",
+      "dimensi": {
+        "x": 920,
+        "y": 444,
+        "w": 240
+      },
+      "terbukaSebelum": false,
+      "lariKiriKeKanan": {
+        "finalX": 1192,
+        "reachedOpposite": true,
+        "fellInPit": false,
+        "minStandingY": 396,
+        "maxStandingY": 396,
+        "isSmoothStanding": true
+      },
+      "seberangBalik": {
+        "finalX": 878,
+        "reachedBack": true,
+        "fellInPit": false
+      },
+      "lompatTepi": {
+        "landedOnBridge": true,
+        "landingY": 444,
+        "bridgeY": 444,
+        "delta": 0
+      }
+    },
+    {
+      "level": "1-2",
+      "bridgeType": "jembatan_kanopi_2",
+      "dimensi": {
+        "x": 2310,
+        "y": 444,
+        "w": 240
+      },
+      "terbukaSebelum": false,
+      "lariKiriKeKanan": {
+        "finalX": 2581,
+        "reachedOpposite": true,
+        "fellInPit": false,
+        "minStandingY": 396,
+        "maxStandingY": 396,
+        "isSmoothStanding": true
+      },
+      "seberangBalik": {
+        "finalX": 2259,
+        "reachedBack": true,
+        "fellInPit": false
+      },
+      "lompatTepi": {
+        "landedOnBridge": true,
+        "landingY": 444,
+        "bridgeY": 444,
+        "delta": 0
+      }
+    },
+    {
+      "level": "2-1",
+      "bridgeType": "jembatan_abiotik",
+      "dimensi": {
+        "x": 850,
+        "y": 444,
+        "w": 230
+      },
+      "terbukaSebelum": false,
+      "lariKiriKeKanan": {
+        "finalX": 1121,
+        "reachedOpposite": true,
+        "fellInPit": false,
+        "minStandingY": 396,
+        "maxStandingY": 396,
+        "isSmoothStanding": true
+      },
+      "seberangBalik": {
+        "finalX": 799,
+        "reachedBack": true,
+        "fellInPit": false
+      },
+      "lompatTepi": {
+        "landedOnBridge": true,
+        "landingY": 444,
+        "bridgeY": 444,
+        "delta": 0
+      }
+    }
+  ],
+  "bagian2B_jurang": {
+    "nyawaAwal": 3,
+    "nyawaSetelahJatuh": 2,
+    "kehilanganSatuNyawa": true,
+    "respawnX": 80,
+    "respawnY": 380,
+    "respawnGrounded": false,
+    "toastTeks": "Tercebur ke Jurang! 💧 (-1 Hati)"
+  },
+  "respawnNyawa": {
+    "gate1TetapTerbuka": true,
+    "hitCountTerdeteksi": 1,
+    "nyawaSetelahTabrakanBerulang": 2,
+    "tepatSatuNyawaBerkurang": true,
+    "respawnX": 80,
+    "respawnY": 380,
+    "isRespawnSafeAboveGround": true
+  },
+  "hitboxInvarian": [
+    {
+      "anim": "idle",
+      "width": 44,
+      "height": 48,
+      "isInvariant": true
+    },
+    {
+      "anim": "walk",
+      "width": 44,
+      "height": 48,
+      "isInvariant": true
+    },
+    {
+      "anim": "run",
+      "width": 44,
+      "height": 48,
+      "isInvariant": true
+    },
+    {
+      "anim": "jump",
+      "width": 44,
+      "height": 48,
+      "isInvariant": true
+    },
+    {
+      "anim": "fall",
+      "width": 44,
+      "height": 48,
+      "isInvariant": true
+    },
+    {
+      "anim": "land",
+      "width": 44,
+      "height": 48,
+      "isInvariant": true
+    },
+    {
+      "anim": "hurt",
+      "width": 44,
+      "height": 48,
+      "isInvariant": true
+    },
+    {
+      "anim": "celebrate",
+      "width": 44,
+      "height": 48,
+      "isInvariant": true
+    }
+  ],
+  "hudKontrolSentuh": {
+    "touchSizes": [
+      {
+        "id": "btn-sentuh-kiri",
+        "width": 66,
+        "height": 66,
+        "isMin60": true
+      },
+      {
+        "id": "btn-sentuh-kanan",
+        "width": 66,
+        "height": 66,
+        "isMin60": true
+      },
+      {
+        "id": "btn-sentuh-aksi",
+        "width": 66,
+        "height": 66,
+        "isMin60": true
+      },
+      {
+        "id": "btn-sentuh-lompat",
+        "width": 66,
+        "height": 66,
+        "isMin60": true
+      }
+    ],
+    "allTouchMin60": true,
+    "hudHeights": [
+      40,
+      40,
+      40,
+      40,
+      40,
+      48,
+      48,
+      48
+    ],
+    "isUserSelectNone": true
+  },
+  "progresPenyimpanan": {
+    "midLevel": {
+      "koinDisimpan": 14,
+      "totalCoins": 14,
+      "success": true
+    },
+    "victory": {
+      "lvl1_1Completed": true,
+      "lvl1_1Stars": 3,
+      "lvl1_2Unlocked": true,
+      "totalStars": 3
+    }
+  }
+}

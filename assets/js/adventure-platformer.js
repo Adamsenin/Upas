@@ -1,201 +1,35 @@
 /**
- * KUPAS KUIS IPAS v4.3 - Mesin Petualangan Mandiri (adventure-platformer.js)
- * Platformer 2D Side-scroller Edukasi IPAS Kelas V SD
+ * KUPAS KUIS IPAS v5.2 - Super Mario-Style Adventure Platformer (adventure-platformer.js)
+ * Koordinator Mesin Petualangan Mandiri Kelas V SD.
  *
- * Phase 2 - Custom Character & Asset Integration:
- * - Karakter Tunggal Orisinal: Aliya Penjelajah (character-aliya.png).
- * - Konfigurasi Karakter Terpisah (adventure-character-config.js).
- * - Konfigurasi Lingkungan Terpisah (adventure-env-config.js) -> Pisahkan Visual & Collision.
- * - Pemuatan Asinkron dengan Proteksi Anti-Flicker (Game loop tidak mulai sebelum aset siap).
- * - 7 Animasi Sprite Lengkap: idle, run, jump, fall, land, hurt, celebrate.
- * - Animasi Presisi Berbasis Delta Time (dt) & Penjajaran Titik Kaki (Zero Floating / Sinking).
- * - Fisika & Hitbox Logis Tetap Invarian (44x48 px, speed 4.4, jump -12.8, gravity 0.58).
- * - 5 Tantangan Edukasi IPAS Mandiri (Jembatan, Bunga, Kincir, Koleksi, Gerbang).
- * - Pembersihan Memori & Event Listener pada Cleanup.
+ * Fase A (Dunia 1: Hutan Ceria - Level 1-1 & 1-2):
+ * - Karakter Aliya (8 animasi lengkap: idle, walk, run, jump, fall, land, celebrate, hurt)
+ * - Fallback Vektor HD Prosedural jika citra sprite belum siap
+ * - Parallax 5 Lapis + Elemen Hidup (Burung terbang, kupu-kupu, daun luruh)
+ * - Peta Dunia Interaktif & Ringkasan Materi IPAS Dunia 1
+ * - Bank 30 Soal IPAS Kelas V (5 soal x 6 level)
+ * - BGM Sintetis Ambient Web Audio API per Dunia
  */
 
-import { CHARACTER_CONFIG } from './adventure-character-config.js';
-import { ENV_COLLISION_DATA, ENV_VISUAL_ASSETS } from './adventure-env-config.js';
+import { CHARACTER_CONFIG, drawCharacterProceduralFallback } from './adventure-character-config.js';
+import { MarioPhysicsEngine } from './adventure-physics.js';
+import { AdventureCamera } from './adventure-camera.js';
+import { AdventureEntityManager } from './adventure-entities.js';
+import { AdventureQuestionGates } from './adventure-questions.js';
+import { AdventureParallaxEngine } from './adventure-parallax.js';
+import { adventureAudio } from './adventure-audio.js';
+import {
+  WORLDS_METADATA,
+  ADVENTURE_LEVELS_REGISTRY,
+  adventureWorldsProgress
+} from './adventure-worlds-data.js';
+
+// Ekspor sistem audio dan progres
+export { adventureAudio };
+export const adventureProgress = adventureWorldsProgress;
 
 // ============================================================================
-// 1. MANAJEMEN PENYIMPANAN PROGRES ADVENTURE
-// ============================================================================
-export const adventureProgress = {
-  getStorageKey() {
-    return 'kupas_adventure_progress_v1';
-  },
-
-  muatProgres() {
-    try {
-      const data = JSON.parse(localStorage.getItem(this.getStorageKey()));
-      if (data && data.levels) return data;
-    } catch (e) {}
-
-    return {
-      totalCoins: 0,
-      totalStars: 0,
-      badges: [],
-      levels: {
-        1: { unlocked: true, completed: false, stars: 0, coins: 0, score: 0, nama: 'Padang Rumput Asri' },
-        2: { unlocked: false, completed: false, stars: 0, coins: 0, score: 0, nama: 'Sawah & Rantai Makanan' },
-        3: { unlocked: false, completed: false, stars: 0, coins: 0, score: 0, nama: 'Hutan Rimba & Simbiosis' },
-        4: { unlocked: false, completed: false, stars: 0, coins: 0, score: 0, nama: 'Sungai & Siklus Air' }
-      }
-    };
-  },
-
-  simpanProgres(progres) {
-    try {
-      localStorage.setItem(this.getStorageKey(), JSON.stringify(progres));
-    } catch (e) {
-      console.warn('Gagal menyimpan progres adventure:', e);
-    }
-  },
-
-  selesaikanLevel(levelId, stars, coinsEarned, score) {
-    const p = this.muatProgres();
-    const lvl = p.levels[levelId] || { unlocked: true };
-    lvl.completed = true;
-    lvl.stars = Math.max(lvl.stars || 0, stars);
-    lvl.coins = Math.max(lvl.coins || 0, coinsEarned);
-    lvl.score = Math.max(lvl.score || 0, score);
-    p.levels[levelId] = lvl;
-
-    const nextLevel = levelId + 1;
-    if (p.levels[nextLevel]) {
-      p.levels[nextLevel].unlocked = true;
-    }
-
-    p.totalCoins = (p.totalCoins || 0) + coinsEarned;
-    let totalBintang = 0;
-    Object.values(p.levels).forEach(l => { totalBintang += (l.stars || 0); });
-    p.totalStars = totalBintang;
-
-    const badgeId = `penjelajah_level_${levelId}`;
-    if (!p.badges.includes(badgeId)) {
-      p.badges.push(badgeId);
-    }
-
-    this.simpanProgres(p);
-    return p;
-  }
-};
-
-// ============================================================================
-// 2. SISTEM AUDIO EFEK MANDIRI (WEB AUDIO API SINTETIS)
-// ============================================================================
-class AdventureAudio {
-  constructor() {
-    this.ctx = null;
-    this.muted = (typeof localStorage !== 'undefined') ? (localStorage.getItem('kupas_suara_aktif') === 'false') : false;
-  }
-
-  init() {
-    if (!this.ctx && typeof window !== 'undefined') {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (AudioCtx) {
-        this.ctx = new AudioCtx();
-      }
-    }
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume().catch(() => {});
-    }
-  }
-
-  playJump() {
-    if (this.muted) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(150, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(340, this.ctx.currentTime + 0.15);
-      gain.gain.setValueAtTime(0.18, this.ctx.currentTime);
-      gain.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + 0.15);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.15);
-    } catch (e) {}
-  }
-
-  playCoin() {
-    if (this.muted) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(987.77, now);
-      osc.frequency.setValueAtTime(1318.51, now + 0.08);
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.linearRampToValueAtTime(0.01, now + 0.22);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(now + 0.22);
-    } catch (e) {}
-  }
-
-  playSuccess() {
-    if (this.muted) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const notes = [523.25, 659.25, 783.99, 1046.50];
-      notes.forEach((freq, idx) => {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, now + idx * 0.09);
-        gain.gain.setValueAtTime(0.2, now + idx * 0.09);
-        gain.gain.linearRampToValueAtTime(0.01, now + idx * 0.09 + 0.18);
-        osc.connect(gain);
-        gain.connect(this.ctx.destination);
-        osc.start(now + idx * 0.09);
-        osc.stop(now + idx * 0.09 + 0.18);
-      });
-    } catch (e) {}
-  }
-
-  playWrong() {
-    if (this.muted) return;
-    this.init();
-    if (!this.ctx) return;
-    try {
-      const now = this.ctx.currentTime;
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(220, now);
-      osc.frequency.linearRampToValueAtTime(160, now + 0.22);
-      gain.gain.setValueAtTime(0.14, now);
-      gain.gain.linearRampToValueAtTime(0.01, now + 0.22);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start();
-      osc.stop(now + 0.22);
-    } catch (e) {}
-  }
-
-  toggleMute() {
-    this.muted = !this.muted;
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('kupas_suara_aktif', this.muted ? 'false' : 'true');
-    }
-    return !this.muted;
-  }
-}
-
-export const adventureAudio = new AdventureAudio();
-
-// ============================================================================
-// 3. ANIMATOR SPRITE DELTA-TIME (7 ANIMASI: IDLE, RUN, JUMP, FALL, LAND, HURT, CELEBRATE)
+// 1. ANIMATOR SPRITE DELTA-TIME (8 ANIMASI SPRITE SHEET)
 // ============================================================================
 export class SpriteAnimator {
   constructor(charConfig = CHARACTER_CONFIG) {
@@ -241,16 +75,13 @@ export class SpriteAnimator {
     return anim.frames[idx];
   }
 
-  /**
-   * Menggambar sprite dengan titik kaki yang konsisten
-   * @param {CanvasRenderingContext2D} ctx
-   * @param {HTMLImageElement} img
-   * @param {number} footCenterX - Posisi X kaki karakter di dunia game
-   * @param {number} footBottomY - Posisi Y dasar kaki karakter di dunia game
-   * @param {number} facing - 1 (kanan) atau -1 (kiri)
-   */
-  draw(ctx, img, footCenterX, footBottomY, facing = 1) {
+  draw(ctx, img, footCenterX, footBottomY, facing = 1, isInvulnerable = false) {
     if (!img || !img.complete || img.naturalWidth === 0) return false;
+
+    // Efek berkedip saat kebal
+    if (isInvulnerable && Math.floor(Date.now() / 80) % 2 === 0) {
+      return true;
+    }
 
     const f = this.getCurrentFrameData();
     const scale = this.config.visualScale || 0.115;
@@ -264,7 +95,6 @@ export class SpriteAnimator {
     ctx.translate(footCenterX, footBottomY);
     ctx.scale(facing, 1);
 
-    // Gambar frame tepat dari source rectangle (sx, sy, sw, sh)
     ctx.drawImage(
       img,
       f.sx, f.sy, f.sw, f.sh,
@@ -277,141 +107,69 @@ export class SpriteAnimator {
 }
 
 // ============================================================================
-// 4. BANK SOAL & TANTANGAN IPAS PADANG RUMPUT (STANDALONE)
-// ============================================================================
-const TANTANGAN_LEVEL_1 = {
-  jembatan: {
-    id: 't1_jembatan',
-    judul: 'Tantangan 1: Jembatan Rusak',
-    instruksi: 'Jembatan kayu patah! Butuh pemahaman bahan alam dari sekitar sungai.',
-    pertanyaan: 'Manakah di bawah ini yang seluruhnya merupakan komponen ABIOTIK (benda tak hidup) di sekitar sungai padang rumput?',
-    opsi: [
-      'Batu kerikil, air sungai, dan sinar matahari',
-      'Ikan kecil, cacing tanah, dan rumput teki',
-      'Jamur pengurai, lumut, dan katak hijau',
-      'Burung pipit, capung, dan pohon beringin'
-    ],
-    kunci: 0,
-    penjelasan: 'Komponen abiotik adalah semua benda tak hidup dalam ekosistem, seperti batu, air, tanah, udara, dan cahaya matahari.'
-  },
-  bunga: {
-    id: 't2_bunga',
-    judul: 'Tantangan 2: Bunga Padang Layu',
-    instruksi: 'Bunga padang layu kepanasan. Agar berfotosintesis dan kembali mekar, apa yang dibutuhkannya?',
-    pertanyaan: 'Bahan apakah yang diserap oleh akar tumbuhan dari dalam tanah dan daun dari udara untuk proses fotosintesis?',
-    opsi: [
-      'Menghirup gas oksigen dan pupuk buatan',
-      'Air dari tanah dan gas karbon dioksida dari udara',
-      'Minyak tanah dan sari gula pasir',
-      'Gas nitrogen dan serbuk kapur'
-    ],
-    kunci: 1,
-    penjelasan: 'Tumbuhan hijau membutuhkan air dari tanah dan karbon dioksida (CO2) dari udara, dibantu cahaya matahari dan klorofil.'
-  },
-  kincir: {
-    id: 't3_kincir',
-    judul: 'Tantangan 3: Kincir Air Macet',
-    instruksi: 'Saluran irigasi macet sehingga kincir air berhenti berputar. Bagaimana kincir air dapat berputar kembali?',
-    pertanyaan: 'Perubahan bentuk energi apakah yang dimanfaatkan kincir air dari arus sungai untuk menyiram padang rumput?',
-    opsi: [
-      'Energi panas bumi menjadi energi listrik',
-      'Energi kinetik (gerak) air mengalir menjadi energi gerak kincir',
-      'Energi bunyi air menjadi energi magnet',
-      'Energi kimia air menjadi energi cahaya'
-    ],
-    kunci: 1,
-    penjelasan: 'Arus air sungai yang mengalir memiliki energi kinetik (gerak) yang mendorong bilah kincir menjadi gerak mekanis.'
-  },
-  gerbang_1: {
-    id: 't5_gerbang_1',
-    judul: 'Ujian Penjaga: Rantai Makanan',
-    instruksi: 'Penjaga Gerbang Padang Rumput menguji pemahaman rantai makananmu.',
-    pertanyaan: 'Di padang rumput terdapat: Rumput -> Belalang -> Katak -> Ular -> Elang. Makhluk hidup manakah yang berperan sebagai PRODUSEN?',
-    opsi: [
-      'Rumput hijau',
-      'Belalang sawah',
-      'Katak pemakan serangga',
-      'Burung Elang'
-    ],
-    kunci: 0,
-    penjelasan: 'Rumput hijau adalah produsen karena mampu membuat makanannya sendiri melalui proses fotosintesis.'
-  },
-  gerbang_2: {
-    id: 't5_gerbang_2',
-    judul: 'Ujian Penjaga: Keseimbangan Ekosistem',
-    instruksi: 'Pertanyaan penutup sebelum Gerbang Kemenangan terbuka!',
-    pertanyaan: 'Jika populasi katak di padang rumput punah karena diburu, dampak langsung apa yang terjadi pada rantai makanan?',
-    opsi: [
-      'Populasi belalang melonjak pesat karena pemangsanya hilang',
-      'Rumput bertumbuh sangat subur melimpah',
-      'Populasi ular langsung berlipat ganda',
-      'Seluruh tumbuhan langsung layu seketika'
-    ],
-    kunci: 0,
-    penjelasan: 'Katak adalah predator pengendali belalang. Jika katak punah, belalang melonjak drastis dan merusak rumput.'
-  }
-};
-
-// ============================================================================
-// 5. KELAS MESIN PERMAINAN PLATFORMER 2D (GAME ENGINE)
+// 2. KELAS UTAMA KOORDINATOR GAME (ADVENTURE GAME ENGINE)
 // ============================================================================
 export class AdventureGameEngine {
   constructor(canvasEl) {
     this.canvas = canvasEl;
     this.ctx = canvasEl.getContext('2d', { alpha: false });
 
-    // Dimensi Virtual Game (16:9 ratio, fixed logical coordinates)
+    // Resolusi Virtual 16:9
     this.virtualWidth = 960;
     this.virtualHeight = 540;
-    this.canvas.width = this.virtualWidth;
-    this.canvas.height = this.virtualHeight;
 
-    // Dimensi Dunia (Lebar peta side-scrolling)
-    this.worldWidth = ENV_COLLISION_DATA.worldWidth || 3600;
-    this.worldHeight = ENV_COLLISION_DATA.worldHeight || 540;
+    // Sub-engine Fisika, Parallax 5 Lapis, & Kamera
+    this.physics = new MarioPhysicsEngine({
+      accel: 0.52,
+      friction: 0.82,
+      maxSpeed: 5.2,
+      jumpForce: -12.0,
+      gravity: 0.52
+    });
+    this.parallax = new AdventureParallaxEngine(this.virtualWidth, this.virtualHeight);
+    this.camera = new AdventureCamera(this.virtualWidth, this.virtualHeight, 3800, 540);
 
-    // Karakter Utama Orisinal & Animator
+    // Karakter & Animator
     this.characterConfig = CHARACTER_CONFIG;
     this.animator = new SpriteAnimator(this.characterConfig);
 
-    // Cache Aset Gambar
+    // Cache Aset
     this.assets = {
-      character: new Image(),
-      sky: new Image(),
-      trees: new Image(),
-      tileset: new Image()
+      character: new Image()
     };
     this.assetsLoaded = false;
     this.isLoadingAssets = false;
 
-    // Game loop & Timing
+    // Loop & Waktu
     this.isRunning = false;
     this.rafId = null;
     this.lastTime = 0;
 
-    // Kamera side-scroller
-    this.camera = { x: 0, y: 0 };
+    // State Level & Pemain
+    this.currentLevelId = '1-1';
+    this.currentWorldId = 1;
 
-    // Karakter Pemain (Hitbox & Fisika Invarian)
     this.player = {
-      x: 100,
+      x: 80,
       y: 380,
-      width: CHARACTER_CONFIG.hitbox.width,   // 44
-      height: CHARACTER_CONFIG.hitbox.height, // 48
+      width: CHARACTER_CONFIG.hitbox.width,
+      height: CHARACTER_CONFIG.hitbox.height,
       vx: 0,
       vy: 0,
-      speed: 4.4,
-      jumpForce: -12.8,
-      gravity: 0.58,
-      onGround: false,
-      facing: 1, // 1: kanan, -1: kiri
-      state: 'idle', // idle, run, jump, fall, land, hurt, celebrate
-      hurtTimer: 0,
-      celebrateTimer: 0,
-      landTimer: 0
+      speed: 5.2,
+      jumpForce: -12.0,
+      gravity: 0.52,
+      isGrounded: false,
+      facing: 1,
+      state: 'idle',
+      nyawa: 3,
+      maxNyawa: 3,
+      isInvulnerable: false,
+      invulnerableTimer: 0,
+      respawnX: 80,
+      respawnY: 380
     };
 
-    // Input Controller
     this.keys = {
       left: false,
       right: false,
@@ -419,47 +177,65 @@ export class AdventureGameEngine {
       interact: false
     };
 
-    // State Tantangan Level 1
     this.stateLevel = {
-      levelId: 1,
+      levelId: '1-1',
       koinTerkumpul: 0,
       misiSelesai: 0,
       totalMisi: 5,
-      jembatanSelesai: false,
-      bungaSelesai: false,
-      kincirSelesai: false,
-      koleksiSelesai: false,
-      gerbangSelesai: false,
-      koleksiItem: {
-        biotik: 0,
-        targetBiotik: 3,
-        abiotik: 0,
-        targetAbiotik: 3
-      }
+      isCleared: false
     };
 
-    // Partikel Visual & Koleksi
-    this.particles = [];
-    this.collectibleItems = [];
-    this.solidPlatforms = [...ENV_COLLISION_DATA.platforms];
-
-    // Pointer ke dialog tantangan UI
-    this.dialogAktif = false;
-    this.callbackTantanganSelesai = null;
+    this.solidPlatforms = [];
 
     // Bind event handlers
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+    this.handlePointerUp = this.handlePointerUp.bind(this);
+    this.resetKeys = this.resetKeys.bind(this);
     this.loop = this.loop.bind(this);
+
+    // State Jembatan & Fixed Timestep Accumulator
+    this.accumulator = 0;
+    this.isBuildingBridge = false;
+
+    // Muat level awal
+    this.muatLevel('1-1');
+    this.aturResolusiRetina();
   }
 
-  /**
-   * Pemuatan aset secara asinkron dengan proteksi anti-flicker
-   */
+  resetKeys() {
+    this.keys = { left: false, right: false, up: false, interact: false };
+  }
+
+  handlePointerUp() {
+    this.keys.interact = false;
+  }
+
+  aturResolusiRetina() {
+    if (!this.canvas || typeof window === 'undefined') return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const rect = (this.canvas.getBoundingClientRect) ? this.canvas.getBoundingClientRect() : { width: this.virtualWidth, height: this.virtualHeight };
+    const displayWidth = rect.width || this.virtualWidth;
+    const displayHeight = rect.height || this.virtualHeight;
+
+    this.canvas.width = Math.round(displayWidth * dpr);
+    this.canvas.height = Math.round(displayHeight * dpr);
+
+    const scaleX = (displayWidth * dpr) / this.virtualWidth;
+    const scaleY = (displayHeight * dpr) / this.virtualHeight;
+
+    if (this.ctx && this.ctx.setTransform) {
+      this.ctx.setTransform(scaleX, 0, 0, scaleY, 0, 0);
+      this.ctx.imageSmoothingEnabled = false;
+    }
+  }
+
   async inisialisasi() {
     await this.muatSemuaAset();
-    this.bangunDuniaLevel1();
     this.pasangInputListener();
+    this.aturResolusiRetina();
   }
 
   loadImagePromise(img, src, fallbackSrc = null) {
@@ -467,12 +243,10 @@ export class AdventureGameEngine {
       img.onload = () => resolve(true);
       img.onerror = () => {
         if (fallbackSrc && src !== fallbackSrc) {
-          console.warn(`Gagal memuat ${src}, beralih ke fallback ${fallbackSrc}`);
           img.src = fallbackSrc;
           img.onload = () => resolve(true);
           img.onerror = () => resolve(false);
         } else {
-          console.warn(`Gagal memuat aset: ${src}`);
           resolve(false);
         }
       };
@@ -484,48 +258,122 @@ export class AdventureGameEngine {
     if (this.assetsLoaded) return;
     this.isLoadingAssets = true;
 
-    const env = ENV_VISUAL_ASSETS.level1;
     const char = this.characterConfig;
+    await this.loadImagePromise(this.assets.character, char.spriteSrc, char.fallbackSpriteSrc);
 
-    const promises = [
-      this.loadImagePromise(this.assets.character, char.spriteSrc, char.fallbackSpriteSrc),
-      this.loadImagePromise(this.assets.sky, env.bgSky),
-      this.loadImagePromise(this.assets.trees, env.bgTrees),
-      this.loadImagePromise(this.assets.tileset, env.tileset)
-    ];
-
-    await Promise.allSettled(promises);
     this.assetsLoaded = true;
     this.isLoadingAssets = false;
   }
 
+  /**
+   * Pemuatan Level Dinamis (Dunia 1: 1-1 atau 1-2, Dunia 2: 2-1)
+   */
+  muatLevel(fullLevelId = '1-1') {
+    this.currentLevelId = fullLevelId;
+    const levelData = ADVENTURE_LEVELS_REGISTRY[fullLevelId] || ADVENTURE_LEVELS_REGISTRY['1-1'];
+    this.currentLevelData = levelData;
+    this.currentWorldId = levelData.worldId || 1;
+
+    this.worldWidth = levelData.worldWidth || 3800;
+    this.worldHeight = levelData.worldHeight || 540;
+    this.groundY = levelData.groundY || 444;
+
+    // Reset kamera dengan batas peta level ini
+    this.camera = new AdventureCamera(this.virtualWidth, this.virtualHeight, this.worldWidth, this.worldHeight);
+
+    // Reset entitas
+    this.entities = new AdventureEntityManager(levelData);
+
+    // Reset gerbang soal dengan State Machine Quiz
+    this.questionGates = new AdventureQuestionGates(levelData.questionGates || [], {
+      audio: adventureAudio,
+      onGateUnlocked: (gate) => this.onGateUnlocked(gate),
+      onCoinAwarded: (koin) => this.tambahKoin(koin),
+      onDialogOpen: (gate) => {
+        this.gameState = 'quiz';
+        this.resetKeys();
+        this.player.vx = 0;
+      },
+      onDialogClosed: () => {
+        if (this.gameState === 'quiz') {
+          this.gameState = 'playing';
+        }
+      }
+    });
+
+    // Reset platform solid
+    this.solidPlatforms = JSON.parse(JSON.stringify(levelData.platforms || []));
+
+    // Reset status State Machine Game
+    this.gameState = 'playing';
+    this.toastTimer = null;
+
+    // Reset posisi pemain (pastikan tidak di dalam tanah)
+    this.player.x = levelData.spawnPoint?.x || 80;
+    this.player.y = Math.min(levelData.spawnPoint?.y || 380, this.groundY - this.player.height - 2);
+    this.player.vx = 0;
+    this.player.vy = 0;
+    this.player.nyawa = 3;
+    this.player.respawnX = this.player.x;
+    this.player.respawnY = this.player.y;
+    this.player.state = 'idle';
+    this.player.isInvulnerable = false;
+    this.player.invulnerableTimer = 0;
+
+    this.resetKeys();
+    this.isBuildingBridge = false;
+    this.accumulator = 0;
+
+    this.stateLevel.levelId = fullLevelId;
+    this.stateLevel.misiSelesai = 0;
+    this.stateLevel.totalMisi = (levelData.questionGates || []).length;
+    this.stateLevel.isCleared = false;
+
+    this.camera.resetTo(this.player.x);
+    this.perbaruiHUD();
+  }
+
+  // Alias untuk kompatibilitas mundur
   bangunDuniaLevel1() {
-    this.solidPlatforms = JSON.parse(JSON.stringify(ENV_COLLISION_DATA.platforms));
-    this.collectibleItems = ENV_VISUAL_ASSETS.collectibles.map(item => ({
-      ...item,
-      diambil: false
-    }));
+    this.muatLevel('1-1');
   }
 
   pasangInputListener() {
     if (typeof window === 'undefined') return;
     window.addEventListener('keydown', this.handleKeyDown);
     window.addEventListener('keyup', this.handleKeyUp);
+    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('blur', this.resetKeys);
+    document.addEventListener('visibilitychange', this.resetKeys);
+    window.addEventListener('pointerup', this.handlePointerUp);
+    window.addEventListener('touchend', this.handlePointerUp);
   }
 
   lepasInputListener() {
     if (typeof window === 'undefined') return;
     window.removeEventListener('keydown', this.handleKeyDown);
     window.removeEventListener('keyup', this.handleKeyUp);
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('blur', this.resetKeys);
+    document.removeEventListener('visibilitychange', this.resetKeys);
+    window.removeEventListener('pointerup', this.handlePointerUp);
+    window.removeEventListener('touchend', this.handlePointerUp);
+  }
+
+  handleResize() {
+    this.aturResolusiRetina();
   }
 
   handleKeyDown(e) {
-    if (this.dialogAktif) return;
+    if (this.questionGates.isDialogOpen) return;
+
     const k = e.key.toLowerCase();
     if (k === 'arrowleft' || k === 'a') this.keys.left = true;
     if (k === 'arrowright' || k === 'd') this.keys.right = true;
     if (k === 'arrowup' || k === 'w' || k === ' ') {
       this.keys.up = true;
+      this.physics.queueJump();
+      adventureAudio.playJump();
       e.preventDefault();
     }
     if (k === 'e' || k === 'enter') {
@@ -544,19 +392,37 @@ export class AdventureGameEngine {
 
   async mulai() {
     if (this.isRunning) return;
-
-    // Pastikan aset penting sudah siap sebelum game loop diputar (anti-flicker)
     if (!this.assetsLoaded) {
       await this.muatSemuaAset();
     }
-
     this.isRunning = true;
     this.lastTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
+
+    // Mulai musik latar ambient dunia 1
+    adventureAudio.startBgm(this.currentWorldId);
+
     this.rafId = requestAnimationFrame(this.loop);
   }
 
+  simpanProgresSaatIni() {
+    if (!this.stateLevel || !this.currentLevelId) return;
+    const p = adventureWorldsProgress.muatProgres();
+    const lvl = p.levels[this.currentLevelId] || { unlocked: true };
+    const koinSekarang = this.stateLevel.koinTerkumpul || 0;
+    const koinLama = lvl.coins || 0;
+    if (koinSekarang > koinLama) {
+      const delta = koinSekarang - koinLama;
+      lvl.coins = koinSekarang;
+      p.totalCoins = (p.totalCoins || 0) + delta;
+    }
+    p.levels[this.currentLevelId] = lvl;
+    adventureWorldsProgress.simpanProgres(p);
+  }
+
   berhenti() {
+    this.simpanProgresSaatIni();
     this.isRunning = false;
+    adventureAudio.stopBgm();
     if (this.rafId) {
       cancelAnimationFrame(this.rafId);
       this.rafId = null;
@@ -566,324 +432,275 @@ export class AdventureGameEngine {
   cleanup() {
     this.berhenti();
     this.lepasInputListener();
-    this.particles = [];
   }
 
-  // ==========================================================================
-  // GAME LOOP: UPDATE & RENDER DENGAN DELTA TIME (60 FPS)
-  // ==========================================================================
   loop(now) {
     if (!this.isRunning) return;
-    const dt = Math.min((now - this.lastTime) / 1000, 0.1);
+
+    if (!this.lastTime) this.lastTime = now;
+    const rawDt = Math.min((now - this.lastTime) / 1000, 0.1);
     this.lastTime = now;
 
-    if (!this.dialogAktif) {
-      this.updateFisika(dt);
-      this.updateKamera();
-      this.updateKoleksi();
-      this.updatePartikel();
+    // Fixed Timestep 60Hz (dt = 1/60 ~ 0.01667 detik)
+    const fixedDt = 1 / 60;
+    this.accumulator = (this.accumulator || 0) + rawDt;
+
+    let subSteps = 0;
+    while (this.accumulator >= fixedDt && subSteps < 4) {
+      if (!this.questionGates.isDialogOpen && !this.stateLevel.isCleared && !this.isBuildingBridge) {
+        this.update(fixedDt);
+      }
+      this.accumulator -= fixedDt;
+      subSteps++;
     }
 
     this.render();
-
     this.rafId = requestAnimationFrame(this.loop);
   }
 
   updateFisika(dt = 0.016) {
+    this.update(dt);
+  }
+
+  update(dt = 0.016) {
     const p = this.player;
-    const wasInAir = !p.onGround;
-    const prevVy = p.vy;
 
-    // Horizontal Movement
-    if (this.keys.left) {
-      p.vx = -p.speed;
-      p.facing = -1;
-    } else if (this.keys.right) {
-      p.vx = p.speed;
-      p.facing = 1;
-    } else {
-      p.vx *= 0.78;
-      if (Math.abs(p.vx) < 0.1) p.vx = 0;
-    }
-
-    // Melompat
-    if (this.keys.up && p.onGround) {
-      p.vy = p.jumpForce;
-      p.onGround = false;
-      adventureAudio.playJump();
-      this.buatPartikelDebu(p.x + p.width / 2, p.y + p.height, 5);
-    }
-
-    // Terapkan Gravitasi
-    p.vy += p.gravity;
-    if (p.vy > 14) p.vy = 14;
-
-    let newX = p.x + p.vx;
-    let newY = p.y + p.vy;
-
-    if (newX < 0) newX = 0;
-
-    // Penghalang Jembatan Rusak (belum selesai)
-    if (!this.stateLevel.jembatanSelesai) {
-      const batasKiriJembatan = 750;
-      if (p.x + p.width <= batasKiriJembatan && newX + p.width > batasKiriJembatan) {
-        newX = batasKiriJembatan - p.width;
-        p.vx = 0;
+    if (p.isInvulnerable) {
+      p.invulnerableTimer -= dt;
+      if (p.invulnerableTimer <= 0) {
+        p.isInvulnerable = false;
       }
     }
 
-    // Collision Detection Platform Solid
-    p.onGround = false;
+    // Update Parallax & Living Entities
+    this.parallax.update(dt);
 
-    for (const plat of this.solidPlatforms) {
-      if (plat.tipe === 'jembatan' && !this.stateLevel.jembatanSelesai) {
-        continue;
-      }
+    const platformsForPhysics = [
+      ...this.solidPlatforms,
+      ...this.entities.movingPlatforms,
+      ...this.entities.mysteryBlocks
+    ];
 
-      const playerBottom = p.y + p.height;
-      const newBottom = newY + p.height;
-      const playerCenterX = newX + p.width / 2;
+    const physEvents = this.physics.update(
+      p,
+      { left: this.keys.left, right: this.keys.right, jumpHeld: this.keys.up },
+      platformsForPhysics,
+      dt
+    );
 
-      if (playerCenterX >= plat.x && playerCenterX <= plat.x + plat.width) {
-        if (playerBottom <= plat.y + 10 && newBottom >= plat.y && p.vy >= 0) {
-          newY = plat.y - p.height;
-          p.vy = 0;
-          p.onGround = true;
-          break;
-        }
-      }
-    }
-
-    // Deteksi Efek Mendarat (Land State)
-    if (wasInAir && p.onGround && prevVy > 4) {
-      p.landTimer = 0.14;
-      this.buatPartikelDebu(p.x + p.width / 2, p.y + p.height, 4);
-    }
-
-    p.x = newX;
-    p.y = newY;
-
-    // Respawn aman jika jatuh ke jurang sungai
-    if (p.y > this.worldHeight + 30) {
-      this.respawnPlayer();
-    }
-
-    // Evaluasi 7 State Animasi Sprite Karakter
-    if (p.hurtTimer > 0) {
-      p.hurtTimer -= dt;
-      p.state = 'hurt';
-    } else if (p.celebrateTimer > 0) {
-      p.celebrateTimer -= dt;
-      p.state = 'celebrate';
-    } else if (p.landTimer > 0) {
-      p.landTimer -= dt;
+    if (physEvents.landed) {
+      adventureAudio.playLand();
       p.state = 'land';
-    } else if (!p.onGround) {
-      p.state = p.vy < 0 ? 'jump' : 'fall';
-    } else if (Math.abs(p.vx) > 0.5) {
+    }
+
+    if (physEvents.skidded && Math.random() < 0.4) {
+      this.entities.spawnSparkles(p.x + p.width / 2, p.y + p.height, 2, '#D1D5DB');
+    }
+
+    if (physEvents.fellInPit) {
+      this.tanganiJatuhJurang();
+    }
+
+    if (physEvents.blockHit) {
+      this.entities.hitMysteryBlock(physEvents.blockHit, null, adventureAudio);
+    }
+
+    const isAllGatesUnlocked = (this.stateLevel.misiSelesai >= this.stateLevel.totalMisi);
+    const isAllPriorGatesUnlocked = (cpX) => {
+      return this.questionGates.gates.every(g => (g.x > cpX || g.terbuka));
+    };
+
+    const entityEvents = this.entities.update(p, dt, adventureAudio, {
+      isAllGatesUnlocked,
+      isAllPriorGatesUnlocked
+    });
+
+    if (entityEvents.coinCollected > 0) {
+      this.tambahKoin(entityEvents.coinCollected);
+    }
+
+    if (entityEvents.playerHurt) {
+      this.tanganiPemainTerluka();
+    }
+
+    if (entityEvents.flagpoleBlocked) {
+      this.tampilkanNotifikasiPemain('⚠️ Buka seluruh 5 Misi Penjaga untuk menuntaskan level!');
+    }
+
+    if (entityEvents.checkpointActivated) {
+      p.respawnX = entityEvents.checkpointActivated.x;
+      p.respawnY = Math.min(entityEvents.checkpointActivated.y - p.height - 2, this.groundY - p.height - 2);
+    }
+
+    if (entityEvents.flagpoleReached && !this.stateLevel.isCleared) {
+      this.stateLevel.isCleared = true;
+      adventureAudio.playFlagpole();
+      this.tanganiKemenanganLevel();
+    }
+
+    this.camera.update(p, dt);
+
+    // 8 State Animasi Kiko / Aliya
+    if (p.isInvulnerable && p.invulnerableTimer > 1.0) {
+      p.state = 'hurt';
+    } else if (this.stateLevel.isCleared) {
+      p.state = 'celebrate';
+    } else if (!p.isGrounded) {
+      p.state = (p.vy < 0) ? 'jump' : 'fall';
+    } else if (Math.abs(p.vx) > 3.0) {
       p.state = 'run';
+    } else if (Math.abs(p.vx) > 0.3) {
+      p.state = 'walk';
     } else {
       p.state = 'idle';
     }
 
-    // Sinkronkan ke Animator Sprite Berbasis Delta Time
     this.animator.play(p.state);
     this.animator.update(dt);
+
+    // ATURAN 1 (TAMBAHAN WAJIB): Batas gerbang solid tak tertembus ditegakkan
+    // sebagai langkah TERAKHIR setiap frame setelah seluruh pergerakan, knockback, dan platform
+    this.enforceGateBoundaries();
   }
 
-  respawnPlayer() {
-    const p = this.player;
-    p.hurtTimer = 0.5;
-    p.state = 'hurt';
-    adventureAudio.playWrong();
+  /**
+   * Penegakan pembatas gerbang solid tak tertembus (infinite vertical sky barrier)
+   */
+  enforceGateBoundaries() {
+    const pw = this.player.width;
 
-    if (p.x < 900) {
-      p.x = 200;
-      p.y = 380;
-    } else if (p.x < 2100) {
-      p.x = 1050;
-      p.y = 380;
-    } else {
-      p.x = 2200;
-      p.y = 380;
-    }
-    p.vx = 0;
-    p.vy = 0;
-  }
+    for (const gate of this.questionGates.gates) {
+      if (!gate.terbuka) {
+        const gLeft = gate.x;
+        const gRight = gate.x + (gate.width || 48);
 
-  updateKamera() {
-    const targetCamX = this.player.x - this.virtualWidth * 0.35;
-    this.camera.x += (targetCamX - this.camera.x) * 0.12;
-
-    if (this.camera.x < 0) this.camera.x = 0;
-    const maxCamX = this.worldWidth - this.virtualWidth;
-    if (this.camera.x > maxCamX) this.camera.x = maxCamX;
-  }
-
-  updateKoleksi() {
-    const px = this.player.x + this.player.width / 2;
-    const py = this.player.y + this.player.height / 2;
-
-    for (const item of this.collectibleItems) {
-      if (item.diambil) continue;
-
-      const dx = px - item.x;
-      const dy = py - item.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-
-      if (dist < item.r + this.player.width / 2) {
-        item.diambil = true;
-        this.tambahKoin(3);
-        adventureAudio.playCoin();
-        this.buatPartikelKilau(item.x, item.y, item.tipe === 'biotik' ? '#22C55E' : '#38BDF8', 12);
-
-        if (item.tipe === 'biotik') {
-          this.stateLevel.koleksiItem.biotik++;
-        } else {
-          this.stateLevel.koleksiItem.abiotik++;
+        // Jika pemain mencoba menerobos dari sisi kiri gerbang:
+        if (this.player.x + pw > gLeft && this.player.x < gLeft + 25) {
+          this.player.x = gLeft - pw;
+          if (this.player.vx > 0) this.player.vx = 0;
+        }
+        // Jika pemain di sisi kanan dan mencoba ke kiri:
+        else if (this.player.x < gRight && this.player.x + pw > gRight - 25) {
+          this.player.x = gRight;
+          if (this.player.vx < 0) this.player.vx = 0;
         }
 
-        const k = this.stateLevel.koleksiItem;
-        if (!this.stateLevel.koleksiSelesai && k.biotik >= k.targetBiotik && k.abiotik >= k.targetAbiotik) {
-          this.stateLevel.koleksiSelesai = true;
-          this.stateLevel.misiSelesai++;
-          this.tambahKoin(10);
-          adventureAudio.playSuccess();
-          this.buatPartikelKilau(this.player.x + 20, this.player.y - 10, '#F59E0B', 30);
-          this.perbaruiHUD();
+        // Pembatas absolut jika pemain berada di dalam zona gerbang:
+        if (this.player.x + pw > gLeft && this.player.x < gRight) {
+          this.player.x = gLeft - pw;
+          if (this.player.vx > 0) this.player.vx = 0;
         }
       }
     }
   }
 
+  tampilkanNotifikasiPemain(pesan) {
+    if (typeof document === 'undefined') return;
+    const toast = document.getElementById('hud-notifikasi-toast');
+    if (!toast) return;
+    toast.textContent = pesan;
+    toast.classList.remove('d-none');
+    toast.style.animation = 'none';
+    toast.offsetHeight; /* trigger reflow */
+    toast.style.animation = '';
+    clearTimeout(this.toastTimer);
+    this.toastTimer = setTimeout(() => {
+      toast.classList.add('d-none');
+    }, 2200);
+  }
+
+  tanganiPemainTerluka(alasan = 'Aduh! Terkena Musuh 🐛 (-1 Hati)') {
+    this.player.nyawa = Math.max(0, this.player.nyawa - 1);
+    this.player.isInvulnerable = true;
+    this.player.invulnerableTimer = 1.5;
+    this.tampilkanNotifikasiPemain(alasan);
+    this.perbaruiHUD();
+
+    if (this.player.nyawa <= 0) {
+      this.respawnDiCheckpoint();
+    }
+  }
+
+  tanganiJatuhJurang() {
+    adventureAudio.playWrong();
+    this.player.nyawa = Math.max(0, this.player.nyawa - 1);
+    this.tampilkanNotifikasiPemain('Tercebur ke Jurang! 💧 (-1 Hati)');
+    this.respawnDiCheckpoint();
+  }
+
+  respawnDiCheckpoint() {
+    this.player.x = this.player.respawnX;
+    this.player.y = Math.min(this.player.respawnY, this.groundY - this.player.height - 2);
+    this.player.vx = 0;
+    this.player.vy = 0;
+    this.player.isInvulnerable = true;
+    this.player.invulnerableTimer = 2.0;
+    if (this.player.nyawa <= 0) {
+      this.player.nyawa = 3;
+    }
+    this.entities.spawnSparkles(this.player.x + 22, this.player.y + 24, 12, '#38BDF8');
+    this.perbaruiHUD();
+  }
+
   periksaPemicuInteraksi() {
-    const px = this.player.x + this.player.width / 2;
-
-    // 1. Dekat Jembatan Rusak (x: ~680..780)
-    if (px >= 680 && px <= 780 && !this.stateLevel.jembatanSelesai) {
-      this.bukaDialogTantangan(TANTANGAN_LEVEL_1.jembatan, () => {
-        this.stateLevel.jembatanSelesai = true;
-        this.stateLevel.misiSelesai++;
-        this.tambahKoin(5);
-        this.buatPartikelKilau(850, 420, '#F59E0B', 24);
-        this.perbaruiHUD();
-      });
+    // 1. Cek gerbang soal terdekat
+    const nearbyGate = this.questionGates.getNearbyGate(this.player);
+    if (nearbyGate) {
+      this.resetKeys();
+      this.questionGates.openChallenge(nearbyGate);
       return;
     }
 
-    // 2. Dekat Bunga Padang Layu (x: ~1350..1480)
-    if (px >= 1350 && px <= 1480 && !this.stateLevel.bungaSelesai) {
-      this.bukaDialogTantangan(TANTANGAN_LEVEL_1.bunga, () => {
-        this.stateLevel.bungaSelesai = true;
-        this.stateLevel.misiSelesai++;
-        this.tambahKoin(5);
-        this.buatPartikelKilau(1400, 390, '#EC4899', 30);
-        this.perbaruiHUD();
-      });
-      return;
-    }
-
-    // 3. Dekat Kincir Air (x: ~2000..2120)
-    if (px >= 2000 && px <= 2120 && !this.stateLevel.kincirSelesai) {
-      this.bukaDialogTantangan(TANTANGAN_LEVEL_1.kincir, () => {
-        this.stateLevel.kincirSelesai = true;
-        this.stateLevel.misiSelesai++;
-        this.tambahKoin(5);
-        this.buatPartikelKilau(2070, 350, '#38BDF8', 30);
-        this.perbaruiHUD();
-      });
-      return;
-    }
-
-    // 4. Dekat Gerbang Penjaga Akhir (x: ~3250..3400)
-    if (px >= 3250 && px <= 3400 && !this.stateLevel.gerbangSelesai) {
-      this.bukaDialogTantangan(TANTANGAN_LEVEL_1.gerbang_1, () => {
-        setTimeout(() => {
-          this.bukaDialogTantangan(TANTANGAN_LEVEL_1.gerbang_2, () => {
-            this.stateLevel.gerbangSelesai = true;
-            this.stateLevel.misiSelesai++;
-            this.tambahKoin(15);
-            this.buatPartikelKilau(3360, 280, '#FBBF24', 50);
-            this.perbaruiHUD();
-            this.tampilkanKemenanganLevel();
-          });
-        }, 400);
-      });
+    // 2. Cek kotak misteri '?' terdekat yang belum dibuka
+    const nearbyBlock = this.entities.getNearbyMysteryBlock(this.player);
+    if (nearbyBlock) {
+      this.entities.hitMysteryBlock(nearbyBlock, null, adventureAudio);
       return;
     }
   }
 
-  bukaDialogTantangan(dataTantangan, onSelesai) {
-    this.dialogAktif = true;
-    this.callbackTantanganSelesai = onSelesai;
+  onGateUnlocked(gate) {
+    this.stateLevel.misiSelesai += 1;
+    this.perbaruiHUD();
 
-    if (typeof document === 'undefined') return;
-    const overlay = document.getElementById('dialog-tantangan-overlay');
-    if (!overlay) return;
-
-    const elJudul = document.getElementById('dialog-judul');
-    const elInstruksi = document.getElementById('dialog-instruksi');
-    const elSoal = document.getElementById('dialog-soal-teks');
-    if (elJudul) elJudul.textContent = dataTantangan.judul;
-    if (elInstruksi) elInstruksi.textContent = dataTantangan.instruksi;
-    if (elSoal) elSoal.textContent = dataTantangan.pertanyaan;
-
-    const wadahOpsi = document.getElementById('dialog-grid-opsi');
-    if (wadahOpsi) wadahOpsi.innerHTML = '';
-
-    const wadahFeedback = document.getElementById('dialog-feedback-wadah');
-    if (wadahFeedback) {
-      wadahFeedback.className = 'dialog-feedback-wadah';
-      wadahFeedback.style.display = 'none';
+    // Memicu animasi pembangunan jembatan jika gerbang terhubung dengan jembatan
+    if (gate.tipe && gate.tipe.includes('jembatan')) {
+      const platJembatan = this.solidPlatforms.find(p => p.tipe === gate.tipe);
+      if (platJembatan) {
+        this.mulaiAnimasiJembatan(platJembatan);
+      }
     }
 
-    const keys = ['1', '2', '3', '4'];
-    dataTantangan.opsi.forEach((opsiTeks, idx) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'btn-opsi-adventure';
-      btn.innerHTML = `<span class="opsi-key-badge">${keys[idx]}</span> <span>${opsiTeks}</span>`;
+    this.entities.spawnSparkles(gate.x + 24, gate.y, 24, '#22C55E');
+  }
 
-      btn.onclick = () => {
-        if (idx === dataTantangan.kunci) {
-          adventureAudio.playSuccess();
-          this.player.celebrateTimer = 0.8;
-          this.player.state = 'celebrate';
+  /**
+   * Animasi kemunculan bilah papan jembatan dari sisi kiri ke kanan (Aturan C)
+   */
+  mulaiAnimasiJembatan(plat) {
+    plat.animating = true;
+    plat.animPlanks = 0;
+    plat.totalPlanks = Math.max(6, Math.floor(plat.width / 26));
+    this.isBuildingBridge = true;
+    this.player.vx = 0;
 
-          if (wadahFeedback) {
-            wadahFeedback.className = 'dialog-feedback-wadah sukses';
-            wadahFeedback.innerHTML = `<strong>Hebat Sekali! Jawabanmu Tepat! 🌟</strong><br>${dataTantangan.penjelasan}`;
-            wadahFeedback.style.display = 'block';
-          }
+    let plankIndex = 0;
+    const intervalId = setInterval(() => {
+      plankIndex++;
+      plat.animPlanks = plankIndex;
+      const currentX = plat.x + (plat.width / plat.totalPlanks) * plankIndex;
+      adventureAudio.playLand();
+      this.entities.spawnSparkles(currentX, plat.y, 6, '#22C55E');
 
-          if (wadahOpsi) {
-            wadahOpsi.querySelectorAll('button').forEach(b => b.disabled = true);
-          }
-
-          setTimeout(() => {
-            overlay.classList.remove('aktif');
-            this.dialogAktif = false;
-            if (this.callbackTantanganSelesai) {
-              this.callbackTantanganSelesai();
-            }
-          }, 1400);
-        } else {
-          adventureAudio.playWrong();
-          this.player.hurtTimer = 0.5;
-          this.player.state = 'hurt';
-
-          if (wadahFeedback) {
-            wadahFeedback.className = 'dialog-feedback-wadah gagal';
-            wadahFeedback.innerHTML = `<strong>Yuk, periksa lagi!</strong> Belum tepat. <em>Petunjuk: ${dataTantangan.penjelasan}</em>`;
-            wadahFeedback.style.display = 'block';
-          }
-        }
-      };
-
-      if (wadahOpsi) wadahOpsi.appendChild(btn);
-    });
-
-    overlay.classList.add('aktif');
+      if (plankIndex >= plat.totalPlanks) {
+        clearInterval(intervalId);
+        plat.animating = false;
+        plat.terbuka = true;
+        this.isBuildingBridge = false;
+        adventureAudio.playSuccess();
+        this.entities.spawnSparkles(plat.x + plat.width / 2, plat.y, 18, '#FACC15');
+      }
+    }, 70);
   }
 
   tambahKoin(jumlah) {
@@ -893,22 +710,32 @@ export class AdventureGameEngine {
 
   perbaruiHUD() {
     if (typeof document === 'undefined') return;
+
     const elKoin = document.getElementById('hud-koin-jumlah');
     const elMisi = document.getElementById('hud-misi-teks');
+    const elNyawa = document.getElementById('hud-nyawa-teks');
+    const elLevelBadge = document.getElementById('hud-level-badge');
+
     if (elKoin) elKoin.textContent = this.stateLevel.koinTerkumpul;
     if (elMisi) elMisi.textContent = `Misi: ${this.stateLevel.misiSelesai}/${this.stateLevel.totalMisi}`;
+    if (elNyawa) {
+      const hearts = '❤️'.repeat(this.player.nyawa) + '🖤'.repeat(this.player.maxNyawa - this.player.nyawa);
+      elNyawa.textContent = hearts;
+    }
+    if (elLevelBadge) {
+      elLevelBadge.textContent = `Level ${this.currentLevelId}`;
+    }
   }
 
-  tampilkanKemenanganLevel() {
-    adventureAudio.playSuccess();
-    this.player.celebrateTimer = 9999;
+  tanganiKemenanganLevel() {
     this.player.state = 'celebrate';
 
-    const stars = 3;
+    const stars = (this.stateLevel.koinTerkumpul >= 20 && this.player.nyawa === 3) ? 3 :
+                  (this.stateLevel.koinTerkumpul >= 10) ? 2 : 1;
     const coins = this.stateLevel.koinTerkumpul;
     const score = 1000 + coins * 50;
 
-    adventureProgress.selesaikanLevel(1, stars, coins, score);
+    adventureWorldsProgress.selesaikanLevel(this.currentLevelId, stars, coins, score);
 
     setTimeout(() => {
       if (typeof document === 'undefined') return;
@@ -916,311 +743,409 @@ export class AdventureGameEngine {
       if (modal) {
         const koinEl = document.getElementById('victory-koin');
         const skorEl = document.getElementById('victory-skor');
+        const levelJudulEl = document.getElementById('victory-level-judul');
         if (koinEl) koinEl.textContent = `+${coins} Koin Daun 🍃`;
-        if (skorEl) skorEl.textContent = `Skor Petualangan: ${score}`;
+        if (skorEl) skorEl.textContent = `Skor: ${score}`;
+        if (levelJudulEl) levelJudulEl.textContent = `Level ${this.currentLevelId} Selesai!`;
         modal.classList.add('aktif');
       }
-    }, 1200);
-  }
-
-  buatPartikelDebu(x, y, count = 6) {
-    for (let i = 0; i < count; i++) {
-      this.particles.push({
-        x,
-        y,
-        vx: (Math.random() - 0.5) * 3,
-        vy: -Math.random() * 2,
-        size: Math.random() * 4 + 2,
-        color: '#D1D5DB',
-        alpha: 0.9,
-        life: 0.4
-      });
-    }
-  }
-
-  buatPartikelKilau(x, y, color = '#FACC15', count = 16) {
-    for (let i = 0; i < count; i++) {
-      const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 4 + 1;
-      this.particles.push({
-        x,
-        y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        size: Math.random() * 5 + 3,
-        color,
-        alpha: 1,
-        life: 0.8
-      });
-    }
-  }
-
-  updatePartikel() {
-    for (let i = this.particles.length - 1; i >= 0; i--) {
-      const p = this.particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      p.alpha -= 0.03;
-      if (p.alpha <= 0) {
-        this.particles.splice(i, 1);
-      }
-    }
+    }, 1800);
   }
 
   // ==========================================================================
-  // RENDERING DUNIA PLATFORMER 2D
+  // RENDERING DUNIA PLATFORMER (PARALLAX 5 LAPIS + PLAYFIELD + LIVING ENTITIES)
   // ==========================================================================
   render() {
     const ctx = this.ctx;
-    const cx = this.camera.x;
+    // Pembulatan ke bilangan bulat penuh untuk mencegah getaran sub-piksel (anti-jitter)
+    const cx = Math.round(this.camera.x);
 
     ctx.clearRect(0, 0, this.virtualWidth, this.virtualHeight);
 
-    // 1. Layer 1: Parallax Sky (bergerak lambat 0.1x)
-    if (this.assets.sky && this.assets.sky.complete && this.assets.sky.naturalWidth > 0) {
-      const skyOffset = (cx * 0.1) % 960;
-      ctx.drawImage(this.assets.sky, -skyOffset, 0, 960, 540);
-      ctx.drawImage(this.assets.sky, 960 - skyOffset, 0, 960, 540);
-    } else {
-      ctx.fillStyle = '#78C4D4';
-      ctx.fillRect(0, 0, this.virtualWidth, this.virtualHeight);
-    }
+    // 1. Render 5 Lapis Parallax Dinamis
+    this.parallax.render(ctx, cx, this.currentWorldId);
 
-    // 2. Layer 2: Parallax Midground Trees & Hills (bergerak 0.35x)
-    if (this.assets.trees && this.assets.trees.complete && this.assets.trees.naturalWidth > 0) {
-      const treeOffset = (cx * 0.35) % 960;
-      ctx.drawImage(this.assets.trees, -treeOffset, 180, 960, 360);
-      ctx.drawImage(this.assets.trees, 960 - treeOffset, 180, 960, 360);
-    }
-
-    // 3. Layer 3: Playfield (Dunia Platform, Objek, & Pemain)
+    // 2. Playfield
     ctx.save();
     ctx.translate(-cx, 0);
 
-    this.renderPlatformDanTanah(ctx);
-    this.renderObjekTantangan(ctx);
-    this.renderKoleksiItem(ctx);
-    this.renderPartikel(ctx);
-    this.renderPemain(ctx);
+    this.renderPlatforms(ctx);
+    this.renderQuestionGates(ctx);
+    this.renderEntities(ctx);
+
+    // 3. Render Living Entities di Atas Platform (Kupu-kupu, Daun Gugur)
+    this.parallax.renderLivingEntities(ctx, cx);
+
+    this.renderPlayer(ctx);
 
     ctx.restore();
   }
 
-  renderPlatformDanTanah(ctx) {
+  renderPlatforms(ctx) {
     for (const plat of this.solidPlatforms) {
       if (plat.tipe === 'tanah') {
-        ctx.fillStyle = '#4AB23E';
+        // Rumput Hutan Ceria (Hijau Emerald Segar)
+        ctx.fillStyle = '#22C55E';
         ctx.fillRect(plat.x, plat.y, plat.width, 16);
-        ctx.fillStyle = '#2E7D4F';
+        ctx.fillStyle = '#15803D';
         ctx.fillRect(plat.x, plat.y + 14, plat.width, 4);
-
-        ctx.fillStyle = '#8E552A';
+        ctx.fillStyle = '#78350F';
         ctx.fillRect(plat.x, plat.y + 18, plat.width, plat.height - 18);
       } else if (plat.tipe === 'platform') {
-        ctx.fillStyle = '#4AB23E';
+        ctx.fillStyle = '#22C55E';
         ctx.fillRect(plat.x, plat.y, plat.width, 8);
-        ctx.fillStyle = '#8E552A';
+        ctx.fillStyle = '#78350F';
         ctx.fillRect(plat.x, plat.y + 8, plat.width, plat.height - 8);
+      } else if (plat.tipe && plat.tipe.includes('jembatan')) {
+        if (plat.terbuka) {
+          // Jembatan kokoh selesai dibangun
+          ctx.fillStyle = '#B45309';
+          ctx.fillRect(plat.x, plat.y, plat.width, 14);
+          ctx.fillStyle = '#78350F';
+          for (let bx = plat.x; bx < plat.x + plat.width; bx += 28) {
+            ctx.fillRect(bx, plat.y - 10, 6, 24);
+          }
+        } else if (plat.animating) {
+          // Bilah jembatan muncul bertahap dari kiri ke kanan (Aturan C)
+          const stepW = plat.width / (plat.totalPlanks || 8);
+          const currentW = Math.min(plat.width, stepW * (plat.animPlanks || 0));
+          ctx.fillStyle = '#B45309';
+          ctx.fillRect(plat.x, plat.y, currentW, 14);
+          ctx.fillStyle = '#78350F';
+          for (let bx = plat.x; bx < plat.x + currentW; bx += 28) {
+            ctx.fillRect(bx, plat.y - 10, 6, 24);
+          }
+        } else {
+          // Jurang belum ada jembatan: tampilkan tunggul dan tanda seru merah
+          ctx.fillStyle = '#B45309';
+          ctx.fillRect(plat.x, plat.y, 45, 14);
+          ctx.fillRect(plat.x + plat.width - 45, plat.y, 45, 14);
+          ctx.fillStyle = '#DC2626';
+          ctx.fillRect(plat.x + plat.width / 2 - 12, plat.y - 20, 24, 24);
+          ctx.fillStyle = '#FFFFFF';
+          ctx.font = 'bold 14px sans-serif';
+          ctx.fillText('!', plat.x + plat.width / 2 - 3, plat.y - 3);
+        }
       }
     }
 
-    // Jurang Sungai Padang Rumput
-    const rz = ENV_COLLISION_DATA.riverZone;
-    ctx.fillStyle = '#23708A';
-    ctx.fillRect(rz.x, rz.y, rz.width, rz.height);
+    // Aliran Sungai Dasar
+    ctx.fillStyle = '#0284C7';
+    ctx.fillRect(880, 480, 220, 60);
+    ctx.fillRect(2200, 480, 220, 60);
 
-    ctx.fillStyle = '#FFFDF7';
-    const nowTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
-    for (let i = rz.x + 10; i < rz.x + rz.width - 10; i += 32) {
-      ctx.fillRect(i + Math.sin(nowTime * 0.005 + i) * 6, rz.y + 4, 20, 4);
+    for (const mp of this.entities.movingPlatforms) {
+      ctx.fillStyle = '#D97706';
+      ctx.beginPath();
+      ctx.roundRect(mp.x, mp.y, mp.width, mp.height, 6);
+      ctx.fill();
+      ctx.fillStyle = '#78350F';
+      ctx.fillRect(mp.x + 4, mp.y + mp.height - 4, mp.width - 8, 3);
     }
   }
 
-  renderObjekTantangan(ctx) {
-    const nowTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
+  renderQuestionGates(ctx) {
+    const nearbyGate = this.questionGates.getNearbyGate(this.player);
 
-    // 1. Jembatan Kayu (x: 760, y: 432)
-    if (this.stateLevel.jembatanSelesai) {
-      ctx.fillStyle = '#BE824B';
-      ctx.fillRect(760, 432, 200, 14);
-      ctx.fillStyle = '#8C552D';
-      ctx.fillRect(760, 420, 8, 24);
-      ctx.fillRect(860, 420, 8, 24);
-      ctx.fillRect(952, 420, 8, 24);
-    } else {
-      ctx.fillStyle = '#BE824B';
-      ctx.fillRect(760, 432, 60, 14);
-      ctx.fillRect(900, 432, 60, 14);
+    for (const gate of this.questionGates.gates) {
+      const isBridgeGate = (gate.tipe && gate.tipe.includes('jembatan'));
 
-      ctx.fillStyle = '#DC2626';
-      ctx.fillRect(740, 400, 24, 24);
-      ctx.fillStyle = '#FFFDF7';
-      ctx.font = 'bold 12px sans-serif';
-      ctx.fillText('!', 749, 417);
+      if (isBridgeGate) {
+        // 1. Tipe Tantangan Jembatan: Prasasti Totem Kristal Penjaga di Tepian Jurang (Bebas Pintu Bertumpuk)
+        ctx.save();
+        // Tiang kayu prasasti
+        ctx.fillStyle = '#78350F';
+        ctx.fillRect(gate.x - 20, gate.y - 42, 16, 46);
+        ctx.fillStyle = '#451A03';
+        ctx.fillRect(gate.x - 22, gate.y + 2, 20, 4);
 
-      if (Math.abs((this.player.x + this.player.width / 2) - 740) < 60) {
-        this.renderPetunjukInteraksi(ctx, 740, 380, 'Perbaiki Jembatan');
+        // Batu Kristal Permata Penjaga Alam
+        ctx.fillStyle = gate.terbuka ? '#22C55E' : '#EF4444';
+        ctx.beginPath();
+        ctx.arc(gate.x - 12, gate.y - 50, 11, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.font = '13px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(gate.terbuka ? '🌿' : '🔒', gate.x - 12, gate.y - 46);
+
+        // Jika terkunci: tirai energi tipis di mulut jurang
+        if (!gate.terbuka) {
+          ctx.fillStyle = 'rgba(239, 68, 68, 0.28)';
+          ctx.fillRect(gate.x, gate.y - 65, 8, 120);
+        }
+        ctx.restore();
+      } else {
+        // 2. Tipe Gapura Ranting Alam (Ramping, Harmonis & Estetis)
+        ctx.save();
+        const archW = gate.width || 44;
+        const archH = 100;
+        const topY = gate.y - archH;
+
+        // Tiang ranting kiri & kanan
+        ctx.fillStyle = '#78350F';
+        ctx.fillRect(gate.x - 8, topY + 10, 8, archH - 6);
+        ctx.fillRect(gate.x + archW, topY + 10, 8, archH - 6);
+
+        // Lengkungan ranting atas
+        ctx.fillStyle = '#451A03';
+        ctx.fillRect(gate.x - 10, topY, archW + 20, 12);
+
+        // Kanopi Daun Hiasan
+        ctx.fillStyle = '#22C55E';
+        ctx.beginPath();
+        ctx.arc(gate.x - 4, topY - 2, 8, 0, Math.PI * 2);
+        ctx.arc(gate.x + archW / 2, topY - 5, 10, 0, Math.PI * 2);
+        ctx.arc(gate.x + archW + 4, topY - 2, 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Segel Pembatas
+        if (gate.terbuka) {
+          ctx.fillStyle = 'rgba(34, 197, 94, 0.20)';
+          ctx.fillRect(gate.x, topY + 12, archW, archH - 8);
+          ctx.fillStyle = '#16A34A';
+          ctx.font = 'bold 18px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('🌿', gate.x + archW / 2, gate.y - 30);
+        } else {
+          ctx.fillStyle = 'rgba(239, 68, 68, 0.35)';
+          ctx.fillRect(gate.x, topY + 12, archW, archH - 8);
+          ctx.fillStyle = '#FACC15';
+          ctx.font = 'bold 18px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('🔒', gate.x + archW / 2, gate.y - 30);
+        }
+        ctx.restore();
       }
-    }
 
-    // 2. Bunga Padang Rumput (x: 1400, y: 400)
-    if (this.stateLevel.bungaSelesai) {
-      ctx.fillStyle = '#22C55E';
-      ctx.fillRect(1408, 410, 4, 34);
-      ctx.beginPath();
-      ctx.arc(1410, 396, 16, 0, Math.PI * 2);
-      ctx.fillStyle = '#F43F5E';
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(1410, 396, 7, 0, Math.PI * 2);
-      ctx.fillStyle = '#FACC15';
-      ctx.fill();
-    } else {
-      ctx.fillStyle = '#78733C';
-      ctx.fillRect(1408, 420, 4, 24);
-      ctx.beginPath();
-      ctx.arc(1402, 412, 11, 0, Math.PI * 2);
-      ctx.fillStyle = '#B4825A';
-      ctx.fill();
-
-      if (Math.abs((this.player.x + this.player.width / 2) - 1410) < 60) {
-        this.renderPetunjukInteraksi(ctx, 1410, 365, 'Bantu Bunga Liar');
-      }
-    }
-
-    // 3. Kincir Air (x: 2060, y: 380)
-    ctx.save();
-    ctx.translate(2060, 380);
-    const rotSpeed = this.stateLevel.kincirSelesai ? nowTime * 0.0025 : 0;
-    ctx.rotate(rotSpeed);
-
-    ctx.strokeStyle = '#8C552D';
-    ctx.lineWidth = 5;
-    ctx.beginPath();
-    ctx.arc(0, 0, 36, 0, Math.PI * 2);
-    ctx.stroke();
-
-    for (let i = 0; i < 8; i++) {
-      ctx.rotate(Math.PI / 4);
-      ctx.fillStyle = '#BE824B';
-      ctx.fillRect(-4, -36, 8, 20);
-    }
-    ctx.restore();
-
-    ctx.fillStyle = '#4A2810';
-    ctx.beginPath();
-    ctx.arc(2060, 380, 8, 0, Math.PI * 2);
-    ctx.fill();
-
-    if (!this.stateLevel.kincirSelesai && Math.abs((this.player.x + this.player.width / 2) - 2060) < 60) {
-      this.renderPetunjukInteraksi(ctx, 2060, 315, 'Putar Kincir Air');
-    }
-
-    // 4. Gerbang Penjaga Kuno (x: 3350, y: 320)
-    ctx.fillStyle = '#78827D';
-    ctx.fillRect(3320, 300, 30, 144);
-    ctx.fillRect(3430, 300, 30, 144);
-    ctx.fillRect(3320, 276, 140, 28);
-
-    if (this.stateLevel.gerbangSelesai) {
-      ctx.fillStyle = 'rgba(74, 222, 128, 0.45)';
-      ctx.fillRect(3350, 304, 80, 140);
-    } else {
-      ctx.fillStyle = '#374151';
-      ctx.fillRect(3350, 304, 80, 140);
-      if (Math.abs((this.player.x + this.player.width / 2) - 3390) < 80) {
-        this.renderPetunjukInteraksi(ctx, 3390, 250, 'Buka Gerbang Padang');
+      if (nearbyGate === gate) {
+        this.renderInteractionBadge(ctx, gate.x + (gate.width || 44) / 2, gate.y - 88, 'Jawab Soal Penjaga');
       }
     }
   }
 
-  renderKoleksiItem(ctx) {
+  renderEntities(ctx) {
     const nowTime = (typeof performance !== 'undefined') ? performance.now() : Date.now();
-    for (const item of this.collectibleItems) {
-      if (item.diambil) continue;
 
-      const bob = Math.sin(nowTime * 0.005 + item.x) * 4;
+    for (const block of this.entities.mysteryBlocks) {
+      const by = block.y + block.bounceY;
+      if (block.disundul) {
+        // Blok bata kayu kosong selesai disundul (Desain Bertekstur Taktil & Bernilai Estetika)
+        ctx.fillStyle = '#B45309';
+        ctx.fillRect(block.x, by, block.width, block.height);
+        ctx.fillStyle = '#78350F';
+        ctx.fillRect(block.x + 3, by + 3, block.width - 6, block.height - 6);
+        ctx.strokeStyle = '#451A03';
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(block.x, by, block.width, block.height);
 
+        // 4 Paku keling sudut
+        ctx.fillStyle = '#F59E0B';
+        ctx.fillRect(block.x + 5, by + 5, 3, 3);
+        ctx.fillRect(block.x + block.width - 8, by + 5, 3, 3);
+        ctx.fillRect(block.x + 5, by + block.height - 8, 3, 3);
+        ctx.fillRect(block.x + block.width - 8, by + block.height - 8, 3, 3);
+      } else {
+        ctx.fillStyle = '#F59E0B';
+        ctx.fillRect(block.x, by, block.width, block.height);
+        ctx.fillStyle = '#FDE68A';
+        ctx.fillRect(block.x + 2, by + 2, block.width - 4, 4);
+        ctx.strokeStyle = '#B45309';
+        ctx.lineWidth = 2.5;
+        ctx.strokeRect(block.x, by, block.width, block.height);
+
+        ctx.fillStyle = '#78350F';
+        ctx.font = 'bold 22px Fredoka, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('?', block.x + block.width / 2, by + 26);
+      }
+    }
+
+    const nearbyBlock = this.entities.getNearbyMysteryBlock(this.player);
+    if (nearbyBlock) {
+      this.renderInteractionBadge(ctx, nearbyBlock.x + nearbyBlock.width / 2, nearbyBlock.y - 30, 'Buka Kotak');
+    }
+
+    for (const coin of this.entities.leafCoins) {
+      if (coin.diambil) continue;
+      const bob = Math.sin(nowTime * 0.005 + coin.x) * 4;
+      ctx.save();
+      ctx.translate(coin.x, coin.y + bob);
+
+      const scaleX = Math.cos(nowTime * 0.004 + coin.x);
+      ctx.scale(scaleX, 1);
+
+      ctx.fillStyle = '#16A34A';
       ctx.beginPath();
-      ctx.arc(item.x, item.y + bob, item.r, 0, Math.PI * 2);
-      ctx.fillStyle = item.tipe === 'biotik' ? 'rgba(34, 197, 94, 0.25)' : 'rgba(56, 189, 248, 0.25)';
+      ctx.ellipse(0, 0, coin.r, coin.r + 2, 0, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.font = '22px sans-serif';
+      ctx.fillStyle = '#86EFAC';
+      ctx.font = 'bold 14px sans-serif';
       ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      const icon = item.id.includes('kupu') ? '🦋' :
-                   item.id.includes('jamur') ? '🍄' :
-                   item.id.includes('ulat') ? '🐛' :
-                   item.id.includes('air') ? '💧' :
-                   item.id.includes('batu') ? '🪨' : '☀️';
-      ctx.fillText(icon, item.x, item.y + bob);
+      ctx.fillText('🍃', 0, 4);
+      ctx.restore();
     }
-  }
 
-  renderPetunjukInteraksi(ctx, x, y, teks) {
-    ctx.save();
-    ctx.fillStyle = '#FFFDF7';
-    ctx.strokeStyle = '#1B3A2F';
-    ctx.lineWidth = 2.5;
+    for (const item of this.entities.poppedItems) {
+      ctx.save();
+      ctx.translate(item.x, item.y);
+      ctx.rotate(item.rotation);
+      ctx.font = 'bold 20px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(item.item === 'hati' ? '❤️' : '🍃', 0, 6);
+      ctx.restore();
+    }
 
-    const boxWidth = ctx.measureText(teks).width + 36;
-    ctx.beginPath();
-    ctx.roundRect(x - boxWidth / 2, y, boxWidth, 28, 8);
-    ctx.fill();
-    ctx.stroke();
+    for (const en of this.entities.enemies) {
+      if (!en.isAlive && en.squishTimer <= 0) continue;
 
-    ctx.fillStyle = '#F2A541';
-    ctx.fillRect(x - boxWidth / 2 + 5, y + 4, 20, 20);
-    ctx.fillStyle = '#1B3A2F';
-    ctx.font = 'bold 11px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('E', x - boxWidth / 2 + 15, y + 18);
+      ctx.save();
+      ctx.translate(en.x + en.width / 2, en.y + en.height);
 
-    ctx.fillStyle = '#1B3A2F';
-    ctx.font = 'bold 11px sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText(teks, x - boxWidth / 2 + 30, y + 18);
-    ctx.restore();
-  }
+      if (!en.isAlive) {
+        ctx.scale(1.4, 0.3);
+      } else {
+        ctx.scale(en.vx < 0 ? -1 : 1, 1);
+      }
 
-  renderPartikel(ctx) {
-    for (const p of this.particles) {
+      if (en.tipe === 'ulat') {
+        ctx.fillStyle = '#16A34A';
+        ctx.beginPath();
+        ctx.arc(-8, -12, 10, 0, Math.PI * 2);
+        ctx.arc(4, -12, 9, 0, Math.PI * 2);
+        ctx.arc(14, -12, 8, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(12, -15, 3.5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#000000';
+        ctx.beginPath();
+        ctx.arc(13, -15, 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (en.tipe === 'belalang') {
+        ctx.fillStyle = '#65A30D';
+        ctx.fillRect(-14, -24, 28, 18);
+        ctx.fillStyle = '#84CC16';
+        ctx.fillRect(-18, -16, 8, 12);
+        ctx.fillStyle = '#000000';
+        ctx.fillRect(8, -20, 3, 3);
+      } else {
+        ctx.fillStyle = '#78350F';
+        ctx.beginPath();
+        ctx.ellipse(0, -14, 16, 12, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#F59E0B';
+        ctx.fillRect(-2, -26, 4, 12);
+      }
+
+      ctx.restore();
+    }
+
+    for (const cp of this.entities.checkpoints) {
+      ctx.fillStyle = '#475569';
+      ctx.fillRect(cp.x - 3, cp.y - 70, 6, 70);
+
+      ctx.fillStyle = cp.aktif ? '#22C55E' : '#EF4444';
+      ctx.beginPath();
+      ctx.moveTo(cp.x + 3, cp.y - 70);
+      ctx.lineTo(cp.x + 32, cp.y - 56);
+      ctx.lineTo(cp.x + 3, cp.y - 42);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = cp.aktif ? '#FACC15' : '#64748B';
+      ctx.beginPath();
+      ctx.arc(cp.x, cp.y - 76, 7, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    const fp = this.entities.finishFlagpole;
+    if (fp) {
+      ctx.fillStyle = '#E2E8F0';
+      ctx.fillRect(fp.x, fp.baseY - fp.poleHeight, 8, fp.poleHeight);
+      ctx.fillStyle = '#FACC15';
+      ctx.beginPath();
+      ctx.arc(fp.x + 4, fp.baseY - fp.poleHeight, 10, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#F97316';
+      ctx.beginPath();
+      ctx.moveTo(fp.x - 42, fp.flagY);
+      ctx.lineTo(fp.x, fp.flagY - 18);
+      ctx.lineTo(fp.x, fp.flagY + 18);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    for (const p of this.entities.particles) {
       ctx.save();
       ctx.globalAlpha = p.alpha;
       ctx.fillStyle = p.color;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
     }
   }
 
-  renderPemain(ctx) {
+  renderPlayer(ctx) {
     const p = this.player;
+    const footCenterX = Math.round(p.x + p.width / 2);
+    const footBottomY = Math.round(p.y + p.height);
 
-    // Titik pusat kaki karakter di koordinat dunia game
-    const footCenterX = p.x + p.width / 2;
-    const footBottomY = p.y + p.height;
-
+    // Coba render sprite PNG Aliya
     const drew = this.animator.draw(
       ctx,
       this.assets.character,
       footCenterX,
       footBottomY,
-      p.facing
+      p.facing,
+      p.isInvulnerable
     );
 
-    // Fallback procedural rendering hanya jika citra sprite belum siap
+    // Jika PNG belum termuat atau fallback, gunakan gambar vektor prosedural HD
     if (!drew) {
-      ctx.save();
-      ctx.translate(footCenterX, footBottomY);
-      ctx.scale(p.facing, 1);
-      ctx.fillStyle = '#2E7D4F';
-      ctx.fillRect(-p.width / 2, -p.height, p.width, p.height);
-      ctx.fillStyle = '#F2A541';
-      ctx.fillRect(-p.width / 2, -p.height, p.width, 14);
-      ctx.restore();
+      drawCharacterProceduralFallback(
+        ctx,
+        footCenterX,
+        footBottomY,
+        p.facing,
+        p.state,
+        p.isInvulnerable
+      );
     }
+  }
+
+  renderInteractionBadge(ctx, x, y, label) {
+    ctx.save();
+    ctx.font = 'bold 12px sans-serif';
+    const textW = ctx.measureText(label).width;
+    const totalW = textW + 36;
+
+    ctx.fillStyle = '#FFFDF7';
+    ctx.strokeStyle = '#1B3A2F';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.roundRect(x - totalW / 2, y, totalW, 26, 8);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#F2A541';
+    ctx.fillRect(x - totalW / 2 + 4, y + 4, 18, 18);
+    ctx.fillStyle = '#1B3A2F';
+    ctx.font = 'bold 11px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('E', x - totalW / 2 + 13, y + 17);
+
+    ctx.fillStyle = '#1B3A2F';
+    ctx.textAlign = 'left';
+    ctx.fillText(label, x - totalW / 2 + 28, y + 17);
+    ctx.restore();
   }
 }

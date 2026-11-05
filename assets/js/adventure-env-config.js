@@ -92,3 +92,4 @@ export const ENV_VISUAL_ASSETS = {
     { id: 'abio_cahaya', tipe: 'abiotik', name: 'Kristal Sinar Mentari ☀️', x: 2940, y: 215, r: 18, color: '#F59E0B' }
   ]
 };
+
