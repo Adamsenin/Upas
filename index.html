@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>KUPAS - KUIS IPAS Kelas V SD | Jelajahi Pulau Ekosistem</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Grandstander:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="assets/css/fonts.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/tema.css">
   <link rel="stylesheet" href="assets/css/animasi.css">
@@ -14,6 +13,7 @@
   <link rel="stylesheet" href="assets/css/token-nusantara.css">
   <link rel="stylesheet" href="assets/css/beranda-pulau.css">
 </head>
+
 <body class="motion-full d-flex flex-column min-vh-100" data-halaman="beranda">
   <!-- Navigasi Utama Aplikasi (dibuat oleh ui.js) -->
   <header id="wadah-navbar"></header>
@@ -23,84 +23,155 @@
 
       <!-- KOLOM KIRI: Judul, Pilihan Peran, Aksi Utama, Buku Jejak -->
       <section class="beranda-sambut" aria-labelledby="judul-beranda">
-        <h1 id="judul-beranda" class="beranda-judul">
-          Jelajahi Pulau Ekosistem bersama Si Kupas
-        </h1>
-        <p class="beranda-pengantar">
-          Pilih tempat di peta untuk belajar sendiri, atau gabung kuis bersama teman sekelasmu.
-        </p>
+        <div class="beranda-sambut-header">
+          <h1 id="judul-beranda" class="beranda-judul">
+            Jelajahi Pulau Ekosistem bersama Si Kupas
+          </h1>
+          <p class="beranda-pengantar">
+            Pilih tempat di peta untuk belajar sendiri, atau gabung kuis bersama teman sekelasmu.
+          </p>
+        </div>
 
-        <!-- Pilihan peran: keputusan pertama pengguna -->
-        <div class="pilih-peran" role="tablist" aria-label="Kamu siapa?">
-          <button type="button" class="pilih-peran-tab" role="tab" id="tab-peran-siswa"
-                  aria-selected="true" aria-controls="panel-peran-siswa">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="7.5" r="3.5"/>
-              <path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/>
-              <path d="M9 3.6 12 2l3 1.6"/>
+        <!-- Pilihan peran: Segmented Control Taktil & Aksesibel -->
+        <div class="pilih-peran" role="tablist" aria-label="Pilihan Peran Pengguna">
+          <button type="button" class="pilih-peran-tab" role="tab" id="tab-peran-siswa" aria-selected="true"
+            aria-controls="panel-peran-siswa" tabindex="0">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="7.5" r="3.5" />
+              <path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5" />
+              <path d="M9 3.6 12 2l3 1.6" />
             </svg>
             <span>Aku siswa</span>
           </button>
-          <button type="button" class="pilih-peran-tab" role="tab" id="tab-peran-guru"
-                  aria-selected="false" aria-controls="panel-peran-guru" tabindex="-1">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="12" rx="1.5"/>
-              <path d="M7 20h10"/>
-              <path d="M12 16v4"/>
-              <path d="m7 11 3-3 2.5 2.5L17 7"/>
+          <button type="button" class="pilih-peran-tab" role="tab" id="tab-peran-guru" aria-selected="false"
+            aria-controls="panel-peran-guru" tabindex="-1">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="12" rx="1.5" />
+              <path d="M7 20h10" />
+              <path d="M12 16v4" />
+              <path d="m7 11 3-3 2.5 2.5L17 7" />
             </svg>
             <span>Saya guru</span>
           </button>
         </div>
 
-        <!-- Panel Siswa (bawaan) -->
+        <!-- Panel Peran Siswa (Bawaan) -->
         <div class="panel-peran" role="tabpanel" id="panel-peran-siswa" aria-labelledby="tab-peran-siswa">
-          <!-- Menu Baru: Adventure Petualangan IPAS (Mode Mandiri Tanpa Kode Lobi) -->
-          <a href="adventure.html" class="tombol-utama smartboard-btn mb-2" id="btn-adventure-siswa" style="background: linear-gradient(135deg, #1B3A2F 0%, #2E7D4F 100%); color: #FFFDF7; border-color: #1B3A2F;">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-            </svg>
-            <span>Adventure: Petualangan IPAS</span>
+          <!-- Aksi Utama: Adventure Petualangan IPAS (Mode Mandiri) -->
+          <a href="adventure.html" class="kartu-aksi-utama smartboard-btn" id="btn-adventure-siswa">
+            <div class="kartu-aksi-konten">
+              <div class="kartu-aksi-badge">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="#F2A541" stroke="#1B3A2F" stroke-width="1.8" aria-hidden="true">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+                <span>Aksi Utama</span>
+              </div>
+              <h2 class="kartu-aksi-judul">Adventure: Petualangan IPAS</h2>
+              <p class="kartu-aksi-desk">Jelajahi dunia 2D, temukan rahasia alam, dan selesaikan misi langsung!</p>
+            </div>
+            <div class="kartu-aksi-simbol" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </div>
           </a>
-          <p class="panel-peran-petunjuk mb-3"><strong>Mode Platformer:</strong> Jelajahi dunia 2D, temukan rahasia alam, dan selesaikan misi langsung!</p>
 
-          <!-- Menu Baru: Butterfly Catcher - Kuis Edukasi IPAS -->
-          <a href="butterfly-catcher.html" class="tombol-utama smartboard-btn mb-2" id="btn-butterfly-siswa" style="background: linear-gradient(135deg, #6c5ce7 0%, #e84393 100%); color: #FFFDF7; border-color: #4a3b32;">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M12 4c-3-2-7-1-8 2s0 7 8 14c8-7 9-11 8-14s-5-4-8-2z"/>
-              <path d="M12 4v14"/>
-            </svg>
-            <span>Butterfly Catcher: Ekosistem IPAS</span>
-          </a>
-          <p class="panel-peran-petunjuk mb-3"><strong>Mode Tangkap & Kuis:</strong> Tangkap serangga, isi Buku Saku Ekosistem, dan raih koin kuis!</p>
+          <!-- Dua Aksi Sekunder Siswa (Grid 2 Kolom Seragam & Harmonis) -->
+          <div class="kartu-sekunder-grid">
+            <!-- Mode Butterfly Catcher -->
+            <a href="butterfly-catcher.html" class="kartu-aksi-sekunder kartu-aksi-sekunder--catcher smartboard-btn" id="btn-butterfly-siswa">
+              <div class="kartu-sekunder-atas">
+                <span class="kartu-sekunder-ikon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3">
+                    <path d="M12 4c-3-2-7-1-8 2s0 7 8 14c8-7 9-11 8-14s-5-4-8-2z" />
+                    <path d="M12 4v14" />
+                  </svg>
+                </span>
+                <span class="kartu-sekunder-tag">Mini Game</span>
+              </div>
+              <h3 class="kartu-sekunder-judul">Butterfly Catcher</h3>
+              <p class="kartu-sekunder-desk">Tangkap serangga, isi Buku Saku Ekosistem, dan raih koin kuis!</p>
+            </a>
 
-          <!-- Menu Kuis Bersama (Tetap Dipertahankan 100%) -->
-          <a href="gabung.html" class="tombol-utama smartboard-btn" id="btn-saya-siswa">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6 8V6a6 6 0 0 1 12 0v2"/>
-              <rect x="4" y="8" width="16" height="13" rx="3"/>
-              <path d="M9 13h6"/>
-            </svg>
-            <span>Gabung kuis kelasmu</span>
-          </a>
-          <p class="panel-peran-petunjuk">Siapkan kode kelas dari gurumu, lalu ketik di halaman berikutnya.</p>
+            <!-- Mode Gabung Kuis Kelas -->
+            <a href="gabung.html" class="kartu-aksi-sekunder kartu-aksi-sekunder--kuis smartboard-btn" id="btn-saya-siswa">
+              <div class="kartu-sekunder-atas">
+                <span class="kartu-sekunder-ikon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3">
+                    <path d="M6 8V6a6 6 0 0 1 12 0v2" />
+                    <rect x="4" y="8" width="16" height="13" rx="3" />
+                    <path d="M9 13h6" />
+                  </svg>
+                </span>
+                <span class="kartu-sekunder-tag">Kuis Kelas</span>
+              </div>
+              <h3 class="kartu-sekunder-judul">Gabung kuis kelasmu</h3>
+              <p class="kartu-sekunder-desk">Siapkan kode kelas dari gurumu, lalu ketik di halaman berikutnya.</p>
+            </a>
+          </div>
         </div>
 
-        <!-- Panel Guru -->
+        <!-- Panel Peran Guru (Didesain Setara & Rapi) -->
         <div class="panel-peran" role="tabpanel" id="panel-peran-guru" aria-labelledby="tab-peran-guru" hidden>
-          <a href="guru/dasbor.html" class="tombol-utama tombol-utama--guru smartboard-btn" id="btn-saya-guru">
-            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 20V10l8-6 8 6v10"/>
-              <path d="M10 20v-5h4v5"/>
-            </svg>
-            <span>Buka Ruang Guru</span>
+          <!-- Aksi Utama Guru: Buka Ruang Guru -->
+          <a href="guru/dasbor.html" class="kartu-aksi-utama kartu-aksi-utama--guru smartboard-btn" id="btn-saya-guru">
+            <div class="kartu-aksi-konten">
+              <div class="kartu-aksi-badge kartu-aksi-badge--guru">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+                </svg>
+                <span>Portal Pengajar</span>
+              </div>
+              <h2 class="kartu-aksi-judul">Buka Ruang Guru</h2>
+              <p class="kartu-aksi-desk">Buat kuis, mulai sesi kelas, dan lihat nilai muridmu.</p>
+            </div>
+            <div class="kartu-aksi-simbol" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 20V10l8-6 8 6v10" />
+                <path d="M10 20v-5h4v5" />
+              </svg>
+            </div>
           </a>
-          <p class="panel-peran-petunjuk">Buat kuis, mulai sesi kelas, dan lihat nilai muridmu.</p>
+
+          <!-- Dua Aksi Sekunder Guru (Grid 2 Kolom) -->
+          <div class="kartu-sekunder-grid">
+            <a href="guru/dasbor.html" class="kartu-aksi-sekunder kartu-aksi-sekunder--guru smartboard-btn">
+              <div class="kartu-sekunder-atas">
+                <span class="kartu-sekunder-ikon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <polygon points="5 3 19 12 5 21 5 3"/>
+                  </svg>
+                </span>
+                <span class="kartu-sekunder-tag">Sesi Kelas</span>
+              </div>
+              <h3 class="kartu-sekunder-judul">Mulai Kuis Kelas</h3>
+              <p class="kartu-sekunder-desk">Pilih mode Mulai Langsung di layar ini atau Mulai Bersama siswa.</p>
+            </a>
+
+            <a href="guru/dasbor.html" class="kartu-aksi-sekunder kartu-aksi-sekunder--guru smartboard-btn">
+              <div class="kartu-sekunder-atas">
+                <span class="kartu-sekunder-ikon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <line x1="18" y1="20" x2="18" y2="10"/>
+                    <line x1="12" y1="20" x2="12" y2="4"/>
+                    <line x1="6" y1="20" x2="6" y2="14"/>
+                  </svg>
+                </span>
+                <span class="kartu-sekunder-tag">Evaluasi</span>
+              </div>
+              <h3 class="kartu-sekunder-judul">Rekap & Analisis</h3>
+              <p class="kartu-sekunder-desk">Pantau grafik capaian kelas, butir soal tersulit, dan unduh rekap nilai.</p>
+            </a>
+          </div>
         </div>
 
-        <!-- Buku Jejak: level, XP, streak, lencana (isi dibuat oleh ui.js) -->
+        <!-- Buku Jejakmu: Level, XP, Streak, dan Lencana Asli -->
         <section class="buku-jejak" aria-labelledby="judul-buku-jejak">
-          <h2 id="judul-buku-jejak" class="buku-jejak-judul">Buku jejakmu</h2>
+          <div class="buku-jejak-bar">
+            <h2 id="judul-buku-jejak" class="buku-jejak-judul">Buku jejakmu</h2>
+          </div>
           <div id="wadah-gamifikasi-beranda"></div>
         </section>
       </section>
@@ -110,207 +181,297 @@
         <h2 id="judul-peta" class="peta-judul">Peta Pulau Kupas</h2>
         <p class="peta-pengantar" id="petunjuk-peta">Ikuti jalan setapak dari Pohon Kamus sampai Puncak Sertifikat.</p>
 
-        <nav class="peta-pulau" id="peta-pulau" aria-label="Peta Pulau Kupas, 6 tempat belajar" aria-describedby="petunjuk-peta">
+        <nav class="peta-pulau" id="peta-pulau" aria-label="Peta Pulau Kupas, 6 tempat belajar"
+          aria-describedby="petunjuk-peta">
 
           <!-- Ilustrasi pulau: laut, pantai, hutan, danau, bukit, jalur, dan pulau arena -->
           <svg class="pulau-ilustrasi" viewBox="0 0 800 640" aria-hidden="true" focusable="false">
             <!-- Laut -->
-            <path class="pulau-laut" d="M70 118C130 36 320 8 470 36C620 64 768 58 782 220C796 362 800 520 694 598C566 650 300 642 168 602C40 562 0 420 18 300C28 220 22 176 70 118Z"/>
+            <path class="pulau-laut"
+              d="M70 118C130 36 320 8 470 36C620 64 768 58 782 220C796 362 800 520 694 598C566 650 300 642 168 602C40 562 0 420 18 300C28 220 22 176 70 118Z" />
             <g class="pulau-ombak" fill="none" stroke="#FFFDF7" stroke-width="3" stroke-linecap="round" opacity="0.85">
-              <path d="M70 230q14-10 28 0t28 0"/>
-              <path d="M720 170q14-10 28 0t28 0"/>
-              <path d="M90 560q14-10 28 0t28 0"/>
-              <path d="M470 590q14-10 28 0t28 0"/>
-              <path d="M740 400q12-9 24 0"/>
+              <path d="M70 230q14-10 28 0t28 0" />
+              <path d="M720 170q14-10 28 0t28 0" />
+              <path d="M90 560q14-10 28 0t28 0" />
+              <path d="M470 590q14-10 28 0t28 0" />
+              <path d="M740 400q12-9 24 0" />
             </g>
 
             <!-- Awan dan matahari bagian dari langit peta -->
             <g class="pulau-awan">
-              <path d="M96 84h86a20 20 0 0 0-6-39 28 28 0 0 0-52-6 22 22 0 0 0-28 45Z" fill="#FFFDF7" stroke="#1B3A2F" stroke-opacity="0.35" stroke-width="2"/>
-              <path d="M640 64h70a17 17 0 0 0-5-33 23 23 0 0 0-42-4 18 18 0 0 0-23 37Z" fill="#FFFDF7" stroke="#1B3A2F" stroke-opacity="0.35" stroke-width="2"/>
+              <path d="M96 84h86a20 20 0 0 0-6-39 28 28 0 0 0-52-6 22 22 0 0 0-28 45Z" fill="#FFFDF7" stroke="#1B3A2F"
+                stroke-opacity="0.35" stroke-width="2" />
+              <path d="M640 64h70a17 17 0 0 0-5-33 23 23 0 0 0-42-4 18 18 0 0 0-23 37Z" fill="#FFFDF7" stroke="#1B3A2F"
+                stroke-opacity="0.35" stroke-width="2" />
             </g>
 
             <!-- Pulau utama: pantai pasir lalu daratan -->
-            <path d="M90 300C80 190 170 90 300 80C400 50 520 30 620 80C720 130 740 230 720 330C700 420 640 470 540 480C450 500 360 522 260 522C150 522 95 430 90 300Z" fill="#F3DDB0" stroke="#1B3A2F" stroke-width="2.5"/>
-            <path d="M112 300C106 200 186 108 300 100C400 72 515 56 608 100C698 146 714 236 698 324C680 404 625 450 535 460C450 478 360 498 262 498C166 496 116 415 112 300Z" fill="#A9D18E"/>
+            <path
+              d="M90 300C80 190 170 90 300 80C400 50 520 30 620 80C720 130 740 230 720 330C700 420 640 470 540 480C450 500 360 522 260 522C150 522 95 430 90 300Z"
+              fill="#F3DDB0" stroke="#1B3A2F" stroke-width="2.5" />
+            <path
+              d="M112 300C106 200 186 108 300 100C400 72 515 56 608 100C698 146 714 236 698 324C680 404 625 450 535 460C450 478 360 498 262 498C166 496 116 415 112 300Z"
+              fill="#A9D18E" />
 
             <!-- Bukit Puncak Sertifikat -->
-            <path d="M408 180C444 124 478 74 512 50C548 74 584 124 620 180Z" fill="#5E9E6E" stroke="#1B3A2F" stroke-width="2.5" stroke-linejoin="round"/>
-            <path d="M486 72C496 62 504 55 512 50C521 56 529 63 538 72C528 78 520 74 512 80C504 74 496 78 486 72Z" fill="#CFE8D6"/>
+            <path d="M408 180C444 124 478 74 512 50C548 74 584 124 620 180Z" fill="#5E9E6E" stroke="#1B3A2F"
+              stroke-width="2.5" stroke-linejoin="round" />
+            <path d="M486 72C496 62 504 55 512 50C521 56 529 63 538 72C528 78 520 74 512 80C504 74 496 78 486 72Z"
+              fill="#CFE8D6" />
 
             <!-- Hutan tropis (Hutan Rantai Makanan) -->
             <g stroke="#1B3A2F" stroke-width="2.2" stroke-linejoin="round">
-              <circle cx="176" cy="150" r="26" fill="#2E7D4F"/>
-              <circle cx="206" cy="118" r="22" fill="#3F9160"/>
-              <circle cx="286" cy="120" r="24" fill="#2E7D4F"/>
-              <circle cx="306" cy="168" r="20" fill="#3F9160"/>
-              <circle cx="188" cy="200" r="18" fill="#3F9160"/>
-              <path d="M330 210c6-22 18-36 30-40-2 18-12 32-30 40Z" fill="#1F5C39"/>
+              <circle cx="176" cy="150" r="26" fill="#2E7D4F" />
+              <circle cx="206" cy="118" r="22" fill="#3F9160" />
+              <circle cx="286" cy="120" r="24" fill="#2E7D4F" />
+              <circle cx="306" cy="168" r="20" fill="#3F9160" />
+              <circle cx="188" cy="200" r="18" fill="#3F9160" />
+              <path d="M330 210c6-22 18-36 30-40-2 18-12 32-30 40Z" fill="#1F5C39" />
             </g>
 
             <!-- Danau (Lab Siklus Air) -->
-            <ellipse cx="404" cy="334" rx="98" ry="56" fill="#CFE6EC" stroke="#23708A" stroke-width="3"/>
+            <ellipse cx="404" cy="334" rx="98" ry="56" fill="#CFE6EC" stroke="#23708A" stroke-width="3" />
             <g fill="none" stroke="#23708A" stroke-width="2.5" stroke-linecap="round" opacity="0.7">
-              <path d="M340 350q12-8 24 0t24 0"/>
-              <path d="M424 368q12-8 24 0t24 0"/>
+              <path d="M340 350q12-8 24 0t24 0" />
+              <path d="M424 368q12-8 24 0t24 0" />
             </g>
 
             <!-- Sawah berundak dekat Pos Fakta vs Opini -->
             <g stroke="#1B3A2F" stroke-opacity="0.45" stroke-width="2">
-              <path d="M548 372c40-12 90-12 128-2l-8 26c-36-8-80-8-116 2Z" fill="#E7D58C"/>
-              <path d="M538 404c44-12 96-12 132-2l-10 26c-38-8-82-8-118 2Z" fill="#C8DE8C"/>
+              <path d="M548 372c40-12 90-12 128-2l-8 26c-36-8-80-8-116 2Z" fill="#E7D58C" />
+              <path d="M538 404c44-12 96-12 132-2l-10 26c-38-8-82-8-118 2Z" fill="#C8DE8C" />
             </g>
 
             <!-- Semak dekat Pohon Kamus -->
             <g stroke="#1B3A2F" stroke-width="2" fill="#3F9160">
-              <path d="M108 470c6-18 30-22 40-6 10-14 34-10 36 8Z"/>
-              <path d="M226 488c6-16 26-18 34-4 8-12 30-8 32 8Z"/>
+              <path d="M108 470c6-18 30-22 40-6 10-14 34-10 36 8Z" />
+              <path d="M226 488c6-16 26-18 34-4 8-12 30-8 32 8Z" />
             </g>
 
             <!-- Jalur setapak: Kamus > Hutan > Danau > Pos > Puncak -->
-            <path class="pulau-jalur-dasar" d="M160 397C150 300 180 210 240 154C300 200 330 280 400 320C480 360 580 330 640 256C670 200 600 130 512 90"/>
-            <path class="pulau-jalur-titik" d="M160 397C150 300 180 210 240 154C300 200 330 280 400 320C480 360 580 330 640 256C670 200 600 130 512 90"/>
+            <path class="pulau-jalur-dasar"
+              d="M160 397C150 300 180 210 240 154C300 200 330 280 400 320C480 360 580 330 640 256C670 200 600 130 512 90" />
+            <path class="pulau-jalur-titik"
+              d="M160 397C150 300 180 210 240 154C300 200 330 280 400 320C480 360 580 330 640 256C670 200 600 130 512 90" />
 
             <!-- Jembatan ke Pulau Arena -->
-            <path class="pulau-jalur-dasar" d="M640 256C672 330 664 420 668 486"/>
-            <path class="pulau-jalur-titik" d="M640 256C672 330 664 420 668 486"/>
+            <path class="pulau-jalur-dasar" d="M640 256C672 330 664 420 668 486" />
+            <path class="pulau-jalur-titik" d="M640 256C672 330 664 420 668 486" />
             <g stroke="#1B3A2F" stroke-width="2" fill="#C99A5B">
-              <rect x="648" y="462" width="40" height="7" rx="2"/>
-              <rect x="648" y="474" width="40" height="7" rx="2"/>
+              <rect x="648" y="462" width="40" height="7" rx="2" />
+              <rect x="648" y="474" width="40" height="7" rx="2" />
             </g>
 
             <!-- Pulau Arena (malam) -->
-            <ellipse cx="676" cy="540" rx="96" ry="52" fill="#F3DDB0" stroke="#1B3A2F" stroke-width="2.5"/>
-            <ellipse cx="676" cy="538" rx="80" ry="40" fill="#1B3A2F"/>
+            <ellipse cx="676" cy="540" rx="96" ry="52" fill="#F3DDB0" stroke="#1B3A2F" stroke-width="2.5" />
+            <ellipse cx="676" cy="538" rx="80" ry="40" fill="#1B3A2F" />
             <g fill="#F2A541">
-              <circle cx="620" cy="526" r="4"/>
-              <circle cx="736" cy="526" r="4"/>
-              <circle cx="640" cy="560" r="3"/>
-              <circle cx="716" cy="560" r="3"/>
+              <circle cx="620" cy="526" r="4" />
+              <circle cx="736" cy="526" r="4" />
+              <circle cx="640" cy="560" r="3" />
+              <circle cx="716" cy="560" r="3" />
             </g>
           </svg>
 
-          <!-- Lokasi petualangan (urutan DOM = urutan jalur = urutan Tab) -->
+          <!-- Lokasi petualangan: Sistem Pin Interaktif (1-6) -->
           <ol class="lokasi-daftar">
-            <li class="lokasi-item" style="--x: 20%; --y: 62%;">
-              <a href="kamus-belajar.html" class="lokasi smartboard-btn" id="btn-kamus-belajar" data-pesan="Di Pohon Kamus, kita kenali dulu kata-kata penting ekosistem.">
-                <span class="lokasi-medali" style="--medali: #FCE3B8;" aria-hidden="true">
-                  <svg viewBox="0 0 64 64">
-                    <rect x="28" y="32" width="8" height="20" rx="2" fill="#8B5E34" stroke="#1B3A2F" stroke-width="2"/>
-                    <circle cx="32" cy="24" r="16" fill="#2E7D4F" stroke="#1B3A2F" stroke-width="2.2"/>
-                    <path d="M14 50c6-3 12-3 18 0 6-3 12-3 18 0v6c-6-3-12-3-18 0-6-3-12-3-18 0Z" fill="#FFFDF7" stroke="#1B3A2F" stroke-width="2.2" stroke-linejoin="round"/>
-                    <path d="M32 50v6" stroke="#1B3A2F" stroke-width="2"/>
-                  </svg>
-                </span>
-                <span class="lokasi-papan">
-                  <span class="lokasi-nama">Pohon Kamus</span>
-                  <span class="lokasi-desk">Kenali kata penting ekosistem</span>
-                </span>
-              </a>
+            <!-- 1. Pohon Kamus -->
+            <li class="lokasi-item lokasi-item--1" style="--x: 20%; --y: 62%;">
+              <button type="button" class="pin-lokasi smartboard-btn" id="pin-1"
+                aria-expanded="false" aria-controls="popover-1"
+                aria-label="Lokasi 1: Pohon Kamus" data-lokasi="1"
+                data-pesan="Di Pohon Kamus, kita kenali dulu kata-kata penting ekosistem.">
+                <span class="pin-nomor">1</span>
+                <span class="pin-cincin" aria-hidden="true"></span>
+              </button>
+
+              <div class="popover-lokasi popover--kanan" id="popover-1" role="dialog" aria-labelledby="popover-1-judul" hidden>
+                <div class="popover-header">
+                  <span class="popover-badge">Misi 1</span>
+                  <button type="button" class="popover-tutup" aria-label="Tutup detail lokasi">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
+                <h4 class="popover-judul" id="popover-1-judul">Pohon Kamus</h4>
+                <p class="popover-desk">Kenali kata penting ekosistem sebelum menjelajah.</p>
+                <a href="kamus-belajar.html" class="popover-aksi smartboard-btn" id="btn-kamus-belajar">
+                  <span>Jelajahi</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
             </li>
 
-            <li class="lokasi-item" style="--x: 30%; --y: 24%;">
-              <a href="rantai-makanan.html" class="lokasi smartboard-btn" id="btn-rantai-makanan" data-pesan="Di hutan, kita susun siapa memakan siapa.">
-                <span class="lokasi-medali" style="--medali: #CFE8D6;" aria-hidden="true">
-                  <svg viewBox="0 0 64 64">
-                    <path d="M8 50c2-14 8-24 16-30 2 12-4 24-16 30Z" fill="#2E7D4F" stroke="#1B3A2F" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M56 50c-2-14-8-24-16-30-2 12 4 24 16 30Z" fill="#3F9160" stroke="#1B3A2F" stroke-width="2" stroke-linejoin="round"/>
-                    <circle cx="32" cy="36" r="13" fill="#F2A541" stroke="#1B3A2F" stroke-width="2.2"/>
-                    <path d="M24 26l3 5M40 26l-3 5M32 23v5" stroke="#1B3A2F" stroke-width="2.2" stroke-linecap="round"/>
-                    <circle cx="27.5" cy="36" r="1.8" fill="#1B3A2F"/>
-                    <circle cx="36.5" cy="36" r="1.8" fill="#1B3A2F"/>
-                    <path d="M29 42q3 2 6 0" stroke="#1B3A2F" stroke-width="2" fill="none" stroke-linecap="round"/>
-                  </svg>
-                </span>
-                <span class="lokasi-papan">
-                  <span class="lokasi-nama">Hutan Rantai Makanan</span>
-                  <span class="lokasi-desk">Susun siapa memakan siapa</span>
-                </span>
-              </a>
+            <!-- 2. Hutan Rantai Makanan -->
+            <li class="lokasi-item lokasi-item--2" style="--x: 30%; --y: 24%;">
+              <button type="button" class="pin-lokasi smartboard-btn" id="pin-2"
+                aria-expanded="false" aria-controls="popover-2"
+                aria-label="Lokasi 2: Hutan Rantai Makanan" data-lokasi="2"
+                data-pesan="Di hutan, kita susun siapa memakan siapa.">
+                <span class="pin-nomor">2</span>
+                <span class="pin-cincin" aria-hidden="true"></span>
+              </button>
+
+              <div class="popover-lokasi popover--bawah" id="popover-2" role="dialog" aria-labelledby="popover-2-judul" hidden>
+                <div class="popover-header">
+                  <span class="popover-badge">Misi 2</span>
+                  <button type="button" class="popover-tutup" aria-label="Tutup detail lokasi">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
+                <h4 class="popover-judul" id="popover-2-judul">Hutan Rantai Makanan</h4>
+                <p class="popover-desk">Susun jaring-jaring makanan dan siapa memakan siapa.</p>
+                <a href="rantai-makanan.html" class="popover-aksi smartboard-btn" id="btn-rantai-makanan">
+                  <span>Jelajahi</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
             </li>
 
-            <li class="lokasi-item" style="--x: 50%; --y: 50%;">
-              <a href="siklus-air.html" class="lokasi smartboard-btn" id="btn-siklus-air" data-pesan="Di danau, kita lihat air menguap jadi awan lalu turun jadi hujan.">
-                <span class="lokasi-medali" style="--medali: #CFE6EC;" aria-hidden="true">
-                  <svg viewBox="0 0 64 64">
-                    <path d="M18 30h28a8 8 0 0 0-2-16 11 11 0 0 0-20-2 8 8 0 0 0-6 18Z" fill="#FFFDF7" stroke="#1B3A2F" stroke-width="2.2"/>
-                    <path d="M24 36l-2 5M33 36l-2 5M42 36l-2 5" stroke="#23708A" stroke-width="2.6" stroke-linecap="round"/>
-                    <path d="M8 50q6-5 12 0t12 0 12 0 12 0" fill="none" stroke="#23708A" stroke-width="2.8" stroke-linecap="round"/>
-                  </svg>
-                </span>
-                <span class="lokasi-papan">
-                  <span class="lokasi-nama">Lab Siklus Air</span>
-                  <span class="lokasi-desk">Lihat air jadi awan dan hujan</span>
-                </span>
-              </a>
+            <!-- 3. Lab Siklus Air -->
+            <li class="lokasi-item lokasi-item--3" style="--x: 50%; --y: 52%;">
+              <button type="button" class="pin-lokasi smartboard-btn" id="pin-3"
+                aria-expanded="false" aria-controls="popover-3"
+                aria-label="Lokasi 3: Lab Siklus Air" data-lokasi="3"
+                data-pesan="Di danau, kita lihat air menguap jadi awan lalu turun jadi hujan.">
+                <span class="pin-nomor">3</span>
+                <span class="pin-cincin" aria-hidden="true"></span>
+              </button>
+
+              <div class="popover-lokasi popover--atas" id="popover-3" role="dialog" aria-labelledby="popover-3-judul" hidden>
+                <div class="popover-header">
+                  <span class="popover-badge">Misi 3</span>
+                  <button type="button" class="popover-tutup" aria-label="Tutup detail lokasi">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
+                <h4 class="popover-judul" id="popover-3-judul">Lab Siklus Air</h4>
+                <p class="popover-desk">Eksplorasi evaporasi, kondensasi, dan presipitasi alami.</p>
+                <a href="siklus-air.html" class="popover-aksi smartboard-btn" id="btn-siklus-air">
+                  <span>Jelajahi</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
             </li>
 
-            <li class="lokasi-item" style="--x: 80%; --y: 40%;">
-              <a href="fakta-opini.html" class="lokasi smartboard-btn" id="btn-fakta-opini" data-pesan="Di pos ini, kita pilah mana fakta dan mana pendapat.">
-                <span class="lokasi-medali" style="--medali: #F1E4CB;" aria-hidden="true">
-                  <svg viewBox="0 0 64 64">
-                    <rect x="29" y="12" width="6" height="42" rx="2" fill="#8B5E34" stroke="#1B3A2F" stroke-width="2"/>
-                    <path d="M12 18h24v10H12l-5-5Z" fill="#CFE8D6" stroke="#1B3A2F" stroke-width="2.2" stroke-linejoin="round"/>
-                    <path d="M15 23l3 3 5-5" stroke="#1F5C39" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M28 33h24l5 5-5 5H28Z" fill="#FCE3B8" stroke="#1B3A2F" stroke-width="2.2" stroke-linejoin="round"/>
-                    <circle cx="38" cy="38" r="1.6" fill="#1B3A2F"/>
-                    <circle cx="43" cy="38" r="1.6" fill="#1B3A2F"/>
-                    <circle cx="48" cy="38" r="1.6" fill="#1B3A2F"/>
-                  </svg>
-                </span>
-                <span class="lokasi-papan">
-                  <span class="lokasi-nama">Pos Fakta vs Opini</span>
-                  <span class="lokasi-desk">Pilah fakta dan pendapat</span>
-                </span>
-              </a>
+            <!-- 4. Pos Fakta vs Opini -->
+            <li class="lokasi-item lokasi-item--4" style="--x: 80%; --y: 40%;">
+              <button type="button" class="pin-lokasi smartboard-btn" id="pin-4"
+                aria-expanded="false" aria-controls="popover-4"
+                aria-label="Lokasi 4: Pos Fakta vs Opini" data-lokasi="4"
+                data-pesan="Di pos ini, kita pilah mana fakta dan mana pendapat.">
+                <span class="pin-nomor">4</span>
+                <span class="pin-cincin" aria-hidden="true"></span>
+              </button>
+
+              <div class="popover-lokasi popover--kiri" id="popover-4" role="dialog" aria-labelledby="popover-4-judul" hidden>
+                <div class="popover-header">
+                  <span class="popover-badge">Misi 4</span>
+                  <button type="button" class="popover-tutup" aria-label="Tutup detail lokasi">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
+                <h4 class="popover-judul" id="popover-4-judul">Pos Fakta vs Opini</h4>
+                <p class="popover-desk">Pilah bukti ilmiah dari dugaan atau opini.</p>
+                <a href="fakta-opini.html" class="popover-aksi smartboard-btn" id="btn-fakta-opini">
+                  <span>Jelajahi</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
             </li>
 
-            <li class="lokasi-item" style="--x: 64%; --y: 14%;">
-              <a href="sertifikat.html" class="lokasi smartboard-btn" id="btn-sertifikat" data-pesan="Di puncak bukit, sertifikat dan lencanamu menunggu.">
-                <span class="lokasi-medali" style="--medali: #FCE3B8;" aria-hidden="true">
-                  <svg viewBox="0 0 64 64">
-                    <path d="M6 56c8-12 16-18 26-18s18 6 26 18Z" fill="#5E9E6E" stroke="#1B3A2F" stroke-width="2.2" stroke-linejoin="round"/>
-                    <path d="M22 10h20v10a10 10 0 0 1-20 0Z" fill="#F2A541" stroke="#1B3A2F" stroke-width="2.2" stroke-linejoin="round"/>
-                    <path d="M22 13h-5a5 5 0 0 0 5 7M42 13h5a5 5 0 0 1-5 7" fill="none" stroke="#1B3A2F" stroke-width="2.2"/>
-                    <path d="M32 30v6M26 38h12" stroke="#1B3A2F" stroke-width="2.4" stroke-linecap="round"/>
-                  </svg>
-                </span>
-                <span class="lokasi-papan">
-                  <span class="lokasi-nama">Puncak Sertifikat</span>
-                  <span class="lokasi-desk">Ambil sertifikat dan lencana</span>
-                </span>
-              </a>
+            <!-- 5. Puncak Sertifikat -->
+            <li class="lokasi-item lokasi-item--5" style="--x: 64%; --y: 14%;">
+              <button type="button" class="pin-lokasi smartboard-btn" id="pin-5"
+                aria-expanded="false" aria-controls="popover-5"
+                aria-label="Lokasi 5: Puncak Sertifikat" data-lokasi="5"
+                data-pesan="Di puncak bukit, sertifikat dan lencanamu menunggu.">
+                <span class="pin-nomor">5</span>
+                <span class="pin-cincin" aria-hidden="true"></span>
+              </button>
+
+              <div class="popover-lokasi popover--bawah" id="popover-5" role="dialog" aria-labelledby="popover-5-judul" hidden>
+                <div class="popover-header">
+                  <span class="popover-badge">Misi 5</span>
+                  <button type="button" class="popover-tutup" aria-label="Tutup detail lokasi">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
+                <h4 class="popover-judul" id="popover-5-judul">Puncak Sertifikat</h4>
+                <p class="popover-desk">Raih lencana dan unduh sertifikat hasil belajarmu.</p>
+                <a href="sertifikat.html" class="popover-aksi smartboard-btn" id="btn-sertifikat">
+                  <span>Jelajahi</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
             </li>
 
-            <li class="lokasi-item lokasi-item--arena" style="--x: 84%; --y: 84%;">
-              <a href="duel-tim.html" class="lokasi lokasi--arena smartboard-btn" id="btn-duel-tim" data-pesan="Di Arena Duel, regu kelasmu adu cepat menjawab di layar depan.">
-                <span class="lokasi-medali" style="--medali: #1B3A2F;" aria-hidden="true">
-                  <svg viewBox="0 0 64 64">
-                    <rect x="14" y="38" width="12" height="14" fill="#FFFDF7" stroke="#F2A541" stroke-width="2"/>
-                    <rect x="26" y="30" width="12" height="22" fill="#F2A541" stroke="#FFFDF7" stroke-width="2"/>
-                    <rect x="38" y="42" width="12" height="10" fill="#FFFDF7" stroke="#F2A541" stroke-width="2"/>
-                    <path d="M32 12a7 7 0 0 1 7 7v5H25v-5a7 7 0 0 1 7-7Z" fill="#F2A541" stroke="#FFFDF7" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M23 24h18" stroke="#FFFDF7" stroke-width="2.4" stroke-linecap="round"/>
-                    <circle cx="12" cy="16" r="3" fill="#F2A541"/>
-                    <circle cx="52" cy="16" r="3" fill="#F2A541"/>
-                  </svg>
-                </span>
-                <span class="lokasi-papan">
-                  <span class="lokasi-nama">Arena Duel Tim</span>
-                  <span class="lokasi-desk">Regu kelas adu cepat di layar depan</span>
-                </span>
-              </a>
+            <!-- 6. Arena Duel Tim -->
+            <li class="lokasi-item lokasi-item--6" style="--x: 84%; --y: 84%;">
+              <button type="button" class="pin-lokasi pin-lokasi--arena smartboard-btn" id="pin-6"
+                aria-expanded="false" aria-controls="popover-6"
+                aria-label="Lokasi 6: Arena Duel Tim" data-lokasi="6"
+                data-pesan="Di Arena Duel, regu kelasmu adu cepat menjawab di layar depan.">
+                <span class="pin-nomor">6</span>
+                <span class="pin-cincin" aria-hidden="true"></span>
+              </button>
+
+              <div class="popover-lokasi popover--kiri-atas" id="popover-6" role="dialog" aria-labelledby="popover-6-judul" hidden>
+                <div class="popover-header">
+                  <span class="popover-badge popover-badge--arena">Misi 6</span>
+                  <button type="button" class="popover-tutup" aria-label="Tutup detail lokasi">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
+                <h4 class="popover-judul" id="popover-6-judul">Arena Duel Tim</h4>
+                <p class="popover-desk">Regu kelas adu cepat menjawab kuis di layar depan.</p>
+                <a href="duel-tim.html" class="popover-aksi popover-aksi--arena smartboard-btn" id="btn-duel-tim">
+                  <span>Masuk Arena</span>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
             </li>
           </ol>
 
-          <!-- Maskot Si Kupas: berdiri bebas di jalur dan berpindah ke lokasi yang disorot -->
+          <!-- Maskot Si Kupas: Berdiri santai di area laut tanpa menghalangi pin -->
           <div class="maskot-peta" id="maskot-peta">
             <div id="balon-sapa-maskot" class="maskot-balon">
               Halo! Ketuk aku, atau pilih tempat di peta.
             </div>
-            <button type="button" id="btn-sapa-maskot" class="maskot-tombol" aria-label="Sapa Si Kupas untuk melihat ekspresi dan pesan baru">
-              <img src="assets/svg/maskot-senang.svg" alt="" width="150" height="150" id="maskot-utama" class="maskot-gambar">
+            <button type="button" id="btn-sapa-maskot" class="maskot-tombol"
+              aria-label="Sapa Si Kupas untuk melihat ekspresi dan pesan baru">
+              <img src="assets/svg/maskot-senang.svg" alt="" width="110" height="110" id="maskot-utama"
+                class="maskot-gambar">
             </button>
+          </div>
+        </nav>
+
+        <!-- Daftar Cepat Lokasi (Chips): Akses Sentuh Utama di Layar Ponsel & Smartboard -->
+        <nav class="peta-chip-wadah" aria-label="Daftar Cepat Lokasi Petualangan">
+          <div class="peta-chip-scroll">
+            <a href="kamus-belajar.html" class="peta-chip smartboard-btn" data-pin="1" id="chip-kamus-belajar">
+              <span class="peta-chip-nomor">1</span>
+              <span class="peta-chip-teks">Pohon Kamus</span>
+            </a>
+            <a href="rantai-makanan.html" class="peta-chip smartboard-btn" data-pin="2" id="chip-rantai-makanan">
+              <span class="peta-chip-nomor">2</span>
+              <span class="peta-chip-teks">Hutan Rantai Makanan</span>
+            </a>
+            <a href="siklus-air.html" class="peta-chip smartboard-btn" data-pin="3" id="chip-siklus-air">
+              <span class="peta-chip-nomor">3</span>
+              <span class="peta-chip-teks">Lab Siklus Air</span>
+            </a>
+            <a href="fakta-opini.html" class="peta-chip smartboard-btn" data-pin="4" id="chip-fakta-opini">
+              <span class="peta-chip-nomor">4</span>
+              <span class="peta-chip-teks">Pos Fakta vs Opini</span>
+            </a>
+            <a href="sertifikat.html" class="peta-chip smartboard-btn" data-pin="5" id="chip-sertifikat">
+              <span class="peta-chip-nomor">5</span>
+              <span class="peta-chip-teks">Puncak Sertifikat</span>
+            </a>
+            <a href="duel-tim.html" class="peta-chip smartboard-btn" data-pin="6" id="chip-duel-tim">
+              <span class="peta-chip-nomor">6</span>
+              <span class="peta-chip-teks">Arena Duel Tim</span>
+            </a>
           </div>
         </nav>
       </section>
@@ -319,11 +480,12 @@
   </main>
 
   <footer class="beranda-kaki">
-    KUPAS KUIS IPAS v4.0, IPAS Kelas V SD Kurikulum Merdeka
+    KUPAS KUIS IPAS by Adam Sholasa
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script type="module" src="assets/js/beranda-peta.js"></script>
 </body>
+
 </html>

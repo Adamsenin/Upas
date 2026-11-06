@@ -112,67 +112,165 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Interaksi Dinamis Lokasi Peta & Pergerakan Maskot (Desktop)
-  const lokasiLinks = document.querySelectorAll('.lokasi');
-  const posisiAsalMaskot = { left: '45%', top: '80%' };
+  // 4. Interaktivitas Sistem Pin Peta Pulau, Popover & Chip Navigasi (Tahap 3)
+  const pinButtons = document.querySelectorAll('.pin-lokasi');
+  const chipLinks = document.querySelectorAll('.peta-chip');
+  const popovers = document.querySelectorAll('.popover-lokasi');
+  let popoverAktifId = null;
+  let timerHover = null;
 
-  // Pemetaan offset posisi maskot saat mendekati tiap lokasi di peta desktop
-  const offsetPeta = {
-    'btn-kamus-belajar': { left: '34%', top: '68%' },
-    'btn-rantai-makanan': { left: '20%', top: '36%' },
-    'btn-siklus-air': { left: '50%', top: '70%' },
-    'btn-fakta-opini': { left: '68%', top: '48%' },
-    'btn-sertifikat': { left: '52%', top: '22%' },
-    'btn-duel-tim': { left: '68%', top: '78%' }
-  };
+  function tutupSemuaPopover() {
+    popovers.forEach((p) => {
+      p.setAttribute('hidden', '');
+    });
+    pinButtons.forEach((pin) => {
+      pin.setAttribute('aria-expanded', 'false');
+      pin.classList.remove('pin--aktif');
+      const item = pin.closest('.lokasi-item');
+      if (item) item.classList.remove('lokasi-item--aktif');
+    });
+    chipLinks.forEach((chip) => chip.classList.remove('chip--aktif'));
+    popoverAktifId = null;
 
-  const isDesktop = () => window.innerWidth >= 1024;
-  const isReducedMotion = () => {
-    return animasi.getMode() !== TingkatGerak.PENUH ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  };
+    if (balonMaskot) {
+      balonMaskot.textContent = ekspresiList[idxEkspresi].pesan;
+    }
+  }
 
-  lokasiLinks.forEach((link) => {
-    const id = link.id;
-    const pesanLokasi = link.dataset.pesan;
+  function bukaPopover(lokasiNomor, opsi = { fokusAksi: false, bersuara: true }) {
+    const pin = document.getElementById(`pin-${lokasiNomor}`);
+    const popover = document.getElementById(`popover-${lokasiNomor}`);
+    const chip = document.querySelector(`.peta-chip[data-pin="${lokasiNomor}"]`);
 
-    function sorotLokasi() {
-      if (link.classList.contains('lokasi--aktif')) return;
-      link.classList.add('lokasi--aktif');
-      if (balonMaskot && pesanLokasi) {
-        balonMaskot.textContent = pesanLokasi;
-      }
-      if (isDesktop() && wadahMaskotPeta && !isReducedMotion() && offsetPeta[id]) {
-        wadahMaskotPeta.style.left = offsetPeta[id].left;
-        wadahMaskotPeta.style.top = offsetPeta[id].top;
-      }
+    if (!pin || !popover) return;
+
+    // Jika sudah aktif, tidak perlu re-render
+    if (popoverAktifId === lokasiNomor) return;
+
+    // Tutup popover lain terlebih dahulu (Hanya satu popover aktif dalam satu waktu)
+    tutupSemuaPopover();
+
+    popover.removeAttribute('hidden');
+    pin.setAttribute('aria-expanded', 'true');
+    pin.classList.add('pin--aktif');
+    const item = pin.closest('.lokasi-item');
+    if (item) item.classList.add('lokasi-item--aktif');
+
+    if (chip) chip.classList.add('chip--aktif');
+    popoverAktifId = lokasiNomor;
+
+    const pesanLokasi = pin.dataset.pesan;
+    if (balonMaskot && pesanLokasi) {
+      balonMaskot.textContent = pesanLokasi;
     }
 
-    function lepasLokasi(e) {
-      if (e && e.relatedTarget && link.contains(e.relatedTarget)) {
-        return;
-      }
-      link.classList.remove('lokasi--aktif');
-      if (balonMaskot) {
-        balonMaskot.textContent = ekspresiList[idxEkspresi].pesan;
-      }
-      if (isDesktop() && wadahMaskotPeta && !isReducedMotion()) {
-        wadahMaskotPeta.style.left = posisiAsalMaskot.left;
-        wadahMaskotPeta.style.top = posisiAsalMaskot.top;
-      }
-    }
-
-    link.addEventListener('mouseenter', sorotLokasi);
-    link.addEventListener('focus', sorotLokasi);
-    link.addEventListener('mouseleave', lepasLokasi);
-    link.addEventListener('blur', lepasLokasi);
-
-    link.addEventListener('click', (e) => {
+    if (opsi.bersuara) {
       suara.mainkan('klik');
-      if (!isReducedMotion() && imgMaskot) {
-        animasi.lompat(imgMaskot);
+    }
+
+    const judul = popover.querySelector('.popover-judul')?.textContent || '';
+    umumkanAria(`Lokasi terbuka: ${judul}.`);
+
+    if (opsi.fokusAksi) {
+      const btnAksi = popover.querySelector('.popover-aksi');
+      if (btnAksi) btnAksi.focus();
+    }
+  }
+
+  // Pasang Event Listener pada Setiap Pin
+  pinButtons.forEach((pin) => {
+    const no = pin.dataset.lokasi;
+
+    // Klik / Ketuk Pin (Smartboard, Tablet, Ponsel & Desktop)
+    pin.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (popoverAktifId === no) {
+        tutupSemuaPopover();
+      } else {
+        bukaPopover(no, { fokusAksi: false, bersuara: true });
       }
     });
+
+    // Hover Desktop
+    pin.addEventListener('mouseenter', () => {
+      clearTimeout(timerHover);
+      timerHover = setTimeout(() => {
+        bukaPopover(no, { fokusAksi: false, bersuara: false });
+      }, 120);
+    });
+
+    // Keyboard Focus pada Pin
+    pin.addEventListener('focus', () => {
+      bukaPopover(no, { fokusAksi: false, bersuara: false });
+    });
+  });
+
+  // Pasang Handler Tutup pada Setiap Popover
+  popovers.forEach((popover) => {
+    // Tombol (X) Tutup Popover
+    const btnTutup = popover.querySelector('.popover-tutup');
+    if (btnTutup) {
+      btnTutup.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const lokasiNo = popover.id.replace('popover-', '');
+        tutupSemuaPopover();
+        const pin = document.getElementById(`pin-${lokasiNo}`);
+        if (pin) pin.focus();
+      });
+    }
+
+    // Cegah klik di dalam popover menutup popover
+    popover.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    // Batalkan timer tutup jika kursor masuk ke popover
+    popover.addEventListener('mouseenter', () => {
+      clearTimeout(timerHover);
+    });
+  });
+
+  // Pasang Event Listener pada Chip Navigasi Cepat
+  chipLinks.forEach((chip) => {
+    const no = chip.dataset.pin;
+
+    chip.addEventListener('mouseenter', () => {
+      clearTimeout(timerHover);
+      timerHover = setTimeout(() => {
+        bukaPopover(no, { fokusAksi: false, bersuara: false });
+      }, 120);
+    });
+
+    chip.addEventListener('focus', () => {
+      bukaPopover(no, { fokusAksi: false, bersuara: false });
+    });
+  });
+
+  // Mouse leave peta secara keseluruhan menutup popover
+  const wadahPeta = document.querySelector('.peta-pulau');
+  if (wadahPeta) {
+    wadahPeta.addEventListener('mouseleave', () => {
+      clearTimeout(timerHover);
+      timerHover = setTimeout(() => {
+        tutupSemuaPopover();
+      }, 350);
+    });
+  }
+
+  // Keyboard Escape: Tutup Popover Aktif & Kembalikan Fokus ke Pin Terkait
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' || e.key === 'Esc') {
+      const pinTerkait = popoverAktifId ? document.getElementById(`pin-${popoverAktifId}`) : null;
+      tutupSemuaPopover();
+      if (pinTerkait) pinTerkait.focus();
+    }
+  });
+
+  // Klik di Luar: Tutup Popover
+  document.addEventListener('pointerdown', (e) => {
+    if (!e.target.closest('.lokasi-item') && !e.target.closest('.peta-chip')) {
+      tutupSemuaPopover();
+    }
   });
 
   // 5. Rangkaian Pembuka Halus (Hanya transform & opacity)
