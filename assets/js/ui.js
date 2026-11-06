@@ -672,6 +672,10 @@ export function pasangHeader(peran = 'umum', opsi = {}) {
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 <span>Adventure: Petualangan IPAS</span>
               </a>
+              <a href="${root}butterfly-catcher.html" class="btn btn-kupas-kuning w-100 justify-content-start d-flex align-items-center gap-2 fw-bold" style="background:#efebff; border-color:#6c5ce7; color:#4a3b32;">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4c-3-2-7-1-8 2s0 7 8 14c8-7 9-11 8-14s-5-4-8-2z"/><path d="M12 4v14"/></svg>
+                <span>Butterfly Catcher IPAS</span>
+              </a>
               <a href="${root}gabung.html" class="btn btn-kupas-putih w-100 justify-content-start d-flex align-items-center gap-2">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
                 <span>Gabung Kuis Siswa</span>

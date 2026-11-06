@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Butterfly Catcher - Kuis Edukasi IPAS | KUPAS</title>
+    <!-- TIPOGRAFI RAMAH ANAK (GOOGLE FONTS) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================
+           1. CSS RESET & BASE STYLING
+           ========================================== */
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+        html, body { width: 100%; height: 100%; overflow: hidden; background-color: #6ab04c; font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif; touch-action: none; }
+        #game-container { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+        canvas { display: block; width: 100%; height: 100%; }
+
+        /* ==========================================
+           2. HUD & UI OVERLAYS 
+           ========================================== */
+        .top-xp-bar-container { position: absolute; top: 0; left: 0; width: 100%; height: 20px; background: rgba(47, 54, 64, 0.88); z-index: 50; box-shadow: 0 2px 5px rgba(0,0,0,0.3); border-bottom: 3px solid #2d3436; }
+        .top-xp-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #00b894, #55efc4, #81ecec); background-size: 200% 100%; animation: shimmerXP 2s infinite linear; transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-radius: 0 6px 6px 0; border-right: 2px solid #fff; }
+        @keyframes shimmerXP { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+        .top-xp-text { position: absolute; top: 0; left: 0; width: 100%; text-align: center; font-size: 13px; font-weight: 900; color: #ffffff; letter-spacing: 1px; line-height: 20px; text-shadow: 1.5px 1.5px 0 #2d3436, -1px -1px 0 #2d3436, 1px -1px 0 #2d3436, -1px 1px 0 #2d3436; pointer-events: none; }
+
+        .ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 18px 14px 18px; z-index: 10; }
+        .hud-top { display: flex; justify-content: space-between; align-items: flex-start; width: 100%; gap: 10px; flex-wrap: wrap; }
+        .hud-group { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+        .badge-card { background: #fffdf9; border: 3.5px solid #4a3b32; border-radius: 18px; padding: 6px 14px; box-shadow: 0 5px 0 #4a3b32, 0 8px 15px rgba(0,0,0,0.18); display: flex; align-items: center; gap: 8px; color: #4a3b32; font-weight: 800; font-size: 16px; pointer-events: auto; transition: transform 0.15s ease; }
+        .badge-title { background: linear-gradient(135deg, #ff9ff3, #feca57); color: #4a3b32; font-size: 17px; letter-spacing: 0.5px; }
+        .badge-label { font-size: 12px; text-transform: uppercase; color: #8c7ae6; display: block; line-height: 1; margin-bottom: 3px; font-weight: 900;}
+        .badge-value { font-size: 20px; font-weight: 900; color: #2f3640; line-height: 1; }
+        .timer-warning .badge-value { color: #eb4d4b; animation: pulseText 0.6s infinite alternate; }
+        @keyframes pulseText { from { transform: scale(1); } to { transform: scale(1.15); } }
+
+        /* FPS METER */
+        .fps-meter { background: rgba(45, 52, 54, 0.75); color: #55efc4; font-weight: 900; font-size: 13px; padding: 4px 10px; border-radius: 12px; border: 2px solid #55efc4; pointer-events: none; text-shadow: 1px 1px 0 #000; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .fps-meter.low { color: #ff7675; border-color: #ff7675; }
+
+        .combo-banner { background: linear-gradient(135deg, #ff6b6b, #feca57); border: 3.5px solid #4a3b32; border-radius: 20px; padding: 6px 16px; box-shadow: 0 5px 0 #4a3b32; color: #fff; text-shadow: 2px 2px 0 #4a3b32; font-weight: 900; font-size: 18px; transform: scale(0); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; align-items: center; }
+        .combo-banner.active { transform: scale(1); }
+        .combo-bar-bg { width: 100%; height: 6px; background: rgba(74, 59, 50, 0.35); border-radius: 4px; margin-top: 4px; overflow: hidden; }
+        .combo-bar-fill { width: 100%; height: 100%; background: #ffffff; transition: width 0.08s linear; }
+
+        .icon-btn { background: #fffdf9; border: 3.5px solid #4a3b32; border-radius: 16px; width: 48px; height: 48px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 0 #4a3b32; pointer-events: auto; transition: transform 0.1s, background-color 0.15s; font-size: 22px; text-decoration: none; color: inherit; }
+        .icon-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #4a3b32; }
+        .icon-btn:hover { background: #fef6e4; }
+
+        .controls-bottom { display: flex; justify-content: space-between; align-items: flex-end; width: 100%; padding: 10px 16px 18px 16px; pointer-events: none; }
+        .joystick-zone { position: relative; width: 135px; height: 135px; pointer-events: auto; touch-action: none; display: flex; justify-content: center; align-items: center; }
+        .joystick-base { width: 120px; height: 120px; border-radius: 50%; background: rgba(255, 253, 249, 0.45); border: 4px solid rgba(74, 59, 50, 0.65); box-shadow: inset 0 4px 10px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.15); position: relative; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
+        .joystick-stick { width: 54px; height: 54px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #ffdf7e, #feca57); border: 3.5px solid #4a3b32; box-shadow: 0 4px 0 #4a3b32, 0 6px 12px rgba(0,0,0,0.25); position: absolute; transform: translate(0px, 0px); transition: transform 0.04s linear; }
+
+        .catch-btn-zone { pointer-events: auto; touch-action: none; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+        .catch-btn { width: 105px; height: 105px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, #ff9ff3, #f368e0); border: 4.5px solid #4a3b32; box-shadow: 0 7px 0 #4a3b32, 0 10px 20px rgba(0,0,0,0.28); color: #fff; font-weight: 900; font-size: 16px; text-shadow: 1.5px 1.5px 0 #4a3b32; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: transform 0.08s; outline: none; }
+        .catch-btn:active, .catch-btn.pressed { transform: translateY(5px) scale(0.96); box-shadow: 0 2px 0 #4a3b32, 0 4px 8px rgba(0,0,0,0.2); }
+        .catch-btn svg { width: 38px; height: 38px; margin-bottom: 2px; filter: drop-shadow(1.5px 2px 0 #4a3b32); }
+        .desktop-hint { background: rgba(74, 59, 50, 0.78); color: #fffdf9; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; align-self: center; margin-bottom: 6px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+
+        .modal-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(34, 49, 39, 0.55); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 60; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; padding: 20px; }
+        .modal-overlay.visible { opacity: 1; pointer-events: auto; }
+        .modal-card { background: #fffdf7; border: 5px solid #4a3b32; border-radius: 32px; padding: 28px 26px; max-width: 480px; width: 100%; box-shadow: 0 12px 0 #4a3b32, 0 20px 40px rgba(0,0,0,0.35); text-align: center; transform: translateY(25px) scale(0.95); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; max-height: 90vh; display: flex; flex-direction: column;}
+        .modal-overlay.visible .modal-card { transform: translateY(0) scale(1); }
+        .modal-content-scroll { overflow-y: auto; padding-right: 5px; flex-grow: 1; }
+
+        .game-logo-title { font-size: 38px; font-weight: 900; color: #ff6b81; text-shadow: 3px 3px 0 #4a3b32, -1.5px -1.5px 0 #4a3b32, 1.5px -1.5px 0 #4a3b32, -1.5px 1.5px 0 #4a3b32; line-height: 1.05; margin-bottom: 6px; letter-spacing: 1px; }
+        .game-subtitle { font-size: 15px; font-weight: 700; color: #6c5ce7; background: #efebff; display: inline-block; padding: 4px 14px; border-radius: 14px; border: 2px solid #4a3b32; margin-bottom: 16px; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 16px 0 22px 0; }
+        .stat-box { background: #fef6e4; border: 3px solid #4a3b32; border-radius: 18px; padding: 10px; }
+        .stat-box span { display: block; font-size: 13px; font-weight: 900; color: #8c7ae6; text-transform: uppercase; }
+        .stat-box strong { font-size: 26px; font-weight: 900; color: #4a3b32; }
+
+        .primary-btn { background: linear-gradient(180deg, #55efc4, #00b894); border: 4px solid #4a3b32; border-radius: 22px; padding: 14px 32px; width: 100%; font-size: 22px; font-weight: 900; color: #ffffff; text-shadow: 2px 2px 0 #4a3b32; box-shadow: 0 7px 0 #4a3b32; cursor: pointer; transition: transform 0.1s, filter 0.15s; margin-top: 6px; flex-shrink: 0; text-decoration: none; display: block;}
+        .primary-btn:hover { filter: brightness(1.06); }
+        .primary-btn:active { transform: translateY(5px); box-shadow: 0 2px 0 #4a3b32; }
+
+        .secondary-btn { background: linear-gradient(180deg, #ffeaa7, #fdcb6e); border: 4px solid #4a3b32; border-radius: 20px; padding: 11px 24px; width: 100%; font-size: 17px; font-weight: 900; color: #4a3b32; box-shadow: 0 5px 0 #4a3b32; cursor: pointer; margin-top: 10px; transition: transform 0.1s; text-decoration: none; display: block; }
+        .secondary-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #4a3b32; }
+
+        .shop-grid, .bestiary-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding-bottom: 10px; }
+        .shop-item, .bestiary-item { background: #f7f1e3; border: 3px solid #4a3b32; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;}
+        
+        .bestiary-item { border-color: #8c7ae6; justify-content: flex-start;}
+        .bestiary-item.locked { background: #dfe6e9; border-color: #b2bec3; filter: grayscale(100%); opacity: 0.7; }
+        .bestiary-icon { font-size: 32px; margin-bottom: -4px;}
+        .bestiary-title { font-weight: 900; font-size: 16px; color: #4a3b32; line-height: 1.1; }
+        .bestiary-role { font-size: 11px; font-weight: 800; color: #ffffff; background: #6c5ce7; padding: 2px 8px; border-radius: 10px; border: 2px solid #4a3b32; margin-top: 2px;}
+        .bestiary-desc { font-size: 12px; font-weight: 600; color: #594a42; line-height: 1.2; margin-top: 4px;}
+
+        .settings-row { display: flex; justify-content: space-between; align-items: center; background: #f7f1e3; border: 3px solid #4a3b32; border-radius: 14px; padding: 12px 16px; margin-bottom: 10px; }
+        .settings-label { font-weight: 800; color: #4a3b32; font-size: 16px; }
+        .slider-container { display: flex; align-items: center; gap: 10px; }
+        input[type=range] { -webkit-appearance: none; width: 120px; background: transparent; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%; background: #ff9ff3; border: 3px solid #4a3b32; cursor: pointer; margin-top: -6px; }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 8px; cursor: pointer; background: #dfe6e9; border: 2px solid #4a3b32; border-radius: 4px; }
+        .slider-val { font-weight: 900; color: #6c5ce7; width: 35px; text-align: right; font-size: 14px;}
+        
+        .toggle-btn { background: #ffeaa7; border: 3px solid #4a3b32; border-radius: 10px; padding: 6px 12px; font-weight: 900; cursor: pointer; transition: 0.2s; color: #4a3b32; }
+        .toggle-btn.active { background: #55efc4; color: #2d3436; border-color: #00b894;}
+
+        .quiz-btn { background: #fffdf7; border: 3px solid #4a3b32; border-radius: 14px; padding: 12px; font-size: 18px; font-weight: 800; color: #4a3b32; cursor: pointer; transition: all 0.15s; text-align: left; width: 100%; font-family: inherit;}
+        .quiz-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #4a3b32; }
+        .quiz-btn:hover:not(:disabled) { background: #efebff; }
+        .quiz-btn.correct { background: #55efc4; color: #2d3436; border-color: #00b894; }
+        .quiz-btn.wrong { background: #ff7675; color: #fff; border-color: #d63031; }
+
+        @media (max-width: 600px) {
+            .ui-layer { padding: 24px 10px 10px 10px; }
+            .badge-card { padding: 5px 10px; border-radius: 14px; }
+            .badge-title { display: none; }
+            .badge-value { font-size: 16px; }
+            .desktop-hint { display: none; }
+            .joystick-zone { width: 120px; height: 120px; }
+            .joystick-base { width: 108px; height: 108px; }
+            .catch-btn { width: 92px; height: 92px; font-size: 14px; }
+            .game-logo-title { font-size: 30px; }
+            input[type=range] { width: 80px; }
+            .shop-grid, .bestiary-grid { grid-template-columns: 1fr; }
+            .bestiary-item { flex-direction: row; text-align: left; gap: 12px;}
+            .bestiary-icon { font-size: 40px; margin-bottom: 0;}
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <div class="top-xp-bar-container"><div class="top-xp-bar-fill" id="hud-xp-line"></div><div class="top-xp-text" id="hud-xp-text">LV. 1 - 0 / 150 XP</div></div>
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="ui-layer">
+        <div class="hud-top">
+            <div class="hud-group">
+                <!-- Navigasi Beranda KUPAS -->
+                <a href="index.html" class="icon-btn" id="btn-hud-beranda" title="Kembali ke Beranda KUPAS" style="border-color:#2e7d32; box-shadow:0 5px 0 #2e7d32; background:#e8f5e9;">🏠</a>
+                <div class="badge-card badge-title"><span>🦋 BUTTERFLY CATCHER</span></div>
+                <div class="badge-card"><div><span class="badge-label">Skor</span><span class="badge-value" id="hud-score">0</span></div></div>
+                <div class="badge-card"><div><span class="badge-label">Koin</span><span class="badge-value" id="hud-coins">0 🪙</span></div></div>
+                <!-- FPS Meter (Quality Toggle Support) -->
+                <div class="fps-meter" id="hud-fps">60 FPS</div>
+            </div>
+            <div class="combo-banner" id="hud-combo"><span id="hud-combo-text">COMBO x2!</span><div class="combo-bar-bg"><div class="combo-bar-fill" id="hud-combo-bar"></div></div></div>
+            <div class="hud-group">
+                <div class="badge-card" id="timer-card"><div><span class="badge-label">Waktu</span><span class="badge-value" id="hud-timer">60s</span></div></div>
+                <!-- Tombol Buku Saku -->
+                <button class="icon-btn" id="btn-hud-bestiary" title="Buku Saku Ekosistem" style="border-color: #8c7ae6; box-shadow: 0 5px 0 #8c7ae6;">📖</button>
+                <button class="icon-btn" id="btn-hud-shop" title="Buka Toko">🛒</button>
+                <button class="icon-btn" id="btn-hud-settings" title="Pengaturan">⚙️</button>
+                <button class="icon-btn" id="btn-pause" title="Jeda Permainan">⏸️</button>
+            </div>
+        </div>
+
+        <div class="controls-bottom">
+            <div class="joystick-zone" id="joystick-zone"><div class="joystick-base" id="joystick-base"><div class="joystick-stick" id="joystick-stick"></div></div></div>
+            <div class="desktop-hint">💻 WASD / Panah: Jalan &nbsp;|&nbsp; SPASI: Tangkap &nbsp;|&nbsp; ESC: Jeda</div>
+            <div class="catch-btn-zone">
+                <button class="catch-btn" id="btn-catch">
+                    <svg viewBox="0 0 64 64" fill="none"><ellipse cx="42" cy="22" rx="16" ry="12" transform="rotate(-30 42 22)" fill="#fff" stroke="#4a3b32" stroke-width="4"/><path d="M30 28 C34 42, 52 38, 54 20" fill="rgba(255,255,255,0.6)" stroke="#4a3b32" stroke-width="3.5" stroke-dasharray="4 3"/><line x1="10" y1="54" x2="32" y2="30" stroke="#feca57" stroke-width="6" stroke-linecap="round"/><line x1="10" y1="54" x2="32" y2="30" stroke="#4a3b32" stroke-width="2" stroke-linecap="round"/></svg>
+                    TANGKAP
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div class="modal-overlay visible" id="modal-start">
+        <div class="modal-card">
+            <canvas id="logoButterflyCanvas" width="120" height="90" style="width:120px;height:90px;margin:0 auto 4px auto;"></canvas>
+            <h1 class="game-logo-title">BUTTERFLY<br>CATCHER</h1>
+            <div class="game-subtitle">🌿 Kuis IPAS: Rantai Makanan & Ekosistem 🌿</div>
+            <button class="primary-btn" id="btn-start-play">▶ PLAY SEKARANG</button>
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                <button class="secondary-btn" id="btn-start-bestiary" style="margin-top:0; border-color:#8c7ae6; color:#8c7ae6; box-shadow:0 5px 0 #8c7ae6;">📖 BUKU SAKU</button>
+                <button class="secondary-btn" id="btn-start-shop" style="margin-top:0;">🛒 TOKO</button>
+                <button class="secondary-btn" id="btn-start-settings" style="margin-top:0;">⚙️ SETTING</button>
+            </div>
+            <!-- Tombol Kembali ke KUPAS Beranda -->
+            <a href="index.html" class="secondary-btn" id="btn-start-beranda" style="margin-top:10px; background:#f1f2f6; border-color:#4a3b32; color:#4a3b32; font-size:16px;">
+                🏠 Kembali ke Beranda KUPAS
+            </a>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-settings">
+        <div class="modal-card">
+            <h2 class="game-logo-title" style="font-size:32px; color:#55efc4; text-shadow: 2px 2px 0 #4a3b32;">⚙️ PENGATURAN</h2>
+            <div class="modal-content-scroll" style="margin: 20px 0;">
+                <div class="settings-row"><span class="settings-label">🎵 Musik Latar</span><div class="slider-container"><input type="range" id="slider-bgm" min="0" max="100" value="50"><span class="slider-val" id="val-bgm">50%</span></div></div>
+                <div class="settings-row"><span class="settings-label">🔊 Efek Suara</span><div class="slider-container"><input type="range" id="slider-sfx" min="0" max="100" value="100"><span class="slider-val" id="val-sfx">100%</span></div></div>
+                <div class="settings-row"><span class="settings-label">✨ Kualitas Grafis</span><button class="toggle-btn" id="toggle-graphics">TINGGI</button></div>
+                <p style="font-size: 12px; color:#594a42; text-align: left; margin-top: 5px;">*Gunakan grafis RENDAH jika permainan terasa lambat/patah-patah.</p>
+            </div>
+            <button class="primary-btn" id="btn-close-settings" style="font-size: 18px; padding: 12px;">TUTUP PENGATURAN</button>
+        </div>
+    </div>
+
+    <!-- 1. BUKU SAKU EKOSISTEM MODAL -->
+    <div class="modal-overlay" id="modal-bestiary">
+        <div class="modal-card" style="border-color: #8c7ae6; box-shadow: 0 12px 0 #8c7ae6, 0 20px 40px rgba(0,0,0,0.35);">
+            <h2 class="game-logo-title" style="font-size:32px; color:#a29bfe; text-shadow: 2px 2px 0 #4a3b32;">📖 BUKU SAKU</h2>
+            <p style="font-size: 14px; font-weight: 700; color: #594a42; margin-bottom: 14px;">Temukan semua spesies untuk melengkapi data ekosistem!</p>
+            <div class="modal-content-scroll">
+                <div class="bestiary-grid" id="bestiary-grid">
+                    <!-- Dinamis Diisi via JS -->
+                </div>
+            </div>
+            <button class="primary-btn" id="btn-close-bestiary" style="font-size: 18px; padding: 12px; background: linear-gradient(180deg, #a29bfe, #6c5ce7); border-color:#4a3b32;">TUTUP BUKU</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-shop">
+        <div class="modal-card">
+            <h2 class="game-logo-title" style="font-size:32px; color:#feca57; text-shadow: 2px 2px 0 #4a3b32;">🛒 TOKO</h2>
+            <div style="font-size: 16px; font-weight: 800; color: #594a42; margin-bottom: 12px;">Koin Anda: <span id="shop-coins-display" style="color: #e17055;">0 🪙</span></div>
+            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                <button class="secondary-btn" id="tab-chars" style="margin-top:0; flex:1; background:#ff9ff3;">Karakter</button>
+                <button class="secondary-btn" id="tab-nets" style="margin-top:0; flex:1; background:#dfe6e9; color:#a4b0be; border-color:#b2bec3;">Jaring</button>
+            </div>
+            <div class="modal-content-scroll">
+                <div class="shop-grid" id="shop-grid"></div>
+            </div>
+            <button class="primary-btn" id="btn-close-shop" style="font-size: 18px; padding: 12px;">TUTUP TOKO</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-pause">
+        <div class="modal-card">
+            <h2 class="game-logo-title" style="font-size:36px;">DIJEDA</h2>
+            <p style="font-size:16px; color:#594a42; font-weight:700; margin: 14px 0 20px 0;">Istirahat sejenak~</p>
+            <button class="primary-btn" id="btn-resume">▶ LANJUTKAN</button>
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                <button class="secondary-btn" id="btn-pause-bestiary" style="margin-top:0; border-color:#8c7ae6; color:#8c7ae6; box-shadow:0 5px 0 #8c7ae6;">📖 BUKU SAKU</button>
+                <button class="secondary-btn" id="btn-pause-shop" style="margin-top:0; background: linear-gradient(180deg, #a29bfe, #6c5ce7); color: white;">🛒 TOKO</button>
+            </div>
+            <button class="secondary-btn" id="btn-restart-pause">🔄 MULAI ULANG</button>
+            <a href="index.html" class="secondary-btn" style="margin-top:10px; background:#f1f2f6; border-color:#4a3b32; color:#4a3b32;">🏠 KELUAR KE BERANDA</a>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-gameover">
+        <div class="modal-card">
+            <h2 class="game-logo-title" style="font-size:38px;">WAKTU HABIS!</h2>
+            <div class="game-subtitle" id="gameover-badge">🎉 Kerja Bagus!</div>
+            <div class="stats-grid">
+                <div class="stat-box"><span>Skor Akhir</span><strong id="final-score">0</strong></div>
+                <div class="stat-box"><span>Rekor Terbaik</span><strong id="final-best">0</strong></div>
+                <div class="stat-box"><span>Tertangkap</span><strong id="final-caught">0 🦋</strong></div>
+                <div class="stat-box"><span>Koin Didapat</span><strong id="final-coins">0 🪙</strong></div>
+            </div>
+            <button class="primary-btn" id="btn-play-again">🔄 MAIN LAGI</button>
+            <div style="display:flex; gap:10px; margin-top:10px;">
+                <button class="secondary-btn" id="btn-gameover-shop" style="margin-top:0; flex:1; background: linear-gradient(180deg, #a29bfe, #6c5ce7); color: white;">🛒 TOKO</button>
+                <a href="index.html" class="secondary-btn" style="margin-top:0; flex:1; background:#f1f2f6; border-color:#4a3b32; color:#4a3b32;">🏠 BERANDA</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-quiz">
+        <div class="modal-card" style="border-color: #a29bfe; box-shadow: 0 12px 0 #a29bfe, 0 20px 40px rgba(0,0,0,0.35);">
+            <h2 class="game-logo-title" style="font-size:30px; color:#a29bfe; text-shadow: 2px 2px 0 #4a3b32;">🌿 KUIS IPAS</h2>
+            <p id="quiz-question" style="font-size:20px; color:#594a42; font-weight:800; margin: 16px 0 20px 0; line-height: 1.4;"></p>
+            <div class="modal-content-scroll" id="quiz-answers" style="display:flex; flex-direction:column; gap:10px;"></div>
+            <p id="quiz-feedback" style="font-size:18px; font-weight:900; margin-top:18px; min-height:26px;"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    const QUIZ_POOL = [
+        { q: "Dalam ekosistem sawah, peran tumbuhan padi bertindak sebagai apakah?", a: ["Konsumen tingkat I", "Produsen", "Pengurai", "Konsumen puncak"], ans: 1 },
+        { q: "Makhluk hidup yang berperan sebagai pengurai (dekomposer) di ekosistem adalah?", a: ["Rumput dan lumut", "Kelinci dan kambing", "Bakteri dan jamur", "Elang dan singa"], ans: 2 },
+        { q: "Urutan yang benar dalam rantai makanan darat berikut adalah?", a: ["Padi -> Ular -> Tikus -> Elang", "Padi -> Tikus -> Ular -> Elang", "Elang -> Ular -> Tikus -> Padi", "Tikus -> Padi -> Elang -> Ular"], ans: 1 },
+        { q: "Hewan yang memakan tumbuhan dan daging sekaligus disebut?", a: ["Herbivora", "Karnivora", "Omnivora", "Insektivora"], ans: 2 },
+        { q: "Jika populasi tikus habis karena diburu, apa yang akan terjadi pada populasi ular?", a: ["Jumlah ular bertambah pesat", "Ular akan ikut kelaparan/berkurang", "Ular berubah menjadi produsen", "Tidak ada pengaruh sama sekali"], ans: 1 },
+        { q: "Fungsi utama jaring-jaring makanan dalam suatu ekosistem adalah menunjukkan...", a: ["Hewan apa yang paling kuat", "Hubungan makan dan dimakan yang kompleks", "Berapa banyak jumlah tumbuhan", "Tempat hewan bersembunyi"], ans: 1 },
+        { q: "Tumbuhan hijau mampu membuat makanannya sendiri melalui proses apa?", a: ["Respirasi", "Fotosintesis", "Adaptasi", "Evolusi"], ans: 1 },
+        { q: "Hubungan antara kupu-kupu yang menghisap nektar bunga sambil membantu penyerbukan disebut...", a: ["Simbiosis parasitisme", "Simbiosis komensalisme", "Simbiosis mutualisme", "Predasi"], ans: 2 }
+    ];
+
+    // 1. DATA BESTIARY (BUKU SAKU EKOSISTEM)
+    const BESTIARY_DATA = {
+        'sunny': { name: 'Kuning Cerah', role: 'Konsumen Tk. I (Herbivora)', desc: 'Kupu-kupu yang membantu penyerbukan bunga.', icon: '🦋', color: '#ffeaa7' },
+        'azure': { name: 'Biru Angin', role: 'Konsumen Tk. I (Herbivora)', desc: 'Sangat cepat, mangsa sulit ditangkap.', icon: '🦋', color: '#74b9ff' },
+        'sakura': { name: 'Merah Muda', role: 'Konsumen Tk. I (Herbivora)', desc: 'Sahabat alam yang menyukai nektar.', icon: '🦋', color: '#ff9ff3' },
+        'rainbow': { name: 'Pelangi Spesial', role: 'Konsumen Langka', desc: 'Serangga langka dengan genetika unik.', icon: '🌟', color: '#ff4757' },
+        'monarch_gold': { name: 'Raja Emas Kuis', role: 'Konsumen Tk. I', desc: 'Membawa serbuk sari berharga (Koin).', icon: '👑', color: '#ffd700' },
+        'quiz_butterfly': { name: 'Kupu Kuis Biru', role: 'Spesies Pelajar', desc: 'Membawa rahasia ilmu pengetahuan (Waktu).', icon: '📖', color: '#a29bfe' },
+        'crab': { name: 'Kepiting Pantai', role: 'Pemakan Segala (Omnivora)', desc: 'Membersihkan sisa organik di ekosistem pantai.', icon: '🦀', color: '#e17055' },
+        'frog': { name: 'Katak Hijau', role: 'Konsumen Tk. II (Karnivora)', desc: 'Pemangsa serangga, mengendalikan populasi mangsa.', icon: '🐸', color: '#00b894' },
+        'bird': { name: 'Burung Camar', role: 'Konsumen Tk. II/III', desc: 'Memakan ikan kecil dan kepiting di pesisir.', icon: '🐦', color: '#dfe6e9' },
+        'mushroom': { name: 'Jamur Hutan', role: 'Pengurai (Dekomposer)', desc: 'Mengurai makhluk mati menjadi zat hara penyubur tanah.', icon: '🍄', color: '#eb4d4b' }
+    };
+
+    let gameStateData = { 
+        highScore: 0, coins: 0, xp: 0, level: 1, 
+        ownedChars: [0], ownedNets: [0], equippedChar: 0, equippedNet: 0, 
+        bgmVol: 0.4, sfxVol: 1.0,
+        unlockedBestiary: [],
+        graphicsLow: false
+    };
+
+    const SHOP = {
+        characters: [
+            { id: 0, name: "Si Merah", desc: "Sang Penangkap", cost: 0, head: '#feca57', shirt: '#ff7675', pants: '#574b90', hat: '#ffeaa7' },
+            { id: 1, name: "Ninja Biru", desc: "Gesit & Misterius", cost: 150, head: '#74b9ff', shirt: '#0984e3', pants: '#2d3436', hat: '#0984e3' },
+            { id: 2, name: "Peri Pink", desc: "Sahabat Alam", cost: 300, head: '#ff9ff3', shirt: '#f368e0', pants: '#a29bfe', hat: '#ff9ff3' }
+        ],
+        nets: [
+            { id: 0, name: "Jaring Biasa", desc: "Jangkauan Normal", cost: 0, handle: '#e1b12c', rim: 'rgba(255, 255, 255, 0.65)', net: 'rgba(255, 255, 255, 0.78)', reach: 52, radius: 68 },
+            { id: 1, name: "Jaring Pro", desc: "Jangkauan Ekstra", cost: 200, handle: '#b2bec3', rim: 'rgba(116, 185, 255, 0.7)', net: 'rgba(116, 185, 255, 0.78)', reach: 58, radius: 78 }
+        ]
+    };
+
+    function saveGameData() { try { localStorage.setItem('butterfly_catcher_kupas', JSON.stringify(gameStateData)); } catch(e) {} }
+    function loadGameData() { 
+        try { 
+            const saved = localStorage.getItem('butterfly_catcher_kupas'); 
+            if (saved) { 
+                gameStateData = { ...gameStateData, ...JSON.parse(saved) }; 
+                if (!Array.isArray(gameStateData.unlockedBestiary)) gameStateData.unlockedBestiary = [];
+            } 
+        } catch(e) {} 
+    }
+    loadGameData();
+
+    // Fungsi Pembuka Buku Saku
+    function unlockBestiary(id) {
+        if (BESTIARY_DATA[id] && !gameStateData.unlockedBestiary.includes(id)) {
+            gameStateData.unlockedBestiary.push(id);
+            saveGameData();
+            spawnFloatingText(player.x, player.y - 60, "📖 DATA BARU!", "#feca57", 1.4);
+            sound.playPowerup();
+        }
+    }
+
+    class SoundSystem {
+        constructor() { 
+            this.ctx = null; this.isBgmPlaying = false; 
+            this.bgm = new Audio('assets/audio/butterfly-catcher-bgm.mp3');
+            this.bgm.loop = true;
+        }
+        init() { if (!this.ctx) { const AudioCtx = window.AudioContext || window.webkitAudioContext; if (AudioCtx) this.ctx = new AudioCtx(); } if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); }
+        startBGM() { if (!this.isBgmPlaying) { this.bgm.volume = gameStateData.bgmVol; this.bgm.play().then(() => { this.isBgmPlaying = true; }).catch(e => {}); } }
+        updateBGMVolume(vol) { if (this.bgm) this.bgm.volume = vol; }
+        playSwing() { this._playOsc('sine', 340, 110, 0.18, 0.14); }
+        playPowerup() { this._playOsc('square', 400, 1200, 0.15, 0.3); }
+        playFrogHit() { this._playOsc('sawtooth', 100, 40, 0.2, 0.3); }
+        playWrong() { this._playOsc('sawtooth', 150, 80, 0.15, 0.2); }
+        playButton() { this._playOsc('sine', 600, 880, 0.15, 0.08); }
+        _playOsc(type, f1, f2, vol, dur) {
+            if (!this.ctx || gameStateData.sfxVol <= 0) return;
+            const now = this.ctx.currentTime, osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+            osc.type = type; osc.frequency.setValueAtTime(f1, now); osc.frequency.exponentialRampToValueAtTime(f2, now + dur);
+            gain.gain.setValueAtTime(gameStateData.sfxVol * vol, now); gain.gain.linearRampToValueAtTime(0.01, now + dur);
+            osc.connect(gain); gain.connect(this.ctx.destination); osc.start(now); osc.stop(now + dur + 0.05);
+        }
+        playCatch(isRare = false, combo = 1) {
+            if (!this.ctx || gameStateData.sfxVol <= 0) return;
+            const now = this.ctx.currentTime, baseFreq = isRare ? 587.33 : 440 + Math.min(combo * 30, 300);
+            [baseFreq, baseFreq * 1.25, baseFreq * 1.5].forEach((freq, idx) => {
+                const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
+                osc.type = isRare ? 'triangle' : 'sine';
+                const startTime = now + idx * 0.055;
+                osc.frequency.setValueAtTime(freq, startTime);
+                gain.gain.setValueAtTime(gameStateData.sfxVol * 0.2, startTime);
+                gain.gain.exponentialRampToValueAtTime(0.008, startTime + 0.22);
+                osc.connect(gain); gain.connect(this.ctx.destination); osc.start(startTime); osc.stop(startTime + 0.23);
+            });
+        }
+        playLevelUp() { this._playChords([523.25, 659.25, 783.99, 1046.5]); }
+        playGameOver() { this._playChords([783.99, 659.25, 587.33, 523.25]); }
+        _playChords(freqs) {
+            if (!this.ctx || gameStateData.sfxVol <= 0) return;
+            const now = this.ctx.currentTime;
+            freqs.forEach((f, i) => {
+                const osc = this.ctx.createOscillator(), gain = this.ctx.createGain(), t = now + i * 0.1;
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(f, t);
+                gain.gain.setValueAtTime(gameStateData.sfxVol * 0.2, t); gain.gain.exponentialRampToValueAtTime(0.008, t + 0.3);
+                osc.connect(gain); gain.connect(this.ctx.destination); osc.start(t); osc.stop(t + 0.35);
+            });
+        }
+    }
+    const sound = new SoundSystem();
+    window.__kupasSound = sound;
+    document.body.addEventListener('click', () => { sound.init(); sound.startBGM(); }, { once: true });
+    document.body.addEventListener('touchstart', () => { sound.init(); sound.startBGM(); }, { once: true });
+
+    const canvas = document.getElementById('gameCanvas'); const ctx = canvas.getContext('2d');
+    const logoCanvas = document.getElementById('logoButterflyCanvas'); const logoCtx = logoCanvas.getContext('2d');
+    const WORLD = { width: 1800, height: 1350, padding: 90 };
+    const CAMERA = { x: 0, y: 0, width: window.innerWidth, height: window.innerHeight };
+
+    let dpr = 1;
+    function resizeCanvas() { 
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(window.innerWidth * dpr); 
+        canvas.height = Math.floor(window.innerHeight * dpr); 
+        CAMERA.width = window.innerWidth; 
+        CAMERA.height = window.innerHeight; 
+    }
+    window.addEventListener('resize', resizeCanvas); 
+    resizeCanvas();
+
+    const SPECIES = [
+        { id: 'sunny', name: 'Kuning Cerah', points: 10, speed: 115, scale: 1.0, weight: 40, primary: '#ffeaa7', secondary: '#fdcb6e', accent: '#e17055', rare: false, isQuiz: false },
+        { id: 'azure', name: 'Biru Angin', points: 20, speed: 165, scale: 1.05, weight: 30, primary: '#74b9ff', secondary: '#0984e3', accent: '#dfe6e9', rare: false, isQuiz: false },
+        { id: 'sakura', name: 'Merah Muda', points: 35, speed: 205, scale: 1.12, weight: 15, primary: '#ff9ff3', secondary: '#f368e0', accent: '#fff200', rare: false, isQuiz: false },
+        { id: 'rainbow', name: 'Pelangi Legendaris', points: 100, speed: 280, scale: 1.15, weight: 3, primary: '#ff4757', secondary: '#1e90ff', accent: '#2ed573', rare: true, isQuiz: false },
+        { id: 'monarch_gold', name: 'Raja Emas Kuis', points: 0, speed: 255, scale: 1.28, weight: 8, primary: '#ffd700', secondary: '#ffb800', accent: '#fffbe6', rare: true, isQuiz: true, quizReward: 'coin' },
+        { id: 'quiz_butterfly', name: 'Kupu Kuis Biru', points: 0, speed: 180, scale: 1.25, weight: 9, primary: '#ffffff', secondary: '#a29bfe', accent: '#feca57', rare: true, isQuiz: true, quizReward: 'time' }
+    ];
+
+    function pickRandomSpecies() {
+        let rand = Math.random() * SPECIES.reduce((a, s) => a + s.weight, 0);
+        for (let i = 0; i < SPECIES.length; i++) { if (rand < SPECIES[i].weight) return SPECIES[i]; rand -= SPECIES[i].weight; }
+        return SPECIES[0];
+    }
+
+    const DIORAMAS = {
+        sawah: { nama: "Ekosistem Sawah", bgBase: '#88d46c', bgAccent: '#7ec860', pondOuter: '#c8d6e5', pondInner: '#54a0ff', grassColor: '#4a9e35', treeColors: ['#58b147', '#4ca33d'], flowerColors: ['#ff9ff3', '#ffeaa7', '#74b9ff', '#ff7675', '#ffffff'], bushColors: ['#ff7675', '#fd79a8'], ornament: 'scarecrow', prey: 'butterfly', predator: 'frog' },
+        hutan: { nama: "Ekosistem Hutan", bgBase: '#3b7a30', bgAccent: '#2c5e23', pondOuter: '#7f8fa6', pondInner: '#0097e6', grassColor: '#2b5c21', treeColors: ['#27ae60', '#218c53'], flowerColors: ['#fd79a8', '#ffbe76'], bushColors: ['#d63031', '#e84393'], ornament: 'mushroom', prey: 'butterfly', predator: 'frog' },
+        pantai: { nama: "Pesisir Pantai", bgBase: '#f1c40f', bgAccent: '#f39c12', pondOuter: '#2980b9', pondInner: '#3498db', grassColor: '#e67e22', treeColors: ['#16a085', '#1abc9c'], flowerColors: ['#8e44ad', '#e74c3c'], bushColors: ['#d35400'], ornament: 'sandcastle', prey: 'crab', predator: 'bird' }
+    };
+
+    function getCurrentBiomeId() {
+        if (gameStateData.level >= 10) return 'pantai';
+        if (gameStateData.level >= 3) return 'hutan';
+        return 'sawah';
+    }
+
+    let activeBiome = DIORAMAS[getCurrentBiomeId()];
+    const environment = { cottage: { x: 900, y: 310, width: 230, height: 175, radius: 105 }, pond: { x: 450, y: 880, rx: 145, ry: 95 }, trees: [], rocks: [], bushes: [], flowers: [], grassTufts: [], steppingStones: [], mushrooms: [] };
+
+    function buildWorldEnvironment() {
+        environment.trees = []; environment.rocks = []; environment.bushes = []; environment.flowers = []; environment.grassTufts = []; environment.steppingStones = []; environment.mushrooms = [];
+        for (let i = 0; i < 9; i++) environment.steppingStones.push({ x: 900 + Math.sin(i * 0.6) * 28, y: 425 + i * 48, rx: 22 + (i % 3) * 4, ry: 13 + (i % 2) * 3, rot: (i * 0.3) - 0.4 });
+        
+        function isClear(x, y, dist) { return Math.hypot(x-900, y-310) > 105+dist+40 && Math.hypot(x-450, y-880) > 145+dist+20 && Math.hypot(x-900, y-700) > 110; }
+
+        [{x:320,y:420,r:34}, {x:1420,y:460,r:40}, {x:1280,y:980,r:36}, {x:640,y:1120,r:32}, {x:1520,y:820,r:38}, {x:260,y:720,r:30}].forEach(p => environment.rocks.push({x: p.x, y: p.y, radius: p.r}));
+
+        let tc = [{x:180,y:200,r:55}, {x:480,y:190,r:50}, {x:1320,y:210,r:58}, {x:1620,y:260,r:52}, {x:210,y:1120,r:56}, {x:1590,y:1140,r:55}, {x:1160,y:580,r:46}, {x:620,y:520,r:44}, {x:960,y:1150,r:52}, {x:1580,y:580,r:48}];
+        if (activeBiome.ornament === 'mushroom') tc.push({x:380,y:600,r:50}, {x:1400,y:700,r:55}); 
+        tc.forEach((c, i) => environment.trees.push({x: c.x, y: c.y, canopyRadius: c.r, collideRadius: c.r * 0.42, hueShift: activeBiome.treeColors[i % 2], phase: Math.random() * Math.PI * 2}));
+
+        for (let i = 0; i < 24; i++) { const bx = 120 + Math.random()*(WORLD.width-240), by = 140 + Math.random()*(WORLD.height-280); if (isClear(bx, by, 40)) environment.bushes.push({x:bx, y:by, radius:26+Math.random()*14, berryColor:activeBiome.bushColors[i%activeBiome.bushColors.length], phase:Math.random()*Math.PI*2}); }
+        for (let i = 0; i < 150; i++) { const gx = 80 + Math.random()*(WORLD.width-160), gy = 80 + Math.random()*(WORLD.height-160); if (isClear(gx, gy, 10)) environment.grassTufts.push({x:gx, y:gy, size:8+Math.random()*7, phase:Math.random()*Math.PI*2}); }
+        for (let i = 0; i < 110; i++) { const fx = 90 + Math.random()*(WORLD.width-180), fy = 90 + Math.random()*(WORLD.height-180); if (isClear(fx, fy, 15)) environment.flowers.push({x:fx, y:fy, color:activeBiome.flowerColors[i%activeBiome.flowerColors.length], size:6+Math.random()*4, phase:Math.random()*Math.PI*2}); }
+
+        if (activeBiome.ornament === 'mushroom') {
+            for (let i = 0; i < 18; i++) { const mx = 100+Math.random()*(WORLD.width-200), my = 100+Math.random()*(WORLD.height-200); if(isClear(mx, my, 15)) environment.mushrooms.push({x:mx, y:my, size:8+Math.random()*4}); }
+        }
+    }
+    buildWorldEnvironment();
+
+    const STATE = { MENU: 'MENU', PLAYING: 'PLAYING', PAUSED: 'PAUSED', GAMEOVER: 'GAMEOVER', QUIZ: 'QUIZ', SHOP: 'SHOP', SETTINGS: 'SETTINGS', BESTIARY: 'BESTIARY' };
+    let currentState = STATE.MENU;
+    let score = 0, timeLeft = 60, caught = 0, comboCount = 0, comboTimer = 0, activeQuizReward = null, timeFreezeTimer = 0;
+    
+    let isNightMode = false, isRaining = false; 
+
+    const player = { x: 900, y: 700, vx: 0, vy: 0, speed: 275, radius: 22, angle: Math.PI / 2, walkCycle: 0, isMoving: false, swinging: false, swingTimer: 0, swingDuration: 0.26, swingCooldown: 0, stunTimer: 0, speedBoostTimer: 0, magnetTimer: 0 };
+    
+    let preys = [], particles = [], floatingTexts = [], respawnQueue = [], powerups = [], predators = [];
+
+    function createPrey(cx, cy) {
+        const spec = pickRandomSpecies();
+        return { x: cx || 130+Math.random()*(WORLD.width-260), y: cy || 130+Math.random()*(WORLD.height-260), z: 16+Math.random()*14, angle: Math.random()*Math.PI*2, targetAngle: Math.random()*Math.PI*2, turnTimer: 0.5+Math.random()*1.5, wingPhase: Math.random()*Math.PI*2, wingSpeed: 15+Math.random()*5, species: spec, scale: 0.01, targetScale: spec.scale, sparkleTimer: 0 };
+    }
+
+    function initGameEntities(count = 18) {
+        preys = []; respawnQueue = []; powerups = []; predators = [];
+        if(gameStateData.graphicsLow) count = Math.min(count, 10);
+        for (let i = 0; i < count; i++) { const p = createPrey(); p.scale = p.targetScale; preys.push(p); }
+    }
+
+    const keys = { up: false, down: false, left: false, right: false };
+    const joystick = { active: false, id: null, dx: 0, dy: 0, maxR: 42 };
+    
+    window.addEventListener('keydown', (e) => {
+        if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space', 'KeyW', 'KeyA', 'KeyS', 'KeyD'].includes(e.code)) e.preventDefault();
+        if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = true; if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = true;
+        if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = true; if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = true;
+        if (e.code === 'Space' && currentState === STATE.PLAYING && !e.repeat) triggerCatchAction();
+        if (e.code === 'Escape' && (currentState === STATE.PLAYING || currentState === STATE.PAUSED)) togglePause();
+    });
+    window.addEventListener('keyup', (e) => {
+        if (e.code === 'KeyW' || e.code === 'ArrowUp') keys.up = false; if (e.code === 'KeyS' || e.code === 'ArrowDown') keys.down = false;
+        if (e.code === 'KeyA' || e.code === 'ArrowLeft') keys.left = false; if (e.code === 'KeyD' || e.code === 'ArrowRight') keys.right = false;
+    });
+
+    const joyZone = document.getElementById('joystick-zone'), joyStick = document.getElementById('joystick-stick');
+    function updateJoy(cx, cy) {
+        const rect = document.getElementById('joystick-base').getBoundingClientRect();
+        let vx = cx - (rect.left + rect.width / 2), vy = cy - (rect.top + rect.height / 2);
+        const dist = Math.hypot(vx, vy);
+        if (dist > joystick.maxR) { vx = (vx / dist) * joystick.maxR; vy = (vy / dist) * joystick.maxR; }
+        joystick.dx = vx / joystick.maxR; joystick.dy = vy / joystick.maxR;
+        joyStick.style.transform = `translate(${vx}px, ${vy}px)`;
+    }
+    function resetJoy() { joystick.active = false; joystick.id = null; joystick.dx = 0; joystick.dy = 0; joyStick.style.transform = `translate(0px, 0px)`; }
+    
+    joyZone.addEventListener('touchstart', (e) => { e.preventDefault(); sound.init(); if (!joystick.active && e.changedTouches.length > 0) { const t = e.changedTouches[0]; joystick.active = true; joystick.id = t.identifier; updateJoy(t.clientX, t.clientY); } }, { passive: false });
+    joyZone.addEventListener('touchmove', (e) => { e.preventDefault(); if (!joystick.active) return; for (let i=0; i<e.changedTouches.length; i++) { if (e.changedTouches[i].identifier === joystick.id) { updateJoy(e.changedTouches[i].clientX, e.changedTouches[i].clientY); break; } } }, { passive: false });
+    joyZone.addEventListener('touchend', (e) => { e.preventDefault(); for (let i=0; i<e.changedTouches.length; i++) { if (e.changedTouches[i].identifier === joystick.id) { resetJoy(); break; } } }, { passive: false });
+    joyZone.addEventListener('touchcancel', resetJoy);
+
+    const btnCatch = document.getElementById('btn-catch');
+    btnCatch.addEventListener('touchstart', (e) => { e.preventDefault(); sound.init(); btnCatch.classList.add('pressed'); if (currentState === STATE.PLAYING) triggerCatchAction(); }, { passive: false });
+    btnCatch.addEventListener('touchend', (e) => { e.preventDefault(); btnCatch.classList.remove('pressed'); }, { passive: false });
+    btnCatch.addEventListener('mousedown', (e) => { e.preventDefault(); sound.init(); if (currentState === STATE.PLAYING) triggerCatchAction(); });
+
+    function spawnParticles(x, y, color, count = 14) { if(gameStateData.graphicsLow) count = Math.max(3, Math.floor(count/2)); for (let i = 0; i < count; i++) { const ang = Math.random() * Math.PI * 2, spd = 45 + Math.random() * 140; particles.push({ x: x, y: y, vx: Math.cos(ang) * spd, vy: Math.sin(ang) * spd - 20, size: 4 + Math.random() * 6, color: color, life: 1.0, decay: 1.6 + Math.random() * 1.1, isStar: Math.random() > 0.45 }); } }
+    function spawnFloatingText(x, y, text, color = '#fff', scale = 1) { floatingTexts.push({ x: x, y: y, text: text, color: color, scale: scale, life: 1.0, vy: -55 }); }
+
+    function addXP(amount) {
+        gameStateData.xp += amount;
+        let neededXP = gameStateData.level * 150;
+        let leveledUp = false;
+        
+        while (gameStateData.xp >= neededXP) {
+            gameStateData.xp -= neededXP;
+            gameStateData.level++; leveledUp = true;
+            neededXP = gameStateData.level * 150;
+        }
+        
+        if (leveledUp) {
+            const bonusTime = 5 + Math.floor(Math.random() * 6);
+            timeLeft += bonusTime; 
+            sound.playLevelUp();
+            spawnFloatingText(player.x, player.y - 50, `LEVEL UP! LV.${gameStateData.level}`, '#55efc4', 1.35);
+            spawnFloatingText(player.x, player.y - 20, `WAKTU +${bonusTime}s!`, '#00cec9', 1.2);
+            saveGameData();
+            
+            const newBiomeId = getCurrentBiomeId();
+            if (activeBiome.nama !== DIORAMAS[newBiomeId].nama) {
+                activeBiome = DIORAMAS[newBiomeId];
+                predators = [];
+                buildWorldEnvironment(); 
+                spawnFloatingText(player.x, player.y - 80, activeBiome.nama.toUpperCase(), '#feca57', 1.6);
+            }
+
+            if (gameStateData.level >= 2) {
+                const rand = Math.random();
+                if (rand < 0.25) { isNightMode = true; isRaining = false; }
+                else if (rand < 0.50) { isNightMode = false; isRaining = true; }
+                else if (rand < 0.65) { isNightMode = true; isRaining = true; }
+                else { isNightMode = false; isRaining = false; }
+                
+                let weatherMsg = "";
+                if (isNightMode && isRaining) weatherMsg = "⛈️ BADAI GELAP!";
+                else if (isNightMode) weatherMsg = "🌙 MALAM GELAP!";
+                else if (isRaining) weatherMsg = "🌧️ HUJAN DERAS!";
+                else weatherMsg = "☀️ CUACA CERAH!";
+                
+                if (weatherMsg !== "☀️ CUACA CERAH!") {
+                    spawnFloatingText(player.x, player.y - 110, weatherMsg, '#a29bfe', 1.5);
+                }
+
+                if (isRaining && preys.length > (gameStateData.graphicsLow ? 6 : 10)) {
+                    preys.splice(gameStateData.graphicsLow ? 6 : 10); 
+                }
+            }
+        }
+    }
+
+    function triggerCatchAction() {
+        if (player.swinging || player.swingCooldown > 0) return;
+        player.swinging = true; player.swingTimer = player.swingDuration; player.swingCooldown = 0.30;
+        sound.playSwing();
+
+        const net = SHOP.nets[gameStateData.equippedNet];
+        const nx = player.x + Math.cos(player.angle) * net.reach, ny = player.y + Math.sin(player.angle) * net.reach, radius = net.radius;
+        let caughtInSwing = 0, isRare = false, isQuiz = false;
+
+        for (let i = preys.length - 1; i >= 0; i--) {
+            const p = preys[i];
+            if (Math.hypot(p.x - nx, p.y - ny) <= radius || Math.hypot(p.x - player.x, p.y - player.y) <= 48) {
+                caughtInSwing++; caught++;
+                if (p.species.rare) isRare = true;
+                
+                // Cek unlock bestiary
+                unlockBestiary(activeBiome.prey === 'crab' ? 'crab' : p.species.id);
+
+                if (p.species.isQuiz) {
+                    isQuiz = true; activeQuizReward = p.species.quizReward;
+                    spawnFloatingText(p.x, p.y - 25, "KUIS!", activeQuizReward === 'coin' ? '#ffd700' : '#a29bfe', 1.5);
+                } else {
+                    comboCount++; comboTimer = 3.6;
+                    const mult = Math.min(1 + Math.floor((comboCount - 1) / 2) * 0.5, 4.0);
+                    const pts = Math.round(p.species.points * mult);
+                    score += pts; addXP(pts);
+                    if (score > gameStateData.highScore) { gameStateData.highScore = score; saveGameData(); }
+                    spawnFloatingText(p.x, p.y - 25, comboCount >= 2 ? `+${pts} (x${mult})` : `+${pts}`, '#ffffff', 1.0);
+                }
+                spawnParticles(p.x, p.y - p.z, p.species.primary, p.species.rare ? 24 : 14);
+                preys.splice(i, 1); respawnQueue.push(1.4 + Math.random() * 1.6);
+            }
+        }
+        if (caughtInSwing > 0) {
+            sound.playCatch(isRare, comboCount);
+            if (isQuiz) setTimeout(triggerQuiz, 150); 
+            const maxPrey = isRaining ? (gameStateData.graphicsLow ? 6 : 10) : (gameStateData.graphicsLow ? 10 : 26);
+            if (preys.length + respawnQueue.length < maxPrey) preys.push(createPrey());
+            updateHUD();
+        }
+    }
+
+    const modalQuiz = document.getElementById('modal-quiz');
+    function triggerQuiz() {
+        currentState = STATE.QUIZ; hideAllModals(); modalQuiz.classList.add('visible'); sound.playButton();
+        const qObj = QUIZ_POOL[Math.floor(Math.random() * QUIZ_POOL.length)];
+        document.getElementById('quiz-question').textContent = qObj.q;
+        const container = document.getElementById('quiz-answers'); container.innerHTML = '';
+        document.getElementById('quiz-feedback').textContent = '';
+
+        qObj.a.forEach((opt, idx) => {
+            const btn = document.createElement('button'); btn.className = 'quiz-btn';
+            btn.textContent = `${['A','B','C','D'][idx]}. ${opt}`;
+            btn.onclick = () => {
+                const isCorrect = idx === qObj.ans;
+                container.querySelectorAll('.quiz-btn').forEach((b, i) => { b.disabled = true; if (i === qObj.ans && !isCorrect) b.style.border = "3px solid #00b894"; });
+                
+                if (isCorrect) {
+                    btn.classList.add('correct');
+                    if (activeQuizReward === 'coin') {
+                        const c = 30 + Math.floor(Math.random()*20);
+                        document.getElementById('quiz-feedback').textContent = `✅ BENAR! Koin +${c} & XP +100`;
+                        document.getElementById('quiz-feedback').style.color = '#d4a000';
+                        gameStateData.coins += c; addXP(100); saveGameData(); sound.playLevelUp();
+                    } else {
+                        const bonusTime = 5 + Math.floor(Math.random() * 6);
+                        document.getElementById('quiz-feedback').textContent = `✅ BENAR! Waktu +${bonusTime}s & Skor +100`;
+                        document.getElementById('quiz-feedback').style.color = '#00b894';
+                        timeLeft += bonusTime; score += 100; addXP(100); sound.playLevelUp();
+                    }
+                } else {
+                    btn.classList.add('wrong');
+                    document.getElementById('quiz-feedback').textContent = '❌ SALAH! Jawaban kurang tepat.';
+                    document.getElementById('quiz-feedback').style.color = '#d63031';
+                    sound.playWrong();
+                }
+                updateHUD();
+                setTimeout(() => { modalQuiz.classList.remove('visible'); currentState = STATE.PLAYING; activeQuizReward = null; }, 2200);
+            };
+            container.appendChild(btn);
+        });
+    }
+
+    const modalStart = document.getElementById('modal-start'), modalPause = document.getElementById('modal-pause'), modalGameOver = document.getElementById('modal-gameover'), modalShop = document.getElementById('modal-shop'), modalSettings = document.getElementById('modal-settings'), modalBestiary = document.getElementById('modal-bestiary');
+
+    function updateHUD() {
+        document.getElementById('hud-score').textContent = score; 
+        document.getElementById('hud-xp-text').textContent = `LV. ${gameStateData.level} - ${Math.floor(gameStateData.xp)} / ${gameStateData.level * 150} XP`;
+        document.getElementById('hud-xp-line').style.width = `${Math.max(0, Math.min(100, (gameStateData.xp / (gameStateData.level * 150)) * 100))}%`;
+        document.getElementById('hud-coins').textContent = gameStateData.coins + ' 🪙';
+        
+        const sec = Math.ceil(Math.max(0, timeLeft)); document.getElementById('hud-timer').textContent = `${sec}s`;
+        if (sec <= 10 && currentState === STATE.PLAYING) document.getElementById('timer-card').classList.add('timer-warning'); else document.getElementById('timer-card').classList.remove('timer-warning');
+        
+        const banner = document.getElementById('hud-combo');
+        if (comboCount >= 2 && comboTimer > 0) { banner.classList.add('active'); document.getElementById('hud-combo-text').textContent = `COMBO x${comboCount}!`; document.getElementById('hud-combo-bar').style.width = `${Math.max(0, Math.min(100, (comboTimer / 3.6) * 100))}%`; } else banner.classList.remove('active');
+    }
+
+    function hideAllModals() { [modalStart, modalPause, modalGameOver, modalQuiz, modalShop, modalSettings, modalBestiary].forEach(m => m.classList.remove('visible')); }
+
+    function startNewGame() {
+        sound.init(); sound.startBGM(); 
+        score = 0; timeLeft = 60; caught = 0; comboCount = 0; comboTimer = 0; timeFreezeTimer = 0; 
+        isNightMode = false; isRaining = false;
+        player.x = 900; player.y = 700; player.angle = Math.PI/2; player.swinging = false; player.swingCooldown = 0; player.stunTimer = 0; player.speedBoostTimer = 0; player.magnetTimer = 0;
+        particles = []; floatingTexts = []; initGameEntities(gameStateData.graphicsLow ? 10 : 18);
+        hideAllModals(); currentState = STATE.PLAYING; updateHUD();
+    }
+
+    function togglePause() { sound.init(); sound.playButton(); if (currentState === STATE.PLAYING) { currentState = STATE.PAUSED; hideAllModals(); modalPause.classList.add('visible'); } else if (currentState === STATE.PAUSED) { currentState = STATE.PLAYING; hideAllModals(); } }
+    function triggerGameOver() {
+        currentState = STATE.GAMEOVER; sound.playGameOver(); saveGameData(); hideAllModals();
+        document.getElementById('final-score').textContent = score; document.getElementById('final-best').textContent = gameStateData.highScore; 
+        document.getElementById('final-caught').textContent = `${caught} 🦋`; document.getElementById('final-coins').textContent = `${gameStateData.coins} 🪙`;
+        modalGameOver.classList.add('visible');
+    }
+
+    document.getElementById('btn-start-play').addEventListener('click', startNewGame);
+    document.getElementById('btn-resume').addEventListener('click', togglePause);
+    document.getElementById('btn-restart-pause').addEventListener('click', startNewGame);
+    document.getElementById('btn-play-again').addEventListener('click', startNewGame);
+    document.getElementById('btn-pause').addEventListener('click', () => { if (currentState === STATE.PLAYING || currentState === STATE.PAUSED) togglePause(); });
+
+    // UI BUTTON LISTENERS
+    let previousState = null;
+    document.getElementById('btn-start-shop').addEventListener('click', () => openShop(STATE.MENU));
+    document.getElementById('btn-pause-shop').addEventListener('click', () => openShop(STATE.PAUSED));
+    document.getElementById('btn-gameover-shop').addEventListener('click', () => openShop(STATE.GAMEOVER));
+    document.getElementById('btn-hud-shop').addEventListener('click', () => { if(currentState === STATE.PLAYING) openShop(STATE.PLAYING); });
+    document.getElementById('btn-close-shop').addEventListener('click', () => closeToPreviousState());
+
+    document.getElementById('btn-start-settings').addEventListener('click', () => openSettings(STATE.MENU));
+    document.getElementById('btn-hud-settings').addEventListener('click', () => { if(currentState === STATE.PLAYING) openSettings(STATE.PLAYING); });
+    document.getElementById('btn-close-settings').addEventListener('click', () => closeToPreviousState());
+    
+    document.getElementById('btn-start-bestiary').addEventListener('click', () => openBestiary(STATE.MENU));
+    document.getElementById('btn-pause-bestiary').addEventListener('click', () => openBestiary(STATE.PAUSED));
+    document.getElementById('btn-hud-bestiary').addEventListener('click', () => { if(currentState === STATE.PLAYING) openBestiary(STATE.PLAYING); });
+    document.getElementById('btn-close-bestiary').addEventListener('click', () => closeToPreviousState());
+
+    function closeToPreviousState() {
+        sound.playButton(); hideAllModals(); currentState = previousState; 
+        if (currentState !== STATE.PLAYING) {
+            let modalId = `modal-${currentState.toLowerCase()}`;
+            if (currentState === STATE.MENU) modalId = 'modal-start';
+            if (currentState === STATE.PAUSED) modalId = 'modal-pause';
+            const m = document.getElementById(modalId);
+            if (m) m.classList.add('visible'); 
+        }
+    }
+
+    // SETTINGS LOGIC
+    document.getElementById('slider-bgm').addEventListener('input', (e) => { gameStateData.bgmVol = e.target.value / 100; document.getElementById('val-bgm').textContent = `${e.target.value}%`; sound.updateBGMVolume(gameStateData.bgmVol); saveGameData(); });
+    document.getElementById('slider-sfx').addEventListener('input', (e) => { gameStateData.sfxVol = e.target.value / 100; document.getElementById('val-sfx').textContent = `${e.target.value}%`; saveGameData(); });
+    
+    const btnToggleGfx = document.getElementById('toggle-graphics');
+    function updateGfxBtn() {
+        btnToggleGfx.textContent = gameStateData.graphicsLow ? "RENDAH" : "TINGGI";
+        if (gameStateData.graphicsLow) { btnToggleGfx.classList.remove('active'); btnToggleGfx.style.background = '#ffeaa7'; }
+        else { btnToggleGfx.classList.add('active'); btnToggleGfx.style.background = '#55efc4'; }
+    }
+    btnToggleGfx.addEventListener('click', () => {
+        sound.playButton();
+        gameStateData.graphicsLow = !gameStateData.graphicsLow;
+        saveGameData(); updateGfxBtn();
+    });
+
+    function openSettings(from) { sound.init(); sound.playButton(); previousState = from; currentState = STATE.SETTINGS; hideAllModals(); document.getElementById('slider-bgm').value = gameStateData.bgmVol*100; document.getElementById('val-bgm').textContent = `${Math.round(gameStateData.bgmVol*100)}%`; document.getElementById('slider-sfx').value = gameStateData.sfxVol*100; document.getElementById('val-sfx').textContent = `${Math.round(gameStateData.sfxVol*100)}%`; updateGfxBtn(); modalSettings.classList.add('visible'); }
+    
+    // SHOP LOGIC
+    let activeShopTab = 'chars';
+    function openShop(from) { sound.init(); sound.playButton(); previousState = from; currentState = STATE.SHOP; hideAllModals(); modalShop.classList.add('visible'); renderShop(); }
+    function renderShop() {
+        const grid = document.getElementById('shop-grid'); grid.innerHTML = '';
+        document.getElementById('shop-coins-display').textContent = gameStateData.coins + ' 🪙';
+        const isChars = activeShopTab === 'chars';
+        const items = isChars ? SHOP.characters : SHOP.nets;
+        const owned = isChars ? gameStateData.ownedChars : gameStateData.ownedNets;
+        const eqId = isChars ? gameStateData.equippedChar : gameStateData.equippedNet;
+
+        items.forEach(item => {
+            const has = owned.includes(item.id), eq = eqId === item.id;
+            let btn = eq ? `<button class="primary-btn" disabled style="padding: 6px; font-size:14px; background:#dfe6e9; color:#a4b0be; border-color:#b2bec3;">DIPAKAI</button>` : (has ? `<button class="primary-btn" style="padding: 6px; font-size:14px; background:linear-gradient(180deg,#74b9ff,#0984e3);" onclick="equipItem('${isChars?'chars':'nets'}', ${item.id})">PAKAI</button>` : `<button class="primary-btn" style="padding: 6px; font-size:14px; background:#feca57;" ${gameStateData.coins >= item.cost ? '' : 'disabled'} onclick="buyItem('${isChars?'chars':'nets'}', ${item.id}, ${item.cost})">BELI (${item.cost} 🪙)</button>`);
+            const div = document.createElement('div'); div.className = `shop-item ${eq ? 'equipped' : ''}`;
+            if(eq) div.style.backgroundColor = '#55efc4'; div.style.borderColor = eq ? '#00b894' : '#4a3b32';
+            div.innerHTML = `<div style="font-weight:900; font-size:16px; color:#4a3b32;">${item.name}</div><div style="font-size:12px; font-weight:700; color:#594a42; margin-bottom:4px;">${item.desc}</div><div style="flex-grow:1;"></div>${btn}`;
+            grid.appendChild(div);
+        });
+    }
+    window.equipItem = (tab, id) => { sound.playButton(); if (tab === 'chars') gameStateData.equippedChar = id; else gameStateData.equippedNet = id; saveGameData(); renderShop(); };
+    window.buyItem = (tab, id, cost) => { if (gameStateData.coins >= cost) { sound.playLevelUp(); gameStateData.coins -= cost; if (tab === 'chars') { gameStateData.ownedChars.push(id); gameStateData.equippedChar = id; } else { gameStateData.ownedNets.push(id); gameStateData.equippedNet = id; } saveGameData(); renderShop(); updateHUD(); } };
+    
+    document.getElementById('tab-chars').addEventListener('click', () => { sound.playButton(); activeShopTab = 'chars'; document.getElementById('tab-chars').style.background = '#ff9ff3'; document.getElementById('tab-chars').style.color = '#4a3b32'; document.getElementById('tab-nets').style.background = '#dfe6e9'; document.getElementById('tab-nets').style.color = '#a4b0be'; renderShop(); });
+    document.getElementById('tab-nets').addEventListener('click', () => { sound.playButton(); activeShopTab = 'nets'; document.getElementById('tab-nets').style.background = '#ff9ff3'; document.getElementById('tab-nets').style.color = '#4a3b32'; document.getElementById('tab-chars').style.background = '#dfe6e9'; document.getElementById('tab-chars').style.color = '#a4b0be'; renderShop(); });
+
+    // BESTIARY LOGIC
+    function openBestiary(from) {
+        sound.init(); sound.playButton(); previousState = from; currentState = STATE.BESTIARY; 
+        hideAllModals(); modalBestiary.classList.add('visible'); renderBestiary();
+    }
+    function renderBestiary() {
+        const grid = document.getElementById('bestiary-grid'); grid.innerHTML = '';
+        Object.keys(BESTIARY_DATA).forEach(key => {
+            const data = BESTIARY_DATA[key];
+            const isUnlocked = gameStateData.unlockedBestiary.includes(key);
+            const div = document.createElement('div');
+            div.className = `bestiary-item ${isUnlocked ? '' : 'locked'}`;
+            if(isUnlocked) div.style.borderColor = data.color;
+            div.innerHTML = `
+                <div class="bestiary-icon">${isUnlocked ? data.icon : '❓'}</div>
+                <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                    <div class="bestiary-title" style="color: ${isUnlocked ? data.color : '#2d3436'}">${isUnlocked ? data.name : 'Belum Ditemukan'}</div>
+                    <div class="bestiary-role" style="background: ${isUnlocked ? '#6c5ce7' : '#b2bec3'}">${isUnlocked ? data.role : '???'}</div>
+                    ${isUnlocked ? `<div class="bestiary-desc">${data.desc}</div>` : ''}
+                </div>
+            `;
+            grid.appendChild(div);
+        });
+    }
+
+    updateHUD();
+
+    function resolveCol(px, py, pr, ox, oy, or) {
+        const dx = px - ox, dy = py - oy, dist = Math.hypot(dx, dy), minD = pr + or;
+        if (dist < minD && dist > 0.001) { const overlap = minD - dist; return { x: px + (dx / dist) * overlap, y: py + (dy / dist) * overlap }; }
+        return { x: px, y: py };
+    }
+
+    function inCamera(x, y, padding = 100) {
+        return x > CAMERA.x - padding && x < CAMERA.x + CAMERA.width + padding && y > CAMERA.y - padding && y < CAMERA.y + CAMERA.height + padding;
+    }
+
+    function updateGame(dt) {
+        if (currentState === STATE.PLAYING) {
+            if (timeFreezeTimer > 0) { timeFreezeTimer -= dt; document.getElementById('hud-timer').style.color = '#00cec9'; } 
+            else { document.getElementById('hud-timer').style.color = ''; timeLeft -= dt; }
+            if (timeLeft <= 0) { timeLeft = 0; updateHUD(); triggerGameOver(); return; }
+            
+            if (comboTimer > 0) { comboTimer -= dt; if (comboTimer <= 0) { comboCount = 0; comboTimer = 0; } }
+            if (player.stunTimer > 0) player.stunTimer -= dt;
+            if (player.speedBoostTimer > 0) player.speedBoostTimer -= dt;
+            if (player.magnetTimer > 0) player.magnetTimer -= dt;
+
+            for (let i = respawnQueue.length - 1; i >= 0; i--) { 
+                respawnQueue[i] -= dt; 
+                if (respawnQueue[i] <= 0) { 
+                    respawnQueue.splice(i, 1); 
+                    const maxPrey = isRaining ? (gameStateData.graphicsLow ? 6 : 10) : (gameStateData.graphicsLow ? 10 : 26);
+                    if (preys.length < maxPrey) preys.push(createPrey()); 
+                } 
+            }
+
+            let mx = 0, my = 0;
+            if (player.stunTimer <= 0) {
+                if (keys.left) mx -= 1; if (keys.right) mx += 1; if (keys.up) my -= 1; if (keys.down) my += 1;
+                if (joystick.active) { mx += joystick.dx; my += joystick.dy; }
+            }
+            const mag = Math.hypot(mx, my); let spd = player.speedBoostTimer > 0 ? player.speed * 1.5 : player.speed;
+            if (mag > 0.08) { if (mag > 1) { mx /= mag; my /= mag; } player.vx = mx * spd; player.vy = my * spd; player.angle = Math.atan2(my, mx); player.isMoving = true; player.walkCycle += dt * 11 * Math.min(1, mag); } 
+            else { player.vx = 0; player.vy = 0; player.isMoving = false; }
+
+            player.x = Math.max(WORLD.padding, Math.min(WORLD.width - WORLD.padding, player.x + player.vx * dt));
+            player.y = Math.max(WORLD.padding, Math.min(WORLD.height - WORLD.padding, player.y + player.vy * dt));
+
+            let pos = resolveCol(player.x, player.y, player.radius, environment.cottage.x, environment.cottage.y, environment.cottage.radius); player.x = pos.x; player.y = pos.y;
+            pos = resolveCol(player.x, player.y, player.radius, environment.pond.x, environment.pond.y, environment.pond.ry); player.x = pos.x; player.y = pos.y;
+            environment.rocks.forEach(rk => { pos = resolveCol(player.x, player.y, player.radius, rk.x, rk.y, rk.radius * 0.85); player.x = pos.x; player.y = pos.y; });
+            environment.trees.forEach(tr => { pos = resolveCol(player.x, player.y, player.radius, tr.x, tr.y, tr.collideRadius); player.x = pos.x; player.y = pos.y; });
+
+            if (player.swinging) { player.swingTimer -= dt; if (player.swingTimer <= 0) player.swinging = false; }
+            if (player.swingCooldown > 0) player.swingCooldown -= dt;
+
+            // Powerups
+            if (powerups.length < 2 && Math.random() < 0.001) { const types = ['MAGNET', 'SPEED', 'FREEZE']; powerups.push({ x: 200+Math.random()*(WORLD.width-400), y: 200+Math.random()*(WORLD.height-400), type: types[Math.floor(Math.random()*types.length)], life: 10, phase: Math.random()*10 }); }
+            for (let i = powerups.length - 1; i >= 0; i--) {
+                powerups[i].life -= dt; if (powerups[i].life <= 0) { powerups.splice(i, 1); continue; }
+                if (Math.hypot(player.x - powerups[i].x, player.y - powerups[i].y) < player.radius + 15) {
+                    sound.playPowerup(); let msg = "", col = "";
+                    if (powerups[i].type === 'MAGNET') { player.magnetTimer = 5; msg = "🧲 MAGNET AKTIF!"; col = "#0984e3"; }
+                    if (powerups[i].type === 'SPEED') { player.speedBoostTimer = 5; msg = "⚡ LARI CEPAT!"; col = "#feca57"; }
+                    if (powerups[i].type === 'FREEZE') { timeFreezeTimer = 5; msg = "❄️ WAKTU BEKU!"; col = "#00cec9"; }
+                    spawnFloatingText(player.x, player.y - 40, msg, col, 1.2); spawnParticles(powerups[i].x, powerups[i].y, col, 15);
+                    powerups.splice(i, 1);
+                }
+            }
+
+            // Predators
+            let maxPreds = Math.min(3, Math.floor(gameStateData.level / 2));
+            if (predators.length < maxPreds && Math.random() < 0.005) {
+                predators.push({ x: Math.random() > 0.5 ? -50 : WORLD.width + 50, y: 100 + Math.random() * (WORLD.height - 200), state: 'IDLE', timer: 1, targetX: 0, targetY: 0, z: 100, type: activeBiome.predator });
+            }
+
+            for (let i = predators.length - 1; i >= 0; i--) {
+                let f = predators[i];
+                if (f.type === 'bird') {
+                    if (f.state === 'IDLE') {
+                        f.timer -= dt; f.z = 120;
+                        f.x += Math.cos(f.timer) * 1.5; f.y += Math.sin(f.timer) * 1.5;
+                        if (f.timer <= 0) { f.state = 'ATTACK'; f.timer = 1.2; f.targetX = player.x; f.targetY = player.y; }
+                    } else if (f.state === 'ATTACK') {
+                        f.timer -= dt; let p = 1 - (f.timer / 1.2);
+                        f.x += (f.targetX - f.x) * dt * 2.5; f.y += (f.targetY - f.y) * dt * 2.5;
+                        f.z = 120 - Math.sin(p * Math.PI) * 110;
+                        if (f.z < 20 && player.stunTimer <= 0 && Math.hypot(player.x - f.x, player.y - f.y) < player.radius + 15) {
+                            sound.playFrogHit(); player.stunTimer = 1.5;
+                            unlockBestiary('bird');
+                            spawnFloatingText(player.x, player.y - 40, "😵 DIPATUK!", "#ff7675", 1.5); spawnParticles(player.x, player.y, "#ff7675", 10);
+                            f.targetX = f.x + (Math.random() - 0.5) * 400;
+                        }
+                        if (f.timer <= 0) { f.state = 'IDLE'; f.timer = 2 + Math.random() * 2; }
+                    }
+                } else { // Frog
+                    if (f.state === 'IDLE') {
+                        f.timer -= dt; if (f.timer <= 0) { f.state = 'ATTACK'; f.timer = 0.6; f.targetX = player.x + (Math.random()-0.5)*100; f.targetY = player.y + (Math.random()-0.5)*100; }
+                    } else if (f.state === 'ATTACK') {
+                        f.timer -= dt; let p = 1 - (f.timer / 0.6);
+                        f.x += (f.targetX - f.x) * dt * 3; f.y += (f.targetY - f.y) * dt * 3; f.z = Math.sin(p * Math.PI) * 40; 
+                        if (f.z < 10 && player.stunTimer <= 0 && Math.hypot(player.x - f.x, player.y - f.y) < player.radius + 15) {
+                            sound.playFrogHit(); player.stunTimer = 1.5;
+                            unlockBestiary('frog');
+                            spawnFloatingText(player.x, player.y - 40, "😵 DITABRAK!", "#ff7675", 1.5); spawnParticles(player.x, player.y, "#ff7675", 10);
+                            f.targetX = f.x + (Math.random() - 0.5) * 300;
+                        }
+                        if (f.timer <= 0) { f.state = 'IDLE'; f.timer = 1 + Math.random() * 1.5; f.z = 0; }
+                    }
+                }
+            }
+            
+            // Check unlocking mushroom
+            if (activeBiome.ornament === 'mushroom') {
+                environment.mushrooms.forEach(m => {
+                    if (Math.hypot(player.x - m.x, player.y - m.y) < 40) unlockBestiary('mushroom');
+                });
+            }
+
+            updateHUD();
+        }
+
+        if (currentState === STATE.PLAYING || currentState === STATE.MENU) {
+            const lvlSpd = 1 + (gameStateData.level - 1) * 0.06;
+            for (let i = 0; i < preys.length; i++) {
+                const b = preys[i];
+                if (b.scale < b.targetScale) b.scale = Math.min(b.targetScale, b.scale + dt * 2.5);
+                b.wingPhase += dt * b.wingSpeed; b.turnTimer -= dt;
+
+                if (player.magnetTimer > 0 && currentState === STATE.PLAYING) {
+                    if (Math.hypot(b.x - player.x, b.y - player.y) < 250) { b.targetAngle = Math.atan2(player.y - b.y, player.x - b.x); b.turnTimer = 0.2; }
+                } else if (b.turnTimer <= 0) { b.turnTimer = 0.6 + Math.random() * 1.8; b.targetAngle = b.angle + (Math.random() - 0.5) * 2.4; }
+                
+                const margin = 120;
+                if (b.x < margin) b.targetAngle = 0; if (b.x > WORLD.width - margin) b.targetAngle = Math.PI;
+                if (b.y < margin) b.targetAngle = Math.PI / 2; if (b.y > WORLD.height - margin) b.targetAngle = -Math.PI / 2;
+
+                let diff = b.targetAngle - b.angle;
+                while (diff < -Math.PI) diff += Math.PI * 2; while (diff > Math.PI) diff -= Math.PI * 2;
+                b.angle += diff * Math.min(1, dt * 4.5);
+
+                const spd = (activeBiome.prey === 'crab' ? b.species.speed * 0.6 : b.species.speed) * lvlSpd;
+                b.x += Math.cos(b.angle) * spd * dt; b.y += Math.sin(b.angle) * spd * dt;
+                b.z = activeBiome.prey === 'crab' ? 0 : 16 + Math.sin(b.wingPhase * 0.5) * 5;
+                
+                if (!gameStateData.graphicsLow && (b.species.id === 'monarch_gold' || b.species.isQuiz || b.species.id === 'rainbow')) {
+                    b.sparkleTimer -= dt;
+                    if (b.sparkleTimer <= 0) {
+                        b.sparkleTimer = 0.08;
+                        const spkColor = b.species.id === 'rainbow' ? ['#ff4757','#1e90ff','#2ed573'][Math.floor(Math.random()*3)] : (b.species.id === 'monarch_gold' ? '#ffd700' : '#a29bfe');
+                        particles.push({ x: b.x + (Math.random()-0.5)*16, y: b.y - b.z + (Math.random()-0.5)*16, vx: 0, vy: -10, size: 3.5, color: spkColor, life: 1.0, decay: 1.2, isStar: true });
+                    }
+                }
+            }
+        } 
+
+        if (currentState !== STATE.PAUSED) {
+            for (let i = particles.length - 1; i >= 0; i--) { const p = particles[i]; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= p.decay * dt; if (p.life <= 0) particles.splice(i, 1); }
+            for (let i = floatingTexts.length - 1; i >= 0; i--) { const ft = floatingTexts[i]; ft.y += ft.vy * dt; ft.life -= dt * 1.15; if (ft.life <= 0) floatingTexts.splice(i, 1); }
+        }
+
+        CAMERA.x += (player.x - CAMERA.width / 2 - CAMERA.x) * Math.min(1, dt * 7); CAMERA.y += (player.y - CAMERA.height / 2 - CAMERA.y) * Math.min(1, dt * 7);
+        CAMERA.x = Math.max(0, Math.min(WORLD.width - CAMERA.width, CAMERA.x)); CAMERA.y = Math.max(0, Math.min(WORLD.height - CAMERA.height, CAMERA.y));
+    }
+
+    // ==========================================
+    // 2. Y-SORTING RENDERING ENGINE
+    // ==========================================
+    
+    function drawBush(ctx, b, time) {
+        const puff = Math.sin(time * 2 + b.phase) * 1.5; ctx.save(); ctx.translate(b.x, b.y); ctx.fillStyle = 'rgba(0,0,0,0.16)'; ctx.beginPath(); ctx.ellipse(0, b.radius * 0.45, b.radius * 1.15, b.radius * 0.55, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = activeBiome.treeColors[0]; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.arc(-b.radius * 0.45, 4, b.radius * 0.7 + puff, 0, Math.PI * 2); ctx.arc(b.radius * 0.45, 4, b.radius * 0.7 + puff, 0, Math.PI * 2); ctx.arc(0, -b.radius * 0.25, b.radius * 0.85 + puff, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = b.berryColor; ctx.beginPath(); ctx.arc(-8, -4, 4.5, 0, Math.PI * 2); ctx.arc(10, -2, 4.5, 0, Math.PI * 2); ctx.arc(2, -12, 4.5, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+    }
+
+    function drawRock(ctx, rk) {
+        ctx.save(); ctx.translate(rk.x, rk.y); ctx.fillStyle = 'rgba(0,0,0,0.18)'; ctx.beginPath(); ctx.ellipse(0, rk.radius * 0.35, rk.radius * 1.1, rk.radius * 0.65, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#95afc0'; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 3.8; ctx.beginPath(); ctx.ellipse(0, 0, rk.radius, rk.radius * 0.78, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#c7ecee'; ctx.beginPath(); ctx.ellipse(-rk.radius * 0.28, -rk.radius * 0.25, rk.radius * 0.35, rk.radius * 0.18, -0.3, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+    }
+    
+    function drawTree(ctx, tr, time) {
+        const sway = Math.sin(time * 1.8 + tr.phase) * 2.5; 
+        ctx.save(); ctx.translate(tr.x, tr.y); 
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)'; ctx.beginPath(); ctx.ellipse(6, 14, tr.canopyRadius * 1.05, tr.canopyRadius * 0.85, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#8c583a'; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(0, 4, tr.collideRadius, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = tr.hueShift; const r = tr.canopyRadius; ctx.beginPath(); ctx.arc(-r * 0.4 + sway, -r * 0.2, r * 0.65, 0, Math.PI * 2); ctx.arc(r * 0.4 + sway, -r * 0.2, r * 0.65, 0, Math.PI * 2); ctx.arc(sway, r * 0.3, r * 0.68, 0, Math.PI * 2); ctx.arc(sway, -r * 0.45, r * 0.68, 0, Math.PI * 2); ctx.arc(sway, 0, r * 0.78, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.16)'; ctx.beginPath(); ctx.arc(-r * 0.2 + sway, -r * 0.25, r * 0.45, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+    }
+
+    function drawCottage(ctx, x, y) {
+        ctx.save(); ctx.translate(x, y - 40);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.22)'; ctx.beginPath(); ctx.ellipse(0, 25, 130, 88, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#fff3d1'; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 4.5; ctx.beginPath(); ctx.roundRect(-95, -55, 190, 135, 16); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#cd6133'; ctx.beginPath(); ctx.roundRect(-24, 35, 48, 45, [12, 12, 0, 0]); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#74b9ff'; ctx.beginPath(); ctx.roundRect(-72, 30, 32, 30, 6); ctx.roundRect(40, 30, 32, 30, 6); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#ff6b6b'; ctx.beginPath(); ctx.roundRect(-112, -72, 224, 118, 22); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#ee5253'; ctx.beginPath(); ctx.roundRect(-96, -24, 192, 22, 10); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#b33939'; ctx.beginPath(); ctx.roundRect(45, -52, 32, 28, 6); ctx.fill(); ctx.stroke(); ctx.restore();
+    }
+
+    function drawMeadowGround(time) {
+        ctx.fillStyle = activeBiome.bgBase; ctx.fillRect(0, 0, CAMERA.width, CAMERA.height);
+        ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y);
+        ctx.fillStyle = activeBiome.bgAccent;
+        for (let gx = 150; gx < WORLD.width; gx += 320) for (let gy = 150; gy < WORLD.height; gy += 280) { ctx.beginPath(); ctx.ellipse(gx, gy, 110, 75, 0.2, 0, Math.PI * 2); ctx.fill(); }
+
+        ctx.strokeStyle = '#5c4332'; ctx.lineWidth = 6; ctx.strokeRect(WORLD.padding - 25, WORLD.padding - 25, WORLD.width - (WORLD.padding - 25) * 2, WORLD.height - (WORLD.padding - 25) * 2);
+        environment.steppingStones.forEach(st => { ctx.save(); ctx.translate(st.x, st.y); ctx.rotate(st.rot); ctx.fillStyle = '#d1ccc0'; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(0, 0, st.rx, st.ry, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); ctx.restore(); });
+
+        const pond = environment.pond; ctx.save(); ctx.translate(pond.x, pond.y);
+        ctx.fillStyle = activeBiome.pondOuter; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 4; ctx.beginPath(); ctx.ellipse(0, 0, pond.rx + 10, pond.ry + 10, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = activeBiome.pondInner; ctx.beginPath(); ctx.ellipse(0, 0, pond.rx, pond.ry, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        const ripple = Math.sin(time * 2.5) * 6; ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(-25, -10, 45 + ripple, 24 + ripple * 0.5, 0, 0, Math.PI * 2); ctx.stroke();
+        
+        if (activeBiome.prey !== 'crab') { ctx.fillStyle = '#2ecc71'; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(55, 22, 22, 0.3, Math.PI * 2 - 0.3); ctx.lineTo(55, 22); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+        ctx.restore();
+
+        ctx.strokeStyle = activeBiome.grassColor; ctx.lineWidth = 3; ctx.lineCap = 'round';
+        environment.grassTufts.forEach(g => {
+            if (!inCamera(g.x, g.y)) return;
+            const sway = Math.sin(time * 3 + g.phase) * 4; ctx.beginPath(); ctx.moveTo(g.x, g.y); ctx.lineTo(g.x - 5 + sway, g.y - g.size); ctx.moveTo(g.x, g.y); ctx.lineTo(g.x + sway * 1.2, g.y - g.size - 3); ctx.moveTo(g.x, g.y); ctx.lineTo(g.x + 5 + sway, g.y - g.size); ctx.stroke();
+        });
+
+        environment.flowers.forEach(f => {
+            if (!inCamera(f.x, f.y)) return;
+            const swayX = Math.sin(time * 2.6 + f.phase) * 3.5, fx = f.x + swayX, fy = f.y; ctx.fillStyle = f.color; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 2;
+            for (let p = 0; p < 5; p++) { const a = (p * Math.PI * 2) / 5; ctx.beginPath(); ctx.arc(fx + Math.cos(a) * f.size * 0.75, fy + Math.sin(a) * f.size * 0.75, f.size * 0.55, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); }
+            ctx.fillStyle = '#ffeaa7'; ctx.beginPath(); ctx.arc(fx, fy, f.size * 0.45, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        });
+        ctx.restore();
+    }
+
+    function drawPlayerCharacter(ctxT, pX, pY) {
+        const char = SHOP.characters[gameStateData.equippedChar], net = SHOP.nets[gameStateData.equippedNet];
+        ctxT.save(); ctxT.translate(pX, pY); ctxT.fillStyle = 'rgba(0, 0, 0, 0.22)'; ctxT.beginPath(); ctxT.ellipse(0, 14, 22, 13, 0, 0, Math.PI * 2); ctxT.fill();
+        ctxT.rotate(player.angle); const footOffset = player.isMoving ? Math.sin(player.walkCycle) * 9 : 0;
+        ctxT.fillStyle = char.pants; ctxT.strokeStyle = '#4a3b32'; ctxT.lineWidth = 3.2; ctxT.beginPath(); ctxT.ellipse(footOffset, -11, 8, 5.5, 0, 0, Math.PI * 2); ctxT.fill(); ctxT.stroke(); ctxT.beginPath(); ctxT.ellipse(-footOffset, 11, 8, 5.5, 0, 0, Math.PI * 2); ctxT.fill(); ctxT.stroke();
+        let netSwingAngle = 0.45;
+        if (player.swinging) { const progress = 1 - (player.swingTimer / player.swingDuration); netSwingAngle = -1.25 + Math.sin(progress * Math.PI) * 2.6; ctxT.save(); ctxT.strokeStyle = net.rim; ctxT.lineWidth = 10; ctxT.beginPath(); ctxT.arc(0, 0, 46, -1.1, 1.1); ctxT.stroke(); ctxT.restore(); }
+        ctxT.save(); ctxT.rotate(netSwingAngle); ctxT.strokeStyle = net.handle; ctxT.lineWidth = 6; ctxT.lineCap = 'round'; ctxT.beginPath(); ctxT.moveTo(6, 14); ctxT.lineTo(42, 22); ctxT.stroke(); ctxT.strokeStyle = '#4a3b32'; ctxT.lineWidth = 2; ctxT.stroke();
+        ctxT.fillStyle = net.net; ctxT.strokeStyle = '#4a3b32'; ctxT.lineWidth = 3.5; ctxT.beginPath(); ctxT.ellipse(52, 24, 15, 19, 0.2, 0, Math.PI * 2); ctxT.fill(); ctxT.stroke(); ctxT.strokeStyle = 'rgba(74, 59, 50, 0.35)'; ctxT.lineWidth = 1.5; ctxT.beginPath(); ctxT.moveTo(42, 18); ctxT.lineTo(62, 30); ctxT.moveTo(42, 30); ctxT.lineTo(62, 18); ctxT.stroke(); ctxT.restore();
+        ctxT.fillStyle = char.shirt; ctxT.strokeStyle = '#4a3b32'; ctxT.lineWidth = 3.5; ctxT.beginPath(); ctxT.ellipse(0, 0, 16, 20, 0, 0, Math.PI * 2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = char.head; ctxT.beginPath(); ctxT.arc(8, -17, 6, 0, Math.PI * 2); ctxT.arc(10, 16, 6, 0, Math.PI * 2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = char.head; ctxT.beginPath(); ctxT.arc(0, 0, 21, 0, Math.PI * 2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = char.hat; ctxT.beginPath(); ctxT.arc(0, 0, 13.5, 0, Math.PI * 2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = '#ffdf7e'; ctxT.beginPath(); ctxT.arc(-1, 0, 10.5, 0, Math.PI * 2); ctxT.fill(); ctxT.fillStyle = '#2f3640'; ctxT.beginPath(); ctxT.arc(15, -5, 2.3, 0, Math.PI * 2); ctxT.arc(15, 5, 2.3, 0, Math.PI * 2); ctxT.fill(); ctxT.restore();
+        if (player.stunTimer > 0) { ctxT.save(); ctxT.translate(pX, pY - 35); ctxT.font = "20px 'Fredoka'"; ctxT.fillText("😵", -10, 0); ctxT.restore(); }
+        if (player.magnetTimer > 0) { ctxT.save(); ctxT.translate(pX, pY); ctxT.strokeStyle = `rgba(9, 132, 227, ${0.3 + Math.sin(Date.now()/100)*0.2})`; ctxT.lineWidth = 4; ctxT.beginPath(); ctxT.arc(0, 0, 40, 0, Math.PI*2); ctxT.stroke(); ctxT.restore(); }
+    }
+
+    function drawButterflyEntity(ctxT, x, y, z, ang, wp, spec, sc) {
+        ctxT.save(); ctxT.translate(x, y);
+        if (z > 0) { ctxT.fillStyle = 'rgba(0, 0, 0, 0.16)'; ctxT.beginPath(); ctxT.ellipse(0, 10, 11 * sc, 7 * sc, ang, 0, Math.PI * 2); ctxT.fill(); }
+        ctxT.translate(0, -z); ctxT.rotate(ang + Math.PI / 2); ctxT.scale(sc, sc);
+        const flap = 0.28 + Math.abs(Math.sin(wp)) * 0.72;
+        if (!gameStateData.graphicsLow && (spec.rare || spec.isQuiz)) { const grad = ctxT.createRadialGradient(0, 0, 4, 0, 0, 32); grad.addColorStop(0, spec.id === 'monarch_gold' ? 'rgba(255, 215, 0, 0.75)' : 'rgba(162, 155, 254, 0.7)'); grad.addColorStop(1, 'rgba(255, 215, 0, 0)'); ctxT.fillStyle = grad; ctxT.beginPath(); ctxT.arc(0, 0, 32, 0, Math.PI * 2); ctxT.fill(); }
+        ctxT.strokeStyle = '#4a3b32'; ctxT.lineWidth = 2.6;
+        [-1, 1].forEach(sd => {
+            ctxT.save(); ctxT.scale(sd * flap, 1);
+            ctxT.fillStyle = spec.secondary; ctxT.beginPath(); ctxT.ellipse(10, 7, 11, 8.5, 0.35, 0, Math.PI * 2); ctxT.fill(); ctxT.stroke();
+            ctxT.fillStyle = spec.primary; ctxT.beginPath(); ctxT.ellipse(13, -5, 15, 11, -0.3, 0, Math.PI * 2); ctxT.fill(); ctxT.stroke();
+            ctxT.fillStyle = spec.accent; ctxT.beginPath(); ctxT.arc(15, -6, 4, 0, Math.PI * 2); ctxT.arc(10, 7, 2.8, 0, Math.PI * 2); ctxT.fill(); ctxT.restore();
+        });
+        ctxT.fillStyle = '#4a3b32'; ctxT.beginPath(); ctxT.ellipse(0, 0, 3.2, 11, 0, 0, Math.PI * 2); ctxT.fill();
+        ctxT.strokeStyle = '#4a3b32'; ctxT.lineWidth = 1.8; ctxT.beginPath(); ctxT.moveTo(-1.5, -9); ctxT.quadraticCurveTo(-6, -16, -9, -14); ctxT.moveTo(1.5, -9); ctxT.quadraticCurveTo(6, -16, 9, -14); ctxT.stroke(); ctxT.restore();
+    }
+
+    function drawCrabEntity(ctxT, x, y, ang, wp, spec, sc) {
+        ctxT.save(); ctxT.translate(x, y);
+        ctxT.fillStyle = 'rgba(0, 0, 0, 0.16)'; ctxT.beginPath(); ctxT.ellipse(0, 8, 12 * sc, 8 * sc, 0, 0, Math.PI * 2); ctxT.fill();
+        ctxT.rotate(ang + Math.PI / 2); ctxT.scale(sc, sc); 
+        ctxT.strokeStyle = '#4a3b32'; ctxT.lineWidth = 2.5; const sway = Math.sin(wp) * 4;
+        ctxT.beginPath(); ctxT.moveTo(-8, 0); ctxT.lineTo(-15, -8 + sway); ctxT.moveTo(0, 0); ctxT.lineTo(-18, 0 - sway); ctxT.moveTo(8, 0); ctxT.lineTo(-15, 8 + sway); ctxT.moveTo(-8, 0); ctxT.lineTo(15, -8 - sway); ctxT.moveTo(0, 0); ctxT.lineTo(18, 0 + sway); ctxT.moveTo(8, 0); ctxT.lineTo(15, 8 - sway); ctxT.stroke();
+        ctxT.fillStyle = spec.secondary; ctxT.beginPath(); ctxT.arc(-10, -12, 5, 0, Math.PI*2); ctxT.fill(); ctxT.stroke(); ctxT.beginPath(); ctxT.arc(-10, 12, 5, 0, Math.PI*2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = spec.primary; ctxT.beginPath(); ctxT.ellipse(0, 0, 10, 14, 0, 0, Math.PI*2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = '#fff'; ctxT.beginPath(); ctxT.arc(-8, -4, 2.5, 0, Math.PI*2); ctxT.arc(-8, 4, 2.5, 0, Math.PI*2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = '#000'; ctxT.beginPath(); ctxT.arc(-9, -4, 1, 0, Math.PI*2); ctxT.arc(-9, 4, 1, 0, Math.PI*2); ctxT.fill(); ctxT.restore();
+    }
+
+    function drawBirdEntity(ctxT, x, y, z, sc, timer) {
+        ctxT.save(); ctxT.translate(x, y);
+        ctxT.fillStyle = 'rgba(0,0,0,0.15)'; ctxT.beginPath(); ctxT.ellipse(0, 20, 15*sc, 8*sc, 0, 0, Math.PI*2); ctxT.fill();
+        ctxT.translate(0, -z); ctxT.scale(sc, sc);
+        let flap = Math.sin(timer * 15) * 10;
+        ctxT.fillStyle = '#ecf0f1'; ctxT.strokeStyle = '#7f8c8d'; ctxT.lineWidth = 2; 
+        ctxT.beginPath(); ctxT.moveTo(0, 0); ctxT.quadraticCurveTo(-15, -10 + flap, -20, -5 + flap); ctxT.lineTo(0, 5); ctxT.fill(); ctxT.stroke();
+        ctxT.beginPath(); ctxT.moveTo(0, 0); ctxT.quadraticCurveTo(15, -10 + flap, 20, -5 + flap); ctxT.lineTo(0, 5); ctxT.fill(); ctxT.stroke();
+        ctxT.beginPath(); ctxT.ellipse(0, 0, 6, 12, 0, 0, Math.PI*2); ctxT.fill(); ctxT.stroke();
+        ctxT.beginPath(); ctxT.arc(0, -10, 5, 0, Math.PI*2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = '#f1c40f'; ctxT.beginPath(); ctxT.moveTo(-3, -12); ctxT.lineTo(0, -18); ctxT.lineTo(3, -12); ctxT.fill(); ctxT.stroke(); ctxT.restore();
+    }
+    
+    function drawFrogEntity(ctxT, x, y, z, fTargetX) {
+        ctxT.save(); ctxT.translate(x, y); ctxT.fillStyle = 'rgba(0,0,0,0.2)'; ctxT.beginPath(); ctxT.ellipse(0, 10, 15, 8, 0, 0, Math.PI*2); ctxT.fill();
+        ctxT.translate(0, -z); ctxT.fillStyle = '#218c53'; ctxT.strokeStyle = '#4a3b32'; ctxT.lineWidth = 2;
+        let legStr = z > 5 ? 8 : 0;
+        ctxT.beginPath(); ctxT.ellipse(-12 - legStr, 5, 8, 4, -0.5, 0, Math.PI*2); ctxT.fill(); ctxT.stroke();
+        ctxT.beginPath(); ctxT.ellipse(12 + legStr, 5, 8, 4, 0.5, 0, Math.PI*2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = '#27ae60'; ctxT.beginPath(); ctxT.ellipse(0, 0, 14, 11, 0, 0, Math.PI*2); ctxT.fill(); ctxT.stroke();
+        ctxT.beginPath(); ctxT.arc(-7, -8, 5, 0, Math.PI*2); ctxT.arc(7, -8, 5, 0, Math.PI*2); ctxT.fill(); ctxT.stroke();
+        ctxT.fillStyle = '#ffffff'; ctxT.beginPath(); ctxT.arc(-7, -8, 3, 0, Math.PI*2); ctxT.arc(7, -8, 3, 0, Math.PI*2); ctxT.fill();
+        ctxT.fillStyle = '#2d3436'; ctxT.beginPath(); ctxT.arc(-7 + (fTargetX > x ? 1 : -1), -8, 1.5, 0, Math.PI*2); ctxT.arc(7 + (fTargetX > x ? 1 : -1), -8, 1.5, 0, Math.PI*2); ctxT.fill(); ctxT.restore();
+    }
+
+    function drawPowerupEntity(ctxT, p, time) {
+        ctxT.save(); ctxT.translate(p.x, p.y + Math.sin(time * 4 + p.phase) * 5); 
+        ctxT.fillStyle = 'rgba(0,0,0,0.2)'; ctxT.beginPath(); ctxT.ellipse(0, 15, 12, 6, 0, 0, Math.PI*2); ctxT.fill();
+        ctxT.beginPath(); ctxT.arc(0, 0, 14, 0, Math.PI*2);
+        if(p.type === 'MAGNET') { ctxT.fillStyle = 'rgba(116, 185, 255, 0.8)'; ctxT.fill(); ctxT.font="14px Fredoka"; ctxT.fillText("🧲", -8, 5); }
+        if(p.type === 'SPEED') { ctxT.fillStyle = 'rgba(255, 234, 167, 0.8)'; ctxT.fill(); ctxT.font="14px Fredoka"; ctxT.fillText("⚡", -6, 5); }
+        if(p.type === 'FREEZE') { ctxT.fillStyle = 'rgba(129, 236, 236, 0.8)'; ctxT.fill(); ctxT.font="14px Fredoka"; ctxT.fillText("❄️", -8, 5); }
+        ctxT.strokeStyle = '#ffffff'; ctxT.lineWidth = 2; ctxT.stroke(); ctxT.restore();
+    }
+
+    function drawOrnaments(ctxT, id) {
+        if (id === 'scarecrow') {
+            ctxT.save(); ctxT.translate(1300, 350); ctxT.fillStyle = 'rgba(0,0,0,0.2)'; ctxT.beginPath(); ctxT.ellipse(0, 45, 25, 12, 0, 0, Math.PI*2); ctxT.fill(); 
+            ctxT.strokeStyle = '#8c583a'; ctxT.lineWidth = 6; ctxT.beginPath(); ctxT.moveTo(0, 45); ctxT.lineTo(0, -10); ctxT.moveTo(-30, 10); ctxT.lineTo(30, 10); ctxT.stroke(); 
+            ctxT.fillStyle = '#e1b12c'; ctxT.beginPath(); ctxT.moveTo(-20, 10); ctxT.lineTo(20, 10); ctxT.lineTo(35, 30); ctxT.lineTo(-35, 30); ctxT.fill(); ctxT.stroke(); 
+            ctxT.fillStyle = '#f5f6fa'; ctxT.beginPath(); ctxT.arc(0, -10, 15, 0, Math.PI*2); ctxT.fill(); ctxT.stroke(); 
+            ctxT.fillStyle = '#cd6133'; ctxT.beginPath(); ctxT.ellipse(0, -22, 22, 6, 0, 0, Math.PI*2); ctxT.fill(); ctxT.stroke(); ctxT.beginPath(); ctxT.moveTo(-12, -22); ctxT.lineTo(12, -22); ctxT.lineTo(0, -40); ctxT.closePath(); ctxT.fill(); ctxT.stroke(); ctxT.restore();
+        } else if (id === 'sandcastle') {
+            ctxT.save(); ctxT.translate(1300, 350); ctxT.fillStyle = 'rgba(0,0,0,0.2)'; ctxT.beginPath(); ctxT.ellipse(0, 20, 45, 15, 0, 0, Math.PI*2); ctxT.fill();
+            ctxT.fillStyle = '#f39c12'; ctxT.strokeStyle = '#d35400'; ctxT.lineWidth = 3;
+            ctxT.beginPath(); ctxT.rect(-30, -10, 60, 30); ctxT.fill(); ctxT.stroke();
+            ctxT.beginPath(); ctxT.rect(-35, -30, 20, 40); ctxT.fill(); ctxT.stroke();
+            ctxT.beginPath(); ctxT.rect(15, -30, 20, 40); ctxT.fill(); ctxT.stroke();
+            ctxT.fillStyle = '#e67e22'; ctxT.beginPath(); ctxT.moveTo(-40, -30); ctxT.lineTo(-25, -50); ctxT.lineTo(-10, -30); ctxT.fill(); ctxT.stroke();
+            ctxT.beginPath(); ctxT.moveTo(10, -30); ctxT.lineTo(25, -50); ctxT.lineTo(40, -30); ctxT.fill(); ctxT.stroke();
+            ctxT.fillStyle = '#8e44ad'; ctxT.beginPath(); ctxT.arc(0, 10, 10, Math.PI, 0); ctxT.lineTo(10, 20); ctxT.lineTo(-10, 20); ctxT.fill(); ctxT.stroke(); ctxT.restore();
+        }
+    }
+
+    function drawParticlesAndTexts() {
+        ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y);
+        particles.forEach(p => {
+            ctx.save(); ctx.globalAlpha = Math.max(0, p.life); ctx.translate(p.x, p.y); ctx.fillStyle = p.color; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 1.8;
+            if (p.isStar) { ctx.beginPath(); for (let s = 0; s < 5; s++) { const a = (s * Math.PI * 2) / 5 - Math.PI / 2; ctx.lineTo(Math.cos(a) * p.size * 1.4, Math.sin(a) * p.size * 1.4); ctx.lineTo(Math.cos(a + Math.PI / 5) * p.size * 0.6, Math.sin(a + Math.PI / 5) * p.size * 0.6); } ctx.closePath(); ctx.fill(); ctx.stroke(); } 
+            else { ctx.beginPath(); ctx.arc(0, 0, p.size, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); } ctx.restore();
+        });
+        ctx.textAlign = 'center';
+        floatingTexts.forEach(ft => { ctx.save(); ctx.globalAlpha = Math.max(0, ft.life); ctx.font = `900 ${Math.round(24 * ft.scale)}px 'Fredoka', sans-serif`; ctx.lineWidth = 5; ctx.strokeStyle = '#4a3b32'; ctx.strokeText(ft.text, ft.x, ft.y); ctx.fillStyle = ft.color; ctx.fillText(ft.text, ft.x, ft.y); ctx.restore(); });
+        ctx.restore();
+    }
+
+    function renderLogoButterfly(time) { if (!modalStart.classList.contains('visible')) return; logoCtx.clearRect(0, 0, logoCanvas.width, logoCanvas.height); drawButterflyEntity(logoCtx, logoCanvas.width / 2, logoCanvas.height / 2 + 8, 8, -Math.PI / 2 + Math.sin(time * 2) * 0.2, time * 14, SPECIES[3], 1.65); }
+
+    let frames = 0, lastFpsTime = performance.now(), currentFps = 60;
+    const fpsDisplay = document.getElementById('hud-fps');
+
+    let lastTime = performance.now();
+    function gameLoop(time) {
+        time = time || performance.now();
+        const dt = Math.min(0.05, (time - lastTime) / 1000); lastTime = time; const secs = time / 1000;
+        
+        frames++;
+        if (time - lastFpsTime >= 500) {
+            currentFps = Math.round((frames * 1000) / (time - lastFpsTime));
+            frames = 0; lastFpsTime = time;
+            fpsDisplay.textContent = `${currentFps} FPS`;
+            if(currentFps < 30) fpsDisplay.classList.add('low'); else fpsDisplay.classList.remove('low');
+        }
+
+        if (![STATE.PAUSED, STATE.QUIZ, STATE.SHOP, STATE.SETTINGS, STATE.BESTIARY].includes(currentState)) updateGame(dt);
+        
+        ctx.save();
+        ctx.scale(dpr, dpr);
+
+        // LAYER 0: Ground (Not sorted)
+        drawMeadowGround(secs); 
+
+        // LAYER 1: Y-SORTED OBJECTS
+        const renderQueue = [];
+
+        // Player
+        renderQueue.push({ sortY: player.y, render: () => drawPlayerCharacter(ctx, player.x - CAMERA.x, player.y - CAMERA.y) });
+        
+        // Preys (Butterflies / Crabs)
+        preys.forEach(b => {
+            if (inCamera(b.x, b.y, 60)) {
+                renderQueue.push({ sortY: b.y, render: () => {
+                    ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y);
+                    if (activeBiome.prey === 'crab') drawCrabEntity(ctx, b.x, b.y, b.angle, b.wingPhase, b.species, b.scale);
+                    else drawButterflyEntity(ctx, b.x, b.y, b.z, b.angle, b.wingPhase, b.species, b.scale);
+                    ctx.restore();
+                }});
+            }
+        });
+
+        // Predators
+        predators.forEach(f => {
+            if (inCamera(f.x, f.y, 60)) {
+                renderQueue.push({ sortY: f.y, render: () => {
+                    ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y);
+                    if (f.type === 'bird') {
+                        ctx.save(); let ang = Math.atan2(f.targetY - f.y, f.targetX - f.x); ctx.translate(f.x, f.y); ctx.rotate(ang + Math.PI/2);
+                        drawBirdEntity(ctx, 0, 0, f.z, 1.2, f.timer); ctx.restore();
+                    } else drawFrogEntity(ctx, f.x, f.y, f.z, f.targetX);
+                    ctx.restore();
+                }});
+            }
+        });
+
+        // Environment
+        environment.rocks.forEach(rk => renderQueue.push({ sortY: rk.y, render: () => { ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y); drawRock(ctx, rk); ctx.restore(); }}));
+        environment.bushes.forEach(bsh => { if(inCamera(bsh.x, bsh.y, 60)) renderQueue.push({ sortY: bsh.y, render: () => { ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y); drawBush(ctx, bsh, secs); ctx.restore(); }})});
+        environment.trees.forEach(tr => { if(inCamera(tr.x, tr.y, 100)) renderQueue.push({ sortY: tr.y, render: () => { ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y); drawTree(ctx, tr, secs); ctx.restore(); }})});
+        
+        // Cottage
+        renderQueue.push({ sortY: environment.cottage.y + 40, render: () => { ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y); drawCottage(ctx, environment.cottage.x, environment.cottage.y); ctx.restore(); }});
+        
+        // Ornaments
+        renderQueue.push({ sortY: 350, render: () => { ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y); drawOrnaments(ctx, activeBiome.ornament); ctx.restore(); }});
+        if(activeBiome.ornament === 'mushroom') {
+            environment.mushrooms.forEach(m => {
+                if(inCamera(m.x, m.y)) renderQueue.push({ sortY: m.y, render: () => {
+                    ctx.save(); ctx.translate(m.x - CAMERA.x, m.y - CAMERA.y); ctx.fillStyle = 'rgba(0,0,0,0.2)'; ctx.beginPath(); ctx.ellipse(0, m.size, m.size*1.2, m.size*0.6, 0, 0, Math.PI*2); ctx.fill();
+                    ctx.fillStyle = '#f5f6fa'; ctx.strokeStyle = '#4a3b32'; ctx.lineWidth = 2; ctx.beginPath(); ctx.rect(-m.size*0.3, -m.size, m.size*0.6, m.size*2); ctx.fill(); ctx.stroke();
+                    ctx.fillStyle = '#eb4d4b'; ctx.beginPath(); ctx.arc(0, -m.size, m.size*1.5, Math.PI, 0); ctx.fill(); ctx.stroke();
+                    ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.arc(-m.size*0.6, -m.size*1.4, m.size*0.25, 0, Math.PI*2); ctx.arc(m.size*0.5, -m.size*1.6, m.size*0.3, 0, Math.PI*2); ctx.arc(m.size*0.8, -m.size*1.1, m.size*0.2, 0, Math.PI*2); ctx.fill(); ctx.restore();
+                }});
+            });
+        }
+
+        // Powerups
+        powerups.forEach(pw => { if(inCamera(pw.x, pw.y)) renderQueue.push({ sortY: pw.y, render: () => { ctx.save(); ctx.translate(-CAMERA.x, -CAMERA.y); drawPowerupEntity(ctx, pw, secs); ctx.restore(); }})});
+
+        // EXECUTE Y-SORT
+        renderQueue.sort((a, b) => a.sortY - b.sortY);
+        renderQueue.forEach(item => item.render());
+
+        // TOP LAYER: Particles & Texts
+        drawParticlesAndTexts(); 
+        renderLogoButterfly(secs);
+
+        // WEATHER OVERLAYS
+        if (isRaining && currentState === STATE.PLAYING && !gameStateData.graphicsLow) {
+            ctx.save(); ctx.strokeStyle = 'rgba(200, 230, 255, 0.4)'; ctx.lineWidth = 1.5; ctx.beginPath();
+            for (let i = 0; i < 200; i++) {
+                const rx = (i * 137 + (secs * 800)) % CAMERA.width, ry = (i * 251 + (secs * 1500)) % CAMERA.height;
+                ctx.moveTo(rx, ry); ctx.lineTo(rx - 12, ry + 35);
+            } ctx.stroke();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+            for (let i = 0; i < 50; i++) {
+                const rx = (i * 313 + (secs * 100)) % CAMERA.width, ry = (i * 179 + (secs * 300)) % CAMERA.height, r = ((secs * 15 + i) % 6);
+                ctx.beginPath(); ctx.ellipse(rx, ry, r * 2, r, 0, 0, Math.PI * 2); ctx.fill();
+            } ctx.restore();
+        }
+
+        if (isNightMode && currentState === STATE.PLAYING) {
+            ctx.save(); ctx.globalCompositeOperation = 'multiply';
+            const px = player.x - CAMERA.x, py = player.y - CAMERA.y;
+            const visionRadius = (player.magnetTimer > 0 || player.speedBoostTimer > 0) ? 350 : 220; 
+            const grad = ctx.createRadialGradient(px, py, 30, px, py, visionRadius);
+            grad.addColorStop(0, 'rgba(255, 255, 255, 1)'); 
+            grad.addColorStop(0.3, gameStateData.graphicsLow ? 'rgba(120, 120, 120, 1)' : 'rgba(150, 150, 150, 1)'); 
+            grad.addColorStop(1, 'rgba(15, 20, 35, 1)'); 
+            ctx.fillStyle = grad; ctx.fillRect(0, 0, CAMERA.width, CAMERA.height); ctx.restore();
+        }
+
+        ctx.restore();
+
+        requestAnimationFrame(gameLoop);
+    }
+    requestAnimationFrame(gameLoop);
+})();
+</script>
+</body>
+</html>
+

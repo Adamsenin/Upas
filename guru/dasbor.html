@@ -777,7 +777,47 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
         </div>
         <div class="modal-body py-3">
-          <p class="text-secondary small mb-3">Pilih format permainan yang cocok untuk kelas Anda:</p>
+          <p class="text-secondary small mb-3">Pilih format permainan dan cara pelaksanaan yang cocok untuk kondisi kelas Anda:</p>
+          
+          <!-- Pilihan Jalur Pelaksanaan: Mulai Langsung vs Mulai Bersama -->
+          <div class="mb-4">
+            <label class="form-label fw-bold text-dark d-flex align-items-center justify-content-between mb-2">
+              <span>🎯 Jalur Pelaksanaan Kelas:</span>
+              <span class="badge bg-warning text-dark border border-dark rounded-pill px-2 py-1 small">Solusi Siswa Tanpa HP</span>
+            </label>
+            <div class="row g-2">
+              <div class="col-12 col-md-6">
+                <input type="radio" class="btn-check" name="jalurPelaksanaan" id="jalurLangsung" value="langsung" checked>
+                <label class="btn btn-outline-dark w-100 p-3 text-start h-100 rounded-3 border-2 d-flex flex-column justify-content-between smartboard-btn shadow-sm" for="jalurLangsung" style="background:#FFFDF7;">
+                  <div>
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                      <strong class="fs-6 text-dark">🖥️ Mulai Langsung</strong>
+                      <span class="badge bg-success text-white small">Rekomendasi</span>
+                    </div>
+                    <small class="text-secondary d-block lh-sm">
+                      Siswa <strong>tidak membawa HP</strong>. Soal langsung tampil di proyektor/Smartboard dan dijawab bersama di layar depan.
+                    </small>
+                  </div>
+                  <span class="badge bg-light text-dark border border-dark mt-2 align-self-start small">Tanpa Lobi • Langsung Main</span>
+                </label>
+              </div>
+              <div class="col-12 col-md-6">
+                <input type="radio" class="btn-check" name="jalurPelaksanaan" id="jalurBersama" value="bersama">
+                <label class="btn btn-outline-dark w-100 p-3 text-start h-100 rounded-3 border-2 d-flex flex-column justify-content-between smartboard-btn shadow-sm" for="jalurBersama" style="background:#FFFDF7;">
+                  <div>
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                      <strong class="fs-6 text-dark">📱 Mulai Bersama</strong>
+                      <span class="badge bg-primary text-white small">Multi-Device</span>
+                    </div>
+                    <small class="text-secondary d-block lh-sm">
+                      Siswa <strong>memegang HP/laptop masing-masing</strong>. Masuk ke lobi dan bagikan kode sesi 6 digit & QR code.
+                    </small>
+                  </div>
+                  <span class="badge bg-light text-dark border border-dark mt-2 align-self-start small">Pakai Kode Lobi</span>
+                </label>
+              </div>
+            </div>
+          </div>
           <div class="mb-3">
             <label class="form-label fw-bold">Mode Permainan</label>
             <div class="form-check p-3 border-2 border-dark rounded-3 mb-2 bg-light">
@@ -822,10 +862,10 @@
             </button>
           </div>
         </div>
-        <div class="modal-footer border-top-0 pt-0">
+        <div class="modal-footer border-top-0 pt-0 d-flex justify-content-between">
           <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-kupas-kuning fw-bold px-4 smartboard-btn" id="btn-konfirmasi-mulai">
-            Buka Lobi Sesi →
+          <button type="button" class="btn btn-kupas-hijau fw-bold px-4 py-2 smartboard-btn fs-6 shadow-sm" id="btn-konfirmasi-mulai">
+            ▶ Mulai Langsung di Layar Ini →
           </button>
         </div>
       </div>
@@ -877,7 +917,7 @@
               placeholder="Tulis penjelasan singkat yang mendidik anak..."></textarea>
           </div>
         </div>
-        <div class="modal-footer border-top-0 pt-0">
+        <div class="modal-footer border-top-0 pt-0 d-flex justify-content-between">
           <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
           <button type="button" class="btn btn-kupas-hijau fw-bold px-4 smartboard-btn" id="btn-simpan-pernyataan">
             Simpan Pernyataan
@@ -928,7 +968,7 @@
             </label>
           </div>
         </div>
-        <div class="modal-footer border-top-0 pt-0">
+        <div class="modal-footer border-top-0 pt-0 d-flex justify-content-between">
           <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
           <button type="button" class="btn btn-kupas-hijau fw-bold px-4" id="btn-simpan-atur-kuis">Simpan
             Pengaturan</button>
@@ -982,7 +1022,7 @@
               placeholder="Tulis penjelasan singkat yang mendidik anak..."></textarea>
           </div>
         </div>
-        <div class="modal-footer border-top-0 pt-0">
+        <div class="modal-footer border-top-0 pt-0 d-flex justify-content-between">
           <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
           <button type="button" class="btn btn-kupas-hijau fw-bold px-4 smartboard-btn" id="btn-simpan-pernyataan">
             Simpan Pernyataan
@@ -1012,7 +1052,7 @@
             <small class="text-secondary">Anda dapat menempelkan banyak baris sekaligus dari Excel/CSV.</small>
           </div>
         </div>
-        <div class="modal-footer border-top-0 pt-0">
+        <div class="modal-footer border-top-0 pt-0 d-flex justify-content-between">
           <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
           <button type="button" class="btn btn-kupas-hijau fw-bold px-4" id="btn-simpan-siswa-modal">Simpan
             Siswa</button>
@@ -1066,7 +1106,7 @@
               placeholder="Tulis penjelasan singkat yang mendidik anak..."></textarea>
           </div>
         </div>
-        <div class="modal-footer border-top-0 pt-0">
+        <div class="modal-footer border-top-0 pt-0 d-flex justify-content-between">
           <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Batal</button>
           <button type="button" class="btn btn-kupas-hijau fw-bold px-4 smartboard-btn" id="btn-simpan-pernyataan">
             Simpan Pernyataan

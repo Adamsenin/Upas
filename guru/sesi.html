@@ -55,6 +55,23 @@
         </div>
       </div>
 
+      <!-- Banner Fallback: Mulai Langsung Bila Siswa Tidak Membawa HP -->
+      <div class="p-3 bg-white rounded-4 border-3 border-dark d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3 shadow-sm mb-4">
+        <div class="text-start">
+          <div class="d-flex align-items-center gap-2 mb-1">
+            <span class="fs-4">💡</span>
+            <strong class="text-dark fs-6">Siswa tidak membawa HP ke sekolah?</strong>
+            <span class="badge bg-warning text-dark border border-dark rounded-pill small">Mode Proyektor</span>
+          </div>
+          <small class="text-secondary d-block">
+            Jangan khawatir! Mainkan langsung di layar Smartboard / Proyektor ini bersama seluruh kelas tanpa menunggu siswa masuk lobi.
+          </small>
+        </div>
+        <button id="btn-mulai-langsung-lobi" type="button" class="btn btn-kupas-hijau fw-bold px-4 py-2 smartboard-btn flex-shrink-0 fs-6 shadow-sm">
+          🖥️ Mulai Langsung di Layar Ini →
+        </button>
+      </div>
+
       <div class="d-flex flex-wrap justify-content-center gap-3">
         <button id="btn-buka-pengaturan-lobi" type="button" class="btn btn-kupas-kuning btn-lg px-4 py-3 fs-5 fw-bold smartboard-btn shadow-sm" title="Ubah parameter permainan sebelum kuis dimulai">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> <span>Pengaturan Game</span>
@@ -103,8 +120,40 @@
         <!-- Opsi dirender secara dinamis -->
       </div>
 
-      <!-- Panel Kontrol Guru & Status Jawaban Masuk -->
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 pt-3 border-top border-2 border-dark">
+      <!-- Box Pembahasan Interaktif Mode Mulai Langsung -->
+      <div id="wadah-pembahasan-langsung" class="p-3 bg-white rounded-4 border-3 border-dark mb-4 text-start d-none anim-slide-up shadow-sm">
+        <div class="d-flex align-items-center justify-content-between mb-2 pb-2 border-bottom border-2 border-dark">
+          <span class="badge bg-success text-white border border-dark fs-6 px-3 py-1" id="badge-status-jawaban-langsung">
+            Kunci Jawaban Benar
+          </span>
+          <span class="small fw-bold text-secondary" id="label-kunci-teks"></span>
+        </div>
+        <p class="mb-2 fs-5 fw-bold text-dark" id="teks-penjelasan-langsung">Penjelasan materi kuis IPAS...</p>
+        <div id="wadah-tautan-kamus-langsung"></div>
+      </div>
+
+      <!-- Panel Kontrol Mode Mulai Langsung (Tanpa HP Siswa) -->
+      <div id="panel-kontrol-langsung" class="d-none pt-3 border-top border-2 border-dark">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <span class="fw-bold fs-5 text-dark">Skor Kelas:</span>
+            <span class="badge bg-warning text-dark border border-dark fs-5 px-3 py-2 shadow-sm" id="skor-kelas-langsung">0 pt</span>
+            <span class="badge bg-success text-white border border-dark small px-2 py-1">Benar: <strong id="hitung-benar-langsung">0</strong></span>
+            <span class="badge bg-danger text-white border border-dark small px-2 py-1">Salah: <strong id="hitung-salah-langsung">0</strong></span>
+          </div>
+          <div class="d-flex gap-2">
+            <button id="btn-lanjut-soal-langsung" class="btn btn-kupas-hijau btn-lg fw-bold px-4 py-2 smartboard-btn fs-5 shadow-sm" disabled>
+              <span>Soal Berikutnya</span> <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+        <p class="small text-secondary text-center mt-2 mb-0" id="petunjuk-mode-langsung">
+          👉 <em>Ketuk salah satu pilihan di atas untuk menjawab bersama seluruh kelas (atau gunakan tombol 1-4).</em>
+        </p>
+      </div>
+
+      <!-- Panel Kontrol Guru & Status Jawaban Masuk (Mode Mulai Bersama / HP) -->
+      <div id="panel-kontrol-bersama" class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 pt-3 border-top border-2 border-dark">
         <div class="fs-5 fw-bold text-dark">
           Sudah menjawab: <span class="badge bg-success fs-5 text-white border border-dark" id="hitung-menjawab">0</span> / <span id="total-peserta-aktif">0</span>
         </div>
@@ -234,8 +283,36 @@
     <section id="tampilan-hasil-akhir" class="kupas-card d-none anim-slide-up text-center py-4">
       <div class="mb-3">
         <img src="../assets/svg/maskot-bersorak.svg" alt="Maskot Bersorak" width="120" height="120" class="anim-sorak mb-2" id="maskot-hasil-akhir">
-        <h2 class="display-6 fw-bolder mb-1">Petualangan Selesai!</h2>
-        <p class="lead fw-bold text-secondary">Seluruh kelas telah menyelesaikan kuis IPAS dengan sangat baik.</p>
+        <h2 class="display-6 fw-bolder mb-1" id="judul-hasil-akhir">Petualangan Selesai!</h2>
+        <p class="lead fw-bold text-secondary" id="subjudul-hasil-akhir">Seluruh kelas telah menyelesaikan kuis IPAS dengan sangat baik.</p>
+      </div>
+
+      <!-- Rekap Nilai Mode Mulai Langsung (Tanpa HP Siswa) -->
+      <div id="rekap-nilai-langsung" class="row g-3 justify-content-center mb-4 max-w-600 mx-auto d-none">
+        <div class="col-6 col-sm-3">
+          <div class="p-3 bg-white rounded-3 border-2 border-dark text-center shadow-sm">
+            <span class="small text-secondary fw-bold d-block">Nilai Kelas</span>
+            <span class="fs-2 fw-bolder text-primary" id="hasil-persen-langsung">100%</span>
+          </div>
+        </div>
+        <div class="col-6 col-sm-3">
+          <div class="p-3 bg-white rounded-3 border-2 border-dark text-center shadow-sm">
+            <span class="small text-secondary fw-bold d-block">Jawaban Benar</span>
+            <span class="fs-2 fw-bolder text-success" id="hasil-benar-langsung">0</span>
+          </div>
+        </div>
+        <div class="col-6 col-sm-3">
+          <div class="p-3 bg-white rounded-3 border-2 border-dark text-center shadow-sm">
+            <span class="small text-secondary fw-bold d-block">Jawaban Salah</span>
+            <span class="fs-2 fw-bolder text-danger" id="hasil-salah-langsung">0</span>
+          </div>
+        </div>
+        <div class="col-6 col-sm-3">
+          <div class="p-3 bg-white rounded-3 border-2 border-dark text-center shadow-sm">
+            <span class="small text-secondary fw-bold d-block">Total Poin</span>
+            <span class="fs-2 fw-bolder text-warning" id="hasil-poin-langsung">0</span>
+          </div>
+        </div>
       </div>
 
       <!-- Lencana Capaian Kelas -->
@@ -297,6 +374,11 @@
     let sisaWaktu = 30;
     let durasiMaks = 30;
     const progresPesertaMap = new Map();
+
+    // Mode Mulai Langsung (Tanpa HP Siswa)
+    let isModeLangsung = (params.get('langsung') === '1');
+    const statsLangsung = { total: 0, benar: 0, salah: 0, poin: 0 };
+    let sudahDijawabLangsung = false;
 
     function perbaruiTampilanProgresGuru() {
       const grid = document.getElementById('grid-progres-siswa');
@@ -420,6 +502,16 @@
       });
 
       await segarkanDaftarPeserta();
+
+      // Jalur Mulai Langsung (Tanpa HP Siswa): Mulai langsung tanpa menunggu lobi
+      if (isModeLangsung) {
+        const badge = document.getElementById('badge-mode-sesi');
+        if (badge) {
+          badge.textContent = '🖥️ Mode Mulai Langsung (Tanpa HP Siswa)';
+          badge.className = 'badge bg-success text-white border border-dark rounded-pill px-3 py-2 fs-6';
+        }
+        await mulaiSoal(0);
+      }
     }
 
         async function muatParameterDanSoal(cfgKustom) {
@@ -652,53 +744,98 @@
           localStorage.setItem('kupas_sesi_soal_' + sesi.id, JSON.stringify(daftarSoal));
         } catch(e) {}
 
-        // Siarkan aksi ke siswa beserta seluruh paket butir soal untuk alur mandiri
-        await sesiManager.kirimAksi(channelRealtime, 'tampil_soal', {
-          soalIndex: idx,
-          totalSoal: daftarSoal.length,
-          soal: {
-            id: soal.id,
-            urutan: soal.urutan,
-            tipe: soal.tipe,
-            teks: soal.teks,
-            opsi: soal.opsi,
-            kunci: soal.kunci,
-            waktu_detik: durasiFinal,
-            penjelasan: soal.penjelasan,
-            kamus_id: soal.kamus_id
-          },
-          daftarSoal: daftarSoal.map(s => ({
-            id: s.id,
-            urutan: s.urutan,
-            tipe: s.tipe,
-            teks: s.teks,
-            opsi: s.opsi,
-            kunci: s.kunci,
-            waktu_detik: durasiFinal,
-            penjelasan: s.penjelasan,
-            kamus_id: s.kamus_id
-          }))
-        });
-        perbaruiTampilanProgresGuru();
+        // Siarkan aksi ke siswa beserta seluruh paket butir soal untuk alur mandiri (jika mode bersama)
+        if (!isModeLangsung) {
+          await sesiManager.kirimAksi(channelRealtime, 'tampil_soal', {
+            soalIndex: idx,
+            totalSoal: daftarSoal.length,
+            soal: {
+              id: soal.id,
+              urutan: soal.urutan,
+              tipe: soal.tipe,
+              teks: soal.teks,
+              opsi: soal.opsi,
+              kunci: soal.kunci,
+              waktu_detik: durasiFinal,
+              penjelasan: soal.penjelasan,
+              kamus_id: soal.kamus_id
+            },
+            daftarSoal: daftarSoal.map(s => ({
+              id: s.id,
+              urutan: s.urutan,
+              tipe: s.tipe,
+              teks: s.teks,
+              opsi: s.opsi,
+              kunci: s.kunci,
+              waktu_detik: durasiFinal,
+              penjelasan: s.penjelasan,
+              kamus_id: s.kamus_id
+            }))
+          });
+          perbaruiTampilanProgresGuru();
+        }
 
         // Render Layar Soal Guru
         document.getElementById('label-nomor-soal').textContent = `Soal ${idx + 1} dari ${daftarSoal.length}`;
-        document.getElementById('label-tipe-soal').textContent = soal.tipe.replace('_', ' ');
+        document.getElementById('label-tipe-soal').textContent = (soal.tipe || 'pilihan_ganda').replace('_', ' ');
         document.getElementById('teks-pertanyaan').textContent = soal.teks;
 
         const wadahOpsi = document.getElementById('wadah-opsi-guru');
         wadahOpsi.innerHTML = '';
 
+        // Sesuaikan tampilan panel kontrol berdasarkan mode
+        const panelLangsung = document.getElementById('panel-kontrol-langsung');
+        const panelBersama = document.getElementById('panel-kontrol-bersama');
+        const wadahProgresSiswa = document.getElementById('wadah-progres-siswa-guru');
+        const boxPembahasanLangsung = document.getElementById('wadah-pembahasan-langsung');
+
+        if (isModeLangsung) {
+          if (panelLangsung) panelLangsung.classList.remove('d-none');
+          if (panelBersama) panelBersama.classList.add('d-none');
+          if (wadahProgresSiswa) wadahProgresSiswa.classList.add('d-none');
+          if (boxPembahasanLangsung) boxPembahasanLangsung.classList.add('d-none');
+
+          sudahDijawabLangsung = false;
+          const btnLanjut = document.getElementById('btn-lanjut-soal-langsung');
+          if (btnLanjut) {
+            btnLanjut.disabled = true;
+            if (idx + 1 >= daftarSoal.length) {
+              btnLanjut.innerHTML = `<span>Lihat Hasil Akhir Kelas</span> <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
+            } else {
+              btnLanjut.innerHTML = `<span>Soal Berikutnya</span> <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
+            }
+          }
+        } else {
+          if (panelLangsung) panelLangsung.classList.add('d-none');
+          if (panelBersama) panelBersama.classList.remove('d-none');
+          if (wadahProgresSiswa) wadahProgresSiswa.classList.remove('d-none');
+          if (boxPembahasanLangsung) boxPembahasanLangsung.classList.add('d-none');
+        }
+
         if (soal.tipe === 'pilihan_ganda' || soal.tipe === 'benar_salah') {
-          const list = soal.opsi && soal.opsi.length ? soal.opsi : ['Opsi 1', 'Opsi 2'];
+          const list = soal.opsi && soal.opsi.length ? soal.opsi : (soal.tipe === 'benar_salah' ? ['Benar', 'Salah'] : ['Opsi A', 'Opsi B', 'Opsi C', 'Opsi D']);
+          const labelHuruf = ['A', 'B', 'C', 'D'];
           list.forEach((op, i) => {
             const el = document.createElement('div');
             el.className = 'opsi-jawaban smartboard-teks-opsi';
-            el.innerHTML = `<span class="opsi-nomor">${i + 1}</span> <span>${op}</span>`;
+            if (isModeLangsung) {
+              el.setAttribute('role', 'button');
+              el.setAttribute('tabindex', '0');
+              el.style.cursor = 'pointer';
+              el.setAttribute('data-index', i);
+              el.addEventListener('click', () => pilihOpsiModeLangsung(i, el, soal));
+              el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  pilihOpsiModeLangsung(i, el, soal);
+                }
+              });
+            }
+            el.innerHTML = `<span class="opsi-nomor">${labelHuruf[i] || (i + 1)}</span> <span>${op}</span>`;
             wadahOpsi.appendChild(el);
           });
         } else {
-          wadahOpsi.innerHTML = '<div class="alert alert-secondary w-100 fs-5">Siswa menjawab dengan mengetik kata kunci.</div>';
+          wadahOpsi.innerHTML = '<div class="alert alert-secondary w-100 fs-5 text-center">Siswa menjawab dengan mengetik kata kunci.</div>';
         }
 
         gantiTampilan(viewSoal);
@@ -742,7 +879,13 @@
 
         if (sisaWaktu <= 0) {
           clearInterval(timerInterval);
-          bukaPembahasan();
+          if (isModeLangsung) {
+            if (!sudahDijawabLangsung) {
+              pilihOpsiModeLangsung(-1, null, daftarSoal[soalAktifIndex]);
+            }
+          } else {
+            bukaPembahasan();
+          }
         }
       }, 1000);
     }
@@ -989,6 +1132,207 @@
       const rekap = await sesiManager.ambilRekapHasil(sesi.id);
       sesiManager.unduhCSV(`Hasil_KUPAS_IPAS_${sesi.kode}.csv`, rekap.peserta);
       umumkanAria('Berkas CSV hasil kuis berhasil diunduh.');
+    });
+
+    // ==========================================
+    // LOGIKA MODE MULAI LANGSUNG (TANPA HP SISWA)
+    // ==========================================
+
+    // Pilih Opsi untuk Mode Mulai Langsung (Layar Sentuh / Klik Guru & Siswa)
+    async function pilihOpsiModeLangsung(pilihanIndex, elemenOpsi, soal) {
+      if (sudahDijawabLangsung) return;
+      sudahDijawabLangsung = true;
+      clearInterval(timerInterval);
+
+      // Ambil kunci jawaban
+      const kunciDB = JSON.parse(localStorage.getItem('kupas_db_soal_kunci_secure') || '{}');
+      const kunciRaw = soal.kunci || kunciDB[soal.id] || '0';
+
+      let idxKunci = 0;
+      if (soal.tipe === 'pilihan_ganda') {
+        const kStr = String(kunciRaw).trim().toLowerCase();
+        const mapHuruf = { 'a': 0, 'b': 1, 'c': 2, 'd': 3 };
+        if (mapHuruf[kStr] !== undefined) {
+          idxKunci = mapHuruf[kStr];
+        } else if (!isNaN(parseInt(kStr, 10)) && parseInt(kStr, 10) >= 0 && parseInt(kStr, 10) < (soal.opsi?.length || 4)) {
+          idxKunci = parseInt(kStr, 10);
+        } else if (Array.isArray(soal.opsi)) {
+          const textIdx = soal.opsi.findIndex(o => String(o).trim().toLowerCase() === kStr);
+          if (textIdx >= 0) idxKunci = textIdx;
+        }
+      } else if (soal.tipe === 'benar_salah') {
+        const kStr = String(kunciRaw).trim().toLowerCase();
+        idxKunci = ['0', 'benar', 'true', 'b'].includes(kStr) ? 0 : 1;
+      }
+
+      const isBenar = (pilihanIndex === idxKunci);
+      const daftarElemenOpsi = document.querySelectorAll('#wadah-opsi-guru .opsi-jawaban');
+
+      daftarElemenOpsi.forEach((el, idx) => {
+        el.style.pointerEvents = 'none';
+        if (idx === idxKunci) {
+          el.classList.add('benar');
+        }
+        if (idx === pilihanIndex && !isBenar) {
+          el.classList.add('salah');
+        }
+        if (idx === pilihanIndex) {
+          el.classList.add('terpilih');
+        }
+      });
+
+      statsLangsung.total++;
+      const bobotPoin = soal.poin || 100;
+      if (isBenar) {
+        statsLangsung.benar++;
+        statsLangsung.poin += bobotPoin;
+        suara.mainkan('benar');
+        if (elemenOpsi) animasi.pop(elemenOpsi);
+      } else {
+        statsLangsung.salah++;
+        suara.mainkan('salah');
+        if (elemenOpsi) animasi.goyang(elemenOpsi);
+      }
+
+      // Update HUD Langsung
+      const skorEl = document.getElementById('skor-kelas-langsung');
+      const benarEl = document.getElementById('hitung-benar-langsung');
+      const salahEl = document.getElementById('hitung-salah-langsung');
+      if (skorEl) skorEl.textContent = statsLangsung.poin + ' pt';
+      if (benarEl) benarEl.textContent = statsLangsung.benar;
+      if (salahEl) salahEl.textContent = statsLangsung.salah;
+
+      // Tampilkan Box Pembahasan Langsung
+      const boxPembahasan = document.getElementById('wadah-pembahasan-langsung');
+      const badgeStatus = document.getElementById('badge-status-jawaban-langsung');
+      const labelKunci = document.getElementById('label-kunci-teks');
+      const teksPenjelasan = document.getElementById('teks-penjelasan-langsung');
+      const wadahKamus = document.getElementById('wadah-tautan-kamus-langsung');
+
+      if (boxPembahasan) {
+        boxPembahasan.classList.remove('d-none');
+        animasi.pop(boxPembahasan);
+      }
+
+      if (badgeStatus) {
+        if (isBenar) {
+          badgeStatus.className = 'badge bg-success text-white border border-dark fs-6 px-3 py-1';
+          badgeStatus.textContent = `✅ Jawaban Benar! (+${bobotPoin} pt)`;
+        } else if (pilihanIndex === -1) {
+          badgeStatus.className = 'badge bg-secondary text-white border border-dark fs-6 px-3 py-1';
+          badgeStatus.textContent = `⏱️ Waktu Habis!`;
+        } else {
+          badgeStatus.className = 'badge bg-danger text-white border border-dark fs-6 px-3 py-1';
+          badgeStatus.textContent = `❌ Jawaban Kurang Tepat`;
+        }
+      }
+
+      const hurufKunci = ['A', 'B', 'C', 'D'][idxKunci] || '';
+      const teksKunci = (soal.opsi && soal.opsi[idxKunci]) ? `${hurufKunci ? hurufKunci + '. ' : ''}${soal.opsi[idxKunci]}` : (kunciRaw || 'Kunci Jawaban');
+      if (labelKunci) {
+        labelKunci.textContent = `Kunci: ${teksKunci}`;
+      }
+
+      if (teksPenjelasan) {
+        teksPenjelasan.textContent = soal.penjelasan || 'Pembahasan materi pembelajaran IPAS.';
+      }
+
+      if (wadahKamus) {
+        wadahKamus.innerHTML = '';
+        if (soal.kamus_id) {
+          try {
+            const entri = await kamusManager.ambilKamusById(soal.kamus_id);
+            if (entri) {
+              wadahKamus.innerHTML = `
+                <div class="mt-2 p-2 bg-light rounded-2 border border-dark small">
+                  <strong>📚 Istilah Kamus:</strong> <span class="badge bg-warning text-dark border border-dark">${entri.istilah}</span> - ${entri.definisi}
+                </div>
+              `;
+            }
+          } catch(e) {}
+        }
+      }
+
+      // Aktifkan tombol Lanjut
+      const btnLanjut = document.getElementById('btn-lanjut-soal-langsung');
+      if (btnLanjut) {
+        btnLanjut.disabled = false;
+        animasi.pop(btnLanjut);
+      }
+
+      umumkanAria(isBenar ? `Benar! Poin bertambah ${bobotPoin}` : `Kurang tepat. Kunci jawaban adalah ${teksKunci}`);
+    }
+
+    // Selesaikan Sesi Mode Mulai Langsung
+    async function selesaikanSesiLangsung() {
+      await sesiManager.perbaruiStatusSesi(sesi.id, 'selesai');
+
+      const totalSoal = Math.max(statsLangsung.total, daftarSoal.length || 1);
+      const persen = Math.round((statsLangsung.benar / totalSoal) * 100);
+
+      const elPersen = document.getElementById('hasil-persen-langsung');
+      const elBenar = document.getElementById('hasil-benar-langsung');
+      const elSalah = document.getElementById('hasil-salah-langsung');
+      const elPoin = document.getElementById('hasil-poin-langsung');
+      const rekapLangsung = document.getElementById('rekap-nilai-langsung');
+
+      if (elPersen) elPersen.textContent = persen + '%';
+      if (elBenar) elBenar.textContent = statsLangsung.benar;
+      if (elSalah) elSalah.textContent = statsLangsung.salah;
+      if (elPoin) elPoin.textContent = statsLangsung.poin + ' pt';
+      if (rekapLangsung) rekapLangsung.classList.remove('d-none');
+
+      const judulAkhir = document.getElementById('judul-hasil-akhir');
+      const subjudulAkhir = document.getElementById('subjudul-hasil-akhir');
+      if (judulAkhir) judulAkhir.textContent = 'Kuis Kelas Selesai! 🎉';
+      if (subjudulAkhir) {
+        subjudulAkhir.textContent = `Kelas berhasil menjawab ${statsLangsung.benar} dari ${totalSoal} soal dengan capaian ${persen}%.`;
+      }
+
+      gantiTampilan(viewHasilAkhir);
+      cetusKonfeti();
+      suara.mainkan('selesai');
+      umumkanAria(`Sesi kuis langsung selesai! Nilai kelas ${persen} persen.`);
+    }
+
+    // Tombol Mulai Langsung dari Lobi (Fallback bila siswa tidak ada HP)
+    const btnLobiLangsung = document.getElementById('btn-mulai-langsung-lobi');
+    if (btnLobiLangsung) {
+      btnLobiLangsung.addEventListener('click', async () => {
+        isModeLangsung = true;
+        const badge = document.getElementById('badge-mode-sesi');
+        if (badge) {
+          badge.textContent = '🖥️ Mode Mulai Langsung (Tanpa HP Siswa)';
+          badge.className = 'badge bg-success text-white border border-dark rounded-pill px-3 py-2 fs-6';
+        }
+        await mulaiSoal(0);
+      });
+    }
+
+    // Tombol Lanjut Soal Mode Langsung
+    const btnLanjutLangsung = document.getElementById('btn-lanjut-soal-langsung');
+    if (btnLanjutLangsung) {
+      btnLanjutLangsung.addEventListener('click', async () => {
+        if (soalAktifIndex + 1 < daftarSoal.length) {
+          await mulaiSoal(soalAktifIndex + 1);
+        } else {
+          await selesaikanSesiLangsung();
+        }
+      });
+    }
+
+    // Navigasi Keyboard untuk Mode Mulai Langsung (1-4 atau A-D)
+    window.addEventListener('keydown', (e) => {
+      if (!isModeLangsung || sudahDijawabLangsung || viewSoal.classList.contains('d-none')) return;
+      const key = e.key.toUpperCase();
+      const mapKey = { '1': 0, '2': 1, '3': 2, '4': 3, 'A': 0, 'B': 1, 'C': 2, 'D': 3 };
+      if (mapKey[key] !== undefined) {
+        const targetIdx = mapKey[key];
+        const daftarElemenOpsi = document.querySelectorAll('#wadah-opsi-guru .opsi-jawaban');
+        if (daftarElemenOpsi[targetIdx]) {
+          pilihOpsiModeLangsung(targetIdx, daftarElemenOpsi[targetIdx], daftarSoal[soalAktifIndex]);
+        }
+      }
     });
 
     inisialisasiSesi();

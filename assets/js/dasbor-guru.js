@@ -1054,21 +1054,40 @@ function pasangEventListeners() {
     });
   }
 
-  // Konfirmasi Mulai Sesi Kelas
+  // Konfirmasi Mulai Sesi Kelas (Mulai Langsung vs Mulai Bersama)
   const btnMulaiSesi = document.getElementById('btn-konfirmasi-mulai');
+  const radiosJalur = document.querySelectorAll('input[name="jalurPelaksanaan"]');
+  radiosJalur.forEach(r => {
+    r.addEventListener('change', () => {
+      if (!btnMulaiSesi) return;
+      if (r.value === 'langsung') {
+        btnMulaiSesi.innerHTML = '▶ Mulai Langsung di Layar Ini →';
+        btnMulaiSesi.className = 'btn btn-kupas-hijau fw-bold px-4 py-2 smartboard-btn fs-6 shadow-sm';
+      } else {
+        btnMulaiSesi.innerHTML = '📱 Buka Lobi Sesi Siswa →';
+        btnMulaiSesi.className = 'btn btn-kupas-kuning fw-bold px-4 py-2 smartboard-btn fs-6 shadow-sm';
+      }
+    });
+  });
+
   if (btnMulaiSesi) {
     btnMulaiSesi.addEventListener('click', async () => {
-      const mode = document.querySelector('input[name="modePermainan"]:checked').value;
-      const pengali = parseFloat(document.getElementById('pengaliWaktu').value) || 1.0;
+      const mode = document.querySelector('input[name="modePermainan"]:checked')?.value || 'custom';
+      const pengali = parseFloat(document.getElementById('pengaliWaktu')?.value) || 1.0;
+      const jalur = document.querySelector('input[name="jalurPelaksanaan"]:checked')?.value || 'langsung';
       btnMulaiSesi.disabled = true;
-      btnMulaiSesi.textContent = 'Membuat Sesi...';
+      btnMulaiSesi.textContent = 'Menyiapkan Kuis...';
       try {
         const targetId = state.kuisTerpilihId || state.data?.daftarKuis[0]?.id || 'kuis-ekosistem-1';
         const sesi = await sesiManager.buatSesi(targetId, state.guruAktif.id, mode, pengali);
-        window.location.href = `sesi.html?kode=${sesi.kode}`;
+        if (jalur === 'langsung') {
+          window.location.href = `sesi.html?kode=${sesi.kode}&langsung=1`;
+        } else {
+          window.location.href = `sesi.html?kode=${sesi.kode}`;
+        }
       } catch (err) {
         btnMulaiSesi.disabled = false;
-        btnMulaiSesi.textContent = 'Buka Lobi Sesi →';
+        btnMulaiSesi.textContent = jalur === 'langsung' ? '▶ Mulai Langsung di Layar Ini →' : '📱 Buka Lobi Sesi Siswa →';
         alert('Gagal membuat sesi: ' + err.message);
       }
     });
