@@ -1,0 +1,25 @@
+{
+  "name": "kupas",
+  "version": "1.0.0",
+  "description": "Aplikasi web kuis interaktif IPAS (Ilmu Pengetahuan Alam dan Sosial) untuk siswa kelas V SD dengan materi **Ekosistem dan Rantai Makanan**.",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adamsenin/Upas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Adamsenin/Upas/issues"
+  },
+  "homepage": "https://github.com/Adamsenin/Upas#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6"
+  }
+}

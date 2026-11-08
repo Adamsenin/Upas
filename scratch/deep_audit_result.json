@@ -1,0 +1,3805 @@
+[
+  {
+    "relPath": ".test_profile_kamus/Crashpad/metadata",
+    "basename": "metadata",
+    "ext": "",
+    "isProdFile": false,
+    "prodRefCount": 3,
+    "prodRefs": [
+      "assets/js/dasbor-guru.js",
+      "assets/js/sertifikat.js",
+      "assets/js/supabase.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_mulai_langsung_cdp.js"
+    ]
+  },
+  {
+    "relPath": ".test_profile_kamus/Crashpad/settings.dat",
+    "basename": "settings.dat",
+    "ext": ".dat",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": ".test_profile_kamus/Local State",
+    "basename": "Local State",
+    "ext": "",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": ".test_profile_kamus/Variations",
+    "basename": "Variations",
+    "ext": "",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": ".test_profile_kamus/VariationsSafeSeedV2",
+    "basename": "VariationsSafeSeedV2",
+    "ext": "",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": ".test_profile_kamus/VariationsSeedV2",
+    "basename": "VariationsSeedV2",
+    "ext": "",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "404.html",
+    "basename": "404.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/clean_script_emojis.js",
+      "verify_all.py"
+    ]
+  },
+  {
+    "relPath": "adventure.html",
+    "basename": "adventure.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/js/ui.js",
+      "index.html"
+    ],
+    "scratchRefCount": 18,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_final_tahap3.js",
+      "scratch/capture_adventure_screenshots.js",
+      "scratch/capture_faseA_screenshots.js",
+      "scratch/debug_page.js",
+      "scratch/investigate_review1.js",
+      "scratch/reproduce_adventure_bugs.js",
+      "scratch/take_ingame_screenshot.js",
+      "scratch/take_screenshot.js",
+      "scratch/test_adventure_cdp.js",
+      "scratch/test_browser_deep.js",
+      "scratch/test_bugs_after_fix.js",
+      "scratch/test_bugs_before_fix.js",
+      "scratch/test_gate_detail.js",
+      "scratch/test_new_adventure.js",
+      "scratch/test_review1_comprehensive.js",
+      "scratch/test_review2_comprehensive.js",
+      "scratch/update_ui_adventure.js"
+    ]
+  },
+  {
+    "relPath": "assets/audio/butterfly-catcher-bgm.mp3",
+    "basename": "butterfly-catcher-bgm.mp3",
+    "ext": ".mp3",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "butterfly-catcher.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_bgm_integration.js"
+    ]
+  },
+  {
+    "relPath": "assets/css/adventure-platformer.css",
+    "basename": "adventure-platformer.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/css/animasi.css",
+    "basename": "animasi.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 16,
+    "prodRefs": [
+      "404.html",
+      "duel-tim.html",
+      "fakta-opini.html",
+      "gabung.html",
+      "guru/dasbor.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "index.html",
+      "kamus-belajar.html",
+      "PRD.md",
+      "rantai-makanan.html",
+      "sertifikat.html",
+      "siklus-air.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/css/beranda-pulau.css",
+    "basename": "beranda-pulau.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "index.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/css/dasbor-saas-guru.css",
+    "basename": "dasbor-saas-guru.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 5,
+    "prodRefs": [
+      "guru/dasbor.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/execute_ui_ux_revamp.js"
+    ]
+  },
+  {
+    "relPath": "assets/css/duel-tim.css",
+    "basename": "duel-tim.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "duel-tim.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/css/fonts.css",
+    "basename": "fonts.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "index.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/download_fonts.js"
+    ]
+  },
+  {
+    "relPath": "assets/css/komponen.css",
+    "basename": "komponen.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 16,
+    "prodRefs": [
+      "404.html",
+      "duel-tim.html",
+      "fakta-opini.html",
+      "gabung.html",
+      "guru/dasbor.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "index.html",
+      "kamus-belajar.html",
+      "PRD.md",
+      "rantai-makanan.html",
+      "sertifikat.html",
+      "siklus-air.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 5,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/update_komponen.js",
+      "scratch/update_komponen_activities.py",
+      "scratch/update_komponen_teacher.py",
+      "scratch/update_siswa.py"
+    ]
+  },
+  {
+    "relPath": "assets/css/latar-hidup.css",
+    "basename": "latar-hidup.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 14,
+    "prodRefs": [
+      "404.html",
+      "duel-tim.html",
+      "fakta-opini.html",
+      "gabung.html",
+      "guru/dasbor.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "kamus-belajar.html",
+      "rantai-makanan.html",
+      "sertifikat.html",
+      "siklus-air.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/css/petualangan-siswa.css",
+    "basename": "petualangan-siswa.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 7,
+    "prodRefs": [
+      "fakta-opini.html",
+      "gabung.html",
+      "kamus-belajar.html",
+      "rantai-makanan.html",
+      "sertifikat.html",
+      "siklus-air.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/execute_ui_ux_revamp.js"
+    ]
+  },
+  {
+    "relPath": "assets/css/tema.css",
+    "basename": "tema.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 17,
+    "prodRefs": [
+      "404.html",
+      "assets/css/token-nusantara.css",
+      "duel-tim.html",
+      "fakta-opini.html",
+      "gabung.html",
+      "guru/dasbor.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "index.html",
+      "kamus-belajar.html",
+      "PRD.md",
+      "rantai-makanan.html",
+      "sertifikat.html",
+      "siklus-air.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 4,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/fix_sesi_and_font.py",
+      "scratch/update_tema.js",
+      "scratch/update_tema_btn_close.py"
+    ]
+  },
+  {
+    "relPath": "assets/css/token-nusantara.css",
+    "basename": "token-nusantara.css",
+    "ext": ".css",
+    "isProdFile": true,
+    "prodRefCount": 6,
+    "prodRefs": [
+      "assets/css/dasbor-saas-guru.css",
+      "assets/css/petualangan-siswa.css",
+      "assets/css/tema.css",
+      "duel-tim.html",
+      "index.html",
+      "qr.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/update_tema.js"
+    ]
+  },
+  {
+    "relPath": "assets/data/adventure-manifest.json",
+    "basename": "adventure-manifest.json",
+    "ext": ".json",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/fonts/atkinson-hyperlegible-400-normal.woff2",
+    "basename": "atkinson-hyperlegible-400-normal.woff2",
+    "ext": ".woff2",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/css/fonts.css"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/fonts/atkinson-hyperlegible-700-normal.woff2",
+    "basename": "atkinson-hyperlegible-700-normal.woff2",
+    "ext": ".woff2",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/css/fonts.css"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/fonts/grandstander-600-normal.woff2",
+    "basename": "grandstander-600-normal.woff2",
+    "ext": ".woff2",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/css/fonts.css"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/fonts/grandstander-700-normal.woff2",
+    "basename": "grandstander-700-normal.woff2",
+    "ext": ".woff2",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/css/fonts.css"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/fonts/grandstander-800-normal.woff2",
+    "basename": "grandstander-800-normal.woff2",
+    "ext": ".woff2",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/css/fonts.css"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/images/adventure/bg-sky.png",
+    "basename": "bg-sky.png",
+    "ext": ".png",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/data/adventure-manifest.json",
+      "assets/js/adventure-env-config.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/generate_adventure_assets.js"
+    ]
+  },
+  {
+    "relPath": "assets/images/adventure/bg-trees.png",
+    "basename": "bg-trees.png",
+    "ext": ".png",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/data/adventure-manifest.json",
+      "assets/js/adventure-env-config.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/generate_adventure_assets.js"
+    ]
+  },
+  {
+    "relPath": "assets/images/adventure/character-aliya.png",
+    "basename": "character-aliya.png",
+    "ext": ".png",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/data/adventure-manifest.json",
+      "assets/js/adventure-character-config.js"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/images/adventure/character-rara.png",
+    "basename": "character-rara.png",
+    "ext": ".png",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/generate_character_spritesheets.js"
+    ]
+  },
+  {
+    "relPath": "assets/images/adventure/character-spritesheet.png",
+    "basename": "character-spritesheet.png",
+    "ext": ".png",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/data/adventure-manifest.json",
+      "assets/js/adventure-character-config.js"
+    ],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/generate_adventure_assets.js",
+      "scratch/generate_character_spritesheets.js"
+    ]
+  },
+  {
+    "relPath": "assets/images/adventure/level1-banner.png",
+    "basename": "level1-banner.png",
+    "ext": ".png",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/data/adventure-manifest.json",
+      "assets/js/adventure-env-config.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/generate_adventure_assets.js"
+    ]
+  },
+  {
+    "relPath": "assets/images/adventure/tileset-grassland.png",
+    "basename": "tileset-grassland.png",
+    "ext": ".png",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/data/adventure-manifest.json",
+      "assets/js/adventure-env-config.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/generate_adventure_assets.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-audio.js",
+    "basename": "adventure-audio.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-platformer.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_worlds_engine.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-camera.js",
+    "basename": "adventure-camera.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-platformer.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_mario_engine.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-character-config.js",
+    "basename": "adventure-character-config.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/data/adventure-manifest.json",
+      "assets/js/adventure-platformer.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_integration.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-entities.js",
+    "basename": "adventure-entities.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-platformer.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_mario_engine.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-env-config.js",
+    "basename": "adventure-env-config.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/data/adventure-manifest.json"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_integration.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-level1-data.js",
+    "basename": "adventure-level1-data.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-worlds-data.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_mario_engine.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-parallax.js",
+    "basename": "adventure-parallax.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-platformer.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_worlds_engine.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-physics.js",
+    "basename": "adventure-physics.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-platformer.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_mario_engine.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-platformer.js",
+    "basename": "adventure-platformer.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/apply_platformer_guards.js",
+      "scratch/test_adventure_integration.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-questions-data.js",
+    "basename": "adventure-questions-data.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-worlds-data.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_worlds_engine.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-questions.js",
+    "basename": "adventure-questions.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-platformer.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_mario_engine.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/adventure-worlds-data.js",
+    "basename": "adventure-worlds-data.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-platformer.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_adventure_worlds_engine.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/animasi.js",
+    "basename": "animasi.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 12,
+    "prodRefs": [
+      "assets/js/beranda-peta.js",
+      "assets/js/fakta-opini.js",
+      "assets/js/rantai-makanan.js",
+      "assets/js/ui.js",
+      "gabung.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "kamus-belajar.html",
+      "PRD.md",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/js/auth.js",
+    "basename": "auth.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 9,
+    "prodRefs": [
+      "assets/js/beranda-peta.js",
+      "assets/js/dasbor-guru.js",
+      "assets/js/kamus.js",
+      "gabung.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "PRD.md"
+    ],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/verify_all_settings.py",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "assets/js/beranda-peta.js",
+    "basename": "beranda-peta.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "index.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/js/config.js",
+    "basename": "config.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 6,
+    "prodRefs": [
+      "assets/data/adventure-manifest.json",
+      "assets/js/adventure-character-config.js",
+      "assets/js/adventure-env-config.js",
+      "assets/js/adventure-platformer.js",
+      "assets/js/supabase.js",
+      "README.md"
+    ],
+    "scratchRefCount": 13,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/check_col_probes.js",
+      "scratch/check_soal_spec.js",
+      "scratch/list_spec.js",
+      "scratch/test_adaptive_full.js",
+      "scratch/test_adaptive_insert.js",
+      "scratch/test_adaptive_robust.js",
+      "scratch/test_adventure_integration.js",
+      "scratch/test_cols.js",
+      "scratch/test_live_cloud_complete.js",
+      "scratch/test_real_import_cloud.js",
+      "scratch/test_real_supabase_client.js",
+      "scratch/test_supabase_cloud.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/dasbor-guru.js",
+    "basename": "dasbor-guru.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "guru/dasbor.html"
+    ],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/update_dasbor.py",
+      "scratch/update_dasbor_imports.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/duel-tim.js",
+    "basename": "duel-tim.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "duel-tim.html"
+    ],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/patch_duel.py",
+      "scratch/patch_duel_soal.py"
+    ]
+  },
+  {
+    "relPath": "assets/js/fakta-opini.js",
+    "basename": "fakta-opini.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "fakta-opini.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/patch_fakta.py"
+    ]
+  },
+  {
+    "relPath": "assets/js/kamus.js",
+    "basename": "kamus.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 4,
+    "prodRefs": [
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/sesi.html",
+      "kamus-belajar.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "assets/js/konfigurasi.js",
+    "basename": "konfigurasi.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 6,
+    "prodRefs": [
+      "assets/js/auth.js",
+      "assets/js/dasbor-guru.js",
+      "assets/js/ui.js",
+      "guru/dasbor.html",
+      "guru/sesi.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 6,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/fix_konfigurasi.py",
+      "scratch/fix_modal_design.py",
+      "scratch/patch_konfigurasi.py",
+      "scratch/patch_siswa.py",
+      "scratch/update_dasbor.py"
+    ]
+  },
+  {
+    "relPath": "assets/js/kuis.js",
+    "basename": "kuis.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 5,
+    "prodRefs": [
+      "assets/js/dasbor-guru.js",
+      "guru/editor.html",
+      "guru/sesi.html",
+      "PRD.md",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 13,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/apply_kuis_regex.js",
+      "scratch/find_syntax_error.js",
+      "scratch/fix_brace.js",
+      "scratch/fix_brace_crlf.js",
+      "scratch/patch_siswa.py",
+      "scratch/run_import_verification.js",
+      "scratch/test_actual_import_reproduce.js",
+      "scratch/test_bank_soal_integration.js",
+      "scratch/test_full_cloud_import.js",
+      "scratch/test_live_cloud_complete.js",
+      "scratch/update_dasbor_imports.js",
+      "scratch/update_kuis_robust.js"
+    ]
+  },
+  {
+    "relPath": "assets/js/latar-hidup.js",
+    "basename": "latar-hidup.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 14,
+    "prodRefs": [
+      "404.html",
+      "duel-tim.html",
+      "fakta-opini.html",
+      "gabung.html",
+      "guru/dasbor.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "kamus-belajar.html",
+      "rantai-makanan.html",
+      "sertifikat.html",
+      "siklus-air.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/js/rantai-makanan.js",
+    "basename": "rantai-makanan.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "rantai-makanan.html"
+    ],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/clean_emojis.js",
+      "scratch/patch_rantai.py"
+    ]
+  },
+  {
+    "relPath": "assets/js/sertifikat.js",
+    "basename": "sertifikat.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "sertifikat.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/js/sesi.js",
+    "basename": "sesi.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 5,
+    "prodRefs": [
+      "assets/js/dasbor-guru.js",
+      "guru/editor.html",
+      "guru/sesi.html",
+      "PRD.md",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/check_syntax.js",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "assets/js/siklus-air.js",
+    "basename": "siklus-air.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "siklus-air.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/js/supabase.js",
+    "basename": "supabase.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 12,
+    "prodRefs": [
+      "assets/js/auth.js",
+      "assets/js/dasbor-guru.js",
+      "assets/js/duel-tim.js",
+      "assets/js/fakta-opini.js",
+      "assets/js/kamus.js",
+      "assets/js/kuis.js",
+      "assets/js/rantai-makanan.js",
+      "assets/js/sertifikat.js",
+      "assets/js/sesi.js",
+      "assets/js/siklus-air.js",
+      "PRD.md",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 5,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_actual_import_reproduce.js",
+      "scratch/test_bank_soal_integration.js",
+      "scratch/test_full_cloud_import.js",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "assets/js/ui.js",
+    "basename": "ui.js",
+    "ext": ".js",
+    "isProdFile": true,
+    "prodRefCount": 17,
+    "prodRefs": [
+      "404.html",
+      "assets/js/beranda-peta.js",
+      "assets/js/dasbor-guru.js",
+      "assets/js/duel-tim.js",
+      "assets/js/fakta-opini.js",
+      "assets/js/rantai-makanan.js",
+      "assets/js/sertifikat.js",
+      "assets/js/siklus-air.js",
+      "gabung.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "index.html",
+      "kamus-belajar.html",
+      "PRD.md",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 5,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/update_dasbor.py",
+      "scratch/update_ui.py",
+      "scratch/update_ui_adventure.js",
+      "scratch/update_ui_sidebar.js"
+    ]
+  },
+  {
+    "relPath": "assets/svg/avatar-1.svg",
+    "basename": "avatar-1.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 11,
+    "prodRefs": [
+      "assets/js/auth.js",
+      "assets/js/dasbor-guru.js",
+      "assets/js/kuis.js",
+      "assets/js/supabase.js",
+      "gabung.html",
+      "guru/sesi.html",
+      "siswa/main.html",
+      "supabase/migrations/20261029_dasbor_guru_profesional.sql",
+      "supabase/migrations/20261101_perbaikan_akses_dan_kamus.sql",
+      "supabase/migrations/20261101_perbaikan_bank_soal.sql",
+      "supabase/migrations/20261101_sesi_dan_kode_realtime.sql"
+    ],
+    "scratchRefCount": 6,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/apply_kuis_otomatis.py",
+      "scratch/test_acak_jawaban.py",
+      "scratch/test_syntax_sesi.js",
+      "scratch/verify_all_settings.py",
+      "scratch/verify_kuis_otomatis.py"
+    ]
+  },
+  {
+    "relPath": "assets/svg/avatar-2.svg",
+    "basename": "avatar-2.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/js/supabase.js",
+      "gabung.html"
+    ],
+    "scratchRefCount": 4,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_acak_jawaban.py",
+      "scratch/verify_all_settings.py",
+      "scratch/verify_kuis_otomatis.py"
+    ]
+  },
+  {
+    "relPath": "assets/svg/avatar-3.svg",
+    "basename": "avatar-3.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/js/supabase.js",
+      "gabung.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/verify_all_settings.py"
+    ]
+  },
+  {
+    "relPath": "assets/svg/avatar-4.svg",
+    "basename": "avatar-4.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/js/supabase.js",
+      "gabung.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/svg/maskot-berpikir.svg",
+    "basename": "maskot-berpikir.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 7,
+    "prodRefs": [
+      "assets/js/beranda-peta.js",
+      "assets/js/dasbor-guru.js",
+      "assets/js/rantai-makanan.js",
+      "assets/js/ui.js",
+      "gabung.html",
+      "guru/masuk.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/svg/maskot-bersorak.svg",
+    "basename": "maskot-bersorak.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 9,
+    "prodRefs": [
+      "assets/js/beranda-peta.js",
+      "assets/js/fakta-opini.js",
+      "duel-tim.html",
+      "gabung.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "kamus-belajar.html",
+      "sertifikat.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/apply_kuis_otomatis.py"
+    ]
+  },
+  {
+    "relPath": "assets/svg/maskot-bingung.svg",
+    "basename": "maskot-bingung.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 3,
+    "prodRefs": [
+      "404.html",
+      "assets/js/rantai-makanan.js",
+      "guru/masuk.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/svg/maskot-sedih-menyemangati.svg",
+    "basename": "maskot-sedih-menyemangati.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 6,
+    "prodRefs": [
+      "assets/js/beranda-peta.js",
+      "assets/js/fakta-opini.js",
+      "assets/js/rantai-makanan.js",
+      "assets/js/ui.js",
+      "gabung.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/apply_kuis_otomatis.py"
+    ]
+  },
+  {
+    "relPath": "assets/svg/maskot-semangat.svg",
+    "basename": "maskot-semangat.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 9,
+    "prodRefs": [
+      "assets/js/beranda-peta.js",
+      "assets/js/fakta-opini.js",
+      "assets/js/rantai-makanan.js",
+      "fakta-opini.html",
+      "gabung.html",
+      "kamus-belajar.html",
+      "rantai-makanan.html",
+      "siklus-air.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/patch_fakta.py"
+    ]
+  },
+  {
+    "relPath": "assets/svg/maskot-senang.svg",
+    "basename": "maskot-senang.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 9,
+    "prodRefs": [
+      "assets/js/beranda-peta.js",
+      "assets/js/fakta-opini.js",
+      "assets/js/rantai-makanan.js",
+      "assets/js/ui.js",
+      "gabung.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "index.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "assets/svg/peta-petualangan.svg",
+    "basename": "peta-petualangan.svg",
+    "ext": ".svg",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "guru/sesi.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "butterfly-catcher.html",
+    "basename": "butterfly-catcher.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 2,
+    "prodRefs": [
+      "assets/js/ui.js",
+      "index.html"
+    ],
+    "scratchRefCount": 4,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_final_tahap3.js",
+      "scratch/test_bgm_integration.js",
+      "scratch/test_butterfly_catcher.js"
+    ]
+  },
+  {
+    "relPath": "design-system/kupas-kuis-ipas/MASTER.md",
+    "basename": "MASTER.md",
+    "ext": ".md",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "duel-tim.html",
+    "basename": "duel-tim.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 4,
+    "prodRefs": [
+      "assets/css/duel-tim.css",
+      "assets/js/ui.js",
+      "index.html",
+      "qr.html"
+    ],
+    "scratchRefCount": 8,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_final_tahap3.js",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/clean_script_emojis.js",
+      "scratch/patch_simple_cdp.py",
+      "scratch/run_test_acak_complete.py",
+      "scratch/test_acak_jawaban.py"
+    ]
+  },
+  {
+    "relPath": "fakta-opini.html",
+    "basename": "fakta-opini.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 3,
+    "prodRefs": [
+      "assets/js/sertifikat.js",
+      "assets/js/ui.js",
+      "index.html"
+    ],
+    "scratchRefCount": 8,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_final_tahap3.js",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/patch_simple_cdp.py",
+      "scratch/run_test_acak_complete.py",
+      "scratch/test_acak_jawaban.py"
+    ]
+  },
+  {
+    "relPath": "gabung.html",
+    "basename": "gabung.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 8,
+    "prodRefs": [
+      "404.html",
+      "assets/js/sertifikat.js",
+      "assets/js/ui.js",
+      "guru/sesi.html",
+      "index.html",
+      "PRD.md",
+      "qr.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 12,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_final_tahap3.js",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/run_test_acak_complete.py",
+      "scratch/update_gabung.py",
+      "scratch/update_ui_adventure.js",
+      "scratch/update_ui_sidebar.js",
+      "scratch/verify_all_settings.py",
+      "scratch/verify_kuis_otomatis_v2.py",
+      "verify_all.py"
+    ]
+  },
+  {
+    "relPath": "guru/dasbor.html",
+    "basename": "dasbor.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 9,
+    "prodRefs": [
+      "assets/js/beranda-peta.js",
+      "assets/js/ui.js",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "index.html",
+      "PRD.md",
+      "qr.html"
+    ],
+    "scratchRefCount": 18,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/clean_emojis.js",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/run_test_acak_complete.py",
+      "scratch/take_modal_screenshot.py",
+      "scratch/test_mulai_langsung_cdp.js",
+      "scratch/test_syntax_sesi.js",
+      "scratch/update_dasbor.py",
+      "scratch/update_dasbor_guru_layout.js",
+      "scratch/update_dasbor_imports.js",
+      "scratch/update_ui_sidebar.js",
+      "scratch/verify_all_settings.py",
+      "scratch/verify_kuis_otomatis.py",
+      "scratch/verify_kuis_otomatis_v2.py",
+      "verify_all.py",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "guru/editor.html",
+    "basename": "editor.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 4,
+    "prodRefs": [
+      "assets/js/dasbor-guru.js",
+      "assets/js/ui.js",
+      "guru/dasbor.html",
+      "PRD.md"
+    ],
+    "scratchRefCount": 11,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/clean_script_emojis.js",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/fix_modals.js",
+      "scratch/update_editor.py",
+      "scratch/update_ui_sidebar.js",
+      "scratch/validate_scripts.js",
+      "verify_all.py",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "guru/kamus.html",
+    "basename": "kamus.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 3,
+    "prodRefs": [
+      "assets/js/ui.js",
+      "guru/dasbor.html",
+      "PRD.md"
+    ],
+    "scratchRefCount": 7,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/fix_modals.js",
+      "scratch/update_ui_sidebar.js",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "guru/masuk.html",
+    "basename": "masuk.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 5,
+    "prodRefs": [
+      "assets/js/auth.js",
+      "assets/js/beranda-peta.js",
+      "assets/js/dasbor-guru.js",
+      "assets/js/ui.js",
+      "PRD.md"
+    ],
+    "scratchRefCount": 6,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/update_ui_sidebar.js",
+      "verify_all.py"
+    ]
+  },
+  {
+    "relPath": "guru/sesi.html",
+    "basename": "sesi.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 4,
+    "prodRefs": [
+      "assets/js/dasbor-guru.js",
+      "assets/js/ui.js",
+      "guru/editor.html",
+      "PRD.md"
+    ],
+    "scratchRefCount": 20,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/apply_kuis_otomatis.py",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/check_syntax.js",
+      "scratch/clean_script_emojis.js",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/fix_sesi_and_font.py",
+      "scratch/inspect_sesi_320.py",
+      "scratch/patch_simple_cdp.py",
+      "scratch/run_test_acak_complete.py",
+      "scratch/test_acak_jawaban.py",
+      "scratch/test_mulai_langsung_cdp.js",
+      "scratch/update_sesi_html.py",
+      "scratch/update_ui_sidebar.js",
+      "scratch/validate_scripts.js",
+      "scratch/verify_all_settings.py",
+      "scratch/verify_kuis_otomatis.py",
+      "scratch/verify_kuis_otomatis_v2.py",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "index.html",
+    "basename": "index.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 25,
+    "prodRefs": [
+      "404.html",
+      "adventure.html",
+      "assets/css/token-nusantara.css",
+      "assets/js/beranda-peta.js",
+      "assets/js/dasbor-guru.js",
+      "assets/js/duel-tim.js",
+      "assets/js/fakta-opini.js",
+      "assets/js/rantai-makanan.js",
+      "assets/js/sertifikat.js",
+      "assets/js/siklus-air.js",
+      "assets/js/ui.js",
+      "butterfly-catcher.html",
+      "duel-tim.html",
+      "fakta-opini.html",
+      "gabung.html",
+      "guru/editor.html",
+      "guru/kamus.html",
+      "guru/masuk.html",
+      "guru/sesi.html",
+      "kamus-belajar.html",
+      "PRD.md",
+      "qr.html",
+      "sertifikat.html",
+      "siklus-air.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 25,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_beranda_awal.js",
+      "scratch/audit_final_tahap3.js",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/check_container.py",
+      "scratch/check_min_h.py",
+      "scratch/check_overflow.js",
+      "scratch/debug_overflow.py",
+      "scratch/find_overflow.py",
+      "scratch/inspect_body_w.py",
+      "scratch/inspect_buku_jejak.js",
+      "scratch/inspect_row_width.py",
+      "scratch/test_beranda_viewports.py",
+      "scratch/test_butterfly_catcher.js",
+      "scratch/test_mobile_coords.js",
+      "scratch/test_mobile_overlap.js",
+      "scratch/test_syntax_sesi.js",
+      "scratch/update_dasbor.py",
+      "scratch/update_ui_adventure.js",
+      "scratch/update_ui_sidebar.js",
+      "scratch/verify_tahap2.js",
+      "scratch/verify_tahap3.js",
+      "verify_all.py",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "kamus-belajar.html",
+    "basename": "kamus-belajar.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 5,
+    "prodRefs": [
+      "assets/js/ui.js",
+      "index.html",
+      "PRD.md",
+      "qr.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 9,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_final_tahap3.js",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/update_kamus.py",
+      "scratch/update_ui_adventure.js",
+      "scratch/update_ui_sidebar.js",
+      "verify_kamus.py"
+    ]
+  },
+  {
+    "relPath": "PRD.md",
+    "basename": "PRD.md",
+    "ext": ".md",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "qr.html",
+    "basename": "qr.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "rantai-makanan.html",
+    "basename": "rantai-makanan.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 4,
+    "prodRefs": [
+      "assets/js/dasbor-guru.js",
+      "assets/js/sertifikat.js",
+      "assets/js/ui.js",
+      "index.html"
+    ],
+    "scratchRefCount": 5,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_final_tahap3.js",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/execute_ui_ux_revamp.js"
+    ]
+  },
+  {
+    "relPath": "README.md",
+    "basename": "README.md",
+    "ext": ".md",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "PRD.md"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/30_soal_ipas_kelas5.csv",
+    "basename": "30_soal_ipas_kelas5.csv",
+    "ext": ".csv",
+    "isProdFile": false,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/adventure-questions-data.js"
+    ],
+    "scratchRefCount": 6,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/run_import_verification.js",
+      "scratch/test_actual_import_reproduce.js",
+      "scratch/test_bank_soal_integration.js",
+      "scratch/test_full_cloud_import.js",
+      "scratch/test_live_cloud_complete.js"
+    ]
+  },
+  {
+    "relPath": "scratch/adventure_map_screenshot.png",
+    "basename": "adventure_map_screenshot.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/take_screenshot.js"
+    ]
+  },
+  {
+    "relPath": "scratch/aliya_frames/frame_0.png",
+    "basename": "frame_0.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/aliya_frames/frame_1.png",
+    "basename": "frame_1.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/aliya_frames/frame_2.png",
+    "basename": "frame_2.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/aliya_frames/frame_3.png",
+    "basename": "frame_3.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/aliya_frames/frame_4.png",
+    "basename": "frame_4.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/aliya_frames/frame_5.png",
+    "basename": "frame_5.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/aliya_frames/frame_6.png",
+    "basename": "frame_6.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/aliya_frames/frame_7.png",
+    "basename": "frame_7.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/aliya_frames/frame_8.png",
+    "basename": "frame_8.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/analysis_result.json",
+    "basename": "analysis_result.json",
+    "ext": ".json",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analyze_codebase_graph.js"
+    ]
+  },
+  {
+    "relPath": "scratch/analyze_codebase_graph.js",
+    "basename": "analyze_codebase_graph.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/apply_kuis_otomatis.py",
+    "basename": "apply_kuis_otomatis.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/apply_kuis_regex.js",
+    "basename": "apply_kuis_regex.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/apply_platformer_guards.js",
+    "basename": "apply_platformer_guards.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/audit_beranda_awal.js",
+    "basename": "audit_beranda_awal.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/audit_final_tahap3.js",
+    "basename": "audit_final_tahap3.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/audit_report_raw.json",
+    "basename": "audit_report_raw.json",
+    "ext": ".json",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_responsive.py",
+      "scratch/summarize_audit.py"
+    ]
+  },
+  {
+    "relPath": "scratch/audit_responsive.py",
+    "basename": "audit_responsive.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/patch_audit_send.py"
+    ]
+  },
+  {
+    "relPath": "scratch/capture_adventure_screenshots.js",
+    "basename": "capture_adventure_screenshots.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/capture_faseA_screenshots.js",
+    "basename": "capture_faseA_screenshots.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/check_col_probes.js",
+    "basename": "check_col_probes.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/check_container.py",
+    "basename": "check_container.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/check_inputs.py",
+    "basename": "check_inputs.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/check_min_h.py",
+    "basename": "check_min_h.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/check_overflow.js",
+    "basename": "check_overflow.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/check_soal_spec.js",
+    "basename": "check_soal_spec.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/check_steps.js",
+    "basename": "check_steps.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/check_syntax.js",
+    "basename": "check_syntax.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/clean_emojis.js",
+    "basename": "clean_emojis.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/clean_script_emojis.js",
+    "basename": "clean_script_emojis.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/debug_overflow.py",
+    "basename": "debug_overflow.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/debug_page.js",
+    "basename": "debug_page.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/debug_sertifikat_overflow.py",
+    "basename": "debug_sertifikat_overflow.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/deep_audit.js",
+    "basename": "deep_audit.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 0,
+    "scratchRefs": []
+  },
+  {
+    "relPath": "scratch/download_fonts.js",
+    "basename": "download_fonts.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/execute_ui_ux_revamp.js",
+    "basename": "execute_ui_ux_revamp.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/expose_window.py",
+    "basename": "expose_window.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/find_overflow.py",
+    "basename": "find_overflow.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/find_syntax_error.js",
+    "basename": "find_syntax_error.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/fix_brace.js",
+    "basename": "fix_brace.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/fix_brace_crlf.js",
+    "basename": "fix_brace_crlf.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/fix_konfigurasi.py",
+    "basename": "fix_konfigurasi.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/fix_modals.js",
+    "basename": "fix_modals.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/fix_modal_design.py",
+    "basename": "fix_modal_design.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/fix_sesi_and_font.py",
+    "basename": "fix_sesi_and_font.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/fix_siswa_timer.py",
+    "basename": "fix_siswa_timer.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/generate_adventure_assets.js",
+    "basename": "generate_adventure_assets.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/generate_character_spritesheets.js",
+    "basename": "generate_character_spritesheets.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/hasil_review2_lengkap.json",
+    "basename": "hasil_review2_lengkap.json",
+    "ext": ".json",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_review2_comprehensive.js"
+    ]
+  },
+  {
+    "relPath": "scratch/ingame_level1_screenshot.png",
+    "basename": "ingame_level1_screenshot.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/take_ingame_screenshot.js"
+    ]
+  },
+  {
+    "relPath": "scratch/inspect_1075.py",
+    "basename": "inspect_1075.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/inspect_body_w.py",
+    "basename": "inspect_body_w.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/inspect_buku_jejak.js",
+    "basename": "inspect_buku_jejak.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/inspect_compaction.py",
+    "basename": "inspect_compaction.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/inspect_last_steps.py",
+    "basename": "inspect_last_steps.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/inspect_row_width.py",
+    "basename": "inspect_row_width.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/inspect_sesi_320.py",
+    "basename": "inspect_sesi_320.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/investigate_review1.js",
+    "basename": "investigate_review1.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/list_spec.js",
+    "basename": "list_spec.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/modal_after_fix.png",
+    "basename": "modal_after_fix.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/take_modal_screenshot.py"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_audit_send.py",
+    "basename": "patch_audit_send.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_duel.py",
+    "basename": "patch_duel.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_duel_soal.py",
+    "basename": "patch_duel_soal.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_fakta.py",
+    "basename": "patch_fakta.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_konfigurasi.py",
+    "basename": "patch_konfigurasi.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_put.py",
+    "basename": "patch_put.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_rantai.py",
+    "basename": "patch_rantai.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_simple_cdp.py",
+    "basename": "patch_simple_cdp.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_siswa.py",
+    "basename": "patch_siswa.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_step1.py",
+    "basename": "patch_step1.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_test_duel_id.py",
+    "basename": "patch_test_duel_id.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_verify.py",
+    "basename": "patch_verify.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_verify_key.py",
+    "basename": "patch_verify_key.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_verify_last_question.py",
+    "basename": "patch_verify_last_question.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/patch_verify_score.py",
+    "basename": "patch_verify_score.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/reproduce_adventure_bugs.js",
+    "basename": "reproduce_adventure_bugs.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/run_import_verification.js",
+    "basename": "run_import_verification.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/run_test_acak_complete.py",
+    "basename": "run_test_acak_complete.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/patch_test_duel_id.py"
+    ]
+  },
+  {
+    "relPath": "scratch/sertifikat_desktop_1440.png",
+    "basename": "sertifikat_desktop_1440.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_sertifikat_visual.py"
+    ]
+  },
+  {
+    "relPath": "scratch/sertifikat_mobile_375.png",
+    "basename": "sertifikat_mobile_375.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_sertifikat_visual.py"
+    ]
+  },
+  {
+    "relPath": "scratch/sertifikat_nama_panjang.png",
+    "basename": "sertifikat_nama_panjang.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_sertifikat_visual.py"
+    ]
+  },
+  {
+    "relPath": "scratch/sertifikat_smartboard_1920.png",
+    "basename": "sertifikat_smartboard_1920.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/test_sertifikat_visual.py"
+    ]
+  },
+  {
+    "relPath": "scratch/simple_cdp.py",
+    "basename": "simple_cdp.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/summarize_audit.py",
+    "basename": "summarize_audit.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/take_ingame_screenshot.js",
+    "basename": "take_ingame_screenshot.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/take_modal_screenshot.py",
+    "basename": "take_modal_screenshot.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/take_screenshot.js",
+    "basename": "take_screenshot.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test.png",
+    "basename": "test.png",
+    "ext": ".png",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_acak_jawaban.py",
+    "basename": "test_acak_jawaban.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 3,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/patch_put.py",
+      "scratch/patch_simple_cdp.py"
+    ]
+  },
+  {
+    "relPath": "scratch/test_actual_import_reproduce.js",
+    "basename": "test_actual_import_reproduce.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_adaptive_full.js",
+    "basename": "test_adaptive_full.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_adaptive_insert.js",
+    "basename": "test_adaptive_insert.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_adaptive_robust.js",
+    "basename": "test_adaptive_robust.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_adventure_cdp.js",
+    "basename": "test_adventure_cdp.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_adventure_integration.js",
+    "basename": "test_adventure_integration.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_adventure_mario_engine.js",
+    "basename": "test_adventure_mario_engine.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_adventure_worlds_engine.js",
+    "basename": "test_adventure_worlds_engine.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_bank_soal_integration.js",
+    "basename": "test_bank_soal_integration.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_beranda_viewports.py",
+    "basename": "test_beranda_viewports.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_bgm_integration.js",
+    "basename": "test_bgm_integration.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_browser_deep.js",
+    "basename": "test_browser_deep.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_bugs_after_fix.js",
+    "basename": "test_bugs_after_fix.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_bugs_before_fix.js",
+    "basename": "test_bugs_before_fix.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_butterfly_catcher.js",
+    "basename": "test_butterfly_catcher.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_cdp.py",
+    "basename": "test_cdp.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_cols.js",
+    "basename": "test_cols.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_debug_import.js",
+    "basename": "test_debug_import.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_evaluasi_jawaban.js",
+    "basename": "test_evaluasi_jawaban.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_full_cloud_import.js",
+    "basename": "test_full_cloud_import.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_gate_detail.js",
+    "basename": "test_gate_detail.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_live_cloud_complete.js",
+    "basename": "test_live_cloud_complete.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_mobile_coords.js",
+    "basename": "test_mobile_coords.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_mobile_overlap.js",
+    "basename": "test_mobile_overlap.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_mulai_langsung_cdp.js",
+    "basename": "test_mulai_langsung_cdp.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_new_adventure.js",
+    "basename": "test_new_adventure.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_real_import_cloud.js",
+    "basename": "test_real_import_cloud.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_real_supabase_client.js",
+    "basename": "test_real_supabase_client.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_review1_comprehensive.js",
+    "basename": "test_review1_comprehensive.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_review2_comprehensive.js",
+    "basename": "test_review2_comprehensive.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_sertifikat_visual.py",
+    "basename": "test_sertifikat_visual.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_settings_full.py",
+    "basename": "test_settings_full.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_supabase_cloud.js",
+    "basename": "test_supabase_cloud.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_svg_canvas.py",
+    "basename": "test_svg_canvas.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/test_syntax_sesi.js",
+    "basename": "test_syntax_sesi.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/check_syntax.js"
+    ]
+  },
+  {
+    "relPath": "scratch/update_dasbor.py",
+    "basename": "update_dasbor.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_dasbor_guru_layout.js",
+    "basename": "update_dasbor_guru_layout.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_dasbor_imports.js",
+    "basename": "update_dasbor_imports.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_editor.py",
+    "basename": "update_editor.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_gabung.py",
+    "basename": "update_gabung.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_kamus.py",
+    "basename": "update_kamus.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_komponen.js",
+    "basename": "update_komponen.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_komponen_activities.py",
+    "basename": "update_komponen_activities.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_komponen_teacher.py",
+    "basename": "update_komponen_teacher.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_kuis_robust.js",
+    "basename": "update_kuis_robust.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_sertifikat.py",
+    "basename": "update_sertifikat.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_sesi_html.py",
+    "basename": "update_sesi_html.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_siswa.py",
+    "basename": "update_siswa.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_tema.js",
+    "basename": "update_tema.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_tema_btn_close.py",
+    "basename": "update_tema_btn_close.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_ui.py",
+    "basename": "update_ui.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_ui_adventure.js",
+    "basename": "update_ui_adventure.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/update_ui_sidebar.js",
+    "basename": "update_ui_sidebar.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/validate_scripts.js",
+    "basename": "validate_scripts.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/verify_all_settings.py",
+    "basename": "verify_all_settings.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/verify_kuis_otomatis.py",
+    "basename": "verify_kuis_otomatis.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/verify_kuis_otomatis_v2.py",
+    "basename": "verify_kuis_otomatis_v2.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 5,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/patch_verify.py",
+      "scratch/patch_verify_key.py",
+      "scratch/patch_verify_last_question.py",
+      "scratch/patch_verify_score.py"
+    ]
+  },
+  {
+    "relPath": "scratch/verify_tahap2.js",
+    "basename": "verify_tahap2.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/verify_tahap3.js",
+    "basename": "verify_tahap3.js",
+    "ext": ".js",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "scratch/__pycache__/simple_cdp.cpython-311.pyc",
+    "basename": "simple_cdp.cpython-311.pyc",
+    "ext": ".pyc",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "sertifikat.html",
+    "basename": "sertifikat.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 6,
+    "prodRefs": [
+      "assets/css/komponen.css",
+      "assets/js/fakta-opini.js",
+      "assets/js/rantai-makanan.js",
+      "assets/js/ui.js",
+      "index.html",
+      "siswa/main.html"
+    ],
+    "scratchRefCount": 9,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_final_tahap3.js",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/clean_emojis.js",
+      "scratch/debug_sertifikat_overflow.py",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/test_sertifikat_visual.py",
+      "scratch/update_sertifikat.py"
+    ]
+  },
+  {
+    "relPath": "siklus-air.html",
+    "basename": "siklus-air.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 3,
+    "prodRefs": [
+      "assets/js/ui.js",
+      "index.html",
+      "qr.html"
+    ],
+    "scratchRefCount": 5,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/audit_final_tahap3.js",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/execute_ui_ux_revamp.js"
+    ]
+  },
+  {
+    "relPath": "siswa/main.html",
+    "basename": "main.html",
+    "ext": ".html",
+    "isProdFile": true,
+    "prodRefCount": 3,
+    "prodRefs": [
+      "assets/js/ui.js",
+      "gabung.html",
+      "PRD.md"
+    ],
+    "scratchRefCount": 17,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/apply_kuis_otomatis.py",
+      "scratch/audit_report_raw.json",
+      "scratch/audit_responsive.py",
+      "scratch/clean_script_emojis.js",
+      "scratch/execute_ui_ux_revamp.js",
+      "scratch/expose_window.py",
+      "scratch/fix_siswa_timer.py",
+      "scratch/patch_simple_cdp.py",
+      "scratch/patch_siswa.py",
+      "scratch/patch_step1.py",
+      "scratch/test_acak_jawaban.py",
+      "scratch/update_siswa.py",
+      "scratch/update_ui_sidebar.js",
+      "scratch/validate_scripts.js",
+      "scratch/verify_kuis_otomatis.py",
+      "verify_all.py"
+    ]
+  },
+  {
+    "relPath": "supabase/migrations/20261028_tabel_kamus.sql",
+    "basename": "20261028_tabel_kamus.sql",
+    "ext": ".sql",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "README.md"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "supabase/migrations/20261029_aktivitas_dan_sertifikat.sql",
+    "basename": "20261029_aktivitas_dan_sertifikat.sql",
+    "ext": ".sql",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "supabase/migrations/20261029_dasbor_guru_profesional.sql",
+    "basename": "20261029_dasbor_guru_profesional.sql",
+    "ext": ".sql",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "README.md"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "supabase/migrations/20261101_perbaikan_akses_dan_kamus.sql",
+    "basename": "20261101_perbaikan_akses_dan_kamus.sql",
+    "ext": ".sql",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "assets/js/kuis.js"
+    ],
+    "scratchRefCount": 2,
+    "scratchRefs": [
+      "scratch/analysis_result.json",
+      "scratch/update_kuis_robust.js"
+    ]
+  },
+  {
+    "relPath": "supabase/migrations/20261101_perbaikan_bank_soal.sql",
+    "basename": "20261101_perbaikan_bank_soal.sql",
+    "ext": ".sql",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "supabase/migrations/20261101_sesi_dan_kode_realtime.sql",
+    "basename": "20261101_sesi_dan_kode_realtime.sql",
+    "ext": ".sql",
+    "isProdFile": true,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "supabase/schema.sql",
+    "basename": "schema.sql",
+    "ext": ".sql",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "README.md"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "supabase/seed.sql",
+    "basename": "seed.sql",
+    "ext": ".sql",
+    "isProdFile": true,
+    "prodRefCount": 1,
+    "prodRefs": [
+      "README.md"
+    ],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "verify_all.py",
+    "basename": "verify_all.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "verify_kamus.py",
+    "basename": "verify_kamus.py",
+    "ext": ".py",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "__pycache__/debug_session.cpython-312.pyc",
+    "basename": "debug_session.cpython-312.pyc",
+    "ext": ".pyc",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  },
+  {
+    "relPath": "__pycache__/verify_all.cpython-312.pyc",
+    "basename": "verify_all.cpython-312.pyc",
+    "ext": ".pyc",
+    "isProdFile": false,
+    "prodRefCount": 0,
+    "prodRefs": [],
+    "scratchRefCount": 1,
+    "scratchRefs": [
+      "scratch/analysis_result.json"
+    ]
+  }
+]

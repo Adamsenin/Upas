@@ -7,6 +7,8 @@ import { pasangHeader, pasangPanelGamifikasi, suara, umumkanAria, gamifikasi } f
 import { animasi, TingkatGerak } from './animasi.js';
 import { auth } from './auth.js';
 
+const isReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches || (animasi && animasi.mode !== TingkatGerak.PENUH);
+
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Pasang Navigasi Global & Panel Gamifikasi Buku Jejak
   pasangHeader('umum', { berandaLink: 'index.html', rootAset: '' });

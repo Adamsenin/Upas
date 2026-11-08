@@ -1,845 +1,2468 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Adventure: Petualangan IPAS | KUPAS KUIS IPAS Kelas V SD</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Adventure: Super Mario Edukasi Rantai Makanan & Ekosistem | KUPAS</title>
+    <style>
+        /* Reset & Gaya Dasar */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-user-select: none;
+            font-family: 'Courier New', Courier, monospace;
+        }
 
-  <!-- Google Fonts: Plus Jakarta Sans & Fredoka -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+        body {
+            background: #0d0e14;
+            color: #ffffff;
+            overflow: hidden;
+        }
 
-  <!-- Bootstrap 5 & Stylesheet KUPAS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/token-nusantara.css">
-  <link rel="stylesheet" href="assets/css/komponen.css">
-  <link rel="stylesheet" href="assets/css/petualangan-siswa.css">
-  <link rel="stylesheet" href="assets/css/adventure-platformer.css">
+        /* Kontainer Utama Game - Fullscreen Dinamis dengan Letterboxing 16:9 Anti-Distorsi */
+        #game-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            background: #0d0e14;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            aspect-ratio: 16 / 9;
+            max-width: 100vw;
+            max-height: 100dvh;
+            background: #5c94fc;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.85);
+        }
+
+        /* Layar Peringatan Orientasi Potret (Hanya Aktif di Mobile/Tablet via Class JS) */
+        #orientation-overlay {
+            position: fixed;
+            inset: 0;
+            background: #12131a;
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            color: #ffffff;
+        }
+
+        #orientation-overlay.active {
+            display: flex !important;
+        }
+
+        .rotate-phone-icon {
+            width: 76px;
+            height: 124px;
+            border: 5px solid #ffd700;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+            animation: rotatePhoneAnim 2s infinite ease-in-out;
+        }
+
+        .rotate-phone-icon::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ffd700;
+        }
+
+        @keyframes rotatePhoneAnim {
+            0%, 15% { transform: rotate(0deg); }
+            55%, 85% { transform: rotate(-90deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        #orientation-overlay h2 {
+            color: #ffd700;
+            font-size: clamp(20px, 5.5vw, 30px);
+            margin-bottom: 12px;
+            text-shadow: 3px 3px 0 #000;
+        }
+
+        #orientation-overlay p {
+            font-size: clamp(14px, 3.8vw, 18px);
+            max-width: 440px;
+            line-height: 1.5;
+            color: #dfe6e9;
+        }
+
+        /* HUD (Head-Up Display) Retro NES & Tombol Pause */
+        #hud {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: clamp(8px, 2vh, 18px) clamp(16px, 3vw, 36px);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            pointer-events: none;
+            z-index: 5;
+            text-shadow: 2px 2px 0px #000000, -1px -1px 0px #000000, 1px -1px 0px #000000, -1px 1px 0px #000000;
+            font-weight: 900;
+            font-size: clamp(14px, 2.6vmin, 24px);
+            letter-spacing: 1px;
+        }
+
+        #btn-pause-hud {
+            pointer-events: auto;
+            background: #e67e22;
+            color: #fff;
+            border: 3px solid #fff;
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: clamp(11px, 2vmin, 16px);
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 3px 0 #000;
+            text-shadow: 1px 1px 0 #000;
+        }
+
+        #btn-pause-hud:hover {
+            background: #f39c12;
+        }
+
+        #btn-pause-hud:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 #000;
+        }
+
+        .hud-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hud-coin-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .coin-icon-hud {
+            display: inline-block;
+            width: 12px;
+            height: 16px;
+            background: #ffd700;
+            border: 2px solid #000;
+            border-radius: 3px;
+            box-shadow: inset 2px 0 0 #fff8a6;
+        }
+
+        /* Modal Pop-Up Kuis, Pause, Layar Mulai & Layar Akhir (Ergonomis & Anti-Scrollbar) */
+        .retro-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.78);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 25;
+            padding: 2vh 3vw;
+        }
+
+        .retro-overlay.active {
+            display: flex;
+        }
+
+        .retro-box {
+            background: #20284e;
+            border: 4px solid #ffffff;
+            outline: 4px solid #000000;
+            box-shadow: 0 10px 0 #000000;
+            border-radius: 12px;
+            width: 92vw;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow-y: hidden;
+            padding: clamp(12px, 2.4vh, 22px) clamp(14px, 2.6vw, 26px);
+            color: #ffffff;
+            text-shadow: 2px 2px 0 #000000;
+            animation: popIn 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #e67e22;
+            border: 3px solid #fff;
+            padding: clamp(5px, 1.1vh, 10px) clamp(10px, 1.8vw, 16px);
+            margin-bottom: clamp(6px, 1.4vh, 12px);
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: clamp(12px, 2.2vmin, 16px);
+        }
+
+        .quiz-question {
+            font-size: clamp(12.5px, 2.2vmin, 16px);
+            line-height: 1.42;
+            margin-bottom: clamp(8px, 1.6vh, 14px);
+            background: #141a35;
+            padding: clamp(8px, 1.6vh, 14px) clamp(10px, 1.8vw, 16px);
+            border: 3px dashed #6c8cff;
+            border-radius: 8px;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: clamp(6px, 1.2vh, 10px);
+            margin-bottom: clamp(6px, 1.2vh, 10px);
+        }
+
+        .option-btn {
+            background: #34495e;
+            color: #ffffff;
+            border: 3px solid #ffffff;
+            padding: clamp(7px, 1.4vh, 11px) clamp(10px, 1.8vw, 16px);
+            text-align: left;
+            font-size: clamp(12px, 2.1vmin, 15px);
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-shadow: 1px 1px 0 #000;
+            box-shadow: 0 3px 0 #000;
+            transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background: #3d5a80;
+            border-color: #ffd700;
+            transform: translateX(8px);
+        }
+
+        .option-btn:active:not(:disabled) {
+            transform: translateX(8px) translateY(2px);
+            box-shadow: 0 1px 0 #000;
+        }
+
+        .option-btn.correct {
+            background: #27ae60 !important;
+            border-color: #a3f7bf !important;
+        }
+
+        .option-btn.wrong {
+            background: #c0392b !important;
+            border-color: #ff9f9f !important;
+        }
+
+        .feedback-panel {
+            display: none;
+            padding: clamp(6px, 1.3vh, 12px) clamp(10px, 1.8vw, 16px);
+            border: 3px solid #fff;
+            border-radius: 8px;
+            margin-top: clamp(4px, 0.8vh, 8px);
+            font-size: clamp(11.5px, 2vmin, 14.5px);
+            line-height: 1.35;
+        }
+
+        .feedback-panel.show {
+            display: block;
+        }
+
+        .feedback-panel.success {
+            background: #1e824c;
+        }
+
+        .feedback-panel.error {
+            background: #96281b;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: clamp(6px, 1.2vh, 10px);
+            flex-wrap: wrap;
+        }
+
+        .retro-btn {
+            background: #f39c12;
+            color: #ffffff;
+            border: 3px solid #ffffff;
+            padding: clamp(7px, 1.5vh, 12px) clamp(14px, 2.2vw, 20px);
+            font-size: clamp(12px, 2.2vmin, 16px);
+            font-weight: 900;
+            border-radius: 8px;
+            cursor: pointer;
+            text-shadow: 2px 2px 0 #000;
+            box-shadow: 0 4px 0 #000;
+            transition: transform 0.12s ease, background 0.12s ease;
+        }
+
+        .retro-btn:hover {
+            background: #f1c40f;
+        }
+
+        .retro-btn:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #000;
+        }
+
+        .retro-btn.secondary {
+            background: #7f8c8d;
+        }
+
+        .retro-btn.danger {
+            background: #e74c3c;
+        }
+
+        .retro-btn.danger:hover {
+            background: #c0392b;
+        }
+
+        /* Toast Info Alternatif Fullscreen (Khusus iOS / Safari) */
+        #ios-fs-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #141a35;
+            color: #ffd700;
+            border: 3px solid #ffffff;
+            box-shadow: 0 6px 0 #000;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: clamp(12px, 2.2vmin, 15px);
+            font-weight: bold;
+            text-align: center;
+            z-index: 9998;
+            display: none;
+            max-width: 90vw;
+            text-shadow: 1px 1px 0 #000;
+        }
+
+        #ios-fs-toast.show {
+            display: block;
+            animation: popIn 0.2s ease-out;
+        }
+
+        /* Layar Hasil Akhir & Mulai */
+        .result-title {
+            text-align: center;
+            font-size: clamp(20px, 4vmin, 34px);
+            color: #ffd700;
+            margin-bottom: clamp(10px, 2.2vh, 20px);
+            letter-spacing: 1px;
+        }
+
+        .result-stats {
+            background: #141a35;
+            border: 3px solid #6c8cff;
+            border-radius: 8px;
+            padding: clamp(12px, 2.5vh, 24px);
+            margin-bottom: clamp(12px, 2.5vh, 24px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(8px, 1.8vh, 16px);
+            font-size: clamp(14px, 2.8vmin, 22px);
+        }
+
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px dotted #3a4a7c;
+            padding-bottom: 8px;
+        }
+
+        .stat-val {
+            color: #2ecc71;
+            font-weight: 900;
+        }
+
+        /* Kontrol Sentuh On-Screen (Melayang Aman di Tepi Bawah Ibu Jari) */
+        #controls-bar {
+            position: fixed;
+            bottom: clamp(10px, 3vh, 24px);
+            left: clamp(12px, 3vw, 32px);
+            right: clamp(12px, 3vw, 32px);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .dpad-group, .jump-group {
+            display: flex;
+            gap: clamp(10px, 2vw, 18px);
+            pointer-events: auto;
+        }
+
+        .ctrl-btn {
+            background: linear-gradient(180deg, rgba(231, 76, 60, 0.88) 0%, rgba(192, 57, 43, 0.88) 100%);
+            color: #fff;
+            border: 3px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 5px 0 rgba(0, 0, 0, 0.85);
+            border-radius: 16px;
+            min-width: clamp(64px, 11vmin, 92px);
+            height: clamp(56px, 11vmin, 82px);
+            padding: 0 clamp(14px, 2.5vmin, 24px);
+            font-size: clamp(20px, 4vmin, 30px);
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            text-shadow: 2px 2px 0 #000;
+            touch-action: manipulation;
+            backdrop-filter: blur(2px);
+        }
+
+        .ctrl-btn.jump-btn {
+            background: linear-gradient(180deg, rgba(46, 204, 113, 0.9) 0%, rgba(39, 174, 96, 0.9) 100%);
+            min-width: clamp(110px, 20vmin, 165px);
+            font-size: clamp(17px, 3.4vmin, 26px);
+            letter-spacing: 1px;
+        }
+
+        .ctrl-btn:active, .ctrl-btn.pressed {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #000000;
+            filter: brightness(1.18);
+        }
+
+        .keyboard-hint {
+            text-align: center;
+            font-size: clamp(11px, 1.8vmin, 15px);
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.48);
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-shadow: 1px 1px 0 #000;
+            line-height: 1.4;
+            pointer-events: none;
+        }
+
+        @media (max-width: 820px) {
+            .keyboard-hint {
+                display: none;
+            }
+        }
+    </style>
 </head>
-<body class="adventure-body">
+<body>
 
-  <!-- Overlay Ajakan Rotasi Lanskap untuk Layar Ponsel Potret -->
-  <aside id="orientasi-overlay" class="orientasi-overlay" aria-hidden="true">
-    <div class="orientasi-card">
-      <div class="orientasi-icon-box mb-3">
-        <svg viewBox="0 0 24 24" width="64" height="64" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="anim-rotate-phone">
-          <rect x="5" y="2" width="14" height="20" rx="3" ry="3"/>
-          <circle cx="12" cy="18" r="1"/>
-          <path d="M17 8l3-3-3-3"/>
-          <path d="M20 5A8 8 0 0 0 7 3"/>
-        </svg>
-      </div>
-      <h3 class="h5 fw-bolder mb-2 text-white">Putar Ponsel ke Lanskap</h3>
-      <p class="small text-white-50 mb-0">Petualangan IPAS lebih luas, nyaman, dan seru dimainkan dalam posisi layar mendatar (lanskap)!</p>
-    </div>
-  </aside>
-
-  <!-- Navigasi Atas Standar KUPAS (Navbar + Offcanvas + Sound Toggle) -->
-  <header id="wadah-navbar"></header>
-
-  <main class="flex-grow-1">
-
-    <!-- ====================================================================
-         1. LAYAR PETA DUNIA PETUALANGAN (WORLD MAP SCREEN)
-         ==================================================================== -->
-    <section id="layar-pilih-level" class="layar-level-wadah" aria-label="Peta Dunia Petualangan">
-      
-      <!-- Banner Hero Petualangan Claymorphic -->
-      <div class="adventure-hero-banner">
-        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
-          <div>
-            <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
-              <span class="badge bg-warning text-dark border border-dark rounded-pill fw-bold px-3 py-1">
-                ✨ Mode Mandiri (Single Player)
-              </span>
-              <span class="badge bg-success text-white border border-dark rounded-pill fw-bold px-3 py-1">
-                🎒 Petualang: Aliya
-              </span>
-              <a href="butterfly-catcher.html" class="badge border border-dark rounded-pill fw-bold px-3 py-1 text-decoration-none text-white" style="background: linear-gradient(135deg, #a29bfe, #fd79a8); box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
-                🦋 Main Butterfly Catcher
-              </a>
-            </div>
-            <h1 class="h2 fw-bolder mb-1">Adventure: Petualangan IPAS</h1>
-            <p class="mb-0 text-white-50">Jelajahi 3 Dunia Ekosistem Nusantara bersama Aliya, lewati rintangan platformer, dan pecahkan 30 misteri alam!</p>
-          </div>
-          <div class="d-flex gap-2 flex-wrap">
-            <button type="button" class="btn btn-light btn-sm fw-bold rounded-pill px-3 py-2 shadow-sm" id="btn-buka-cerita-intro">
-              📖 Cerita Petualangan
-            </button>
-            <a href="index.html" class="btn btn-warning btn-sm fw-bold d-inline-flex align-items-center gap-1 shadow-sm rounded-pill px-3 py-2 border-2 border-dark text-dark">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
-              <span>Beranda</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Baris Status Pemain (Koin Daun, Bintang, Lencana) -->
-        <div class="adventure-stat-bar">
-          <div class="stat-chip">
-            <span>🍃 Koin Daun:</span>
-            <span id="stat-total-koin" class="text-warning">0</span>
-          </div>
-          <div class="stat-chip">
-            <span>⭐ Bintang:</span>
-            <span id="stat-total-bintang" class="text-warning">0</span>
-          </div>
-          <div class="stat-chip">
-            <span>🏅 Lencana:</span>
-            <span id="stat-total-lencana">0 Diperoleh</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ================================================================
-           DUNIA 1: HUTAN CERIA (FASE A AKTIF)
-           ================================================================ -->
-      <div class="world-card mb-4" id="world-card-1">
-        <div class="world-card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-          <div>
-            <span class="badge bg-success border border-dark rounded-pill fw-bold px-3 py-1 me-2">Dunia 1</span>
-            <h2 class="h5 fw-bolder d-inline-block mb-0 text-white">🌲 Hutan Ceria</h2>
-            <p class="small text-white-50 mb-0 mt-1">Dasar hutan tropis hingga kanopi beringin raksasa: Rantai Makanan & Jaring-Jaring Kehidupan</p>
-          </div>
-          <button type="button" class="btn btn-outline-light btn-sm rounded-pill fw-bold" id="btn-materi-dunia-1">
-            📚 Rangkuman Materi Dunia 1
-          </button>
-        </div>
-
-        <div class="grid-pilih-level p-3">
-          <!-- Level 1-1: Jalur Rimbun Hutan -->
-          <article class="kartu-level" id="kartu-level-1-1">
-            <div class="kartu-level-thumb bg-forest position-relative overflow-hidden">
-              <svg viewBox="0 0 320 140" class="w-100 h-100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <defs>
-                  <linearGradient id="grad-thumb-1-1" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#38BDF8"/>
-                    <stop offset="60%" stop-color="#BAE6FD"/>
-                    <stop offset="100%" stop-color="#86EFAC"/>
-                  </linearGradient>
-                </defs>
-                <rect width="320" height="140" fill="url(#grad-thumb-1-1)"/>
-                <circle cx="260" cy="35" r="22" fill="#FDE047" opacity="0.9"/>
-                <ellipse cx="60" cy="30" rx="32" ry="14" fill="#FFFFFF" opacity="0.85"/>
-                <ellipse cx="80" cy="26" rx="22" ry="12" fill="#FFFFFF" opacity="0.85"/>
-                <path d="M-20 140 Q 60 75 140 140" fill="#166534" opacity="0.7"/>
-                <path d="M100 140 Q 200 65 300 140" fill="#15803D" opacity="0.8"/>
-                <path d="M220 140 Q 280 80 340 140" fill="#166534" opacity="0.75"/>
-                <rect x="0" y="112" width="320" height="28" fill="#1B3A2F"/>
-                <rect x="0" y="108" width="320" height="6" fill="#22C55E"/>
-                <rect x="140" y="58" width="28" height="28" rx="4" fill="#F59E0B" stroke="#78350F" stroke-width="2"/>
-                <text x="154" y="78" font-size="18" font-weight="bold" fill="#FFFFFF" text-anchor="middle">?</text>
-                <circle cx="154" cy="38" r="8" fill="#FACC15" stroke="#78350F" stroke-width="1.5"/>
-                <circle cx="45" cy="88" r="26" fill="#22C55E"/>
-                <rect x="42" y="102" width="6" height="12" fill="#78350F"/>
-                <circle cx="275" cy="92" r="22" fill="#15803D"/>
-                <rect x="272" y="104" width="6" height="10" fill="#78350F"/>
-              </svg>
-              <span class="badge bg-dark bg-opacity-75 text-white position-absolute top-0 end-0 m-2 rounded-pill small">Hutan Tropis</span>
-            </div>
-            <div class="kartu-level-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="badge bg-success border border-dark rounded-pill fw-bold">Level 1-1</span>
-                <span class="small fw-bold text-success" id="status-level-1-1">● Siap Main</span>
-              </div>
-              <h3 class="h6 fw-bolder mt-2 mb-1">Jalur Rimbun Hutan</h3>
-              <p class="small text-secondary mb-2">Mulai petualangan di dasar hutan tropis, bantu tumbuhan produsen berfotosintesis, dan sambung jembatan ranting!</p>
-              
-              <div class="bintang-level" id="bintang-level-1-1">
-                <span class="bintang-item">★</span>
-                <span class="bintang-item">★</span>
-                <span class="bintang-item">★</span>
-              </div>
-
-              <button type="button" class="btn btn-kupas-hijau btn-sm fw-bold mt-auto w-100 rounded-pill py-2 btn-mainkan-level" data-level="1-1">
-                ▶ Mainkan Level 1-1
-              </button>
-            </div>
-          </article>
-
-          <!-- Level 1-2: Puncak Kanopi Hijau -->
-          <article class="kartu-level" id="kartu-level-1-2">
-            <div class="kartu-level-thumb bg-canopy position-relative overflow-hidden">
-              <svg viewBox="0 0 320 140" class="w-100 h-100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <defs>
-                  <linearGradient id="grad-thumb-1-2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#0284C7"/>
-                    <stop offset="50%" stop-color="#38BDF8"/>
-                    <stop offset="100%" stop-color="#5EEAD4"/>
-                  </linearGradient>
-                </defs>
-                <rect width="320" height="140" fill="url(#grad-thumb-1-2)"/>
-                <ellipse cx="230" cy="28" rx="38" ry="14" fill="#FFFFFF" opacity="0.9"/>
-                <path d="M80 32 Q 90 22 100 32 Q 110 22 120 32" fill="none" stroke="#0F172A" stroke-width="2.5" stroke-linecap="round"/>
-                <rect x="70" y="40" width="22" height="100" fill="#78350F"/>
-                <rect x="220" y="30" width="24" height="110" fill="#78350F"/>
-                <ellipse cx="81" cy="40" rx="46" ry="24" fill="#0D9488"/>
-                <ellipse cx="232" cy="32" rx="52" ry="28" fill="#047857"/>
-                <path d="M85 75 Q 150 92 225 75" fill="none" stroke="#78350F" stroke-width="4"/>
-                <path d="M85 70 Q 150 87 225 70" fill="none" stroke="#D97706" stroke-width="2" stroke-dasharray="6,4"/>
-                <circle cx="152" cy="62" r="8" fill="#FACC15" stroke="#78350F" stroke-width="1.5"/>
-                <rect x="0" y="128" width="320" height="12" fill="#064E3B"/>
-              </svg>
-              <span class="badge bg-dark bg-opacity-75 text-white position-absolute top-0 end-0 m-2 rounded-pill small">Tajuk Kanopi</span>
-            </div>
-            <div class="kartu-level-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="badge bg-primary border border-dark rounded-pill fw-bold">Level 1-2</span>
-                <span class="small fw-bold text-muted" id="status-level-1-2">🔒 Selesaikan 1-1</span>
-              </div>
-              <h3 class="h6 fw-bolder mt-2 mb-1">Puncak Kanopi Hijau</h3>
-              <p class="small text-secondary mb-2">Naiki tajuk pohon kanopi tinggi, kenali dekomposer jamur tanah, dan temukan sang konsumen puncak elang!</p>
-              
-              <div class="bintang-level" id="bintang-level-1-2">
-                <span class="bintang-item">★</span>
-                <span class="bintang-item">★</span>
-                <span class="bintang-item">★</span>
-              </div>
-
-              <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100 rounded-pill py-2 btn-mainkan-level" data-level="1-2" disabled>
-                🔒 Selesaikan Level 1-1
-              </button>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <!-- ================================================================
-           DUNIA 2: PADANG RUMPUT SAVANA (MENAMPUNG PETA 7200px)
-           ================================================================ -->
-      <div class="world-card terkunci-world mb-4" id="world-card-2">
-        <div class="world-card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-          <div>
-            <span class="badge bg-warning text-dark border border-dark rounded-pill fw-bold px-3 py-1 me-2">Dunia 2</span>
-            <h2 class="h5 fw-bolder d-inline-block mb-0 text-white">🌾 Padang Rumput Savana</h2>
-            <p class="small text-white-50 mb-0 mt-1">Peta panjang 7200px savana terbuka, aliran energi, dan hubungan simbiosis antarmakhluk hidup</p>
-          </div>
-          <span class="badge bg-dark text-warning border border-warning rounded-pill px-3 py-1">
-            🔒 Terbuka setelah Dunia 1 Tuntas
-          </span>
-        </div>
-
-        <div class="grid-pilih-level p-3">
-          <!-- Level 2-1: Savana Terbuka 7200px -->
-          <article class="kartu-level terkunci" id="kartu-level-2-1">
-            <div class="kartu-level-thumb bg-savanna position-relative overflow-hidden">
-              <svg viewBox="0 0 320 140" class="w-100 h-100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <defs>
-                  <linearGradient id="grad-thumb-2-1" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#EA580C"/>
-                    <stop offset="40%" stop-color="#F59E0B"/>
-                    <stop offset="85%" stop-color="#FEF08A"/>
-                    <stop offset="100%" stop-color="#A3E635"/>
-                  </linearGradient>
-                </defs>
-                <rect width="320" height="140" fill="url(#grad-thumb-2-1)"/>
-                <circle cx="160" cy="65" r="34" fill="#FEF08A" opacity="0.95"/>
-                <path d="M60 115 L62 82 L50 68 L72 70 L80 84 L70 115 Z" fill="#451A03"/>
-                <ellipse cx="64" cy="64" rx="34" ry="10" fill="#365314"/>
-                <path d="M0 140 Q 90 95 180 140" fill="#CA8A04" opacity="0.75"/>
-                <path d="M120 140 Q 230 100 340 140" fill="#B45309" opacity="0.6"/>
-                <rect x="0" y="118" width="320" height="22" fill="#713F12"/>
-                <rect x="0" y="114" width="320" height="5" fill="#EAB308"/>
-                <line x1="260" y1="95" x2="260" y2="120" stroke="#78350F" stroke-width="3"/>
-                <circle cx="260" cy="95" r="14" fill="none" stroke="#0284C7" stroke-width="3"/>
-              </svg>
-              <span class="badge bg-dark bg-opacity-75 text-white position-absolute top-0 end-0 m-2 rounded-pill small">Savana 7200px</span>
-            </div>
-            <div class="kartu-level-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="badge bg-secondary border border-dark rounded-pill fw-bold">Level 2-1</span>
-                <span class="small fw-bold text-muted">🔒 Terkunci</span>
-              </div>
-              <h3 class="h6 fw-bolder mt-2 mb-1">Padang Rumput Savana (7200px)</h3>
-              <p class="small text-secondary mb-2">Jalur panjang savana keemasan 7200px, blok misteri '?', kincir irigasi, dan gerbang rantai makanan!</p>
-              <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100 rounded-pill py-2 btn-mainkan-level" data-level="2-1" disabled>
-                🔒 Tuntaskan Level 1-2
-              </button>
-            </div>
-          </article>
-
-          <!-- Level 2-2: Lembah Keseimbangan -->
-          <article class="kartu-level terkunci" id="kartu-level-2-2">
-            <div class="kartu-level-thumb bg-secondary position-relative overflow-hidden">
-              <svg viewBox="0 0 320 140" class="w-100 h-100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="320" height="140" fill="#475569"/>
-                <path d="M20 140 L90 50 L160 140 Z" fill="#334155"/>
-                <path d="M130 140 L210 35 L290 140 Z" fill="#1E293B"/>
-                <rect x="0" y="118" width="320" height="22" fill="#0F172A"/>
-                <path d="M0 125 Q 160 115 320 125" stroke="#38BDF8" stroke-width="3" fill="none"/>
-              </svg>
-              <span class="badge bg-dark bg-opacity-75 text-white position-absolute top-0 end-0 m-2 rounded-pill small">Simbiosis Alam</span>
-            </div>
-            <div class="kartu-level-body">
-              <div class="d-flex justify-content-between align-items-center">
-                <span class="badge bg-secondary border border-dark rounded-pill fw-bold">Level 2-2</span>
-                <span class="small fw-bold text-muted">🔒 Terkunci</span>
-              </div>
-              <h3 class="h6 fw-bolder mt-2 mb-1">Lembah Keseimbangan</h3>
-              <p class="small text-secondary mb-2">Harmoni simbiosis mutualisme, komensalisme, dan aksi pelestarian reboisasi alam.</p>
-              <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100 rounded-pill py-2" disabled>
-                🔒 Selesaikan Level 2-1
-              </button>
-            </div>
-          </article>
-        </div>
-      </div>
-
-      <!-- ================================================================
-           DUNIA 3: SUNGAI KEHIDUPAN (TERKUNCI)
-           ================================================================ -->
-      <div class="world-card terkunci-world" id="world-card-3">
-        <div class="world-card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-          <div>
-            <span class="badge bg-info text-dark border border-dark rounded-pill fw-bold px-3 py-1 me-2">Dunia 3</span>
-            <h2 class="h5 fw-bolder d-inline-block mb-0 text-white">🌊 Sungai Kehidupan</h2>
-            <p class="small text-white-50 mb-0 mt-1">Hulu jeram pegunungan hingga muara mangrove: Siklus Air & Keberlanjutan Bumi</p>
-          </div>
-          <span class="badge bg-dark text-info border border-info rounded-pill px-3 py-1">
-            🔒 Terbuka setelah Dunia 2 Tuntas
-          </span>
-        </div>
-
-        <div class="grid-pilih-level p-3">
-          <article class="kartu-level terkunci">
-            <div class="kartu-level-thumb bg-secondary position-relative overflow-hidden">
-              <svg viewBox="0 0 320 140" class="w-100 h-100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="320" height="140" fill="#0369A1"/>
-                <path d="M0 140 L70 60 L140 140 Z" fill="#075985"/>
-                <path d="M110 140 L180 40 L260 140 Z" fill="#0C4A6E"/>
-                <path d="M180 50 L180 140" stroke="#E0F2FE" stroke-width="8" opacity="0.8"/>
-                <rect x="0" y="122" width="320" height="18" fill="#082F49"/>
-              </svg>
-              <span class="badge bg-dark bg-opacity-75 text-white position-absolute top-0 end-0 m-2 rounded-pill small">Hulu Jeram</span>
-            </div>
-            <div class="kartu-level-body">
-              <h3 class="h6 fw-bolder mt-2 mb-1">Hulu Sungai Pegunungan</h3>
-              <p class="small text-secondary mb-2">Evaporasi, transpirasi, dan pembentukan awan kondensasi di hulu sungai.</p>
-              <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100 rounded-pill" disabled>
-                🔒 Selesaikan Dunia 2
-              </button>
-            </div>
-          </article>
-
-          <article class="kartu-level terkunci">
-            <div class="kartu-level-thumb bg-secondary position-relative overflow-hidden">
-              <svg viewBox="0 0 320 140" class="w-100 h-100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="320" height="140" fill="#0F766E"/>
-                <path d="M0 120 Q 80 110 160 120 T 320 120 L 320 140 L 0 140 Z" fill="#115E59"/>
-                <circle cx="260" cy="40" r="24" fill="#FDE047" opacity="0.8"/>
-                <path d="M40 120 L48 90 L35 80 L60 85 L70 120" stroke="#134E4A" stroke-width="3" fill="none"/>
-              </svg>
-              <span class="badge bg-dark bg-opacity-75 text-white position-absolute top-0 end-0 m-2 rounded-pill small">Muara Mangrove</span>
-            </div>
-            <div class="kartu-level-body">
-              <h3 class="h6 fw-bolder mt-2 mb-1">Muara & Samudra Kehidupan</h3>
-              <p class="small text-secondary mb-2">Presipitasi, resapan infiltrasi, dan benteng pertahanan hijau bakau mangrove.</p>
-              <button type="button" class="btn btn-outline-secondary btn-sm fw-bold mt-auto w-100 rounded-pill" disabled>
-                🔒 Selesaikan Level 3-1
-              </button>
-            </div>
-          </article>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- ====================================================================
-         2. LAYAR PERMAINAN CANVAS (IN-GAME SCREEN)
-         ==================================================================== -->
-    <section id="layar-permainan" class="layar-game-wadah d-none" aria-label="Area Permainan Petualangan">
-      
-      <!-- Bingkai Kanvas 16:9 -->
-      <div class="canvas-bingkai">
-        <!-- In-Game HUD Claymorphic -->
-        <div class="game-hud">
-          <div class="d-flex align-items-center gap-2">
-            <!-- Avatar & Nama Karakter -->
-            <div class="hud-item hud-avatar" title="Petualang">
-              <span class="badge bg-success rounded-circle p-1">🎒</span>
-              <span class="small fw-bolder text-dark">Aliya</span>
-            </div>
-
-            <!-- Badge Indikator Level Aktif -->
-            <div class="hud-item hud-level-badge" id="hud-level-badge" title="Level Berjalan">
-              Level 1-1
-            </div>
-
-            <!-- Koin Daun -->
-            <div class="hud-item hud-koin" title="Koin Daun">
-              <span>🍃</span> <span id="hud-koin-jumlah">0</span>
-            </div>
-
-            <!-- Tracker Misi Soal IPAS -->
-            <div class="hud-item hud-misi" title="Misi IPAS Selesai">
-              <span id="hud-misi-teks">Misi: 0/5</span>
-            </div>
-
-            <!-- Nyawa Pemain (3 Hati) -->
-            <div class="hud-item hud-nyawa" title="Nyawa Petualang">
-              <span id="hud-nyawa-teks">❤️❤️❤️</span>
-            </div>
-          </div>
-
-          <!-- Aksi HUD (Fullscreen, Sound Toggle & Keluar) -->
-          <div class="hud-actions">
-            <button type="button" class="hud-btn" id="btn-hud-fullscreen" title="Layar Penuh (Fullscreen)">
-              <span id="hud-fullscreen-icon">⛶</span>
-            </button>
-            <button type="button" class="hud-btn" id="btn-hud-sound" title="Aktif/Bisu Suara">
-              <span id="hud-sound-icon">🔊</span>
-            </button>
-            <button type="button" class="hud-btn" id="btn-keluar-level" title="Kembali ke Peta Dunia">
-              ✕ Peta
-            </button>
-          </div>
-        </div>
-
-        <!-- Canvas Utama 2D Side-Scroller (Virtual 960x540 di-render Retina) -->
-        <canvas id="canvas-adventure" width="960" height="540"></canvas>
-
-        <!-- Floating HUD Toast Notification (Penyebab Kehilangan Nyawa & Info) -->
-        <div id="hud-notifikasi-toast" class="hud-notifikasi-toast d-none" aria-live="polite"></div>
-
-        <!-- Kotak Dialog Tantangan IPAS In-Game -->
-        <div id="dialog-tantangan-overlay" class="dialog-tantangan-overlay" role="dialog" aria-modal="true" aria-labelledby="dialog-judul">
-          <div class="dialog-kotak">
-            <div class="dialog-header">
-              <div class="dialog-avatar">
-                <img src="assets/svg/maskot-senang.svg" alt="Maskot" width="40" height="40">
-              </div>
-              <div>
-                <h3 id="dialog-judul" class="h6 fw-bolder mb-0">Tantangan IPAS</h3>
-                <small id="dialog-instruksi" class="text-secondary">Pilih jawaban yang tepat untuk membuka gerbang rintangan!</small>
-              </div>
-            </div>
-
-            <p id="dialog-soal-teks" class="dialog-soal-teks"></p>
-
-            <div id="dialog-grid-opsi" class="grid-opsi-jawaban"></div>
-
-            <div id="dialog-feedback-wadah" class="dialog-feedback-wadah"></div>
-          </div>
-        </div>
-
-        <!-- Modal Kemenangan / Level Cleared Claymorphic -->
-        <div id="modal-victory-overlay" class="modal-victory-overlay" role="dialog" aria-modal="true">
-          <div class="victory-card">
-            <span class="badge bg-warning text-dark border border-dark rounded-pill fw-bold px-3 py-1">
-              🎉 MISI TUNTAS!
-            </span>
-            <h3 class="h4 fw-bolder mt-2 mb-1" id="victory-level-judul">Level Selesai!</h3>
-            <p class="text-secondary small">Luar biasa! Kamu bersama Aliya berhasil menyelesaikan seluruh misi penjaga dan menjaga keharmonisan ekosistem!</p>
-
-            <div class="victory-bintang">
-              <span class="text-warning">★</span>
-              <span class="text-warning">★</span>
-              <span class="text-warning">★</span>
-            </div>
-
-            <div class="d-flex justify-content-center gap-3 my-3">
-              <div class="stat-chip bg-success text-white">
-                <span id="victory-koin">+0 Koin Daun 🍃</span>
-              </div>
-              <div class="stat-chip bg-primary text-white">
-                <span id="victory-skor">Skor: 1000</span>
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-center gap-2 mt-4 flex-wrap">
-              <button type="button" class="btn btn-outline-dark btn-sm fw-bold px-3 rounded-pill" id="btn-main-ulang">
-                🔄 Main Lagi
-              </button>
-              <button type="button" class="btn btn-kupas-hijau btn-sm fw-bold px-4 rounded-pill" id="btn-kembali-menu-level">
-                🗺️ Peta Petualangan
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Kontrol Sentuh Virtual (Mobile & Tablet / Smartboard >= 56px) -->
-      <div id="kontrol-sentuh-wadah" class="kontrol-sentuh-wadah">
-        <div class="dpad-wadah">
-          <button type="button" class="btn-sentuh" id="btn-sentuh-kiri" aria-label="Gerak Kiri">
-            ◀
-          </button>
-          <button type="button" class="btn-sentuh" id="btn-sentuh-kanan" aria-label="Gerak Kanan">
-            ▶
-          </button>
-        </div>
-
-        <div class="aksi-wadah">
-          <button type="button" class="btn-sentuh btn-sentuh-aksi" id="btn-sentuh-aksi" aria-label="Interaksi / Aksi">
-            <span>E</span>
-            <small style="font-size: 0.65rem;">AKSI</small>
-          </button>
-          <button type="button" class="btn-sentuh btn-sentuh-lompat" id="btn-sentuh-lompat" aria-label="Lompat">
-            <span>▲</span>
-            <small style="font-size: 0.65rem;">LOMPAT</small>
-          </button>
-        </div>
-      </div>
-
-      <div class="petunjuk-keyboard d-none d-md-block">
-        Kontrol: <span class="kbd-chip">A</span> <span class="kbd-chip">D</span> / <span class="kbd-chip">Panah</span> bergerak &bull; <span class="kbd-chip">Spasi</span> / <span class="kbd-chip">W</span> lompat variabel &bull; <span class="kbd-chip">E</span> interaksi gerbang &bull; <span class="kbd-chip">1-4</span> jawab soal
-      </div>
-    </section>
-
-    <!-- ====================================================================
-         3. MODAL CERITA PEMBUKA (STORY INTRO MODAL)
-         ==================================================================== -->
-    <div id="modal-cerita-intro" class="modal-dialog-overlay" role="dialog" aria-modal="true" style="display: none;">
-      <div class="story-card">
-        <div class="story-badge">📖 Cerita Petualangan IPAS</div>
-        <div class="story-mascot mb-3">
-          <img src="assets/svg/maskot-senang.svg" alt="Si Kupas" width="70" height="70">
-        </div>
-        <h3 class="h5 fw-bolder mb-2 text-dark">Misi Penyelamatan Ekosistem Nusantara!</h3>
-        <p class="small text-secondary line-relaxed text-start mb-3">
-          Halo Sobat Pintar! Keseimbangan pulau ekosistem sedang terganggu akibat hilangnya <strong>Benih Harmoni Alam</strong>. 
-          Bersama <strong>Aliya sang Penjelajah Cerdik</strong>, kita akan menjelajahi 3 Dunia: mulai dari rimbunnya <strong>Hutan Ceria</strong>, luasnya <strong>Padang Rumput Savana</strong>, hingga segarnya <strong>Sungai Kehidupan</strong>. 
-          Pecahkan soal-soal penjaga alam, sundul blok rahasia, dan raih seluruh bintang petualangan!
-        </p>
-        <button type="button" class="btn btn-kupas-hijau btn-sm fw-bold px-4 py-2 rounded-pill w-100" id="btn-tutup-cerita">
-          🚀 Siap Memulai Petualangan!
-        </button>
-      </div>
+    <!-- Layar Pengunci Orientasi Lanskap (Muncul Otomatis Saat HP Posisi Tegak/Potret) -->
+    <div id="orientation-overlay">
+        <div class="rotate-phone-icon">↻</div>
+        <h2>PUTAR PERANGKAT ANDA</h2>
+        <p>Permainan dihentikan sementara. Silakan putar HP atau tablet Anda ke posisi mendatar (<strong>Lanskap / Landscape</strong>) agar tampilan dunia Mario dan teks soal kuis terlihat jelas dan maksimal!</p>
     </div>
 
-    <!-- ====================================================================
-         4. MODAL RANGKUMAN MATERI DUNIA 1
-         ==================================================================== -->
-    <div id="modal-ringkasan-materi" class="modal-dialog-overlay" role="dialog" aria-modal="true" style="display: none;">
-      <div class="summary-card">
-        <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
-          <h3 class="h6 fw-bolder mb-0 text-success" id="ringkasan-judul">🌿 Rangkuman Materi Dunia 1: Rantai Makanan Hutan</h3>
-          <button type="button" class="btn-close" id="btn-tutup-ringkasan" aria-label="Tutup"></button>
+    <!-- Kontainer Game Utama (Fullscreen Dinamis) -->
+    <div id="game-wrapper">
+        <!-- HUD Bagian Atas Layar -->
+        <div id="hud">
+            <div class="hud-col">
+                <div>MARIO</div>
+                <div id="hud-score">000000</div>
+            </div>
+            <div class="hud-col">
+                <div>COINS</div>
+                <div class="hud-coin-row">
+                    <span class="coin-icon-hud"></span>
+                    <span id="hud-coins">x00</span>
+                </div>
+            </div>
+            <div class="hud-col">
+                <div>WORLD</div>
+                <div>1-1</div>
+            </div>
+            <div class="hud-col">
+                <div>QUIZ</div>
+                <div id="hud-quiz">0/5</div>
+            </div>
+            <div class="hud-col">
+                <div>TIME</div>
+                <div id="hud-time">400</div>
+            </div>
+            <div class="hud-col" style="display: flex; flex-direction: row; gap: 8px;">
+                <button id="btn-pause-hud" title="Jeda Permainan (P / ESC)">⏸ PAUSE</button>
+                <a href="index.html" class="retro-btn danger" style="padding: 4px 10px; font-size: clamp(10px, 1.8vmin, 14px); text-decoration: none; display: inline-flex; align-items: center;" title="Kembali ke Beranda KUPAS">🏠 BERANDA</a>
+            </div>
         </div>
-        <ul class="summary-list text-start small text-secondary" id="ringkasan-poin-list">
-          <li class="mb-2"><strong>Produsen:</strong> Tumbuhan hijau adalah autotrof yang menghasilkan makanan lewat fotosintesis (Air + CO2 + Cahaya Matahari).</li>
-          <li class="mb-2"><strong>Konsumen I (Herbivora):</strong> Hewan pemakan langsung tumbuhan (seperti ulat daun, belalang, kelinci).</li>
-          <li class="mb-2"><strong>Konsumen Puncak (Karnivora):</strong> Predator di puncak rantai makanan tanpa pemangsa alami (seperti burung elang).</li>
-          <li class="mb-2"><strong>Dekomposer (Pengurai):</strong> Bakteri dan jamur tanah yang mengembalikan sari zat hara ke tanah agar diserap kembali oleh tumbuhan.</li>
-        </ul>
-        <div class="alert alert-success d-flex align-items-center gap-2 py-2 px-3 small fw-bold mb-3" id="ringkasan-lencana">
-          🏅 Lencana Rimba: Tuntaskan Level 1-1 dan Level 1-2 untuk menyematkan lencana ke profilmu!
+
+        <!-- Canvas Utama 2D -->
+        <canvas id="gameCanvas" width="800" height="450"></canvas>
+
+        <!-- Modal Layar Mulai (Dilengkapi Tombol Fullscreen & Mulai) -->
+        <div id="start-modal" class="retro-overlay active">
+            <div class="retro-box" style="text-align: center;">
+                <div class="result-title">★ SUPER MARIO EDUKASI ★</div>
+                <div class="result-stats" style="text-align: left;">
+                    <div class="stat-line">
+                        <span>MATERI:</span>
+                        <span class="stat-val">Rantai Makanan & Ekosistem</span>
+                    </div>
+                    <div class="stat-line">
+                        <span>JENJANG:</span>
+                        <span class="stat-val">SD Kelas 5 (World 1-1)</span>
+                    </div>
+                    <div style="font-size: clamp(12px, 2.2vmin, 15px); line-height: 1.45; color: #dfe6e9; padding-top: 4px;">
+                        Sundul <strong>5 Blok "?"</strong> di sepanjang pegunungan untuk menjawab kuis dan raih skor tertinggi hingga garis Finish!
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                    <a href="index.html" class="retro-btn danger" style="text-decoration: none; display: inline-flex; align-items: center;">🏠 BERANDA</a>
+                    <button id="btn-toggle-fs-start" class="retro-btn secondary">⛶ LAYAR PENUH</button>
+                    <button id="btn-start-fullscreen" class="retro-btn" style="background: #27ae60;">▶ MULAI BERMAIN</button>
+                </div>
+            </div>
         </div>
-        <button type="button" class="btn btn-outline-dark btn-sm fw-bold rounded-pill w-100 py-2" id="btn-paham-ringkasan">
-          ✔ Saya Sudah Paham
-        </button>
-      </div>
+
+        <!-- Modal Jeda Permainan (Pause Modal) -->
+        <div id="pause-modal" class="retro-overlay">
+            <div class="retro-box" style="max-width: 480px; text-align: center;">
+                <div class="result-title">⏸ GAME DIJEDA</div>
+                <div class="result-stats" style="text-align: center; font-size: clamp(13px, 2.4vmin, 17px);">
+                    Permainan dan waktu sedang dihentikan sementara. Tekan tombol di bawah atau tombol <strong>P / ESC</strong> untuk melanjutkan petualangan!
+                </div>
+                <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                    <a href="index.html" class="retro-btn danger" style="text-decoration: none; display: inline-flex; align-items: center;">🏠 KE BERANDA</a>
+                    <button id="btn-toggle-fs-pause" class="retro-btn secondary">⛶ LAYAR PENUH</button>
+                    <button id="btn-resume-game" class="retro-btn" style="background: #27ae60;">▶ LANJUTKAN</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Pop-Up Kuis Blok "?" -->
+        <div id="quiz-modal" class="retro-overlay">
+            <div class="retro-box">
+                <div class="quiz-header">
+                    <span id="quiz-badge">BLOK TANDA TANYA #1</span>
+                    <span>IPA SD KELAS 5</span>
+                </div>
+                <div id="quiz-question" class="quiz-question">
+                    Pertanyaan akan tampil di sini...
+                </div>
+                <div id="quiz-options" class="quiz-options"></div>
+
+                <!-- Panel Feedback & Hint -->
+                <div id="quiz-feedback" class="feedback-panel">
+                    <div id="feedback-text"></div>
+                    <div class="action-row">
+                        <button id="btn-retry-quiz" class="retro-btn" style="display:none;">COBA LAGI</button>
+                        <button id="btn-close-quiz" class="retro-btn secondary">LANJUT MAIN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Layar Skor Akhir (Garis Finish) -->
+        <div id="result-modal" class="retro-overlay">
+            <div class="retro-box" style="max-width: 640px;">
+                <div class="result-title">★ STAGE CLEAR! WORLD 1-1 ★</div>
+                <div class="result-stats">
+                    <div class="stat-line">
+                        <span>TOTAL SKOR AKHIR:</span>
+                        <span id="res-score" class="stat-val">0</span>
+                    </div>
+                    <div class="stat-line">
+                        <span>KOIN TERKUMPUL:</span>
+                        <span id="res-coins" class="stat-val">0 Koin</span>
+                    </div>
+                    <div class="stat-line">
+                        <span>KUIS EKOSISTEM:</span>
+                        <span id="res-quiz" class="stat-val">Soal Dijawab: 0 dari 5</span>
+                    </div>
+                    <div class="stat-line">
+                        <span>SISA WAKTU:</span>
+                        <span id="res-time" class="stat-val">0 detik</span>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                    <a href="index.html" class="retro-btn danger" style="text-decoration: none; display: inline-flex; align-items: center;">🏠 KE BERANDA</a>
+                    <button id="btn-toggle-fs-end" class="retro-btn secondary">⛶ LAYAR PENUH</button>
+                    <button id="btn-restart-game" class="retro-btn">MAIN LAGI ↻</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifikasi Fallback Layar Penuh untuk Safari iOS / iPhone -->
+        <div id="ios-fs-toast"></div>
+
+        <!-- Bar Kontrol Sentuh & Panduan Keyboard (Melayang di Tepi Bawah Layar) -->
+        <div id="controls-bar">
+            <div id="touch-dpad" class="dpad-group">
+                <button id="btn-left" class="ctrl-btn" aria-label="Gerak Kiri">◀</button>
+                <button id="btn-right" class="ctrl-btn" aria-label="Gerak Kanan">▶</button>
+            </div>
+            <div id="pc-keyboard-hint" class="keyboard-hint">
+                <strong>KONTROL:</strong> Panah ◀ ▶ Lari | Tahan <strong>SPASI / ▲</strong> Lompat Tinggi | <strong>P / ESC</strong> Jeda
+            </div>
+            <div id="touch-jump" class="jump-group">
+                <button id="btn-jump" class="ctrl-btn jump-btn" aria-label="Lompat">JUMP ▲</button>
+            </div>
+        </div>
     </div>
 
-  </main>
+    <script>
+        /**
+         * ============================================================================
+         * SUPER MARIO BROS WORLD 1-1 (COLORFUL MOUNTAIN EDITION)
+         * Materi: Rantai Makanan dan Ekosistem - SD Kelas 5
+         * ============================================================================
+         */
 
-  <!-- Script Bootstrap & Inisialisasi Adventure Platformer -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <script type="module">
-    import { pasangHeader, suara } from './assets/js/ui.js';
-    import {
-      adventureProgress,
-      adventureAudio,
-      AdventureGameEngine
-    } from './assets/js/adventure-platformer.js';
-    import { WORLDS_METADATA } from './assets/js/adventure-worlds-data.js';
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
 
-    // 1. Pasang Navigasi Atas Standar KUPAS
-    pasangHeader('siswa', { berandaLink: 'index.html', rootAset: '' });
+        // Referensi Elemen DOM HUD & Modal
+        const hudScoreEl = document.getElementById('hud-score');
+        const hudCoinsEl = document.getElementById('hud-coins');
+        const hudQuizEl = document.getElementById('hud-quiz');
+        const hudTimeEl = document.getElementById('hud-time');
 
-    // 2. Elemen Layar & Canvas
-    const layarPilihLevel = document.getElementById('layar-pilih-level');
-    const layarPermainan = document.getElementById('layar-permainan');
-    const canvasEl = document.getElementById('canvas-adventure');
+        const quizModal = document.getElementById('quiz-modal');
+        const quizBadge = document.getElementById('quiz-badge');
+        const quizQuestionEl = document.getElementById('quiz-question');
+        const quizOptionsEl = document.getElementById('quiz-options');
+        const quizFeedbackEl = document.getElementById('quiz-feedback');
+        const feedbackTextEl = document.getElementById('feedback-text');
+        const btnRetryQuiz = document.getElementById('btn-retry-quiz');
+        const btnCloseQuiz = document.getElementById('btn-close-quiz');
 
-    let gameEngine = null;
+        const resultModal = document.getElementById('result-modal');
+        const resScoreEl = document.getElementById('res-score');
+        const resCoinsEl = document.getElementById('res-coins');
+        const resQuizEl = document.getElementById('res-quiz');
+        const resTimeEl = document.getElementById('res-time');
+        const btnRestartGame = document.getElementById('btn-restart-game');
+        const startModal = document.getElementById('start-modal');
+        const btnStartFullscreen = document.getElementById('btn-start-fullscreen');
 
-    canvasEl?.addEventListener('pointerdown', () => {
-      if (gameEngine && !gameEngine.questionGates.isDialogOpen) {
-        gameEngine.periksaPemicuInteraksi();
-      }
-    });
+        const pauseModal = document.getElementById('pause-modal');
+        const btnPauseHud = document.getElementById('btn-pause-hud');
+        const btnResumeGame = document.getElementById('btn-resume-game');
 
-    // 3. Render Status Progres Siswa pada Peta Dunia
-    function renderPetaDuniaUI() {
-      const p = adventureProgress.muatProgres();
-      document.getElementById('stat-total-koin').textContent = p.totalCoins || 0;
-      document.getElementById('stat-total-bintang').textContent = p.totalStars || 0;
-      document.getElementById('stat-total-lencana').textContent = `${p.badges?.length || 0} Diperoleh`;
+        const btnToggleFsStart = document.getElementById('btn-toggle-fs-start');
+        const btnToggleFsPause = document.getElementById('btn-toggle-fs-pause');
+        const btnToggleFsEnd = document.getElementById('btn-toggle-fs-end');
+        const iosFsToast = document.getElementById('ios-fs-toast');
+        const orientationOverlay = document.getElementById('orientation-overlay');
+        const touchDpad = document.getElementById('touch-dpad');
+        const touchJump = document.getElementById('touch-jump');
+        const pcKeyboardHint = document.getElementById('pc-keyboard-hint');
 
-      // Status Level 1-1
-      const lvl1_1 = p.levels['1-1'];
-      renderBintangLevel('bintang-level-1-1', lvl1_1?.stars || 0);
+        // Deteksi Cerdas Perangkat Sentuh (Mobile / Tablet) vs PC Desktop
+        let isPortraitBlocked = false;
+        let hasStartedGame = false;
+        let iosToastTimeout = null;
 
-      // Status Level 1-2
-      const lvl1_2 = p.levels['1-2'];
-      const btn1_2 = document.querySelector('.btn-mainkan-level[data-level="1-2"]');
-      const status1_2 = document.getElementById('status-level-1-2');
-      if (lvl1_2?.unlocked) {
-        if (btn1_2) {
-          btn1_2.disabled = false;
-          btn1_2.className = 'btn btn-kupas-hijau btn-sm fw-bold mt-auto w-100 rounded-pill py-2 btn-mainkan-level';
-          btn1_2.textContent = '▶ Mainkan Level 1-2';
+        function isMobileOrTabletDevice() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+            const isIPadOS = (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+            const isCoarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+            return mobileRegex.test(ua) || isIPadOS || (isCoarsePointer && navigator.maxTouchPoints > 0);
         }
-        if (status1_2) {
-          status1_2.className = 'small fw-bold text-success';
-          status1_2.textContent = lvl1_2.completed ? '✔ Tuntas' : '● Siap Main';
+
+        function setupDeviceControlsVisibility() {
+            const isTouchDevice = isMobileOrTabletDevice() || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            if (!isTouchDevice) {
+                // Sembunyikan tombol D-Pad & Jump sentuh jika diakses dari PC/Laptop non-touch
+                if (touchDpad) touchDpad.style.display = 'none';
+                if (touchJump) touchJump.style.display = 'none';
+                if (pcKeyboardHint) pcKeyboardHint.style.margin = '0 auto';
+            } else {
+                if (touchDpad) touchDpad.style.display = 'flex';
+                if (touchJump) touchJump.style.display = 'flex';
+            }
         }
-      }
-      renderBintangLevel('bintang-level-1-2', lvl1_2?.stars || 0);
 
-      // Status Dunia 2 Level 2-1 (Padang Rumput Savana 7200px)
-      const lvl2_1 = p.levels['2-1'];
-      const worldCard2 = document.getElementById('world-card-2');
-      const btn2_1 = document.querySelector('.btn-mainkan-level[data-level="2-1"]');
-      if (lvl2_1?.unlocked) {
-        if (worldCard2) worldCard2.classList.remove('terkunci-world');
-        if (btn2_1) {
-          btn2_1.disabled = false;
-          btn2_1.className = 'btn btn-kupas-hijau btn-sm fw-bold mt-auto w-100 rounded-pill py-2 btn-mainkan-level';
-          btn2_1.textContent = '▶ Mainkan Savana 7200px';
+        function checkOrientationState() {
+            const isMobile = isMobileOrTabletDevice();
+            // Hanya aktifkan blokir Portrait jika dimainkan di Mobile/Tablet
+            isPortraitBlocked = isMobile && (window.innerHeight > window.innerWidth);
+            if (orientationOverlay) {
+                if (isPortraitBlocked) {
+                    orientationOverlay.classList.add('active');
+                    keys.left = false;
+                    keys.right = false;
+                    keys.jump = false;
+                    keys.jumpJustPressed = false;
+                } else {
+                    orientationOverlay.classList.remove('active');
+                }
+            }
         }
-      }
-    }
 
-    function renderBintangLevel(wadahId, count) {
-      const wadah = document.getElementById(wadahId);
-      if (!wadah) return;
-      const stars = wadah.querySelectorAll('.bintang-item');
-      stars.forEach((st, idx) => {
-        if (idx < count) st.classList.add('aktif');
-        else st.classList.remove('aktif');
-      });
-    }
+        function showIosFullscreenFallback() {
+            if (!iosFsToast) return;
+            iosFsToast.innerHTML = '📱 <strong>Info Layar Penuh iOS/Safari:</strong> Gulir sedikit ke bawah atau pilih menu <em>"Bagikan ➔ Tambah ke Layar Utama"</em> untuk tampilan layar penuh maksimal!';
+            iosFsToast.classList.add('show');
+            if (iosToastTimeout) clearTimeout(iosToastTimeout);
+            iosToastTimeout = setTimeout(() => {
+                iosFsToast.classList.remove('show');
+            }, 5000);
+        }
 
-    renderPetaDuniaUI();
+        async function requestGameFullscreen(showFallbackOnFail = false) {
+            try {
+                const docEl = document.documentElement;
+                const reqFs = docEl.requestFullscreen || docEl.webkitRequestFullscreen || docEl.msRequestFullscreen;
+                if (reqFs) {
+                    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                        await reqFs.call(docEl);
+                    }
+                    if (screen.orientation && screen.orientation.lock) {
+                        screen.orientation.lock('landscape').catch(() => {});
+                    }
+                } else if (showFallbackOnFail) {
+                    showIosFullscreenFallback();
+                }
+            } catch (err) {
+                if (showFallbackOnFail) {
+                    showIosFullscreenFallback();
+                }
+            }
+        }
 
-    // 4. Modal Cerita Intro & Rangkuman Materi
-    const modalCerita = document.getElementById('modal-cerita-intro');
-    const modalRingkasan = document.getElementById('modal-ringkasan-materi');
+        function toggleGameFullscreen() {
+            const isFs = document.fullscreenElement || document.webkitFullscreenElement;
+            if (!isFs) {
+                requestGameFullscreen(true);
+            } else {
+                const exitFs = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+                if (exitFs) exitFs.call(document).catch(() => {});
+            }
+        }
 
-    document.getElementById('btn-buka-cerita-intro')?.addEventListener('click', () => {
-      suara.mainkan('klik');
-      if (modalCerita) modalCerita.style.display = 'flex';
-    });
+        function updateFullscreenButtonsLabel() {
+            const isFs = Boolean(document.fullscreenElement || document.webkitFullscreenElement);
+            const label = isFs ? '✕ KELUAR LAYAR PENUH' : '⛶ LAYAR PENUH';
+            if (btnToggleFsStart) btnToggleFsStart.textContent = label;
+            if (btnToggleFsPause) btnToggleFsPause.textContent = label;
+            if (btnToggleFsEnd) btnToggleFsEnd.textContent = label;
+        }
 
-    document.getElementById('btn-tutup-cerita')?.addEventListener('click', () => {
-      suara.mainkan('klik');
-      if (modalCerita) modalCerita.style.display = 'none';
-    });
+        document.addEventListener('fullscreenchange', updateFullscreenButtonsLabel);
+        document.addEventListener('webkitfullscreenchange', updateFullscreenButtonsLabel);
 
-    document.getElementById('btn-materi-dunia-1')?.addEventListener('click', () => {
-      suara.mainkan('klik');
-      const w1 = WORLDS_METADATA[1];
-      if (w1 && modalRingkasan) {
-        document.getElementById('ringkasan-judul').textContent = w1.ringkasanMateri.judul;
-        const listEl = document.getElementById('ringkasan-poin-list');
-        listEl.innerHTML = w1.ringkasanMateri.poinPenting.map(p => `<li class="mb-2">${p}</li>`).join('');
-        modalRingkasan.style.display = 'flex';
-      }
-    });
-
-    document.getElementById('btn-tutup-ringkasan')?.addEventListener('click', () => {
-      if (modalRingkasan) modalRingkasan.style.display = 'none';
-    });
-    document.getElementById('btn-paham-ringkasan')?.addEventListener('click', () => {
-      if (modalRingkasan) modalRingkasan.style.display = 'none';
-    });
-
-    // 5. Manajemen Fullscreen API dengan Fallback
-    function mintaLayarPenuh() {
-      const elem = document.documentElement;
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen().catch(() => {
-          document.body.classList.add('layar-penuh-fallback');
+        [btnToggleFsStart, btnToggleFsPause, btnToggleFsEnd].forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleGameFullscreen();
+                });
+            }
         });
-      } else if (elem.webkitRequestFullscreen) {
-        elem.webkitRequestFullscreen();
-      } else {
-        document.body.classList.add('layar-penuh-fallback');
-      }
-    }
 
-    function keluarLayarPenuh() {
-      if (document.fullscreenElement) {
-        document.exitFullscreen().catch(() => {});
-      } else if (document.webkitFullscreenElement) {
-        document.webkitExitFullscreen();
-      }
-      document.body.classList.remove('layar-penuh-fallback');
-    }
+        btnStartFullscreen.addEventListener('click', () => {
+            requestGameFullscreen(false);
+            startModal.classList.remove('active');
+            hasStartedGame = true;
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            sfxCoin();
+        });
 
-    function toggleLayarPenuh() {
-      if (document.fullscreenElement || document.webkitFullscreenElement || document.body.classList.contains('layar-penuh-fallback')) {
-        keluarLayarPenuh();
-        document.getElementById('hud-fullscreen-icon').textContent = '⛶';
-      } else {
-        mintaLayarPenuh();
-        document.getElementById('hud-fullscreen-icon').textContent = '🗗';
-      }
-      setTimeout(() => {
-        if (gameEngine) gameEngine.aturResolusiRetina();
-      }, 150);
-    }
+        window.addEventListener('resize', checkOrientationState);
+        window.addEventListener('orientationchange', checkOrientationState);
 
-    document.getElementById('btn-hud-fullscreen')?.addEventListener('click', () => {
-      suara.mainkan('klik');
-      toggleLayarPenuh();
-    });
-
-    document.addEventListener('fullscreenchange', () => {
-      const isFs = !!document.fullscreenElement;
-      const icon = document.getElementById('hud-fullscreen-icon');
-      if (icon) icon.textContent = isFs ? '🗗' : '⛶';
-      if (gameEngine) gameEngine.aturResolusiRetina();
-    });
-
-    // 6. Jalankan Level yang Dipilih (1-1, 1-2, atau 2-1)
-    async function mainkanLevel(levelId) {
-      suara.mainkan('klik');
-      layarPilihLevel.classList.add('d-none');
-      layarPermainan.classList.remove('d-none');
-
-      mintaLayarPenuh();
-
-      if (!gameEngine) {
-        gameEngine = new AdventureGameEngine(canvasEl);
-        if (new URLSearchParams(window.location.search).get('test') === '1') {
-          window.__gameEngine = gameEngine;
+        // Sistem Audio Sintetis Web Audio API (Efek Suara 8-bit Tanpa File Eksternal)
+        let audioCtx = null;
+        function playTone(freq, type, duration, slideFreq = null, gainVal = 0.08) {
+            try {
+                if (!audioCtx) {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    audioCtx = new AudioContext();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                if (slideFreq) {
+                    osc.frequency.linearRampToValueAtTime(slideFreq, audioCtx.currentTime + duration);
+                }
+                gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                // Abaikan jika browser memblokir autoplay audio
+            }
         }
-        await gameEngine.inisialisasi();
-      }
 
-      gameEngine.muatLevel(levelId);
-      gameEngine.aturResolusiRetina();
-      gameEngine.perbaruiHUD();
-      gameEngine.mulai();
-    }
-
-    document.querySelectorAll('.btn-mainkan-level').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const lvl = e.currentTarget.getAttribute('data-level');
-        if (lvl) mainkanLevel(lvl);
-      });
-    });
-
-    // 7. Toggle Audio Suara In-Game
-    document.getElementById('btn-hud-sound')?.addEventListener('click', () => {
-      const aktif = adventureAudio.toggleMute();
-      suara.mainkan('klik');
-      const soundIcon = document.getElementById('hud-sound-icon');
-      if (soundIcon) soundIcon.textContent = aktif ? '🔊' : '🔇';
-    });
-
-    // 8. Keluar dari Level ke Menu Peta Dunia
-    function keluarKeMenuPeta() {
-      keluarLayarPenuh();
-      if (gameEngine) {
-        gameEngine.simpanProgresSaatIni();
-        gameEngine.berhenti();
-      }
-      document.getElementById('modal-victory-overlay')?.classList.remove('aktif');
-      document.getElementById('dialog-tantangan-overlay')?.classList.remove('aktif');
-      layarPermainan.classList.add('d-none');
-      layarPilihLevel.classList.remove('d-none');
-      renderPetaDuniaUI();
-    }
-
-    document.getElementById('btn-keluar-level')?.addEventListener('click', () => {
-      suara.mainkan('klik');
-      keluarKeMenuPeta();
-    });
-
-    document.getElementById('btn-kembali-menu-level')?.addEventListener('click', () => {
-      suara.mainkan('klik');
-      keluarKeMenuPeta();
-    });
-
-    document.getElementById('btn-main-ulang')?.addEventListener('click', () => {
-      suara.mainkan('klik');
-      document.getElementById('modal-victory-overlay')?.classList.remove('aktif');
-      if (gameEngine) {
-        gameEngine.muatLevel(gameEngine.currentLevelId);
-        gameEngine.mulai();
-      }
-    });
-
-    // 9. Kontrol Sentuh Virtual Multi-Touch
-    function pasangTombolSentuh(idBtn, onDown, onUp) {
-      const el = document.getElementById(idBtn);
-      if (!el) return;
-
-      const handleStart = (e) => {
-        e.preventDefault();
-        el.classList.add('ditekan');
-        onDown();
-      };
-      const handleEnd = (e) => {
-        e.preventDefault();
-        el.classList.remove('ditekan');
-        onUp();
-      };
-
-      el.addEventListener('pointerdown', handleStart);
-      el.addEventListener('pointerup', handleEnd);
-      el.addEventListener('pointercancel', handleEnd);
-      el.addEventListener('pointerleave', handleEnd);
-    }
-
-    pasangTombolSentuh('btn-sentuh-kiri', 
-      () => { if (gameEngine) gameEngine.keys.left = true; },
-      () => { if (gameEngine) gameEngine.keys.left = false; }
-    );
-    pasangTombolSentuh('btn-sentuh-kanan', 
-      () => { if (gameEngine) gameEngine.keys.right = true; },
-      () => { if (gameEngine) gameEngine.keys.right = false; }
-    );
-    pasangTombolSentuh('btn-sentuh-lompat', 
-      () => {
-        if (gameEngine) {
-          gameEngine.keys.up = true;
-          gameEngine.physics.queueJump();
-          adventureAudio.playJump();
+        function sfxJump() { playTone(180, 'square', 0.22, 520, 0.07); }
+        function sfxCoin() {
+            playTone(987.77, 'square', 0.08, null, 0.07);
+            setTimeout(() => playTone(1318.51, 'square', 0.25, null, 0.07), 70);
         }
-      },
-      () => {
-        if (gameEngine) gameEngine.keys.up = false;
-      }
-    );
-    pasangTombolSentuh('btn-sentuh-aksi', 
-      () => {
-        if (gameEngine) {
-          gameEngine.keys.interact = true;
-          gameEngine.periksaPemicuInteraksi();
+        function sfxStomp() { playTone(400, 'triangle', 0.14, 120, 0.1); }
+        function sfxBump() { playTone(160, 'square', 0.12, 90, 0.08); }
+        function sfxBreakBrick() {
+            playTone(220, 'sawtooth', 0.09, 90, 0.1);
+            setTimeout(() => playTone(140, 'square', 0.14, 55, 0.09), 50);
         }
-      },
-      () => {
-        if (gameEngine) gameEngine.keys.interact = false;
-      }
-    );
-
-    // 10. Shortcut Keyboard Angka 1-4 untuk Menjawab Soal saat Dialog Aktif
-    window.addEventListener('keydown', (e) => {
-      const overlay = document.getElementById('dialog-tantangan-overlay');
-      if (overlay && overlay.classList.contains('aktif')) {
-        const key = e.key;
-        if (['1', '2', '3', '4'].includes(key)) {
-          const idx = parseInt(key, 10) - 1;
-          const buttons = overlay.querySelectorAll('.btn-opsi-adventure');
-          if (buttons[idx] && !buttons[idx].disabled) {
-            buttons[idx].click();
-          }
+        function sfxHurt() { playTone(280, 'sawtooth', 0.3, 90, 0.08); }
+        function sfxQuizOpen() {
+            playTone(523.25, 'square', 0.09);
+            setTimeout(() => playTone(659.25, 'square', 0.09), 90);
+            setTimeout(() => playTone(783.99, 'square', 0.15), 180);
         }
-      }
-    });
+        function sfxCorrect() {
+            const notes = [523.25, 659.25, 783.99, 1046.50];
+            notes.forEach((n, i) => setTimeout(() => playTone(n, 'square', 0.14, null, 0.08), i * 90));
+        }
+        function sfxWrong() {
+            playTone(220, 'sawtooth', 0.18, 180, 0.08);
+            setTimeout(() => playTone(170, 'sawtooth', 0.28, 130, 0.08), 180);
+        }
+        function sfxWin() {
+            const melody = [523, 659, 784, 1046, 784, 1046];
+            melody.forEach((n, i) => setTimeout(() => playTone(n, 'square', 0.16, null, 0.08), i * 110));
+        }
 
-    window.addEventListener('beforeunload', () => {
-      if (gameEngine) {
-        gameEngine.simpanProgresSaatIni();
-        gameEngine.cleanup();
-      }
-    });
-  </script>
+        // Data 5 Soal Kuis Pilihan Ganda (Materi: Rantai Makanan & Ekosistem SD Kelas 5)
+        const QUIZ_DATA = [
+            {
+                id: 0,
+                question: "1. Dalam sebuah ekosistem sawah, tumbuhan padi dapat membuat makanannya sendiri melalui bantuan cahaya matahari (fotosintesis). Oleh karena itu, padi berperan sebagai...",
+                options: [
+                    "A. Produsen",
+                    "B. Konsumen Tingkat I",
+                    "C. Konsumen Puncak",
+                    "D. Pengurai (Dekomposer)"
+                ],
+                correct: 0,
+                hint: "Petunjuk: Makhluk hidup penghasil makanan pertama di dalam rantai makanan disebut Produsen."
+            },
+            {
+                id: 1,
+                question: "2. Perhatikan rantai makanan berikut: [ Rumput -> Belalang -> Katak -> Ular -> Elang ]. Pada rantai makanan tersebut, hewan Katak menempati peran sebagai...",
+                options: [
+                    "A. Produsen",
+                    "B. Konsumen Tingkat I",
+                    "C. Konsumen Tingkat II",
+                    "D. Konsumen Tingkat III"
+                ],
+                correct: 2,
+                hint: "Petunjuk: Rumput adalah Produsen, Belalang adalah Konsumen I yang memakan rumput, lalu Katak memakan Belalang."
+            },
+            {
+                id: 2,
+                question: "3. Jamur dan bakteri memiliki peran yang sangat penting di akhir rantai makanan karena menguraikan bangkai makhluk hidup menjadi zat hara yang menyuburkan tanah. Mereka disebut...",
+                options: [
+                    "A. Herbivora",
+                    "B. Produsen Utama",
+                    "C. Dekomposer (Pengurai)",
+                    "D. Predator Puncak"
+                ],
+                correct: 2,
+                hint: "Petunjuk: Istilah ilmiah untuk organisme pengurai sisa makhluk hidup yang telah mati adalah Dekomposer."
+            },
+            {
+                id: 3,
+                question: "4. Pada ekosistem kebun: [ Tanaman Cabai -> Ulat -> Burung Pipit -> Ular ]. Jika seluruh populasi Burung Pipit habis ditangkap manusia, apa dampak langsung yang terjadi?",
+                options: [
+                    "A. Populasi ulat meningkat pesat dan tanaman cabai rusak",
+                    "B. Populasi ulat langsung punah seketika",
+                    "C. Populasi ular meningkat drastis karena kenyang",
+                    "D. Tanaman cabai tumbuh makin subur tanpa gangguan"
+                ],
+                correct: 0,
+                hint: "Petunjuk: Burung Pipit adalah pemangsa Ulat. Jika pemangsanya hilang, hewan yang dimangsa akan berkembang biak tanpa kendali!"
+            },
+            {
+                id: 4,
+                question: "5. Suatu kesatuan hubungan timbal balik yang saling memengaruhi antara makhluk hidup (komponen biotik) dengan lingkungan tak hidup di sekitarnya (komponen abiotik) disebut...",
+                options: [
+                    "A. Populasi Individu",
+                    "B. Ekosistem",
+                    "C. Adaptasi Morfologi",
+                    "D. Metamorfosis Sempurna"
+                ],
+                correct: 1,
+                hint: "Petunjuk: Gabungan interaksi antara unsur biotik (hewan, tumbuhan) dan abiotik (air, tanah, udara, cahaya) membentuk suatu sistem lingkungan."
+            }
+        ];
+
+        // Konstanta Dunia & Fisika
+        const TILE = 32;
+        const GROUND_Y = 384; // Tinggi lantai darat (450 - 66)
+        const LEVEL_WIDTH = 4150;
+        const GRAVITY = 0.56;
+        const MAX_FALL_SPEED = 11.5;
+
+        // Status Input Pemain
+        const keys = {
+            left: false,
+            right: false,
+            jump: false,
+            jumpJustPressed: false
+        };
+
+        // Variabel State Permainan
+        let gameState = 'PLAYING'; // 'PLAYING', 'PAUSED', 'QUIZ', 'FINISHED'
+        let score = 0;
+        let coins = 0;
+        let timeLeft = 400;
+        let frameCount = 0;
+        let cameraX = 0;
+        let screenShakeTimer = 0;
+        let activeBlock = null;
+        let floatingTexts = [];
+        let particles = [];
+
+        // Objek Karakter Utama: Mario 8-bit
+        const mario = {
+            x: 80,
+            y: GROUND_Y - 32,
+            w: 24,
+            h: 32,
+            vx: 0,
+            vy: 0,
+            accel: 0.22,
+            friction: 0.88,
+            maxSpeed: 3.4,
+            jumpForce: -10.8,
+            jumpHoldTimer: 0,
+            maxJumpHold: 14,
+            coyoteTimer: 0,
+            onGround: false,
+            facing: 1, // 1 = kanan, -1 = kiri
+            animFrame: 0,
+            animTick: 0,
+            invulnTimer: 0,
+            safeX: 80,
+            safeY: GROUND_Y - 32
+        };
+
+        // Koleksi Entitas Level
+        let groundSegments = [];
+        let bricks = [];
+        let questionBlocks = [];
+        let pipes = [];
+        let coinsList = [];
+        let enemies = [];
+        let decorations = [];
+        let clouds = [];
+        let flagPole = {};
+
+        /**
+         * Inisialisasi / Reset Level World 1-1
+         */
+        function initLevel() {
+            score = 0;
+            coins = 0;
+            timeLeft = 400;
+            frameCount = 0;
+            cameraX = 0;
+            screenShakeTimer = 0;
+            gameState = 'PLAYING';
+            activeBlock = null;
+            floatingTexts = [];
+            particles = [];
+
+            // Reset Mario
+            mario.x = 80;
+            mario.y = GROUND_Y - mario.h;
+            mario.vx = 0;
+            mario.vy = 0;
+            mario.coyoteTimer = 0;
+            mario.onGround = true;
+            mario.facing = 1;
+            mario.invulnTimer = 0;
+            mario.safeX = 80;
+            mario.safeY = GROUND_Y - mario.h;
+            if (pauseModal) pauseModal.classList.remove('active');
+
+            // 1. Segmen Tanah Darat dengan 3 Celah Jurang (Pit)
+            groundSegments = [
+                { x: 0,    w: 1050 }, // Segmen 1 (Jurang 1: 1050 - 1160)
+                { x: 1160, w: 860  }, // Segmen 2 (Jurang 2: 2020 - 2135)
+                { x: 2135, w: 945  }, // Segmen 3 (Jurang 3: 3080 - 3200)
+                { x: 3200, w: 1050 }  // Segmen 4 sampai Kastil Finish
+            ];
+
+            // 2. Pipa Hijau Klasik dengan Berbagai Tinggi
+            pipes = [
+                { x: 430,  y: GROUND_Y - 56, w: 52, h: 56 },
+                { x: 890,  y: GROUND_Y - 82, w: 52, h: 82 },
+                { x: 1580, y: GROUND_Y - 64, w: 52, h: 64 },
+                { x: 1900, y: GROUND_Y - 92, w: 52, h: 92 },
+                { x: 2560, y: GROUND_Y - 64, w: 52, h: 64 },
+                { x: 3420, y: GROUND_Y - 72, w: 52, h: 72 }
+            ];
+
+            // 3. Balok Bata Oranye (Pijakan Melayang & Tangga)
+            bricks = [
+                // Dekat Blok "?" #1
+                { x: 256, y: GROUND_Y - 96, w: 32, h: 32 },
+                { x: 320, y: GROUND_Y - 96, w: 32, h: 32 },
+                { x: 352, y: GROUND_Y - 96, w: 32, h: 32 },
+
+                // Pijakan menuju Blok "?" #2 yang tinggi
+                { x: 610, y: GROUND_Y - 92, w: 32, h: 32 },
+                { x: 642, y: GROUND_Y - 92, w: 32, h: 32 },
+                { x: 674, y: GROUND_Y - 92, w: 32, h: 32 },
+                { x: 690, y: GROUND_Y - 178, w: 32, h: 32 },
+                { x: 754, y: GROUND_Y - 178, w: 32, h: 32 },
+
+                // Sekitar Blok "?" #3 setelah Jurang 1
+                { x: 1288, y: GROUND_Y - 96, w: 32, h: 32 },
+                { x: 1352, y: GROUND_Y - 96, w: 32, h: 32 },
+                { x: 1440, y: GROUND_Y - 155, w: 32, h: 32 },
+                { x: 1472, y: GROUND_Y - 155, w: 32, h: 32 },
+                { x: 1504, y: GROUND_Y - 155, w: 32, h: 32 },
+
+                // Pijakan di atas Jurang 2
+                { x: 2046, y: GROUND_Y - 82, w: 32, h: 32 },
+                { x: 2078, y: GROUND_Y - 82, w: 32, h: 32 },
+
+                // Sekitar Blok "?" #4 (Tantangan tengah)
+                { x: 2260, y: GROUND_Y - 92, w: 32, h: 32 },
+                { x: 2292, y: GROUND_Y - 92, w: 32, h: 32 },
+                { x: 2356, y: GROUND_Y - 176, w: 32, h: 32 },
+                { x: 2420, y: GROUND_Y - 176, w: 32, h: 32 },
+
+                // Dekat Jurang 3 & Blok "?" #5
+                { x: 2820, y: GROUND_Y - 96, w: 32, h: 32 },
+                { x: 2852, y: GROUND_Y - 96, w: 32, h: 32 },
+                { x: 2948, y: GROUND_Y - 115, w: 32, h: 32 },
+                { x: 3012, y: GROUND_Y - 115, w: 32, h: 32 },
+
+                // Tangga Balok Klasik Menuju Bendera Finish
+                { x: 3560, y: GROUND_Y - 32, w: 32, h: 32 },
+                { x: 3592, y: GROUND_Y - 32, w: 32, h: 32 },
+                { x: 3592, y: GROUND_Y - 64, w: 32, h: 32 },
+                { x: 3624, y: GROUND_Y - 32, w: 32, h: 32 },
+                { x: 3624, y: GROUND_Y - 64, w: 32, h: 32 },
+                { x: 3624, y: GROUND_Y - 96, w: 32, h: 32 },
+                { x: 3656, y: GROUND_Y - 32, w: 32, h: 32 },
+                { x: 3656, y: GROUND_Y - 64, w: 32, h: 32 },
+                { x: 3656, y: GROUND_Y - 96, w: 32, h: 32 },
+                { x: 3656, y: GROUND_Y - 128, w: 32, h: 32 }
+            ];
+
+            // 4. Tepat 5 Blok Tanda Tanya ("?") Berwarna Oranye Keemasan
+            questionBlocks = [
+                // Blok #1: Rendah & mudah dijangkau di awal rute
+                { x: 288,  y: GROUND_Y - 96,  w: 32, h: 32, quizIndex: 0, answered: false, bounceY: 0 },
+                // Blok #2: Melayang tinggi di atas pijakan bata
+                { x: 722,  y: GROUND_Y - 178, w: 32, h: 32, quizIndex: 1, answered: false, bounceY: 0 },
+                // Blok #3: Dijaga oleh musuh Goomba setelah jurang pertama
+                { x: 1320, y: GROUND_Y - 96,  w: 32, h: 32, quizIndex: 2, answered: false, bounceY: 0 },
+                // Blok #4: Melayang tinggi di area tengah & dijaga burung gunung
+                { x: 2388, y: GROUND_Y - 176, w: 32, h: 32, quizIndex: 3, answered: false, bounceY: 0 },
+                // Blok #5: Berada tepat di dekat bibir celah jurang ke-3
+                { x: 2980, y: GROUND_Y - 115, w: 32, h: 32, quizIndex: 4, answered: false, bounceY: 0 }
+            ];
+
+            // 5. Deretan Koin Emas Melayang (di udara, di atas pijakan, & melengkung di atas jurang)
+            coinsList = [];
+            const coinCoords = [
+                // Deretan awal
+                [260, GROUND_Y - 140], [292, GROUND_Y - 140], [324, GROUND_Y - 140], [356, GROUND_Y - 140],
+                // Di atas pijakan pertama
+                [616, GROUND_Y - 132], [648, GROUND_Y - 132], [680, GROUND_Y - 132],
+                // Melengkung di atas Jurang 1
+                [1065, GROUND_Y - 95], [1095, GROUND_Y - 120], [1125, GROUND_Y - 95],
+                // Di atas barisan bata tengah
+                [1445, GROUND_Y - 195], [1477, GROUND_Y - 195], [1509, GROUND_Y - 195],
+                // Di atas Pipa
+                [1720, GROUND_Y - 110], [1755, GROUND_Y - 135], [1790, GROUND_Y - 110],
+                // Di atas pijakan Jurang 2
+                [2050, GROUND_Y - 125], [2082, GROUND_Y - 125],
+                // Dekat Blok "?" #4
+                [2265, GROUND_Y - 135], [2297, GROUND_Y - 135],
+                // Melengkung di atas Jurang 3
+                [3100, GROUND_Y - 95], [3135, GROUND_Y - 125], [3170, GROUND_Y - 95],
+                // Menuju garis akhir
+                [3300, GROUND_Y - 80], [3335, GROUND_Y - 80], [3370, GROUND_Y - 80]
+            ];
+            coinCoords.forEach(c => {
+                coinsList.push({ x: c[0], y: c[1], w: 16, h: 22, collected: false });
+            });
+
+            // 6. Musuh Pegunungan: Goomba Jamur & Burung Gunung Terbang
+            enemies = [
+                // Goomba Jamur (Berjalan horizontal & berbalik jika menabrak pipa/balok/tepi jurang)
+                { type: 'goomba', x: 560,  y: GROUND_Y - 28, w: 28, h: 28, vx: -1.1, squashed: false, squashTimer: 0 },
+                { type: 'goomba', x: 820,  y: GROUND_Y - 28, w: 28, h: 28, vx: -1.2, squashed: false, squashTimer: 0 },
+                { type: 'goomba', x: 1380, y: GROUND_Y - 28, w: 28, h: 28, vx: -1.2, squashed: false, squashTimer: 0 },
+                { type: 'goomba', x: 1820, y: GROUND_Y - 28, w: 28, h: 28, vx: -1.3, squashed: false, squashTimer: 0 },
+                { type: 'goomba', x: 2480, y: GROUND_Y - 28, w: 28, h: 28, vx: -1.2, squashed: false, squashTimer: 0 },
+                { type: 'goomba', x: 2740, y: GROUND_Y - 28, w: 28, h: 28, vx: -1.3, squashed: false, squashTimer: 0 },
+                { type: 'goomba', x: 3360, y: GROUND_Y - 28, w: 28, h: 28, vx: -1.2, squashed: false, squashTimer: 0 },
+
+                // Burung Gunung Terbang (Terbang diagonal naik-turun zig-zag mengejar ketinggian Mario)
+                { type: 'bird', x: 1020, y: 190, w: 30, h: 24, vx: -1.7, vy: 1.4, minX: 700,  maxX: 1450, color: '#ff3860' },
+                { type: 'bird', x: 2050, y: 170, w: 30, h: 24, vx: -1.8, vy: 1.5, minX: 1650, maxX: 2350, color: '#ffdd57' },
+                { type: 'bird', x: 2950, y: 180, w: 30, h: 24, vx: -1.9, vy: 1.5, minX: 2580, maxX: 3300, color: '#00d1b2' }
+            ];
+
+            // 7. Ornamen Pegunungan (Pohon Cerah, Semak Hijau, & Bunga Pixel Warna-Warni)
+            decorations = [];
+            const flowerColors = ['#ff2e63', '#ffd700', '#ff6bcb', '#a855f7'];
+            for (let x = 40; x < LEVEL_WIDTH - 250; x += 95) {
+                // Pastikan ornamen berada di atas tanah daratan (bukan di atas celah jurang)
+                if (isGroundAt(x + 20) && isGroundAt(x + 50)) {
+                    if (x % 285 === 40) {
+                        decorations.push({ type: 'tree', x: x, y: GROUND_Y });
+                    } else if (x % 190 === 40) {
+                        decorations.push({ type: 'bush', x: x, y: GROUND_Y });
+                    }
+                    // Tambahkan bunga pixel warna-warni
+                    const fColor = flowerColors[(x / 95) % flowerColors.length | 0];
+                    decorations.push({ type: 'flower', x: x + 38, y: GROUND_Y, color: fColor });
+                }
+            }
+
+            // 8. Awan Putih Pixel Klasik
+            clouds = [];
+            for (let cx = 60; cx < LEVEL_WIDTH; cx += 240) {
+                clouds.push({
+                    x: cx + (cx % 70),
+                    y: 48 + (cx % 3) * 28,
+                    size: (cx % 2 === 0) ? 2 : 1
+                });
+            }
+
+            // 9. Tiang Bendera Warna-Warni & Kastil Kecil di Garis Akhir
+            flagPole = {
+                x: 3820,
+                y: GROUND_Y - 260,
+                w: 10,
+                h: 260,
+                castleX: 3900,
+                castleY: GROUND_Y - 140
+            };
+
+            updateHUD();
+        }
+
+        /**
+         * Fungsi Helper Deteksi Daratan, Tabrakan Kotak (AABB), & Teks Melayang
+         */
+        function isGroundAt(x) {
+            return groundSegments.some(seg => x >= seg.x && x <= seg.x + seg.w);
+        }
+
+        function rectIntersect(a, b) {
+            return (
+                a.x < b.x + b.w &&
+                a.x + a.w > b.x &&
+                a.y < b.y + b.h &&
+                a.y + a.h > b.y
+            );
+        }
+
+        function addFloatingText(text, x, y, color = '#ffffff') {
+            floatingTexts.push({
+                text,
+                x,
+                y,
+                vy: -1.1,
+                life: 48,
+                color
+            });
+        }
+
+        /**
+         * Sistem Partikel Serpihan Bata (4 Kotak Kecil Menyebar Acak & Jatuh Terkena Gravitasi)
+         */
+        function spawnBrickParticles(bx, by) {
+            const centerX = bx + 16;
+            const centerY = by + 16;
+            const baseDirections = [
+                { vx: -2.6, vy: -6.8 },
+                { vx:  2.6, vy: -6.8 },
+                { vx: -1.8, vy: -4.2 },
+                { vx:  1.8, vy: -4.2 }
+            ];
+            baseDirections.forEach(dir => {
+                const randVx = dir.vx + (Math.random() - 0.5) * 1.4;
+                const randVy = dir.vy + (Math.random() - 0.5) * 1.4;
+                particles.push({
+                    x: centerX - 5,
+                    y: centerY - 5,
+                    w: 10,
+                    h: 10,
+                    vx: randVx,
+                    vy: randVy,
+                    color: '#d85818',
+                    highlight: '#fca044',
+                    life: 55
+                });
+            });
+        }
+
+        /**
+         * Fitur Jeda Permainan (Pause & Resume)
+         */
+        function togglePauseGame() {
+            if (!hasStartedGame || isPortraitBlocked) return;
+            if (gameState === 'PLAYING') {
+                gameState = 'PAUSED';
+                keys.left = false;
+                keys.right = false;
+                keys.jump = false;
+                keys.jumpJustPressed = false;
+                if (pauseModal) pauseModal.classList.add('active');
+                playTone(440, 'square', 0.08, null, 0.06);
+            } else if (gameState === 'PAUSED') {
+                gameState = 'PLAYING';
+                if (pauseModal) pauseModal.classList.remove('active');
+                playTone(660, 'square', 0.08, null, 0.06);
+            }
+        }
+
+        if (btnPauseHud) {
+            btnPauseHud.addEventListener('click', (e) => {
+                e.stopPropagation();
+                togglePauseGame();
+            });
+        }
+
+        if (btnResumeGame) {
+            btnResumeGame.addEventListener('click', () => {
+                if (gameState === 'PAUSED') {
+                    togglePauseGame();
+                }
+            });
+        }
+
+        /**
+         * Update HUD di Atas Layar
+         */
+        function updateHUD() {
+            hudScoreEl.textContent = String(Math.max(0, score)).padStart(6, '0');
+            hudCoinsEl.textContent = 'x' + String(Math.max(0, coins)).padStart(2, '0');
+            const answeredCount = questionBlocks.filter(b => b.answered).length;
+            hudQuizEl.textContent = `${answeredCount}/5`;
+            hudTimeEl.textContent = String(Math.max(0, Math.ceil(timeLeft))).padStart(3, '0');
+        }
+
+        /**
+         * Kumpulkan Semua Balok Solid (Tanah, Pipa, Bata, Blok "?")
+         */
+        function getAllSolids() {
+            const solids = [];
+            for (let seg of groundSegments) {
+                solids.push({ x: seg.x, y: GROUND_Y, w: seg.w, h: 100, kind: 'ground' });
+            }
+            for (let p of pipes) {
+                solids.push({ x: p.x, y: p.y, w: p.w, h: p.h, kind: 'pipe' });
+            }
+            for (let b of bricks) {
+                solids.push({ x: b.x, y: b.y, w: b.w, h: b.h, kind: 'brick', ref: b });
+            }
+            for (let q of questionBlocks) {
+                solids.push({ x: q.x, y: q.y, w: q.w, h: q.h, kind: 'qblock', ref: q });
+            }
+            return solids;
+        }
+
+        /**
+         * ============================================================================
+         * SISTEM KUIS POP-UP INTERAKTIF (BOLEH ULANG JIKA SALAH)
+         * ============================================================================
+         */
+        function triggerQuestionBlock(qBlock) {
+            if (gameState === 'QUIZ') return;
+
+            qBlock.bounceY = -8;
+            if (qBlock.answered) {
+                sfxBump();
+                return;
+            }
+
+            // Jeda permainan & buka Pop-Up Kuis
+            sfxQuizOpen();
+            gameState = 'QUIZ';
+            activeBlock = qBlock;
+            keys.left = false;
+            keys.right = false;
+            keys.jump = false;
+            keys.jumpJustPressed = false;
+
+            const qData = QUIZ_DATA[qBlock.quizIndex];
+            quizBadge.textContent = `BLOK TANDA TANYA #${qBlock.quizIndex + 1} DARI 5`;
+            quizQuestionEl.textContent = qData.question;
+            quizFeedbackEl.className = 'feedback-panel';
+            btnRetryQuiz.style.display = 'none';
+
+            renderQuizOptions(qData);
+            quizModal.classList.add('active');
+        }
+
+        function renderQuizOptions(qData) {
+            quizOptionsEl.innerHTML = '';
+            qData.options.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = optText;
+                btn.onclick = () => evaluateAnswer(idx, btn, qData);
+                quizOptionsEl.appendChild(btn);
+            });
+        }
+
+        function evaluateAnswer(selectedIndex, clickedBtn, qData) {
+            const allButtons = quizOptionsEl.querySelectorAll('.option-btn');
+            allButtons.forEach(b => b.disabled = true);
+
+            if (selectedIndex === qData.correct) {
+                // JIKA JAWABAN BENAR
+                clickedBtn.classList.add('correct');
+                sfxCorrect();
+
+                activeBlock.answered = true;
+                score += 1000;
+                coins += 10;
+                updateHUD();
+
+                addFloatingText('+1000 SKOR & +10 KOIN!', activeBlock.x - 20, activeBlock.y - 16, '#ffd700');
+
+                quizFeedbackEl.className = 'feedback-panel show success';
+                feedbackTextEl.innerHTML = `<strong>★ HEBAT! JAWABANMU BENAR! ★</strong><br>Kamu mendapatkan tambahan <strong>+1000 Skor</strong> dan <strong>+10 Koin</strong>! Blok "?" kini berubah menjadi balok cokelat polos.`;
+                btnRetryQuiz.style.display = 'none';
+                btnCloseQuiz.textContent = 'LANJUT PETUALANGAN';
+            } else {
+                // JIKA JAWABAN SALAH: Muncul Hint & Tombol Coba Lagi
+                clickedBtn.classList.add('wrong');
+                sfxWrong();
+
+                quizFeedbackEl.className = 'feedback-panel show error';
+                feedbackTextEl.innerHTML = `<strong>KURANG TEPAT!</strong><br>${qData.hint}<br><em>Kamu bisa klik "Coba Lagi" sekarang atau menyundul kembali Blok "?" ini kapan saja!</em>`;
+                btnRetryQuiz.style.display = 'inline-block';
+                btnCloseQuiz.textContent = 'TUTUP DULU';
+            }
+        }
+
+        // Event Tombol "Coba Lagi" pada Pop-Up Kuis
+        btnRetryQuiz.addEventListener('click', () => {
+            if (!activeBlock) return;
+            const qData = QUIZ_DATA[activeBlock.quizIndex];
+            quizFeedbackEl.className = 'feedback-panel';
+            renderQuizOptions(qData);
+        });
+
+        // Event Tombol "Lanjut Main / Tutup" pada Pop-Up Kuis
+        btnCloseQuiz.addEventListener('click', () => {
+            quizModal.classList.remove('active');
+            gameState = 'PLAYING';
+            activeBlock = null;
+        });
+
+        /**
+         * ============================================================================
+         * LAYAR SKOR AKHIR (GARIS AKHIR FLEKSIBEL)
+         * ============================================================================
+         */
+        function triggerFinishStage() {
+            if (gameState === 'FINISHED') return;
+            gameState = 'FINISHED';
+            sfxWin();
+
+            const answeredCount = questionBlocks.filter(b => b.answered).length;
+            if (resScoreEl) resScoreEl.textContent = score;
+            if (resCoinsEl) resCoinsEl.textContent = `${coins} Koin`;
+            if (resQuizEl) resQuizEl.textContent = `Soal Dijawab: ${answeredCount} dari 5`;
+            if (resTimeEl) resTimeEl.textContent = `${Math.ceil(timeLeft)} detik`;
+
+            if (resultModal) resultModal.classList.add('active');
+        }
+
+        if (btnRestartGame) {
+            btnRestartGame.addEventListener('click', () => {
+                requestGameFullscreen();
+                if (resultModal) resultModal.classList.remove('active');
+                initLevel();
+            });
+        }
+
+        /**
+         * ============================================================================
+         * LOGIKA UPDATE FISIKA & PERMAINAN
+         * ============================================================================
+         */
+        function updateGame() {
+            checkOrientationState();
+            if (!hasStartedGame || isPortraitBlocked || gameState !== 'PLAYING') return;
+
+            frameCount++;
+            if (frameCount % 60 === 0 && timeLeft > 0) {
+                timeLeft--;
+                updateHUD();
+            }
+
+            // Kurangi timer invulnerability Mario & Screen Shake
+            if (mario.invulnTimer > 0) {
+                mario.invulnTimer--;
+            }
+            if (screenShakeTimer > 0) {
+                screenShakeTimer--;
+            }
+
+            // 1. Pergerakan Horizontal Mario (Akselerasi & Deselerasi Halus)
+            if (keys.left) {
+                mario.vx -= mario.accel;
+                mario.facing = -1;
+            } else if (keys.right) {
+                mario.vx += mario.accel;
+                mario.facing = 1;
+            } else {
+                mario.vx *= mario.friction;
+                if (Math.abs(mario.vx) < 0.08) mario.vx = 0;
+            }
+
+            // Batasi kecepatan horizontal
+            if (mario.vx > mario.maxSpeed) mario.vx = mario.maxSpeed;
+            if (mario.vx < -mario.maxSpeed) mario.vx = -mario.maxSpeed;
+
+            // Update Coyote Time (Toleransi 6 frame / ~0.1 detik setelah meninggalkan tepi pijakan)
+            if (mario.onGround) {
+                mario.coyoteTimer = 6;
+            } else if (mario.coyoteTimer > 0) {
+                mario.coyoteTimer--;
+            }
+
+            // 2. Mekanik Lompat Variabel (Variable Jump Height + Coyote Time)
+            if (keys.jumpJustPressed && (mario.onGround || mario.coyoteTimer > 0)) {
+                mario.vy = mario.jumpForce;
+                mario.onGround = false;
+                mario.coyoteTimer = 0;
+                mario.jumpHoldTimer = mario.maxJumpHold;
+                keys.jumpJustPressed = false;
+                sfxJump();
+            }
+
+            // Jika tombol lompat ditahan lebih lama, berikan dorongan ke atas tambahan
+            if (keys.jump && mario.jumpHoldTimer > 0 && mario.vy < 0) {
+                mario.vy -= 0.36;
+                mario.jumpHoldTimer--;
+            } else {
+                mario.jumpHoldTimer = 0;
+            }
+
+            // Terapkan gravitasi darat
+            mario.vy += GRAVITY;
+            if (mario.vy > MAX_FALL_SPEED) {
+                mario.vy = MAX_FALL_SPEED;
+            }
+
+            const solids = getAllSolids();
+
+            // 3. Resolusi Tabrakan Horizontal Mario & Batas Ujung Dunia (Level Boundary)
+            mario.x += mario.vx;
+            // Mario tidak bisa mundur keluar dari sisi kiri layar kamera
+            if (mario.x < cameraX) {
+                mario.x = cameraX;
+                if (mario.vx < 0) mario.vx = 0;
+            }
+            // Tembok tak kasat mata di ujung kanan dunia (LEVEL_WIDTH)
+            if (mario.x + mario.w > LEVEL_WIDTH) {
+                mario.x = LEVEL_WIDTH - mario.w;
+                if (mario.vx > 0) mario.vx = 0;
+            }
+
+            for (let s of solids) {
+                if (rectIntersect(mario, s)) {
+                    if (mario.vx > 0) {
+                        mario.x = s.x - mario.w;
+                        mario.vx = 0;
+                    } else if (mario.vx < 0) {
+                        mario.x = s.x + s.w;
+                        mario.vx = 0;
+                    }
+                }
+            }
+
+            // 4. Resolusi Tabrakan Vertikal Mario
+            mario.y += mario.vy;
+            mario.onGround = false;
+            let hitCeilingBlock = false;
+
+            for (let s of solids) {
+                if (rectIntersect(mario, s)) {
+                    if (mario.vy > 0) {
+                        // Mendarat di atas tanah, pipa, atau balok
+                        mario.y = s.y - mario.h;
+                        mario.vy = 0;
+                        mario.onGround = true;
+
+                        // Simpan titik aman terdekat di darat sebelum jurang
+                        if (s.kind === 'ground') {
+                            mario.safeX = Math.max(s.x + 24, Math.min(mario.x, s.x + s.w - 48));
+                            mario.safeY = GROUND_Y - mario.h;
+                        }
+                    } else if (mario.vy < 0 && !hitCeilingBlock) {
+                        // Menyundul balok dari bawah (proses tepat 1 balok per sundulan)
+                        hitCeilingBlock = true;
+                        mario.y = s.y + s.h;
+                        mario.vy = 1.2;
+                        mario.jumpHoldTimer = 0;
+
+                        if (s.kind === 'qblock') {
+                            triggerQuestionBlock(s.ref);
+                        } else if (s.kind === 'brick') {
+                            // Hancurkan balok bata biasa, tambah skor +50, suara pecah, & partikel
+                            sfxBreakBrick();
+                            score += 50;
+                            updateHUD();
+                            addFloatingText('+50', s.x + 4, s.y, '#fca044');
+                            spawnBrickParticles(s.x, s.y);
+                            bricks = bricks.filter(b => b !== s.ref);
+                        }
+                    }
+                }
+            }
+
+            // Animasi Langkah Kaki Mario
+            if (!mario.onGround) {
+                mario.animFrame = 2; // Pose melompat
+            } else if (Math.abs(mario.vx) > 0.3) {
+                mario.animTick++;
+                if (mario.animTick > 5) {
+                    mario.animFrame = (mario.animFrame + 1) % 2;
+                    mario.animTick = 0;
+                }
+            } else {
+                mario.animFrame = 0;
+            }
+
+            // 5. Kamera Side-Scrolling (Bergulir ke kanan mengikuti Mario)
+            const targetCamX = mario.x - canvas.width * 0.35;
+            if (targetCamX > cameraX) {
+                cameraX = Math.min(targetCamX, LEVEL_WIDTH - canvas.width);
+            }
+
+            // 6. Cek Jika Mario Jatuh ke Celah Jurang (Pit)
+            if (mario.y > canvas.height + 35) {
+                sfxHurt();
+                screenShakeTimer = 18;
+                coins = Math.max(0, coins - 2);
+                score = Math.max(0, score - 100);
+                updateHUD();
+
+                // Muncul kembali di titik aman terdekat sebelum jurang tanpa mengulang dari awal
+                mario.x = Math.max(cameraX + 24, mario.safeX);
+                mario.y = mario.safeY - 12;
+                mario.vx = 0;
+                mario.vy = 0;
+                mario.invulnTimer = 95;
+                addFloatingText('AWAS JURANG! -2 KOIN', mario.x - 20, mario.y - 15, '#ff6b6b');
+            }
+
+            // 7. Update Animasi Pantulan Blok "?"
+            for (let q of questionBlocks) {
+                if (q.bounceY < 0) {
+                    q.bounceY += 1.5;
+                    if (q.bounceY > 0) q.bounceY = 0;
+                }
+            }
+
+            // 8. Pengumpulan Koin Emas
+            for (let c of coinsList) {
+                if (!c.collected && rectIntersect(mario, c)) {
+                    c.collected = true;
+                    coins++;
+                    score += 100;
+                    sfxCoin();
+                    updateHUD();
+                    addFloatingText('+100', c.x, c.y, '#ffd700');
+                }
+            }
+
+            // 9. Update & Interaksi Musuh (Goomba Jamur & Burung Gunung Terbang)
+            for (let e of enemies) {
+                if (e.type === 'goomba') {
+                    if (e.squashed) {
+                        e.squashTimer--;
+                        continue;
+                    }
+
+                    e.x += e.vx;
+
+                    // Berbalik arah jika menabrak pipa atau balok
+                    for (let s of solids) {
+                        if (s.kind !== 'ground' && rectIntersect(e, s)) {
+                            if (e.vx > 0) e.x = s.x - e.w;
+                            else e.x = s.x + s.w;
+                            e.vx *= -1;
+                        }
+                    }
+
+                    // Berbalik arah jika mencapai bibir celah jurang agar tetap berpatroli di daratan
+                    const checkFootX = e.vx > 0 ? e.x + e.w + 4 : e.x - 4;
+                    if (!isGroundAt(checkFootX)) {
+                        e.vx *= -1;
+                    }
+
+                    // Cek tabrakan Mario dengan Goomba
+                    if (rectIntersect(mario, e)) {
+                        const isStompFromAbove = (mario.vy > 0) && (mario.y + mario.h - mario.vy <= e.y + 14);
+                        if (isStompFromAbove) {
+                            // Mario menginjak Goomba dari atas -> gepeng & +100 skor
+                            e.squashed = true;
+                            e.squashTimer = 35;
+                            mario.vy = -7.8; // Memantul ke atas
+                            score += 100;
+                            sfxStomp();
+                            updateHUD();
+                            addFloatingText('+100', e.x, e.y - 10, '#7bed9f');
+                        } else if (mario.invulnTimer === 0) {
+                            // Tersentuh dari samping -> berkurang sedikit & berkedip sementara
+                            damageMario();
+                        }
+                    }
+                } else if (e.type === 'bird') {
+                    // Burung Gunung Terbang secara diagonal naik-turun (zig-zag) mengejar ketinggian Mario
+                    e.x += e.vx;
+                    if (e.x < e.minX || e.x > e.maxX) {
+                        e.vx *= -1;
+                    }
+
+                    const targetHeight = Math.max(95, Math.min(GROUND_Y - 75, mario.y - 15));
+                    if (Math.abs(e.x - mario.x) < 360) {
+                        // Mengejar ketinggian Mario secara diagonal
+                        e.y += (e.y < targetHeight) ? Math.abs(e.vy) : -Math.abs(e.vy);
+                    } else {
+                        // Zig-zag diagonal konstan saat patroli
+                        e.y += e.vy;
+                        if (e.y < 95 || e.y > GROUND_Y - 80) {
+                            e.vy *= -1;
+                        }
+                    }
+
+                    // Cek tabrakan Mario dengan Burung Gunung
+                    if (rectIntersect(mario, e)) {
+                        const isStompFromAbove = (mario.vy > 0) && (mario.y + mario.h - mario.vy <= e.y + 14);
+                        if (isStompFromAbove) {
+                            // Mario menginjak Burung dari atas -> hancur, pantulan ekstra tinggi, +200 skor
+                            e.defeated = true;
+                            mario.vy = -8.5;
+                            score += 200;
+                            sfxStomp();
+                            updateHUD();
+                            addFloatingText('+200', e.x, e.y - 10, '#ffdd57');
+                            spawnBrickParticles(e.x, e.y);
+                        } else if (mario.invulnTimer === 0) {
+                            damageMario();
+                        }
+                    }
+                }
+            }
+
+            // Hapus Goomba yang sudah gepeng atau Burung yang sudah diinjak
+            enemies = enemies.filter(e => {
+                if (e.type === 'goomba' && e.squashed && e.squashTimer <= 0) return false;
+                if (e.type === 'bird' && e.defeated) return false;
+                return true;
+            });
+
+            // 10. Update Partikel Serpihan Bata & Teks Melayang
+            for (let p of particles) {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += GRAVITY * 0.85;
+                p.life--;
+            }
+            particles = particles.filter(p => p.life > 0);
+
+            for (let ft of floatingTexts) {
+                ft.y += ft.vy;
+                ft.life--;
+            }
+            floatingTexts = floatingTexts.filter(ft => ft.life > 0);
+
+            // 11. Cek Sentuhan Garis Akhir (Tiang Bendera Fleksibel)
+            if (mario.x + mario.w >= flagPole.x) {
+                triggerFinishStage();
+            }
+        }
+
+        function damageMario() {
+            sfxHurt();
+            screenShakeTimer = 18; // Efek getar layar halus saat terkena damage
+            mario.invulnTimer = 90; // Berkedip invulnerable sementara (~1.5 detik)
+            coins = Math.max(0, coins - 1);
+            score = Math.max(0, score - 50);
+            mario.vy = -4.5;
+            updateHUD();
+            addFloatingText('-50 SKOR', mario.x, mario.y - 12, '#ff6b6b');
+        }
+
+        /**
+         * ============================================================================
+         * RENDERING VISUAL PIXEL ART & PARALLAX PEGUNUNGAN (CANVAS 2D)
+         * ============================================================================
+         */
+        function drawGame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 1. LANGIT CERAH GRADASI BIRU, MATAHARI KUNING, & PELANGI PIXEL
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+            skyGrad.addColorStop(0, '#1e90ff');
+            skyGrad.addColorStop(0.55, '#5ad2ff');
+            skyGrad.addColorStop(1, '#bceeff');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Pelangi Pixel di Kejauhan
+            const rainbowColors = ['#ff3860', '#ff8c42', '#ffdd57', '#2ecc71', '#3498db', '#9b59b6'];
+            const rbCenterX = 560 - (cameraX * 0.05);
+            const rbCenterY = GROUND_Y + 30;
+            ctx.save();
+            ctx.globalAlpha = 0.65;
+            rainbowColors.forEach((col, idx) => {
+                ctx.strokeStyle = col;
+                ctx.lineWidth = 7;
+                ctx.beginPath();
+                ctx.arc(rbCenterX, rbCenterY, 270 - idx * 7, Math.PI, 0);
+                ctx.stroke();
+            });
+            ctx.restore();
+
+            // Matahari Kuning Pixel Bersinar
+            const sunX = 680 - (cameraX * 0.03);
+            const sunY = 72;
+            ctx.fillStyle = '#fff59d';
+            ctx.fillRect(sunX - 26, sunY - 26, 52, 52);
+            ctx.fillStyle = '#ffd700';
+            ctx.fillRect(sunX - 20, sunY - 20, 40, 40);
+            ctx.fillStyle = '#ffae00';
+            ctx.fillRect(sunX - 12, sunY - 12, 24, 24);
+
+            // 2. LATAR BELAKANG BERLAPIS (PARALLAX PEGUNUNGAN BERSALJU)
+            // Lapisan Jauh: Ungu & Biru Muda (Parallax 0.15)
+            drawMountainLayer(0.15, 210, 310, '#7e57c2', '#5c6bc0', true);
+            // Lapisan Tengah: Hijau Toska (Parallax 0.32)
+            drawMountainLayer(0.32, 155, 250, '#1abc9c', '#16a085', true);
+            // Lapisan Depan: Hijau Terang (Parallax 0.52)
+            drawMountainLayer(0.52, 105, 190, '#2ecc71', '#27ae60', true);
+
+            // 3. AWAN PUTIH PIXEL KLASIK (Parallax 0.4)
+            for (let c of clouds) {
+                const screenX = c.x - cameraX * 0.4;
+                if (screenX > -120 && screenX < canvas.width + 120) {
+                    drawPixelCloud(screenX, c.y, c.size);
+                }
+            }
+
+            // Mulai transformasi kamera dunia utama (+ Efek Screen Shake bila aktif)
+            ctx.save();
+            let shakeOffsetX = 0;
+            let shakeOffsetY = 0;
+            if (screenShakeTimer > 0) {
+                shakeOffsetX = (Math.random() - 0.5) * 7;
+                shakeOffsetY = (Math.random() - 0.5) * 7;
+            }
+            ctx.translate(-Math.floor(cameraX) + shakeOffsetX, shakeOffsetY);
+
+            // 4. ORNAMEN DARATAN (Pohon Cerah, Semak Hijau, Bunga Pixel Warna-Warni)
+            for (let d of decorations) {
+                if (d.x < cameraX - 100 || d.x > cameraX + canvas.width + 100) continue;
+                if (d.type === 'tree') drawPixelTree(d.x, d.y);
+                else if (d.type === 'bush') drawPixelBush(d.x, d.y);
+                else if (d.type === 'flower') drawPixelFlower(d.x, d.y, d.color);
+            }
+
+            // 5. GARIS AKHIR: TIANG BENDERA WARNA-WARNI & KASTIL KECIL
+            drawFinishFlagAndCastle();
+
+            // 6. TANAH DARATAN (Rumput Hijau Cerah di atas Tanah Cokelat Pixel Klasik)
+            for (let seg of groundSegments) {
+                drawGroundSegment(seg.x, GROUND_Y, seg.w, canvas.height - GROUND_Y);
+            }
+
+            // 7. PIPA HIJAU BERBAGAI TINGGI
+            for (let p of pipes) {
+                if (p.x + p.w < cameraX || p.x > cameraX + canvas.width) continue;
+                drawPixelPipe(p.x, p.y, p.w, p.h);
+            }
+
+            // 8. BALOK BATA ORANYE
+            for (let b of bricks) {
+                if (b.x + b.w < cameraX || b.x > cameraX + canvas.width) continue;
+                drawBrickBlock(b.x, b.y, b.w, b.h);
+            }
+
+            // 9. 5 BLOK TANDA TANYA ("?")
+            for (let q of questionBlocks) {
+                if (q.x + q.w < cameraX || q.x > cameraX + canvas.width) continue;
+                drawQuestionBlock(q.x, q.y + q.bounceY, q.w, q.h, q.answered);
+            }
+
+            // 10. DERETAN KOIN EMAS MELAYANG
+            for (let c of coinsList) {
+                if (c.collected) continue;
+                if (c.x + c.w < cameraX || c.x > cameraX + canvas.width) continue;
+                drawPixelCoin(c.x, c.y);
+            }
+
+            // 11. MUSUH PEGUNUNGAN (Goomba Jamur & Burung Gunung Terbang)
+            for (let e of enemies) {
+                if (e.x + e.w < cameraX - 40 || e.x > cameraX + canvas.width + 40) continue;
+                if (e.type === 'goomba') {
+                    drawGoombaSprite(e.x, e.y, e.w, e.h, e.squashed);
+                } else if (e.type === 'bird') {
+                    drawMountainBirdSprite(e.x, e.y, e.w, e.h, e.vx, e.color);
+                }
+            }
+
+            // 12. KARAKTER UTAMA: MARIO 8-BIT ASLI
+            if (mario.invulnTimer % 4 < 2) {
+                drawMario8Bit(Math.floor(mario.x), Math.floor(mario.y), mario.facing, mario.animFrame);
+            }
+
+            // 13. PARTIKEL SERPIHAN BATA
+            for (let p of particles) {
+                ctx.fillStyle = p.color;
+                ctx.fillRect(p.x, p.y, p.w, p.h);
+                ctx.fillStyle = p.highlight;
+                ctx.fillRect(p.x + 2, p.y + 2, 4, 4);
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 1.5;
+                ctx.strokeRect(p.x, p.y, p.w, p.h);
+            }
+
+            // 14. TEKS SKOR MELAYANG
+            for (let ft of floatingTexts) {
+                ctx.font = 'bold 14px "Courier New", monospace';
+                ctx.fillStyle = '#000000';
+                ctx.fillText(ft.text, ft.x + 2, ft.y + 2);
+                ctx.fillStyle = ft.color;
+                ctx.fillText(ft.text, ft.x, ft.y);
+            }
+
+            ctx.restore();
+        }
+
+        /**
+         * Menggambar Lapisan Gunung Berlapis (Parallax) dengan Puncak Bersalju Pixel
+         */
+        function drawMountainLayer(parallaxFactor, peakHeight, spacing, colorMain, colorAlt, hasSnow) {
+            const offset = -(cameraX * parallaxFactor) % spacing;
+            const count = Math.ceil(canvas.width / spacing) + 3;
+
+            for (let i = -1; i < count; i++) {
+                const baseX = i * spacing + offset;
+                const indexNum = Math.abs(Math.floor((i * spacing + cameraX * parallaxFactor) / spacing));
+                const mColor = (indexNum % 2 === 0) ? colorMain : colorAlt;
+                const h = peakHeight + (indexNum % 3) * 24;
+                const halfW = spacing * 0.72;
+                const peakX = baseX + halfW;
+                const peakY = GROUND_Y - h;
+
+                // Badan Gunung
+                ctx.fillStyle = mColor;
+                ctx.beginPath();
+                ctx.moveTo(baseX, GROUND_Y);
+                ctx.lineTo(peakX, peakY);
+                ctx.lineTo(baseX + halfW * 2, GROUND_Y);
+                ctx.closePath();
+                ctx.fill();
+
+                // Puncak Bersalju Putih Bertekstur Pixel
+                if (hasSnow) {
+                    const snowH = h * 0.32;
+                    const snowHalfW = halfW * 0.32;
+                    ctx.fillStyle = '#ffffff';
+                    ctx.beginPath();
+                    ctx.moveTo(peakX, peakY);
+                    ctx.lineTo(peakX - snowHalfW, peakY + snowH);
+                    ctx.lineTo(peakX - snowHalfW * 0.4, peakY + snowH - 8);
+                    ctx.lineTo(peakX, peakY + snowH + 4);
+                    ctx.lineTo(peakX + snowHalfW * 0.4, peakY + snowH - 8);
+                    ctx.lineTo(peakX + snowHalfW, peakY + snowH);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    // Aksen blok pixel salju
+                    ctx.fillStyle = '#dff9fb';
+                    ctx.fillRect(peakX - 6, peakY + 12, 6, 6);
+                    ctx.fillRect(peakX + 2, peakY + 20, 6, 6);
+                }
+            }
+        }
+
+        /**
+         * Menggambar Awan Putih Pixel Klasik
+         */
+        function drawPixelCloud(x, y, scale) {
+            const w = 36 * scale;
+            const h = 20;
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(x, y + 6, w, h);
+            ctx.fillRect(x + 8, y, w - 16, 8);
+            ctx.fillStyle = '#d6eaff';
+            ctx.fillRect(x + 4, y + h + 2, w - 8, 4);
+        }
+
+        /**
+         * Menggambar Ornamen Pohon, Semak, dan Bunga Pixel Warna-Warni
+         */
+        function drawPixelTree(x, groundY) {
+            // Batang cokelat
+            ctx.fillStyle = '#8b4513';
+            ctx.fillRect(x + 12, groundY - 48, 12, 48);
+            ctx.fillStyle = '#5c2c06';
+            ctx.fillRect(x + 20, groundY - 48, 4, 48);
+            // Daun pohon hijau cerah bertingkat
+            ctx.fillStyle = '#00e676';
+            ctx.fillRect(x - 4, groundY - 76, 44, 30);
+            ctx.fillRect(x + 4, groundY - 94, 28, 20);
+            ctx.fillStyle = '#76ff03';
+            ctx.fillRect(x, groundY - 72, 16, 12);
+            ctx.fillRect(x + 8, groundY - 90, 14, 10);
+        }
+
+        function drawPixelBush(x, groundY) {
+            ctx.fillStyle = '#2ed573';
+            ctx.fillRect(x, groundY - 18, 48, 18);
+            ctx.fillRect(x + 8, groundY - 26, 32, 10);
+            ctx.fillStyle = '#7bed9f';
+            ctx.fillRect(x + 6, groundY - 14, 12, 6);
+            ctx.fillRect(x + 24, groundY - 22, 10, 6);
+        }
+
+        function drawPixelFlower(x, groundY, petalColor) {
+            // Tangkai hijau
+            ctx.fillStyle = '#2ecc71';
+            ctx.fillRect(x + 4, groundY - 14, 4, 14);
+            ctx.fillRect(x, groundY - 8, 4, 3);
+            // Kelopak bunga warna-warni
+            ctx.fillStyle = petalColor;
+            ctx.fillRect(x, groundY - 22, 12, 10);
+            // Inti kuning
+            ctx.fillStyle = '#fff200';
+            ctx.fillRect(x + 4, groundY - 19, 4, 4);
+        }
+
+        /**
+         * Menggambar Segmen Lantai Tanah (Rumput Hijau Cerah + Tanah Cokelat Pixel)
+         */
+        function drawGroundSegment(x, y, w, h) {
+            // Tanah cokelat dasar
+            ctx.fillStyle = '#c84c0c';
+            ctx.fillRect(x, y, w, h);
+
+            // Tekstur kotak bata tanah klasik NES
+            ctx.strokeStyle = '#7c2800';
+            ctx.lineWidth = 2;
+            for (let gx = x; gx < x + w; gx += 32) {
+                const blockW = Math.min(32, x + w - gx);
+                ctx.strokeRect(gx, y + 12, blockW, 26);
+                ctx.strokeRect(gx, y + 38, blockW, 28);
+                ctx.fillStyle = '#f89858';
+                ctx.fillRect(gx + 4, y + 16, Math.min(8, blockW - 4), 4);
+            }
+
+            // Lapisan rumput hijau cerah di permukaan atas
+            ctx.fillStyle = '#00e640';
+            ctx.fillRect(x, y, w, 12);
+            ctx.fillStyle = '#76ff03';
+            ctx.fillRect(x, y, w, 4);
+            ctx.fillStyle = '#009432';
+            for (let rx = x; rx < x + w - 6; rx += 16) {
+                ctx.fillRect(rx + 6, y + 10, 6, 4);
+            }
+        }
+
+        /**
+         * Menggambar Pipa Hijau Klasik
+         */
+        function drawPixelPipe(x, y, w, h) {
+            // Badan pipa
+            ctx.fillStyle = '#00b800';
+            ctx.fillRect(x + 4, y + 24, w - 8, h - 24);
+            // Highlight terang & bayangan pipa
+            ctx.fillStyle = '#80ff40';
+            ctx.fillRect(x + 10, y + 24, 8, h - 24);
+            ctx.fillStyle = '#006400';
+            ctx.fillRect(x + w - 12, y + 24, 6, h - 24);
+            ctx.strokeStyle = '#002800';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x + 4, y + 24, w - 8, h - 24);
+
+            // Bibir atas pipa
+            ctx.fillStyle = '#00c800';
+            ctx.fillRect(x, y, w, 24);
+            ctx.fillStyle = '#80ff40';
+            ctx.fillRect(x + 6, y + 2, 10, 20);
+            ctx.fillStyle = '#006400';
+            ctx.fillRect(x + w - 10, y + 2, 6, 20);
+            ctx.strokeRect(x, y, w, 24);
+        }
+
+        /**
+         * Menggambar Balok Bata Oranye
+         */
+        function drawBrickBlock(x, y, w, h) {
+            ctx.fillStyle = '#d85818';
+            ctx.fillRect(x, y, w, h);
+
+            // Garis semen antar bata
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(x, y + 15, w, 2);
+            ctx.fillRect(x + 15, y, 2, 15);
+            ctx.fillRect(x + 7, y + 17, 2, 15);
+            ctx.fillRect(x + 23, y + 17, 2, 15);
+
+            // Highlight oranye terang
+            ctx.fillStyle = '#fca044';
+            ctx.fillRect(x + 2, y + 2, 11, 3);
+            ctx.fillRect(x + 18, y + 2, 11, 3);
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x, y, w, h);
+        }
+
+        /**
+         * Menggambar Blok Tanda Tanya ("?") Oranye Keemasan / Cokelat Polos Saat Selesai
+         */
+        function drawQuestionBlock(x, y, w, h, answered) {
+            if (answered) {
+                // Balok Cokelat Polos Non-Aktif
+                ctx.fillStyle = '#8b5a2b';
+                ctx.fillRect(x, y, w, h);
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(x, y, w, h);
+                // 4 Paku sudut
+                ctx.fillStyle = '#3b2314';
+                ctx.fillRect(x + 3, y + 3, 3, 3);
+                ctx.fillRect(x + w - 6, y + 3, 3, 3);
+                ctx.fillRect(x + 3, y + h - 6, 3, 3);
+                ctx.fillRect(x + w - 6, y + h - 6, 3, 3);
+            } else {
+                // Blok "?" Oranye Keemasan Berkedip
+                const pulse = Math.floor(frameCount / 15) % 3;
+                const bgColors = ['#ffa800', '#ffc425', '#ff8c00'];
+                ctx.fillStyle = bgColors[pulse];
+                ctx.fillRect(x, y, w, h);
+
+                ctx.strokeStyle = '#000000';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(x, y, w, h);
+
+                // Paku sudut
+                ctx.fillStyle = '#8c4600';
+                ctx.fillRect(x + 3, y + 3, 3, 3);
+                ctx.fillRect(x + w - 6, y + 3, 3, 3);
+                ctx.fillRect(x + 3, y + h - 6, 3, 3);
+                ctx.fillRect(x + w - 6, y + h - 6, 3, 3);
+
+                // Simbol "?" Pixel
+                ctx.font = '900 22px "Courier New", monospace';
+                ctx.fillStyle = '#5c2800';
+                ctx.fillText('?', x + 10, y + 25);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText('?', x + 8, y + 23);
+            }
+        }
+
+        /**
+         * Menggambar Koin Emas Melayang
+         */
+        function drawPixelCoin(x, y) {
+            const animW = (Math.floor(frameCount / 10) % 2 === 0) ? 14 : 8;
+            const offsetX = (16 - animW) / 2;
+            ctx.fillStyle = '#ffd700';
+            ctx.fillRect(x + offsetX, y + 2, animW, 18);
+            ctx.fillStyle = '#fff9a6';
+            ctx.fillRect(x + offsetX + 2, y + 4, Math.max(2, animW - 6), 14);
+            ctx.strokeStyle = '#9c640c';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(x + offsetX, y + 2, animW, 18);
+        }
+
+        /**
+         * Menggambar Musuh 1: Goomba Jamur Cokelat Pixel
+         */
+        function drawGoombaSprite(x, y, w, h, squashed) {
+            ctx.save();
+            if (squashed) {
+                // Goomba gepeng saat diinjak
+                ctx.fillStyle = '#b84e14';
+                ctx.fillRect(x, y + 14, w, 10);
+                ctx.fillStyle = '#f8d8a8';
+                ctx.fillRect(x + 6, y + 22, w - 12, 6);
+                ctx.restore();
+                return;
+            }
+
+            // Kepala jamur cokelat
+            ctx.fillStyle = '#b84e14';
+            ctx.fillRect(x + 4, y, w - 8, 6);
+            ctx.fillRect(x + 2, y + 6, w - 4, 6);
+            ctx.fillRect(x, y + 12, w, 6);
+
+            // Mata putih & pupil hitam tegas
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(x + 5, y + 8, 4, 8);
+            ctx.fillRect(x + w - 9, y + 8, 4, 8);
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(x + 7, y + 10, 2, 6);
+            ctx.fillRect(x + w - 9, y + 10, 2, 6);
+
+            // Batang krem bawah
+            ctx.fillStyle = '#f8d8a8';
+            ctx.fillRect(x + 6, y + 18, w - 12, 6);
+
+            // Kaki hitam bergantian saat berjalan
+            const step = Math.floor(frameCount / 8) % 2;
+            ctx.fillStyle = '#000000';
+            if (step === 0) {
+                ctx.fillRect(x + 3, y + 23, 8, 5);
+                ctx.fillRect(x + w - 10, y + 24, 6, 4);
+            } else {
+                ctx.fillRect(x + 3, y + 24, 6, 4);
+                ctx.fillRect(x + w - 11, y + 23, 8, 5);
+            }
+            ctx.restore();
+        }
+
+        /**
+         * Menggambar Musuh 2: Burung Gunung Terbang Berwarna Cerah
+         */
+        function drawMountainBirdSprite(x, y, w, h, vx, bodyColor) {
+            ctx.save();
+            const facingRight = vx > 0;
+            if (facingRight) {
+                ctx.translate(x + w, y);
+                ctx.scale(-1, 1);
+            } else {
+                ctx.translate(x, y);
+            }
+
+            // Badan burung cerah
+            ctx.fillStyle = bodyColor;
+            ctx.fillRect(6, 6, 18, 12);
+            ctx.fillRect(2, 4, 10, 10);
+
+            // Paruh kuning tajam
+            ctx.fillStyle = '#ffa502';
+            ctx.fillRect(-4, 8, 6, 5);
+
+            // Mata
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(4, 6, 4, 4);
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(4, 7, 2, 2);
+
+            // Kepakan Sayap Pixel
+            const wingUp = Math.floor(frameCount / 6) % 2 === 0;
+            ctx.fillStyle = '#1e90ff';
+            if (wingUp) {
+                ctx.fillRect(10, -4, 10, 10);
+            } else {
+                ctx.fillRect(10, 12, 10, 9);
+            }
+
+            // Ekor
+            ctx.fillStyle = '#ffdd57';
+            ctx.fillRect(24, 5, 6, 8);
+
+            ctx.restore();
+        }
+
+        /**
+         * Menggambar Karakter Utama: Sprite Mario 8-bit Asli
+         * (Topi Merah, Baju Cokelat, Overall Merah-Oranye, Kulit Peach)
+         */
+        function drawMario8Bit(x, y, facing, animFrame) {
+            ctx.save();
+            if (facing === -1) {
+                ctx.translate(x + 24, y);
+                ctx.scale(-1, 1);
+            } else {
+                ctx.translate(x, y);
+            }
+
+            // Palet Warna Asli Mario 8-bit NES
+            const RED = '#e4000f';   // Topi & Overall Merah-Oranye
+            const BRN = '#884c00';   // Rambut, Kumis, Baju Cokelat & Sepatu
+            const SKN = '#fca044';   // Kulit Wajah & Tangan
+            const YLW = '#ffd700';   // Kancing Overall
+
+            // 1. Topi Merah
+            ctx.fillStyle = RED;
+            ctx.fillRect(6, 0, 12, 3);
+            ctx.fillRect(4, 3, 18, 3);
+
+            // 2. Kepala, Rambut, Mata & Kumis Cokelat
+            ctx.fillStyle = BRN;
+            ctx.fillRect(4, 6, 6, 3);
+            ctx.fillRect(2, 9, 4, 6);
+            ctx.fillStyle = SKN;
+            ctx.fillRect(10, 6, 8, 3);
+            ctx.fillRect(6, 9, 14, 6);
+            ctx.fillRect(6, 15, 12, 2);
+            // Mata & Kumis
+            ctx.fillStyle = BRN;
+            ctx.fillRect(14, 7, 2, 4); // Mata
+            ctx.fillRect(16, 11, 4, 2);
+            ctx.fillRect(12, 13, 10, 2); // Kumis khas Mario
+
+            // 3. Baju Cokelat & Overall Merah-Oranye
+            ctx.fillStyle = BRN;
+            ctx.fillRect(4, 17, 16, 8);
+            // Lengan & Tangan
+            ctx.fillStyle = SKN;
+            if (animFrame === 2) {
+                // Tangan terangkat saat melompat
+                ctx.fillRect(18, 12, 4, 5);
+                ctx.fillRect(0, 18, 4, 4);
+            } else {
+                ctx.fillRect(0, 19, 4, 5);
+                ctx.fillRect(20, 19, 4, 5);
+            }
+
+            // Overall Merah-Oranye & Kancing Kuning
+            ctx.fillStyle = RED;
+            ctx.fillRect(8, 17, 3, 11);
+            ctx.fillRect(15, 17, 3, 11);
+            ctx.fillRect(6, 22, 12, 6);
+            ctx.fillStyle = YLW;
+            ctx.fillRect(8, 22, 2, 2);
+            ctx.fillRect(15, 22, 2, 2);
+
+            // 4. Sepatu Cokelat (Animasi Lari & Lompat)
+            ctx.fillStyle = BRN;
+            if (animFrame === 1) {
+                // Langkah lari
+                ctx.fillRect(2, 28, 7, 4);
+                ctx.fillRect(16, 26, 7, 4);
+            } else if (animFrame === 2) {
+                // Pose melompat
+                ctx.fillRect(2, 27, 7, 4);
+                ctx.fillRect(16, 25, 7, 5);
+            } else {
+                // Berdiri normal
+                ctx.fillRect(4, 28, 7, 4);
+                ctx.fillRect(14, 28, 7, 4);
+            }
+
+            ctx.restore();
+        }
+
+        /**
+         * Menggambar Tiang Bendera Warna-Warni & Kastil Kecil di Ujung Kanan Level
+         */
+        function drawFinishFlagAndCastle() {
+            const fx = flagPole.x;
+            const fy = flagPole.y;
+
+            // Fondasi Balok Tiang Bendera
+            drawBrickBlock(fx - 11, GROUND_Y - 32, 32, 32);
+
+            // Tiang Bendera Berwarna-Warni (Stripes Pelangi Cerah)
+            const poleColors = ['#ff3860', '#ffdd57', '#2ecc71', '#00d1b2', '#3498db', '#a855f7'];
+            const segH = (flagPole.h - 32) / poleColors.length;
+            poleColors.forEach((col, i) => {
+                ctx.fillStyle = col;
+                ctx.fillRect(fx, fy + i * segH, 8, segH + 1);
+            });
+
+            // Bola Emas di Puncak Tiang
+            ctx.fillStyle = '#ffd700';
+            ctx.beginPath();
+            ctx.arc(fx + 4, fy, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Bendera Segitiga Warna-Warni
+            ctx.fillStyle = '#ff2e63';
+            ctx.beginPath();
+            ctx.moveTo(fx + 8, fy + 10);
+            ctx.lineTo(fx + 66, fy + 30);
+            ctx.lineTo(fx + 8, fy + 50);
+            ctx.closePath();
+            ctx.fill();
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 12px monospace';
+            ctx.fillText('GOAL', fx + 14, fy + 34);
+
+            // Kastil Kecil Klasik di Samping Tiang Bendera
+            const cx = flagPole.castleX;
+            const cy = flagPole.castleY;
+
+            // Bangunan Bawah Kastil
+            ctx.fillStyle = '#d85818';
+            ctx.fillRect(cx, cy + 50, 140, 90);
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(cx, cy + 50, 140, 90);
+
+            // Menara Atas Kastil
+            ctx.fillStyle = '#e67e22';
+            ctx.fillRect(cx + 25, cy + 10, 90, 40);
+            ctx.strokeRect(cx + 25, cy + 10, 90, 40);
+
+            // Gerigi Benteng Kastil (Battlements)
+            for (let bx = cx; bx < cx + 140; bx += 20) {
+                ctx.fillStyle = '#d85818';
+                ctx.fillRect(bx, cy + 38, 12, 12);
+                ctx.strokeRect(bx, cy + 38, 12, 12);
+            }
+            for (let tx = cx + 25; tx < cx + 115; tx += 18) {
+                ctx.fillStyle = '#e67e22';
+                ctx.fillRect(tx, cy - 2, 12, 12);
+                ctx.strokeRect(tx, cy - 2, 12, 12);
+            }
+
+            // Pintu Lengkung Hitam Kastil
+            ctx.fillStyle = '#111111';
+            ctx.fillRect(cx + 52, cy + 95, 36, 45);
+            ctx.beginPath();
+            ctx.arc(cx + 70, cy + 95, 18, Math.PI, 0);
+            ctx.fill();
+
+            // Jendela Kecil Kastil
+            ctx.fillRect(cx + 42, cy + 22, 12, 18);
+            ctx.fillRect(cx + 86, cy + 22, 12, 18);
+        }
+
+        /**
+         * ============================================================================
+         * EVENT LISTENER KONTROL KEYBOARD & LAYAR SENTUH (MOBILE D-PAD)
+         * ============================================================================
+         */
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Escape' || e.code === 'KeyP') {
+                if (gameState === 'PLAYING' || gameState === 'PAUSED') {
+                    e.preventDefault();
+                    togglePauseGame();
+                }
+                return;
+            }
+
+            if (gameState !== 'PLAYING') return;
+
+            if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
+                keys.left = true;
+            }
+            if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+                keys.right = true;
+            }
+            if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
+                e.preventDefault();
+                if (!keys.jump) {
+                    keys.jumpJustPressed = true;
+                }
+                keys.jump = true;
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.code === 'ArrowLeft' || e.code === 'KeyA') {
+                keys.left = false;
+            }
+            if (e.code === 'ArrowRight' || e.code === 'KeyD') {
+                keys.right = false;
+            }
+            if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
+                keys.jump = false;
+                keys.jumpJustPressed = false;
+            }
+        });
+
+        // Fungsi Helper Tombol Sentuh / Mouse On-Screen
+        function bindControlBtn(btnId, keyName, isJumpBtn = false) {
+            const btn = document.getElementById(btnId);
+
+            const pressHandler = (e) => {
+                e.preventDefault();
+                if (gameState !== 'PLAYING') return;
+                btn.classList.add('pressed');
+                if (isJumpBtn && !keys.jump) {
+                    keys.jumpJustPressed = true;
+                }
+                keys[keyName] = true;
+            };
+
+            const releaseHandler = (e) => {
+                e.preventDefault();
+                btn.classList.remove('pressed');
+                keys[keyName] = false;
+                if (isJumpBtn) {
+                    keys.jumpJustPressed = false;
+                }
+            };
+
+            btn.addEventListener('touchstart', pressHandler, { passive: false });
+            btn.addEventListener('touchend', releaseHandler, { passive: false });
+            btn.addEventListener('touchcancel', releaseHandler, { passive: false });
+            btn.addEventListener('mousedown', pressHandler);
+            btn.addEventListener('mouseup', releaseHandler);
+            btn.addEventListener('mouseleave', releaseHandler);
+        }
+
+        bindControlBtn('btn-left', 'left', false);
+        bindControlBtn('btn-right', 'right', false);
+        bindControlBtn('btn-jump', 'jump', true);
+
+        /**
+         * Loop Utama Animasi Game
+         */
+        function gameLoop() {
+            updateGame();
+            drawGame();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Mulai Permainan Saat Halaman Selesai Dimuat
+        window.onload = function () {
+            setupDeviceControlsVisibility();
+            checkOrientationState();
+            initLevel();
+            gameLoop();
+        };
+    </script>
 </body>
 </html>

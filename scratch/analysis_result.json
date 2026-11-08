@@ -1,0 +1,3392 @@
+[
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\.test_profile_kamus\\Crashpad\\metadata",
+    "relPath": ".test_profile_kamus/Crashpad/metadata",
+    "basename": "metadata",
+    "ext": "",
+    "inboundCount": 4,
+    "inboundReferences": [
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/sertifikat.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/supabase.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/test_mulai_langsung_cdp.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\.test_profile_kamus\\Crashpad\\settings.dat",
+    "relPath": ".test_profile_kamus/Crashpad/settings.dat",
+    "basename": "settings.dat",
+    "ext": ".dat",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\.test_profile_kamus\\Local State",
+    "relPath": ".test_profile_kamus/Local State",
+    "basename": "Local State",
+    "ext": "",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\.test_profile_kamus\\Variations",
+    "relPath": ".test_profile_kamus/Variations",
+    "basename": "Variations",
+    "ext": "",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\.test_profile_kamus\\VariationsSafeSeedV2",
+    "relPath": ".test_profile_kamus/VariationsSafeSeedV2",
+    "basename": "VariationsSafeSeedV2",
+    "ext": "",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\.test_profile_kamus\\VariationsSeedV2",
+    "relPath": ".test_profile_kamus/VariationsSeedV2",
+    "basename": "VariationsSeedV2",
+    "ext": "",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\404.html",
+    "relPath": "404.html",
+    "basename": "404.html",
+    "ext": ".html",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "scratch/clean_script_emojis.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "verify_all.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\adventure.html",
+    "relPath": "adventure.html",
+    "basename": "adventure.html",
+    "ext": ".html",
+    "inboundCount": 19,
+    "inboundReferences": [
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_final_tahap3.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/capture_adventure_screenshots.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/capture_faseA_screenshots.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\audio\\butterfly-catcher-bgm.mp3",
+    "relPath": "assets/audio/butterfly-catcher-bgm.mp3",
+    "basename": "butterfly-catcher-bgm.mp3",
+    "ext": ".mp3",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "butterfly-catcher.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/test_bgm_integration.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\adventure-platformer.css",
+    "relPath": "assets/css/adventure-platformer.css",
+    "basename": "adventure-platformer.css",
+    "ext": ".css",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\animasi.css",
+    "relPath": "assets/css/animasi.css",
+    "basename": "animasi.css",
+    "ext": ".css",
+    "inboundCount": 16,
+    "inboundReferences": [
+      {
+        "source": "404.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "duel-tim.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "fakta-opini.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/dasbor.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\beranda-pulau.css",
+    "relPath": "assets/css/beranda-pulau.css",
+    "basename": "beranda-pulau.css",
+    "ext": ".css",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\dasbor-saas-guru.css",
+    "relPath": "assets/css/dasbor-saas-guru.css",
+    "basename": "dasbor-saas-guru.css",
+    "ext": ".css",
+    "inboundCount": 6,
+    "inboundReferences": [
+      {
+        "source": "guru/dasbor.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/editor.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/kamus.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/masuk.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/sesi.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\duel-tim.css",
+    "relPath": "assets/css/duel-tim.css",
+    "basename": "duel-tim.css",
+    "ext": ".css",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "duel-tim.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\fonts.css",
+    "relPath": "assets/css/fonts.css",
+    "basename": "fonts.css",
+    "ext": ".css",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/download_fonts.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\komponen.css",
+    "relPath": "assets/css/komponen.css",
+    "basename": "komponen.css",
+    "ext": ".css",
+    "inboundCount": 20,
+    "inboundReferences": [
+      {
+        "source": "404.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "duel-tim.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "fakta-opini.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/dasbor.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\latar-hidup.css",
+    "relPath": "assets/css/latar-hidup.css",
+    "basename": "latar-hidup.css",
+    "ext": ".css",
+    "inboundCount": 14,
+    "inboundReferences": [
+      {
+        "source": "404.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "duel-tim.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "fakta-opini.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/dasbor.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\petualangan-siswa.css",
+    "relPath": "assets/css/petualangan-siswa.css",
+    "basename": "petualangan-siswa.css",
+    "ext": ".css",
+    "inboundCount": 8,
+    "inboundReferences": [
+      {
+        "source": "fakta-opini.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "kamus-belajar.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "rantai-makanan.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/execute_ui_ux_revamp.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\tema.css",
+    "relPath": "assets/css/tema.css",
+    "basename": "tema.css",
+    "ext": ".css",
+    "inboundCount": 20,
+    "inboundReferences": [
+      {
+        "source": "404.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/css/token-nusantara.css",
+        "matchType": "relative"
+      },
+      {
+        "source": "duel-tim.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "fakta-opini.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\css\\token-nusantara.css",
+    "relPath": "assets/css/token-nusantara.css",
+    "basename": "token-nusantara.css",
+    "ext": ".css",
+    "inboundCount": 7,
+    "inboundReferences": [
+      {
+        "source": "assets/css/dasbor-saas-guru.css",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/css/petualangan-siswa.css",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/css/tema.css",
+        "matchType": "relative"
+      },
+      {
+        "source": "duel-tim.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\data\\adventure-manifest.json",
+    "relPath": "assets/data/adventure-manifest.json",
+    "basename": "adventure-manifest.json",
+    "ext": ".json",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\fonts\\atkinson-hyperlegible-400-normal.woff2",
+    "relPath": "assets/fonts/atkinson-hyperlegible-400-normal.woff2",
+    "basename": "atkinson-hyperlegible-400-normal.woff2",
+    "ext": ".woff2",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "assets/css/fonts.css",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\fonts\\atkinson-hyperlegible-700-normal.woff2",
+    "relPath": "assets/fonts/atkinson-hyperlegible-700-normal.woff2",
+    "basename": "atkinson-hyperlegible-700-normal.woff2",
+    "ext": ".woff2",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "assets/css/fonts.css",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\fonts\\grandstander-600-normal.woff2",
+    "relPath": "assets/fonts/grandstander-600-normal.woff2",
+    "basename": "grandstander-600-normal.woff2",
+    "ext": ".woff2",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "assets/css/fonts.css",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\fonts\\grandstander-700-normal.woff2",
+    "relPath": "assets/fonts/grandstander-700-normal.woff2",
+    "basename": "grandstander-700-normal.woff2",
+    "ext": ".woff2",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "assets/css/fonts.css",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\fonts\\grandstander-800-normal.woff2",
+    "relPath": "assets/fonts/grandstander-800-normal.woff2",
+    "basename": "grandstander-800-normal.woff2",
+    "ext": ".woff2",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "assets/css/fonts.css",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\images\\adventure\\bg-sky.png",
+    "relPath": "assets/images/adventure/bg-sky.png",
+    "basename": "bg-sky.png",
+    "ext": ".png",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "assets/data/adventure-manifest.json",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/adventure-env-config.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/generate_adventure_assets.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\images\\adventure\\bg-trees.png",
+    "relPath": "assets/images/adventure/bg-trees.png",
+    "basename": "bg-trees.png",
+    "ext": ".png",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "assets/data/adventure-manifest.json",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/adventure-env-config.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/generate_adventure_assets.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\images\\adventure\\character-aliya.png",
+    "relPath": "assets/images/adventure/character-aliya.png",
+    "basename": "character-aliya.png",
+    "ext": ".png",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/data/adventure-manifest.json",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/adventure-character-config.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\images\\adventure\\character-rara.png",
+    "relPath": "assets/images/adventure/character-rara.png",
+    "basename": "character-rara.png",
+    "ext": ".png",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/generate_character_spritesheets.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\images\\adventure\\character-spritesheet.png",
+    "relPath": "assets/images/adventure/character-spritesheet.png",
+    "basename": "character-spritesheet.png",
+    "ext": ".png",
+    "inboundCount": 4,
+    "inboundReferences": [
+      {
+        "source": "assets/data/adventure-manifest.json",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/adventure-character-config.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/generate_adventure_assets.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/generate_character_spritesheets.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\images\\adventure\\level1-banner.png",
+    "relPath": "assets/images/adventure/level1-banner.png",
+    "basename": "level1-banner.png",
+    "ext": ".png",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "assets/data/adventure-manifest.json",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/adventure-env-config.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/generate_adventure_assets.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\images\\adventure\\tileset-grassland.png",
+    "relPath": "assets/images/adventure/tileset-grassland.png",
+    "basename": "tileset-grassland.png",
+    "ext": ".png",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "assets/data/adventure-manifest.json",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/adventure-env-config.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/generate_adventure_assets.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-audio.js",
+    "relPath": "assets/js/adventure-audio.js",
+    "basename": "adventure-audio.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-platformer.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_worlds_engine.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-camera.js",
+    "relPath": "assets/js/adventure-camera.js",
+    "basename": "adventure-camera.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-platformer.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_mario_engine.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-character-config.js",
+    "relPath": "assets/js/adventure-character-config.js",
+    "basename": "adventure-character-config.js",
+    "ext": ".js",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "assets/data/adventure-manifest.json",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/adventure-platformer.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_integration.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-entities.js",
+    "relPath": "assets/js/adventure-entities.js",
+    "basename": "adventure-entities.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-platformer.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_mario_engine.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-env-config.js",
+    "relPath": "assets/js/adventure-env-config.js",
+    "basename": "adventure-env-config.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/data/adventure-manifest.json",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/test_adventure_integration.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-level1-data.js",
+    "relPath": "assets/js/adventure-level1-data.js",
+    "basename": "adventure-level1-data.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-worlds-data.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_mario_engine.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-parallax.js",
+    "relPath": "assets/js/adventure-parallax.js",
+    "basename": "adventure-parallax.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-platformer.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_worlds_engine.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-physics.js",
+    "relPath": "assets/js/adventure-physics.js",
+    "basename": "adventure-physics.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-platformer.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_mario_engine.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-platformer.js",
+    "relPath": "assets/js/adventure-platformer.js",
+    "basename": "adventure-platformer.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "scratch/apply_platformer_guards.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/test_adventure_integration.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-questions-data.js",
+    "relPath": "assets/js/adventure-questions-data.js",
+    "basename": "adventure-questions-data.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-worlds-data.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_worlds_engine.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-questions.js",
+    "relPath": "assets/js/adventure-questions.js",
+    "basename": "adventure-questions.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-platformer.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_mario_engine.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\adventure-worlds-data.js",
+    "relPath": "assets/js/adventure-worlds-data.js",
+    "basename": "adventure-worlds-data.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-platformer.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_adventure_worlds_engine.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\animasi.js",
+    "relPath": "assets/js/animasi.js",
+    "basename": "animasi.js",
+    "ext": ".js",
+    "inboundCount": 12,
+    "inboundReferences": [
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/fakta-opini.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/rantai-makanan.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\auth.js",
+    "relPath": "assets/js/auth.js",
+    "basename": "auth.js",
+    "ext": ".js",
+    "inboundCount": 11,
+    "inboundReferences": [
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/kamus.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/editor.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\beranda-peta.js",
+    "relPath": "assets/js/beranda-peta.js",
+    "basename": "beranda-peta.js",
+    "ext": ".js",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\config.js",
+    "relPath": "assets/js/config.js",
+    "basename": "config.js",
+    "ext": ".js",
+    "inboundCount": 18,
+    "inboundReferences": [
+      {
+        "source": "assets/data/adventure-manifest.json",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/adventure-character-config.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/adventure-env-config.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/adventure-platformer.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/supabase.js",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\dasbor-guru.js",
+    "relPath": "assets/js/dasbor-guru.js",
+    "basename": "dasbor-guru.js",
+    "ext": ".js",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "guru/dasbor.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/update_dasbor.py",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/update_dasbor_imports.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\duel-tim.js",
+    "relPath": "assets/js/duel-tim.js",
+    "basename": "duel-tim.js",
+    "ext": ".js",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "duel-tim.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/patch_duel.py",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/patch_duel_soal.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\fakta-opini.js",
+    "relPath": "assets/js/fakta-opini.js",
+    "basename": "fakta-opini.js",
+    "ext": ".js",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "fakta-opini.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/patch_fakta.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\kamus.js",
+    "relPath": "assets/js/kamus.js",
+    "basename": "kamus.js",
+    "ext": ".js",
+    "inboundCount": 5,
+    "inboundReferences": [
+      {
+        "source": "guru/editor.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/kamus.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/sesi.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "kamus-belajar.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "verify_kamus.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\konfigurasi.js",
+    "relPath": "assets/js/konfigurasi.js",
+    "basename": "konfigurasi.js",
+    "ext": ".js",
+    "inboundCount": 11,
+    "inboundReferences": [
+      {
+        "source": "assets/js/auth.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "guru/dasbor.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/sesi.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\kuis.js",
+    "relPath": "assets/js/kuis.js",
+    "basename": "kuis.js",
+    "ext": ".js",
+    "inboundCount": 17,
+    "inboundReferences": [
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "guru/editor.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/sesi.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "PRD.md",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/apply_kuis_regex.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\latar-hidup.js",
+    "relPath": "assets/js/latar-hidup.js",
+    "basename": "latar-hidup.js",
+    "ext": ".js",
+    "inboundCount": 14,
+    "inboundReferences": [
+      {
+        "source": "404.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "duel-tim.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "fakta-opini.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/dasbor.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\rantai-makanan.js",
+    "relPath": "assets/js/rantai-makanan.js",
+    "basename": "rantai-makanan.js",
+    "ext": ".js",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "rantai-makanan.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/clean_emojis.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/patch_rantai.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\sertifikat.js",
+    "relPath": "assets/js/sertifikat.js",
+    "basename": "sertifikat.js",
+    "ext": ".js",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "sertifikat.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\sesi.js",
+    "relPath": "assets/js/sesi.js",
+    "basename": "sesi.js",
+    "ext": ".js",
+    "inboundCount": 7,
+    "inboundReferences": [
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "guru/editor.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/sesi.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "PRD.md",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/check_syntax.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\siklus-air.js",
+    "relPath": "assets/js/siklus-air.js",
+    "basename": "siklus-air.js",
+    "ext": ".js",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "siklus-air.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\supabase.js",
+    "relPath": "assets/js/supabase.js",
+    "basename": "supabase.js",
+    "ext": ".js",
+    "inboundCount": 16,
+    "inboundReferences": [
+      {
+        "source": "assets/js/auth.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/duel-tim.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/fakta-opini.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/kamus.js",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\js\\ui.js",
+    "relPath": "assets/js/ui.js",
+    "basename": "ui.js",
+    "ext": ".js",
+    "inboundCount": 21,
+    "inboundReferences": [
+      {
+        "source": "404.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/duel-tim.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "assets/js/fakta-opini.js",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\avatar-1.svg",
+    "relPath": "assets/svg/avatar-1.svg",
+    "basename": "avatar-1.svg",
+    "ext": ".svg",
+    "inboundCount": 16,
+    "inboundReferences": [
+      {
+        "source": "assets/js/auth.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/kuis.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/supabase.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\avatar-2.svg",
+    "relPath": "assets/svg/avatar-2.svg",
+    "basename": "avatar-2.svg",
+    "ext": ".svg",
+    "inboundCount": 5,
+    "inboundReferences": [
+      {
+        "source": "assets/js/supabase.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/test_acak_jawaban.py",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/verify_all_settings.py",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/verify_kuis_otomatis.py",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\avatar-3.svg",
+    "relPath": "assets/svg/avatar-3.svg",
+    "basename": "avatar-3.svg",
+    "ext": ".svg",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "assets/js/supabase.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/verify_all_settings.py",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\avatar-4.svg",
+    "relPath": "assets/svg/avatar-4.svg",
+    "basename": "avatar-4.svg",
+    "ext": ".svg",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/supabase.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\maskot-berpikir.svg",
+    "relPath": "assets/svg/maskot-berpikir.svg",
+    "basename": "maskot-berpikir.svg",
+    "ext": ".svg",
+    "inboundCount": 7,
+    "inboundReferences": [
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/rantai-makanan.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\maskot-bersorak.svg",
+    "relPath": "assets/svg/maskot-bersorak.svg",
+    "basename": "maskot-bersorak.svg",
+    "ext": ".svg",
+    "inboundCount": 10,
+    "inboundReferences": [
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/fakta-opini.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "duel-tim.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/masuk.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\maskot-bingung.svg",
+    "relPath": "assets/svg/maskot-bingung.svg",
+    "basename": "maskot-bingung.svg",
+    "ext": ".svg",
+    "inboundCount": 3,
+    "inboundReferences": [
+      {
+        "source": "404.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/rantai-makanan.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/masuk.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\maskot-sedih-menyemangati.svg",
+    "relPath": "assets/svg/maskot-sedih-menyemangati.svg",
+    "basename": "maskot-sedih-menyemangati.svg",
+    "ext": ".svg",
+    "inboundCount": 7,
+    "inboundReferences": [
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/fakta-opini.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/rantai-makanan.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\maskot-semangat.svg",
+    "relPath": "assets/svg/maskot-semangat.svg",
+    "basename": "maskot-semangat.svg",
+    "ext": ".svg",
+    "inboundCount": 10,
+    "inboundReferences": [
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/fakta-opini.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/rantai-makanan.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "fakta-opini.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\maskot-senang.svg",
+    "relPath": "assets/svg/maskot-senang.svg",
+    "basename": "maskot-senang.svg",
+    "ext": ".svg",
+    "inboundCount": 9,
+    "inboundReferences": [
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/fakta-opini.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/rantai-makanan.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\assets\\svg\\peta-petualangan.svg",
+    "relPath": "assets/svg/peta-petualangan.svg",
+    "basename": "peta-petualangan.svg",
+    "ext": ".svg",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "guru/sesi.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "siswa/main.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\butterfly-catcher.html",
+    "relPath": "butterfly-catcher.html",
+    "basename": "butterfly-catcher.html",
+    "ext": ".html",
+    "inboundCount": 5,
+    "inboundReferences": [
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_final_tahap3.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/test_bgm_integration.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/test_butterfly_catcher.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\design-system\\kupas-kuis-ipas\\MASTER.md",
+    "relPath": "design-system/kupas-kuis-ipas/MASTER.md",
+    "basename": "MASTER.md",
+    "ext": ".md",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\duel-tim.html",
+    "relPath": "duel-tim.html",
+    "basename": "duel-tim.html",
+    "ext": ".html",
+    "inboundCount": 11,
+    "inboundReferences": [
+      {
+        "source": "assets/css/duel-tim.css",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "qr.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_final_tahap3.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\fakta-opini.html",
+    "relPath": "fakta-opini.html",
+    "basename": "fakta-opini.html",
+    "ext": ".html",
+    "inboundCount": 10,
+    "inboundReferences": [
+      {
+        "source": "assets/js/sertifikat.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_final_tahap3.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_report_raw.json",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\gabung.html",
+    "relPath": "gabung.html",
+    "basename": "gabung.html",
+    "ext": ".html",
+    "inboundCount": 19,
+    "inboundReferences": [
+      {
+        "source": "404.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/sertifikat.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/sesi.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\guru\\dasbor.html",
+    "relPath": "guru/dasbor.html",
+    "basename": "dasbor.html",
+    "ext": ".html",
+    "inboundCount": 26,
+    "inboundReferences": [
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/editor.html",
+        "matchType": "relative"
+      },
+      {
+        "source": "guru/kamus.html",
+        "matchType": "relative"
+      },
+      {
+        "source": "guru/masuk.html",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\guru\\editor.html",
+    "relPath": "guru/editor.html",
+    "basename": "editor.html",
+    "ext": ".html",
+    "inboundCount": 14,
+    "inboundReferences": [
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/dasbor.html",
+        "matchType": "relative"
+      },
+      {
+        "source": "PRD.md",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/audit_report_raw.json",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\guru\\kamus.html",
+    "relPath": "guru/kamus.html",
+    "basename": "kamus.html",
+    "ext": ".html",
+    "inboundCount": 9,
+    "inboundReferences": [
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "guru/dasbor.html",
+        "matchType": "relative"
+      },
+      {
+        "source": "PRD.md",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_report_raw.json",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_responsive.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\guru\\masuk.html",
+    "relPath": "guru/masuk.html",
+    "basename": "masuk.html",
+    "ext": ".html",
+    "inboundCount": 10,
+    "inboundReferences": [
+      {
+        "source": "assets/js/auth.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "PRD.md",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\guru\\sesi.html",
+    "relPath": "guru/sesi.html",
+    "basename": "sesi.html",
+    "ext": ".html",
+    "inboundCount": 23,
+    "inboundReferences": [
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "guru/editor.html",
+        "matchType": "relative"
+      },
+      {
+        "source": "PRD.md",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/apply_kuis_otomatis.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\index.html",
+    "relPath": "index.html",
+    "basename": "index.html",
+    "ext": ".html",
+    "inboundCount": 49,
+    "inboundReferences": [
+      {
+        "source": "404.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "adventure.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/css/token-nusantara.css",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/beranda-peta.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\kamus-belajar.html",
+    "relPath": "kamus-belajar.html",
+    "basename": "kamus-belajar.html",
+    "ext": ".html",
+    "inboundCount": 13,
+    "inboundReferences": [
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "PRD.md",
+        "matchType": "relPath"
+      },
+      {
+        "source": "qr.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_final_tahap3.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\PRD.md",
+    "relPath": "PRD.md",
+    "basename": "PRD.md",
+    "ext": ".md",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\qr.html",
+    "relPath": "qr.html",
+    "basename": "qr.html",
+    "ext": ".html",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\rantai-makanan.html",
+    "relPath": "rantai-makanan.html",
+    "basename": "rantai-makanan.html",
+    "ext": ".html",
+    "inboundCount": 8,
+    "inboundReferences": [
+      {
+        "source": "assets/js/dasbor-guru.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/sertifikat.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_final_tahap3.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\README.md",
+    "relPath": "README.md",
+    "basename": "README.md",
+    "ext": ".md",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "PRD.md",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\30_soal_ipas_kelas5.csv",
+    "relPath": "scratch/30_soal_ipas_kelas5.csv",
+    "basename": "30_soal_ipas_kelas5.csv",
+    "ext": ".csv",
+    "inboundCount": 6,
+    "inboundReferences": [
+      {
+        "source": "assets/js/adventure-questions-data.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/run_import_verification.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/test_actual_import_reproduce.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_bank_soal_integration.js",
+        "matchType": "relative"
+      },
+      {
+        "source": "scratch/test_full_cloud_import.js",
+        "matchType": "relative"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\adventure_map_screenshot.png",
+    "relPath": "scratch/adventure_map_screenshot.png",
+    "basename": "adventure_map_screenshot.png",
+    "ext": ".png",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/take_screenshot.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\aliya_frames\\frame_0.png",
+    "relPath": "scratch/aliya_frames/frame_0.png",
+    "basename": "frame_0.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\aliya_frames\\frame_1.png",
+    "relPath": "scratch/aliya_frames/frame_1.png",
+    "basename": "frame_1.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\aliya_frames\\frame_2.png",
+    "relPath": "scratch/aliya_frames/frame_2.png",
+    "basename": "frame_2.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\aliya_frames\\frame_3.png",
+    "relPath": "scratch/aliya_frames/frame_3.png",
+    "basename": "frame_3.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\aliya_frames\\frame_4.png",
+    "relPath": "scratch/aliya_frames/frame_4.png",
+    "basename": "frame_4.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\aliya_frames\\frame_5.png",
+    "relPath": "scratch/aliya_frames/frame_5.png",
+    "basename": "frame_5.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\aliya_frames\\frame_6.png",
+    "relPath": "scratch/aliya_frames/frame_6.png",
+    "basename": "frame_6.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\aliya_frames\\frame_7.png",
+    "relPath": "scratch/aliya_frames/frame_7.png",
+    "basename": "frame_7.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\aliya_frames\\frame_8.png",
+    "relPath": "scratch/aliya_frames/frame_8.png",
+    "basename": "frame_8.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\analyze_codebase_graph.js",
+    "relPath": "scratch/analyze_codebase_graph.js",
+    "basename": "analyze_codebase_graph.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\apply_kuis_otomatis.py",
+    "relPath": "scratch/apply_kuis_otomatis.py",
+    "basename": "apply_kuis_otomatis.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\apply_kuis_regex.js",
+    "relPath": "scratch/apply_kuis_regex.js",
+    "basename": "apply_kuis_regex.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\apply_platformer_guards.js",
+    "relPath": "scratch/apply_platformer_guards.js",
+    "basename": "apply_platformer_guards.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\audit_beranda_awal.js",
+    "relPath": "scratch/audit_beranda_awal.js",
+    "basename": "audit_beranda_awal.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\audit_final_tahap3.js",
+    "relPath": "scratch/audit_final_tahap3.js",
+    "basename": "audit_final_tahap3.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\audit_report_raw.json",
+    "relPath": "scratch/audit_report_raw.json",
+    "basename": "audit_report_raw.json",
+    "ext": ".json",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "scratch/audit_responsive.py",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/summarize_audit.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\audit_responsive.py",
+    "relPath": "scratch/audit_responsive.py",
+    "basename": "audit_responsive.py",
+    "ext": ".py",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/patch_audit_send.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\capture_adventure_screenshots.js",
+    "relPath": "scratch/capture_adventure_screenshots.js",
+    "basename": "capture_adventure_screenshots.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\capture_faseA_screenshots.js",
+    "relPath": "scratch/capture_faseA_screenshots.js",
+    "basename": "capture_faseA_screenshots.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\check_col_probes.js",
+    "relPath": "scratch/check_col_probes.js",
+    "basename": "check_col_probes.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\check_container.py",
+    "relPath": "scratch/check_container.py",
+    "basename": "check_container.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\check_inputs.py",
+    "relPath": "scratch/check_inputs.py",
+    "basename": "check_inputs.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\check_min_h.py",
+    "relPath": "scratch/check_min_h.py",
+    "basename": "check_min_h.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\check_overflow.js",
+    "relPath": "scratch/check_overflow.js",
+    "basename": "check_overflow.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\check_soal_spec.js",
+    "relPath": "scratch/check_soal_spec.js",
+    "basename": "check_soal_spec.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\check_steps.js",
+    "relPath": "scratch/check_steps.js",
+    "basename": "check_steps.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\check_syntax.js",
+    "relPath": "scratch/check_syntax.js",
+    "basename": "check_syntax.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\clean_emojis.js",
+    "relPath": "scratch/clean_emojis.js",
+    "basename": "clean_emojis.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\clean_script_emojis.js",
+    "relPath": "scratch/clean_script_emojis.js",
+    "basename": "clean_script_emojis.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\debug_overflow.py",
+    "relPath": "scratch/debug_overflow.py",
+    "basename": "debug_overflow.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\debug_page.js",
+    "relPath": "scratch/debug_page.js",
+    "basename": "debug_page.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\debug_sertifikat_overflow.py",
+    "relPath": "scratch/debug_sertifikat_overflow.py",
+    "basename": "debug_sertifikat_overflow.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\download_fonts.js",
+    "relPath": "scratch/download_fonts.js",
+    "basename": "download_fonts.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\execute_ui_ux_revamp.js",
+    "relPath": "scratch/execute_ui_ux_revamp.js",
+    "basename": "execute_ui_ux_revamp.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\expose_window.py",
+    "relPath": "scratch/expose_window.py",
+    "basename": "expose_window.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\find_overflow.py",
+    "relPath": "scratch/find_overflow.py",
+    "basename": "find_overflow.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\find_syntax_error.js",
+    "relPath": "scratch/find_syntax_error.js",
+    "basename": "find_syntax_error.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\fix_brace.js",
+    "relPath": "scratch/fix_brace.js",
+    "basename": "fix_brace.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\fix_brace_crlf.js",
+    "relPath": "scratch/fix_brace_crlf.js",
+    "basename": "fix_brace_crlf.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\fix_konfigurasi.py",
+    "relPath": "scratch/fix_konfigurasi.py",
+    "basename": "fix_konfigurasi.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\fix_modals.js",
+    "relPath": "scratch/fix_modals.js",
+    "basename": "fix_modals.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\fix_modal_design.py",
+    "relPath": "scratch/fix_modal_design.py",
+    "basename": "fix_modal_design.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\fix_sesi_and_font.py",
+    "relPath": "scratch/fix_sesi_and_font.py",
+    "basename": "fix_sesi_and_font.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\fix_siswa_timer.py",
+    "relPath": "scratch/fix_siswa_timer.py",
+    "basename": "fix_siswa_timer.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\generate_adventure_assets.js",
+    "relPath": "scratch/generate_adventure_assets.js",
+    "basename": "generate_adventure_assets.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\generate_character_spritesheets.js",
+    "relPath": "scratch/generate_character_spritesheets.js",
+    "basename": "generate_character_spritesheets.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\hasil_review2_lengkap.json",
+    "relPath": "scratch/hasil_review2_lengkap.json",
+    "basename": "hasil_review2_lengkap.json",
+    "ext": ".json",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/test_review2_comprehensive.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\ingame_level1_screenshot.png",
+    "relPath": "scratch/ingame_level1_screenshot.png",
+    "basename": "ingame_level1_screenshot.png",
+    "ext": ".png",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/take_ingame_screenshot.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\inspect_1075.py",
+    "relPath": "scratch/inspect_1075.py",
+    "basename": "inspect_1075.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\inspect_body_w.py",
+    "relPath": "scratch/inspect_body_w.py",
+    "basename": "inspect_body_w.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\inspect_buku_jejak.js",
+    "relPath": "scratch/inspect_buku_jejak.js",
+    "basename": "inspect_buku_jejak.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\inspect_compaction.py",
+    "relPath": "scratch/inspect_compaction.py",
+    "basename": "inspect_compaction.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\inspect_last_steps.py",
+    "relPath": "scratch/inspect_last_steps.py",
+    "basename": "inspect_last_steps.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\inspect_row_width.py",
+    "relPath": "scratch/inspect_row_width.py",
+    "basename": "inspect_row_width.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\inspect_sesi_320.py",
+    "relPath": "scratch/inspect_sesi_320.py",
+    "basename": "inspect_sesi_320.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\investigate_review1.js",
+    "relPath": "scratch/investigate_review1.js",
+    "basename": "investigate_review1.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\list_spec.js",
+    "relPath": "scratch/list_spec.js",
+    "basename": "list_spec.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\modal_after_fix.png",
+    "relPath": "scratch/modal_after_fix.png",
+    "basename": "modal_after_fix.png",
+    "ext": ".png",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/take_modal_screenshot.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_audit_send.py",
+    "relPath": "scratch/patch_audit_send.py",
+    "basename": "patch_audit_send.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_duel.py",
+    "relPath": "scratch/patch_duel.py",
+    "basename": "patch_duel.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_duel_soal.py",
+    "relPath": "scratch/patch_duel_soal.py",
+    "basename": "patch_duel_soal.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_fakta.py",
+    "relPath": "scratch/patch_fakta.py",
+    "basename": "patch_fakta.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_konfigurasi.py",
+    "relPath": "scratch/patch_konfigurasi.py",
+    "basename": "patch_konfigurasi.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_put.py",
+    "relPath": "scratch/patch_put.py",
+    "basename": "patch_put.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_rantai.py",
+    "relPath": "scratch/patch_rantai.py",
+    "basename": "patch_rantai.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_simple_cdp.py",
+    "relPath": "scratch/patch_simple_cdp.py",
+    "basename": "patch_simple_cdp.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_siswa.py",
+    "relPath": "scratch/patch_siswa.py",
+    "basename": "patch_siswa.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_step1.py",
+    "relPath": "scratch/patch_step1.py",
+    "basename": "patch_step1.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_test_duel_id.py",
+    "relPath": "scratch/patch_test_duel_id.py",
+    "basename": "patch_test_duel_id.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_verify.py",
+    "relPath": "scratch/patch_verify.py",
+    "basename": "patch_verify.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_verify_key.py",
+    "relPath": "scratch/patch_verify_key.py",
+    "basename": "patch_verify_key.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_verify_last_question.py",
+    "relPath": "scratch/patch_verify_last_question.py",
+    "basename": "patch_verify_last_question.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\patch_verify_score.py",
+    "relPath": "scratch/patch_verify_score.py",
+    "basename": "patch_verify_score.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\reproduce_adventure_bugs.js",
+    "relPath": "scratch/reproduce_adventure_bugs.js",
+    "basename": "reproduce_adventure_bugs.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\run_import_verification.js",
+    "relPath": "scratch/run_import_verification.js",
+    "basename": "run_import_verification.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\run_test_acak_complete.py",
+    "relPath": "scratch/run_test_acak_complete.py",
+    "basename": "run_test_acak_complete.py",
+    "ext": ".py",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/patch_test_duel_id.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\sertifikat_desktop_1440.png",
+    "relPath": "scratch/sertifikat_desktop_1440.png",
+    "basename": "sertifikat_desktop_1440.png",
+    "ext": ".png",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/test_sertifikat_visual.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\sertifikat_mobile_375.png",
+    "relPath": "scratch/sertifikat_mobile_375.png",
+    "basename": "sertifikat_mobile_375.png",
+    "ext": ".png",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/test_sertifikat_visual.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\sertifikat_nama_panjang.png",
+    "relPath": "scratch/sertifikat_nama_panjang.png",
+    "basename": "sertifikat_nama_panjang.png",
+    "ext": ".png",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/test_sertifikat_visual.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\sertifikat_smartboard_1920.png",
+    "relPath": "scratch/sertifikat_smartboard_1920.png",
+    "basename": "sertifikat_smartboard_1920.png",
+    "ext": ".png",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/test_sertifikat_visual.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\simple_cdp.py",
+    "relPath": "scratch/simple_cdp.py",
+    "basename": "simple_cdp.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\summarize_audit.py",
+    "relPath": "scratch/summarize_audit.py",
+    "basename": "summarize_audit.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\take_ingame_screenshot.js",
+    "relPath": "scratch/take_ingame_screenshot.js",
+    "basename": "take_ingame_screenshot.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\take_modal_screenshot.py",
+    "relPath": "scratch/take_modal_screenshot.py",
+    "basename": "take_modal_screenshot.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\take_screenshot.js",
+    "relPath": "scratch/take_screenshot.js",
+    "basename": "take_screenshot.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test.png",
+    "relPath": "scratch/test.png",
+    "basename": "test.png",
+    "ext": ".png",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_acak_jawaban.py",
+    "relPath": "scratch/test_acak_jawaban.py",
+    "basename": "test_acak_jawaban.py",
+    "ext": ".py",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "scratch/patch_put.py",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/patch_simple_cdp.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_actual_import_reproduce.js",
+    "relPath": "scratch/test_actual_import_reproduce.js",
+    "basename": "test_actual_import_reproduce.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_adaptive_full.js",
+    "relPath": "scratch/test_adaptive_full.js",
+    "basename": "test_adaptive_full.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_adaptive_insert.js",
+    "relPath": "scratch/test_adaptive_insert.js",
+    "basename": "test_adaptive_insert.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_adaptive_robust.js",
+    "relPath": "scratch/test_adaptive_robust.js",
+    "basename": "test_adaptive_robust.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_adventure_cdp.js",
+    "relPath": "scratch/test_adventure_cdp.js",
+    "basename": "test_adventure_cdp.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_adventure_integration.js",
+    "relPath": "scratch/test_adventure_integration.js",
+    "basename": "test_adventure_integration.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_adventure_mario_engine.js",
+    "relPath": "scratch/test_adventure_mario_engine.js",
+    "basename": "test_adventure_mario_engine.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_adventure_worlds_engine.js",
+    "relPath": "scratch/test_adventure_worlds_engine.js",
+    "basename": "test_adventure_worlds_engine.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_bank_soal_integration.js",
+    "relPath": "scratch/test_bank_soal_integration.js",
+    "basename": "test_bank_soal_integration.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_beranda_viewports.py",
+    "relPath": "scratch/test_beranda_viewports.py",
+    "basename": "test_beranda_viewports.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_bgm_integration.js",
+    "relPath": "scratch/test_bgm_integration.js",
+    "basename": "test_bgm_integration.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_browser_deep.js",
+    "relPath": "scratch/test_browser_deep.js",
+    "basename": "test_browser_deep.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_bugs_after_fix.js",
+    "relPath": "scratch/test_bugs_after_fix.js",
+    "basename": "test_bugs_after_fix.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_bugs_before_fix.js",
+    "relPath": "scratch/test_bugs_before_fix.js",
+    "basename": "test_bugs_before_fix.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_butterfly_catcher.js",
+    "relPath": "scratch/test_butterfly_catcher.js",
+    "basename": "test_butterfly_catcher.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_cdp.py",
+    "relPath": "scratch/test_cdp.py",
+    "basename": "test_cdp.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_cols.js",
+    "relPath": "scratch/test_cols.js",
+    "basename": "test_cols.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_debug_import.js",
+    "relPath": "scratch/test_debug_import.js",
+    "basename": "test_debug_import.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_evaluasi_jawaban.js",
+    "relPath": "scratch/test_evaluasi_jawaban.js",
+    "basename": "test_evaluasi_jawaban.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_full_cloud_import.js",
+    "relPath": "scratch/test_full_cloud_import.js",
+    "basename": "test_full_cloud_import.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_gate_detail.js",
+    "relPath": "scratch/test_gate_detail.js",
+    "basename": "test_gate_detail.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_live_cloud_complete.js",
+    "relPath": "scratch/test_live_cloud_complete.js",
+    "basename": "test_live_cloud_complete.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_mobile_coords.js",
+    "relPath": "scratch/test_mobile_coords.js",
+    "basename": "test_mobile_coords.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_mobile_overlap.js",
+    "relPath": "scratch/test_mobile_overlap.js",
+    "basename": "test_mobile_overlap.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_mulai_langsung_cdp.js",
+    "relPath": "scratch/test_mulai_langsung_cdp.js",
+    "basename": "test_mulai_langsung_cdp.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_new_adventure.js",
+    "relPath": "scratch/test_new_adventure.js",
+    "basename": "test_new_adventure.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_real_import_cloud.js",
+    "relPath": "scratch/test_real_import_cloud.js",
+    "basename": "test_real_import_cloud.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_real_supabase_client.js",
+    "relPath": "scratch/test_real_supabase_client.js",
+    "basename": "test_real_supabase_client.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_review1_comprehensive.js",
+    "relPath": "scratch/test_review1_comprehensive.js",
+    "basename": "test_review1_comprehensive.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_review2_comprehensive.js",
+    "relPath": "scratch/test_review2_comprehensive.js",
+    "basename": "test_review2_comprehensive.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_sertifikat_visual.py",
+    "relPath": "scratch/test_sertifikat_visual.py",
+    "basename": "test_sertifikat_visual.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_settings_full.py",
+    "relPath": "scratch/test_settings_full.py",
+    "basename": "test_settings_full.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_supabase_cloud.js",
+    "relPath": "scratch/test_supabase_cloud.js",
+    "basename": "test_supabase_cloud.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_svg_canvas.py",
+    "relPath": "scratch/test_svg_canvas.py",
+    "basename": "test_svg_canvas.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\test_syntax_sesi.js",
+    "relPath": "scratch/test_syntax_sesi.js",
+    "basename": "test_syntax_sesi.js",
+    "ext": ".js",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "scratch/check_syntax.js",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_dasbor.py",
+    "relPath": "scratch/update_dasbor.py",
+    "basename": "update_dasbor.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_dasbor_guru_layout.js",
+    "relPath": "scratch/update_dasbor_guru_layout.js",
+    "basename": "update_dasbor_guru_layout.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_dasbor_imports.js",
+    "relPath": "scratch/update_dasbor_imports.js",
+    "basename": "update_dasbor_imports.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_editor.py",
+    "relPath": "scratch/update_editor.py",
+    "basename": "update_editor.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_gabung.py",
+    "relPath": "scratch/update_gabung.py",
+    "basename": "update_gabung.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_kamus.py",
+    "relPath": "scratch/update_kamus.py",
+    "basename": "update_kamus.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_komponen.js",
+    "relPath": "scratch/update_komponen.js",
+    "basename": "update_komponen.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_komponen_activities.py",
+    "relPath": "scratch/update_komponen_activities.py",
+    "basename": "update_komponen_activities.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_komponen_teacher.py",
+    "relPath": "scratch/update_komponen_teacher.py",
+    "basename": "update_komponen_teacher.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_kuis_robust.js",
+    "relPath": "scratch/update_kuis_robust.js",
+    "basename": "update_kuis_robust.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_sertifikat.py",
+    "relPath": "scratch/update_sertifikat.py",
+    "basename": "update_sertifikat.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_sesi_html.py",
+    "relPath": "scratch/update_sesi_html.py",
+    "basename": "update_sesi_html.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_siswa.py",
+    "relPath": "scratch/update_siswa.py",
+    "basename": "update_siswa.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_tema.js",
+    "relPath": "scratch/update_tema.js",
+    "basename": "update_tema.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_tema_btn_close.py",
+    "relPath": "scratch/update_tema_btn_close.py",
+    "basename": "update_tema_btn_close.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_ui.py",
+    "relPath": "scratch/update_ui.py",
+    "basename": "update_ui.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_ui_adventure.js",
+    "relPath": "scratch/update_ui_adventure.js",
+    "basename": "update_ui_adventure.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\update_ui_sidebar.js",
+    "relPath": "scratch/update_ui_sidebar.js",
+    "basename": "update_ui_sidebar.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\validate_scripts.js",
+    "relPath": "scratch/validate_scripts.js",
+    "basename": "validate_scripts.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\verify_all_settings.py",
+    "relPath": "scratch/verify_all_settings.py",
+    "basename": "verify_all_settings.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\verify_kuis_otomatis.py",
+    "relPath": "scratch/verify_kuis_otomatis.py",
+    "basename": "verify_kuis_otomatis.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\verify_kuis_otomatis_v2.py",
+    "relPath": "scratch/verify_kuis_otomatis_v2.py",
+    "basename": "verify_kuis_otomatis_v2.py",
+    "ext": ".py",
+    "inboundCount": 4,
+    "inboundReferences": [
+      {
+        "source": "scratch/patch_verify.py",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/patch_verify_key.py",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/patch_verify_last_question.py",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/patch_verify_score.py",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\verify_tahap2.js",
+    "relPath": "scratch/verify_tahap2.js",
+    "basename": "verify_tahap2.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\verify_tahap3.js",
+    "relPath": "scratch/verify_tahap3.js",
+    "basename": "verify_tahap3.js",
+    "ext": ".js",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\scratch\\__pycache__\\simple_cdp.cpython-311.pyc",
+    "relPath": "scratch/__pycache__/simple_cdp.cpython-311.pyc",
+    "basename": "simple_cdp.cpython-311.pyc",
+    "ext": ".pyc",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\sertifikat.html",
+    "relPath": "sertifikat.html",
+    "basename": "sertifikat.html",
+    "ext": ".html",
+    "inboundCount": 14,
+    "inboundReferences": [
+      {
+        "source": "assets/css/komponen.css",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/fakta-opini.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/rantai-makanan.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\siklus-air.html",
+    "relPath": "siklus-air.html",
+    "basename": "siklus-air.html",
+    "ext": ".html",
+    "inboundCount": 7,
+    "inboundReferences": [
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "index.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "qr.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_final_tahap3.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_report_raw.json",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\siswa\\main.html",
+    "relPath": "siswa/main.html",
+    "basename": "main.html",
+    "ext": ".html",
+    "inboundCount": 19,
+    "inboundReferences": [
+      {
+        "source": "assets/js/ui.js",
+        "matchType": "relPath"
+      },
+      {
+        "source": "gabung.html",
+        "matchType": "relPath"
+      },
+      {
+        "source": "PRD.md",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/apply_kuis_otomatis.py",
+        "matchType": "relPath"
+      },
+      {
+        "source": "scratch/audit_report_raw.json",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\supabase\\migrations\\20261028_tabel_kamus.sql",
+    "relPath": "supabase/migrations/20261028_tabel_kamus.sql",
+    "basename": "20261028_tabel_kamus.sql",
+    "ext": ".sql",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "README.md",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\supabase\\migrations\\20261029_aktivitas_dan_sertifikat.sql",
+    "relPath": "supabase/migrations/20261029_aktivitas_dan_sertifikat.sql",
+    "basename": "20261029_aktivitas_dan_sertifikat.sql",
+    "ext": ".sql",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\supabase\\migrations\\20261029_dasbor_guru_profesional.sql",
+    "relPath": "supabase/migrations/20261029_dasbor_guru_profesional.sql",
+    "basename": "20261029_dasbor_guru_profesional.sql",
+    "ext": ".sql",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "README.md",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\supabase\\migrations\\20261101_perbaikan_akses_dan_kamus.sql",
+    "relPath": "supabase/migrations/20261101_perbaikan_akses_dan_kamus.sql",
+    "basename": "20261101_perbaikan_akses_dan_kamus.sql",
+    "ext": ".sql",
+    "inboundCount": 2,
+    "inboundReferences": [
+      {
+        "source": "assets/js/kuis.js",
+        "matchType": "basename"
+      },
+      {
+        "source": "scratch/update_kuis_robust.js",
+        "matchType": "basename"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\supabase\\migrations\\20261101_perbaikan_bank_soal.sql",
+    "relPath": "supabase/migrations/20261101_perbaikan_bank_soal.sql",
+    "basename": "20261101_perbaikan_bank_soal.sql",
+    "ext": ".sql",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\supabase\\migrations\\20261101_sesi_dan_kode_realtime.sql",
+    "relPath": "supabase/migrations/20261101_sesi_dan_kode_realtime.sql",
+    "basename": "20261101_sesi_dan_kode_realtime.sql",
+    "ext": ".sql",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\supabase\\schema.sql",
+    "relPath": "supabase/schema.sql",
+    "basename": "schema.sql",
+    "ext": ".sql",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "README.md",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\supabase\\seed.sql",
+    "relPath": "supabase/seed.sql",
+    "basename": "seed.sql",
+    "ext": ".sql",
+    "inboundCount": 1,
+    "inboundReferences": [
+      {
+        "source": "README.md",
+        "matchType": "relPath"
+      }
+    ]
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\verify_all.py",
+    "relPath": "verify_all.py",
+    "basename": "verify_all.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\verify_kamus.py",
+    "relPath": "verify_kamus.py",
+    "basename": "verify_kamus.py",
+    "ext": ".py",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\__pycache__\\debug_session.cpython-312.pyc",
+    "relPath": "__pycache__/debug_session.cpython-312.pyc",
+    "basename": "debug_session.cpython-312.pyc",
+    "ext": ".pyc",
+    "inboundCount": 0,
+    "inboundReferences": []
+  },
+  {
+    "file": "c:\\Users\\STEEL LEGEND\\Downloads\\KUPAS\\__pycache__\\verify_all.cpython-312.pyc",
+    "relPath": "__pycache__/verify_all.cpython-312.pyc",
+    "basename": "verify_all.cpython-312.pyc",
+    "ext": ".pyc",
+    "inboundCount": 0,
+    "inboundReferences": []
+  }
+]
